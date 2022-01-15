@@ -18,7 +18,7 @@
             Style="{StaticResource PageTitleStyle}"
             Margin="{StaticResource MediumLeftMargin}"
             Text="{x:Static properties:Resources.PersonDetailPageTitle}" />
-
+        
         <Grid Grid.Row="1" Margin="{StaticResource MediumLeftRightMargin}">
             <Grid.RowDefinitions>
                 <RowDefinition Height="40"/>
@@ -27,7 +27,9 @@
                 <RowDefinition Height="40"/>
                 <RowDefinition Height="40"/>
                 <RowDefinition Height="40"/>
+                <RowDefinition Height="40"/>
                 <RowDefinition Height="*"/>
+                <RowDefinition Height="50"/>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="120"/>
@@ -40,19 +42,34 @@
             <TextBlock Grid.Row="1" Grid.Column="0" Margin="3" VerticalAlignment="Center" Text="{x:Static properties:Resources.NameString}"/>
             <TextBox Grid.Row="1" Grid.Column="1" Margin="3" Text="{Binding Person.Name}"/>
 
-            <TextBlock Grid.Row="2" Grid.Column="0" Margin="3" VerticalAlignment="Center" Text="{x:Static properties:Resources.EntryDateString}"/>
-            <controls:DateTimePicker Grid.Row="2" Grid.Column="1" Margin="3" SelectedDateTime="{Binding Person.EntryDate, StringFormat=d}" SelectedDateFormat="Short"/>
+            <TextBlock Grid.Row="2" Grid.Column="0" Margin="3" VerticalAlignment="Center" Text="{x:Static properties:Resources.BirthDateString}"/>
+            <TextBox Grid.Row="2" Grid.Column="1" Margin="3" Text="{Binding Person.BirthDate, StringFormat=d}"/>
 
-            <TextBlock Grid.Row="3" Grid.Column="0" Margin="3" VerticalAlignment="Center" Text="{x:Static properties:Resources.MembershipYearsString}"/>
-            <TextBlock Grid.Row="3" Grid.Column="1" Margin="3" VerticalAlignment="Center" Text="{Binding Person.MembershipYears}"/>
+            <TextBlock Grid.Row="3" Grid.Column="0" Margin="3" VerticalAlignment="Center" Text="{x:Static properties:Resources.EntryDateString}"/>
+            <controls:DateTimePicker Grid.Row="3" Grid.Column="1" Margin="3" SelectedDateTime="{Binding Person.EntryDate, StringFormat=d}" SelectedDateFormat="Short"/>
 
-            <TextBlock Grid.Row="4" Grid.Column="0" Margin="3" VerticalAlignment="Center" Text="{x:Static properties:Resources.ScoreBLSVString}"/>
-            <TextBlock Grid.Row="4" Grid.Column="1" Margin="3" Text="{Binding Person.ScoreBLSV}"/>
+            <TextBlock Grid.Row="4" Grid.Column="0" Margin="3" VerticalAlignment="Center" Text="{x:Static properties:Resources.MembershipYearsString}"/>
+            <TextBlock Grid.Row="4" Grid.Column="1" Margin="3" VerticalAlignment="Center" Text="{Binding Person.MembershipYears}"/>
 
-            <TextBlock Grid.Row="5" Grid.Column="0" Margin="3" VerticalAlignment="Center" Text="{x:Static properties:Resources.ScoreTSVString}"/>
-            <TextBox Grid.Row="5" Grid.Column="1" Margin="3" Text="{Binding Person.ScoreTSV}"/>
+            <TextBlock Grid.Row="5" Grid.Column="0" Margin="3" VerticalAlignment="Center" Text="{x:Static properties:Resources.ScoreBLSVString}"/>
+            <TextBlock Grid.Row="5" Grid.Column="1" Margin="3" Text="{Binding Person.ScoreBLSV}"/>
 
-            <Button Grid.Row="6" Grid.Column="1" Command="{Binding OkCommand}" Style="{StaticResource MahApps.Styles.Button.Circle}" VerticalAlignment="Top" HorizontalAlignment="Right" Width="40" Height="40" Margin="3">
+            <TextBlock Grid.Row="6" Grid.Column="0" Margin="3" VerticalAlignment="Center" Text="{x:Static properties:Resources.ScoreTSVString}"/>
+            <TextBox Grid.Row="6" Grid.Column="1" Margin="3" Text="{Binding Person.ScoreTSV}"/>
+
+            <TextBlock Grid.Row="7" Grid.Column="0" Margin="3,20,3,3" VerticalAlignment="Top" Text="{x:Static properties:Resources.FunctionsString}"/>
+            <ListView Grid.Row="7" Grid.Column="1" Margin="3,20,3,3" ItemsSource="{Binding Person.Functions}">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="{x:Static properties:Resources.DescriptionString}" DisplayMemberBinding="{Binding Description}"/>
+                        <GridViewColumn Header="{x:Static properties:Resources.FunctionTypeString}" DisplayMemberBinding="{Binding Type}"/>
+                        <GridViewColumn Header="{x:Static properties:Resources.StartString}" DisplayMemberBinding="{Binding StartDate}"/>
+                        <GridViewColumn Header="{x:Static properties:Resources.EndString}" DisplayMemberBinding="{Binding EndDate}"/>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+            
+            <Button Grid.Row="8" Grid.Column="1" Command="{Binding OkCommand}" Style="{StaticResource MahApps.Styles.Button.Circle}" VerticalAlignment="Top" HorizontalAlignment="Right" Width="40" Height="40" Margin="3">
                 <controls:FontIcon FontSize="50" Margin="-5,-5,0,0" Glyph="&#xF13E;"/>
             </Button>
         </Grid>

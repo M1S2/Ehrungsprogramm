@@ -207,4 +207,25 @@
   <data name="GermanString" xml:space="preserve">
     <value>Deutsch</value>
   </data>
+  <data name="BirthDateString" xml:space="preserve">
+    <value>Birth Date</value>
+  </data>
+  <data name="GenerateTestDataString" xml:space="preserve">
+    <value>Generate Test Data</value>
+  </data>
+  <data name="DescriptionString" xml:space="preserve">
+    <value>Description</value>
+  </data>
+  <data name="EndString" xml:space="preserve">
+    <value>End</value>
+  </data>
+  <data name="FunctionTypeString" xml:space="preserve">
+    <value>Function Type</value>
+  </data>
+  <data name="StartString" xml:space="preserve">
+    <value>Start</value>
+  </data>
+  <data name="FunctionsString" xml:space="preserve">
+    <value>Functions</value>
+  </data>
 </root>

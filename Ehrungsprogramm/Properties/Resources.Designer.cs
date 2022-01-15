@@ -70,11 +70,38 @@ namespace Ehrungsprogramm.Properties {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Birth Date ähnelt.
+        /// </summary>
+        public static string BirthDateString {
+            get {
+                return ResourceManager.GetString("BirthDateString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Clear Database ähnelt.
         /// </summary>
         public static string ClearDatabaseButton {
             get {
                 return ResourceManager.GetString("ClearDatabaseButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Description ähnelt.
+        /// </summary>
+        public static string DescriptionString {
+            get {
+                return ResourceManager.GetString("DescriptionString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die End ähnelt.
+        /// </summary>
+        public static string EndString {
+            get {
+                return ResourceManager.GetString("EndString", resourceCulture);
             }
         }
         
@@ -102,6 +129,33 @@ namespace Ehrungsprogramm.Properties {
         public static string FirstNameString {
             get {
                 return ResourceManager.GetString("FirstNameString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Functions ähnelt.
+        /// </summary>
+        public static string FunctionsString {
+            get {
+                return ResourceManager.GetString("FunctionsString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Function Type ähnelt.
+        /// </summary>
+        public static string FunctionTypeString {
+            get {
+                return ResourceManager.GetString("FunctionTypeString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Generate Test Data ähnelt.
+        /// </summary>
+        public static string GenerateTestDataString {
+            get {
+                return ResourceManager.GetString("GenerateTestDataString", resourceCulture);
             }
         }
         
@@ -327,6 +381,15 @@ namespace Ehrungsprogramm.Properties {
         public static string ShellSettingsPage {
             get {
                 return ResourceManager.GetString("ShellSettingsPage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Start ähnelt.
+        /// </summary>
+        public static string StartString {
+            get {
+                return ResourceManager.GetString("StartString", resourceCulture);
             }
         }
     }

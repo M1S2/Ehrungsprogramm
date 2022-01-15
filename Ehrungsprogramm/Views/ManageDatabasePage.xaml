@@ -20,10 +20,10 @@
             Text="{x:Static properties:Resources.ManageDatabasePageTitle}" />
 
         <WrapPanel Grid.Row="1" Margin="{StaticResource MediumLeftRightMargin}">
-            <Button Width="150" Height="150" Margin="10" Style="{StaticResource MahApps.Styles.Button.Square.Accent}" Command="{Binding AddPersonTestCommand}">
+            <Button Width="150" Height="150" Margin="10" Style="{StaticResource MahApps.Styles.Button.Square.Accent}" Command="{Binding GenerateTestDataCommand}">
                 <StackPanel>
-                    <controls:FontIcon FontSize="50" Glyph="&#xE77B;" Margin="10"/>
-                    <TextBlock Text="Add Person" HorizontalAlignment="Center" FontSize="{StaticResource MediumFontSize}"/>
+                    <controls:FontIcon FontSize="50" Glyph="&#xE8B1;" Margin="10"/>
+                    <TextBlock Text="{x:Static properties:Resources.GenerateTestDataString}" HorizontalAlignment="Center" FontSize="{StaticResource MediumFontSize}"/>
                 </StackPanel>
             </Button>
             <Button Width="150" Height="150" Margin="10" Style="{StaticResource MahApps.Styles.Button.Square.Accent}" Background="Red" Foreground="White" Command="{Binding ClearDatabaseCommand}">

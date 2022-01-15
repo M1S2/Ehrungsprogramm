@@ -178,7 +178,7 @@
     <value>Datenbank leeren</value>
   </data>
   <data name="PersonDetailPageTitle" xml:space="preserve">
-    <value>Person Detail</value>
+    <value>Person Details</value>
   </data>
   <data name="FirstNameString" xml:space="preserve">
     <value>Vorname</value>
@@ -206,5 +206,26 @@
   </data>
   <data name="GermanString" xml:space="preserve">
     <value>Deutsch</value>
+  </data>
+  <data name="BirthDateString" xml:space="preserve">
+    <value>Geburtsdatum</value>
+  </data>
+  <data name="GenerateTestDataString" xml:space="preserve">
+    <value>Testdaten generieren</value>
+  </data>
+  <data name="DescriptionString" xml:space="preserve">
+    <value>Beschreibung</value>
+  </data>
+  <data name="EndString" xml:space="preserve">
+    <value>Bis</value>
+  </data>
+  <data name="FunctionTypeString" xml:space="preserve">
+    <value>Funktion</value>
+  </data>
+  <data name="StartString" xml:space="preserve">
+    <value>Von</value>
+  </data>
+  <data name="FunctionsString" xml:space="preserve">
+    <value>Funktionen</value>
   </data>
 </root>

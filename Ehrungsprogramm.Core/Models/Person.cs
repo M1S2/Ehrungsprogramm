@@ -12,9 +12,13 @@ namespace Ehrungsprogramm.Core.Models
 
         public string FirstName { get; set; }
 
+        public DateTime BirthDate { get; set; }
+
         public DateTime EntryDate { get; set; }
 
         public int MembershipYears => (int)Math.Ceiling((DateTime.Now - EntryDate).TotalDays / 365);
+
+        public List<Function> Functions { get; set; }
 
         public int ScoreBLSV => CalculateScoreBLSV();
 

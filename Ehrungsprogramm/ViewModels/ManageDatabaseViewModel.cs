@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows.Input;
+using System.Collections.Generic;
 using Microsoft.Toolkit.Mvvm.ComponentModel;
 using Microsoft.Toolkit.Mvvm.Input;
 using Ehrungsprogramm.Core.Contracts.Services;
@@ -12,14 +13,66 @@ namespace Ehrungsprogramm.ViewModels
         private ICommand _clearDatabaseCommand;
         public ICommand ClearDatabaseCommand => _clearDatabaseCommand ?? (_clearDatabaseCommand = new RelayCommand(() => _personService.ClearPersons()));
 
-        private ICommand _addPersonTestCommand;
-        public ICommand AddPersonTestCommand => _addPersonTestCommand ?? (_addPersonTestCommand = new RelayCommand(() => _personService.AddPerson(new Person() { FirstName = "Test First Name", Name = "Test Name", EntryDate = DateTime.Now - TimeSpan.FromDays(new Random().Next(0, 365 * 50)), ScoreTSV = new Random().Next(0, 100) })));
+        private ICommand _generateTestDataCommand;
+        public ICommand GenerateTestDataCommand => _generateTestDataCommand ?? (_generateTestDataCommand = new RelayCommand(() => GenerateTestData()));
 
         private IPersonService _personService;
 
         public ManageDatabaseViewModel(IPersonService personService)
         {
             _personService = personService;
+        }
+
+
+
+        private void GenerateTestData()
+        {
+            _personService.ClearPersons();
+
+            _personService.AddPerson(new Person()
+            {
+                FirstName = "Max",
+                Name = "Mustermann",
+                BirthDate = new DateTime(1990, 01, 01),
+                EntryDate = new DateTime(2010, 01, 01),
+                ScoreTSV = 30,
+                Functions = new List<Function>()
+                {
+                    new Function()
+                    {
+                        Type = FunctionType.OTHER_FUNCTION,
+                        StartDate = new DateTime(2010, 01, 01),
+                        EndDate = new DateTime(2015, 01, 01),
+                        Description = "Schwimmen-FKT Helfer"
+                    },
+                    new Function()
+                    {
+                        Type = FunctionType.BOARD_MEMBER,
+                        StartDate = new DateTime(2015, 01, 01),
+                        EndDate = new DateTime(2019, 01, 01),
+                        Description = "1. Vorstand"
+                    }
+                }
+            });
+
+            _personService.AddPerson(new Person()
+            {
+                FirstName = "Eva",
+                Name = "Musterfrau",
+                BirthDate = new DateTime(1950, 02, 03),
+                EntryDate = new DateTime(1980, 01, 01),
+                ScoreTSV = 60,
+                Functions = new List<Function>()
+                {
+                    new Function()
+                    {
+                        Type = FunctionType.OTHER_FUNCTION,
+                        StartDate = new DateTime(1090, 01, 01),
+                        EndDate = new DateTime(2010, 01, 01),
+                        Description = "Turnen-FKT ÜL"
+                    }
+                }
+            });
         }
     }
 }

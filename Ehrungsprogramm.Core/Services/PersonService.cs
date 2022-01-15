@@ -15,7 +15,7 @@ namespace Ehrungsprogramm.Core.Services
 
         public PersonService()
         {
-            _database = new LiteDatabase(@"D:\Benutzer\V17\Desktop\Ehrungsprogramm_Persons.db");
+            _database = new LiteDatabase(@"S:\IT\Ehrungsprogramm\Ehrungsprogramm_Persons.db");
             _peopleCollection = _database.GetCollection<Person>("people");
 
             /*List<Person> People = new List<Person>()
