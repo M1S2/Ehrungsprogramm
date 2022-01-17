@@ -8,6 +8,7 @@ namespace Ehrungsprogramm.Core.Models
     {
         BOARD_MEMBER,
         HEAD_OF_DEPARTEMENT,
-        OTHER_FUNCTION
+        OTHER_FUNCTION,
+        UNKNOWN
     }
 }

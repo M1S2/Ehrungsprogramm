@@ -15,16 +15,16 @@ namespace Ehrungsprogramm.Core.Services
 
         public PersonService()
         {
+            // TODO Replace fixed filepath for batabase by some kind of property
             _database = new LiteDatabase(@"S:\IT\Ehrungsprogramm\Ehrungsprogramm_Persons.db");
             _peopleCollection = _database.GetCollection<Person>("people");
+        }
 
-            /*List<Person> People = new List<Person>()
-            {
-                new Person() { FirstName = "Max", Name = "Mustermann", Score = 26 },
-                new Person() { FirstName = "Eva", Name = "Musterfrau", Score = 54 },
-                new Person() { FirstName = "Abraham", Name = "Lincoln", Score = 100 }
-            };
-            People.ForEach(p => AddPerson(p));*/
+        public void ImportFromFile(string filepath)
+        {
+            List<Person> importedPeople = CsvFileParserProWinner.Parse(filepath);
+            ClearPersons();
+            _peopleCollection.InsertBulk(importedPeople);
         }
 
         public List<Person> GetPersons() => _peopleCollection.Query().ToList();

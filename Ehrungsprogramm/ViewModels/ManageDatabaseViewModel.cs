@@ -10,11 +10,16 @@ namespace Ehrungsprogramm.ViewModels
 {
     public class ManageDatabaseViewModel : ObservableObject
     {
+        // TODO Add confirmation dialog for ClearDatabase command
         private ICommand _clearDatabaseCommand;
-        public ICommand ClearDatabaseCommand => _clearDatabaseCommand ?? (_clearDatabaseCommand = new RelayCommand(() => _personService.ClearPersons()));
+        public ICommand ClearDatabaseCommand => _clearDatabaseCommand ?? (_clearDatabaseCommand = new RelayCommand(() => _personService?.ClearPersons()));
 
         private ICommand _generateTestDataCommand;
         public ICommand GenerateTestDataCommand => _generateTestDataCommand ?? (_generateTestDataCommand = new RelayCommand(() => GenerateTestData()));
+
+        // TODO Replace fixed filepath for file import by some kind of property
+        private ICommand _importDataFromFileCommand;
+        public ICommand ImportDataFromFileCommand => _importDataFromFileCommand ?? (_importDataFromFileCommand = new RelayCommand(() => _personService?.ImportFromFile(@"S:\IT\Ehrungsprogramm\Listen 2019\TestDaten.csv")));
 
         private IPersonService _personService;
 
@@ -27,9 +32,9 @@ namespace Ehrungsprogramm.ViewModels
 
         private void GenerateTestData()
         {
-            _personService.ClearPersons();
+            _personService?.ClearPersons();
 
-            _personService.AddPerson(new Person()
+            _personService?.AddPerson(new Person()
             {
                 FirstName = "Max",
                 Name = "Mustermann",
@@ -55,7 +60,7 @@ namespace Ehrungsprogramm.ViewModels
                 }
             });
 
-            _personService.AddPerson(new Person()
+            _personService?.AddPerson(new Person()
             {
                 FirstName = "Eva",
                 Name = "Musterfrau",

@@ -228,4 +228,7 @@
   <data name="FunctionsString" xml:space="preserve">
     <value>Functions</value>
   </data>
+  <data name="ImportDataFromFileString" xml:space="preserve">
+    <value>Import from File</value>
+  </data>
 </root>

@@ -96,14 +96,10 @@ namespace Ehrungsprogramm.ViewModels
 
         private void OnNavigated(object sender, string viewModelName)
         {
-            var item = MenuItems
+            SelectedMenuItem = MenuItems
                         .OfType<HamburgerMenuItem>()
                         .FirstOrDefault(i => viewModelName == i.TargetPageType?.FullName);
-            if (item != null)
-            {
-                SelectedMenuItem = item;
-            }
-            else
+            if (SelectedMenuItem == null)
             {
                 SelectedOptionsMenuItem = OptionMenuItems
                         .OfType<HamburgerMenuItem>()

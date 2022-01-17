@@ -169,6 +169,15 @@ namespace Ehrungsprogramm.Properties {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Import from File ähnelt.
+        /// </summary>
+        public static string ImportDataFromFileString {
+            get {
+                return ResourceManager.GetString("ImportDataFromFileString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Language ähnelt.
         /// </summary>
         public static string LanguageString {
