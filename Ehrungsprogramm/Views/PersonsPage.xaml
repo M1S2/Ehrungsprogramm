@@ -33,7 +33,7 @@
         </DataTemplate>
 
         <DataTemplate x:Key="CellTemplateDetail">
-            <Button x:Name="DetailsButton" Style="{StaticResource MahApps.Styles.Button.Circle}" Background="{StaticResource MahApps.Brushes.Gray2}" Visibility="Hidden" Width="30" Height="30" Command="{Binding RelativeSource={RelativeSource AncestorType={x:Type Page}}, Path=DataContext.PersonDetailCommand}" CommandParameter="{Binding}">
+            <Button x:Name="DetailsButton" Style="{StaticResource MahApps.Styles.Button.Square.Accent}" Background="{StaticResource MahApps.Brushes.Gray2}" Visibility="Hidden" Width="30" Height="30" Command="{Binding RelativeSource={RelativeSource AncestorType={x:Type Page}}, Path=DataContext.PersonDetailCommand}" CommandParameter="{Binding}">
                 <controls:FontIcon FontSize="20" Glyph="&#xEA1F;"/>
             </Button>
             <DataTemplate.Triggers>
@@ -58,8 +58,69 @@
             Text="{x:Static properties:Resources.PersonsPageTitle}" />
 
         <ListView Grid.Row="2" ItemsSource="{Binding People}" Margin="{StaticResource MediumLeftRightMargin}">
+            <!-- Style to align the column contents at the top -->
+            <ListView.Style>
+                <Style TargetType="{x:Type ListView}">
+                    <Setter Property="ItemContainerStyle">
+                        <Setter.Value>
+                            <Style TargetType="{x:Type ListViewItem}" BasedOn="{StaticResource MahApps.Styles.ListViewItem}">
+                                <Setter Property="VerticalContentAlignment" Value="Top"/>
+                            </Style>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </ListView.Style>
+
             <ListView.View>
                 <GridView>
+                    <GridViewColumn Header="" Width="30">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Expander Margin="-5,2,-5000,0" HorizontalAlignment="Left" Width="{Binding Path=ActualWidth, RelativeSource={RelativeSource AncestorType={x:Type ItemsPresenter}}}" controls:HeaderedControlHelper.HeaderBackground="Transparent" BorderThickness="0">
+                                    <TabControl Margin="30,0,0,0" Style="{StaticResource MahApps.Styles.TabControl.ColorPicker}">
+                                        <TabItem>
+                                            <TabItem.Header>
+                                                <StackPanel Orientation="Horizontal">
+                                                    <controls:FontIcon FontSize="20" Glyph="&#xE946;"/>
+                                                    <TextBlock Text="Infos" VerticalAlignment="Center" FontSize="{StaticResource MediumFontSize}"/>
+                                                </StackPanel>
+                                            </TabItem.Header>
+                                            <StackPanel>
+                                                <TextBlock>
+                                                    <TextBlock.Text>
+                                                        <MultiBinding StringFormat="{}{0} {1}">
+                                                            <Binding Path="FirstName"/>
+                                                            <Binding Path="Name"/>
+                                                        </MultiBinding>
+                                                    </TextBlock.Text>
+                                                </TextBlock>
+                                                <TextBlock Text="{Binding BirthDate}"/>
+                                                <TextBlock Text="{Binding EntryDate}"/>
+                                            </StackPanel>
+                                        </TabItem>
+                                        <TabItem>
+                                            <TabItem.Header>
+                                                <StackPanel Orientation="Horizontal">
+                                                    <controls:FontIcon FontSize="20" Glyph="&#xE821;"/>
+                                                    <TextBlock Text="Functions" VerticalAlignment="Center" FontSize="{StaticResource MediumFontSize}"/>
+                                                </StackPanel>
+                                            </TabItem.Header>
+                                            <ListView ItemsSource="{Binding Functions}">
+                                                <ListView.View>
+                                                    <GridView>
+                                                        <GridViewColumn Header="{x:Static properties:Resources.DescriptionString}" DisplayMemberBinding="{Binding Description}"/>
+                                                        <GridViewColumn Header="{x:Static properties:Resources.FunctionTypeString}" DisplayMemberBinding="{Binding Type}"/>
+                                                        <GridViewColumn Header="{x:Static properties:Resources.StartString}" DisplayMemberBinding="{Binding StartDate}"/>
+                                                        <GridViewColumn Header="{x:Static properties:Resources.EndString}" DisplayMemberBinding="{Binding EndDate}"/>
+                                                    </GridView>
+                                                </ListView.View>
+                                            </ListView>
+                                        </TabItem>
+                                    </TabControl>
+                                </Expander>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
                     <GridViewColumn Header="{x:Static properties:Resources.FirstNameString}" DisplayMemberBinding="{Binding FirstName}"/>
                     <GridViewColumn Header="{x:Static properties:Resources.NameString}" DisplayMemberBinding="{Binding Name}"/>
                     <GridViewColumn Header="{x:Static properties:Resources.EntryDateString}" DisplayMemberBinding="{Binding EntryDate, StringFormat=d}"/>
