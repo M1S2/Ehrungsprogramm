@@ -3,6 +3,7 @@ using System.Windows.Input;
 using System.Collections.Generic;
 using Microsoft.Toolkit.Mvvm.ComponentModel;
 using Microsoft.Toolkit.Mvvm.Input;
+using Microsoft.Win32;
 using Ehrungsprogramm.Core.Contracts.Services;
 using Ehrungsprogramm.Core.Models;
 
@@ -17,9 +18,8 @@ namespace Ehrungsprogramm.ViewModels
         private ICommand _generateTestDataCommand;
         public ICommand GenerateTestDataCommand => _generateTestDataCommand ?? (_generateTestDataCommand = new RelayCommand(() => GenerateTestData()));
 
-        // TODO Replace fixed filepath for file import by some kind of property
         private ICommand _importDataFromFileCommand;
-        public ICommand ImportDataFromFileCommand => _importDataFromFileCommand ?? (_importDataFromFileCommand = new RelayCommand(() => _personService?.ImportFromFile(@"S:\IT\Ehrungsprogramm\Listen 2019\TestDaten.csv")));
+        public ICommand ImportDataFromFileCommand => _importDataFromFileCommand ?? (_importDataFromFileCommand = new RelayCommand(() => ImportFromFile()));
 
         private IPersonService _personService;
 
@@ -28,6 +28,19 @@ namespace Ehrungsprogramm.ViewModels
             _personService = personService;
         }
 
+        public void ImportFromFile()
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog()
+            {
+                Filter = "CSV File|*.csv|TXT File|*.txt",
+            };
+
+            if (openFileDialog.ShowDialog().Value)
+            {
+                _personService?.ImportFromFile(openFileDialog.FileName);
+            }
+        }
+    
 
 
         private void GenerateTestData()
@@ -78,6 +91,30 @@ namespace Ehrungsprogramm.ViewModels
                     }
                 }
             });
+
+
+
+            for (int i = 0; i < 100; i++)
+            {
+                _personService?.AddPerson(new Person()
+                {
+                    FirstName = "Eva" + i.ToString(),
+                    Name = "Musterfrau" + i.ToString(),
+                    BirthDate = new DateTime(1950, 02, 03),
+                    EntryDate = new DateTime(1980, 01, 01),
+                    ScoreTSV = 60,
+                    Functions = new List<Function>()
+                {
+                    new Function()
+                    {
+                        Type = FunctionType.OTHER_FUNCTION,
+                        StartDate = new DateTime(1090, 01, 01),
+                        EndDate = new DateTime(2010, 01, 01),
+                        Description = "Turnen-FKT ÜL"
+                    }
+                }
+                });
+            }
         }
     }
 }

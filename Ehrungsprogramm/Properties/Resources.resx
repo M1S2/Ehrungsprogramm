@@ -231,4 +231,7 @@
   <data name="ImportDataFromFileString" xml:space="preserve">
     <value>Import from File</value>
   </data>
+  <data name="FunctionYearsString" xml:space="preserve">
+    <value>Years in Function</value>
+  </data>
 </root>

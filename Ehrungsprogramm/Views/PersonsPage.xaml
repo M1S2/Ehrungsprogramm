@@ -16,7 +16,7 @@
 
         <DataTemplate x:Key="CellTemplateScoreBLSV">
             <StackPanel Orientation="Horizontal">
-                <TextBlock Width="100" Text="{Binding ScoreBLSV}" VerticalAlignment="Center"/>
+                <TextBlock MinWidth="30" Text="{Binding ScoreBLSV}" VerticalAlignment="Center"/>
                 <Ellipse Width="20" Height="20" Margin="3" StrokeThickness="1" Stroke="Black" Fill="Brown" Visibility="{Binding ScoreBLSV, Converter={StaticResource NumericGreaterVisibilityConverter}, ConverterParameter=25}"/>
                 <Ellipse Width="20" Height="20" Margin="3" StrokeThickness="1" Stroke="Black" Fill="Silver" Visibility="{Binding ScoreBLSV, Converter={StaticResource NumericGreaterVisibilityConverter}, ConverterParameter=50}"/>
                 <Ellipse Width="20" Height="20" Margin="3" StrokeThickness="1" Stroke="Black" Fill="Gold" Visibility="{Binding ScoreBLSV, Converter={StaticResource NumericGreaterVisibilityConverter}, ConverterParameter=75}"/>
@@ -25,7 +25,7 @@
 
         <DataTemplate x:Key="CellTemplateScoreTSV">
             <StackPanel Orientation="Horizontal">
-                <TextBlock Width="100" Text="{Binding ScoreTSV}" VerticalAlignment="Center"/>
+                <TextBlock MinWidth="30" Text="{Binding ScoreTSV}" VerticalAlignment="Center"/>
                 <Ellipse Width="20" Height="20" Margin="3" StrokeThickness="1" Stroke="Black" Fill="Brown" Visibility="{Binding ScoreTSV, Converter={StaticResource NumericGreaterVisibilityConverter}, ConverterParameter=25}"/>
                 <Ellipse Width="20" Height="20" Margin="3" StrokeThickness="1" Stroke="Black" Fill="Silver" Visibility="{Binding ScoreTSV, Converter={StaticResource NumericGreaterVisibilityConverter}, ConverterParameter=50}"/>
                 <Ellipse Width="20" Height="20" Margin="3" StrokeThickness="1" Stroke="Black" Fill="Gold" Visibility="{Binding ScoreTSV, Converter={StaticResource NumericGreaterVisibilityConverter}, ConverterParameter=75}"/>
@@ -33,7 +33,7 @@
         </DataTemplate>
 
         <DataTemplate x:Key="CellTemplateDetail">
-            <Button x:Name="DetailsButton" Style="{StaticResource MahApps.Styles.Button.Circle}" Background="{StaticResource MahApps.Brushes.Gray2}" Visibility="Hidden" Width="30" Height="30" Command="{Binding RelativeSource={RelativeSource AncestorType={x:Type Page}}, Path=DataContext.PersonDetailCommand}" CommandParameter="{Binding}">
+            <Button x:Name="DetailsButton" Style="{StaticResource MahApps.Styles.Button.Square.Accent}" Background="{StaticResource MahApps.Brushes.Gray2}" Visibility="Hidden" Width="30" Height="30" Command="{Binding RelativeSource={RelativeSource AncestorType={x:Type Page}}, Path=DataContext.PersonDetailCommand}" CommandParameter="{Binding}">
                 <controls:FontIcon FontSize="20" Glyph="&#xEA1F;"/>
             </Button>
             <DataTemplate.Triggers>
@@ -46,8 +46,8 @@
             </DataTemplate.Triggers>
         </DataTemplate>
     </Page.Resources>
-    
-    <Grid>
+
+    <Grid Background="{StaticResource MahApps.Brushes.Window.Background}">
         <Grid.RowDefinitions>
             <RowDefinition Height="48" />
             <RowDefinition Height="*" />
@@ -57,14 +57,63 @@
             Margin="{StaticResource MediumLeftMargin}"
             Text="{x:Static properties:Resources.PersonsPageTitle}" />
 
-        <ListView Grid.Row="2" ItemsSource="{Binding People}" Margin="{StaticResource MediumLeftRightMargin}">
+        <ListView Grid.Row="2" ItemsSource="{Binding People}" Margin="{StaticResource MediumLeftTopRightBottomMargin}">
+            <!-- Style to align the column contents at the top -->
+            <ListView.Style>
+                <Style TargetType="{x:Type ListView}">
+                    <Setter Property="BorderThickness" Value="0"/>
+                    <Setter Property="ItemContainerStyle">
+                        <Setter.Value>
+                            <Style TargetType="{x:Type ListViewItem}" BasedOn="{StaticResource MahApps.Styles.ListViewItem}">
+                                <Setter Property="VerticalContentAlignment" Value="Center"/>
+                            </Style>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </ListView.Style>
+
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Header="{x:Static properties:Resources.FirstNameString}" DisplayMemberBinding="{Binding FirstName}"/>
-                    <GridViewColumn Header="{x:Static properties:Resources.NameString}" DisplayMemberBinding="{Binding Name}"/>
-                    <GridViewColumn Header="{x:Static properties:Resources.EntryDateString}" DisplayMemberBinding="{Binding EntryDate, StringFormat=d}"/>
-                    <GridViewColumn Header="{x:Static properties:Resources.ScoreBLSVString}" CellTemplate="{StaticResource CellTemplateScoreBLSV}"/>
-                    <GridViewColumn Header="{x:Static properties:Resources.ScoreTSVString}" CellTemplate="{StaticResource CellTemplateScoreTSV}"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding FirstName}">
+                        <GridViewColumn.Header>
+                            <StackPanel Orientation="Horizontal">
+                                <controls:FontIcon Glyph="&#xE77B;" Margin="5"/>
+                                <TextBlock Text="{x:Static properties:Resources.FirstNameString}" VerticalAlignment="Center"/>
+                            </StackPanel>
+                        </GridViewColumn.Header>
+                    </GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Name}">
+                        <GridViewColumn.Header>
+                            <StackPanel Orientation="Horizontal">
+                                <controls:FontIcon Glyph="&#xE77B;" Margin="5"/>
+                                <TextBlock Text="{x:Static properties:Resources.NameString}" VerticalAlignment="Center"/>
+                            </StackPanel>
+                        </GridViewColumn.Header>
+                    </GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding EntryDate, StringFormat=d}">
+                        <GridViewColumn.Header>
+                            <StackPanel Orientation="Horizontal">
+                                <controls:FontIcon Glyph="&#xE787;" Margin="5"/>
+                                <TextBlock Text="{x:Static properties:Resources.EntryDateString}" VerticalAlignment="Center"/>
+                            </StackPanel>
+                        </GridViewColumn.Header>
+                    </GridViewColumn>
+                    <GridViewColumn CellTemplate="{StaticResource CellTemplateScoreBLSV}">
+                        <GridViewColumn.Header>
+                            <StackPanel Orientation="Horizontal">
+                                <controls:FontIcon Glyph="&#xE734;" Margin="5"/>
+                                <TextBlock Text="{x:Static properties:Resources.ScoreBLSVString}" VerticalAlignment="Center"/>
+                            </StackPanel>
+                        </GridViewColumn.Header>
+                    </GridViewColumn>
+                    <GridViewColumn CellTemplate="{StaticResource CellTemplateScoreTSV}">
+                        <GridViewColumn.Header>
+                            <StackPanel Orientation="Horizontal">
+                                <controls:FontIcon Glyph="&#xE734;" Margin="5"/>
+                                <TextBlock Text="{x:Static properties:Resources.ScoreTSVString}" VerticalAlignment="Center"/>
+                            </StackPanel>
+                        </GridViewColumn.Header>
+                    </GridViewColumn>
                     <GridViewColumn CellTemplate="{StaticResource CellTemplateDetail}"/>
                 </GridView>
             </ListView.View>

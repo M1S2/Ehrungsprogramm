@@ -41,8 +41,8 @@ namespace Ehrungsprogramm.ViewModels
         public void OnNavigatedTo(object parameter)
         {
             People.Clear();
-            List<Person> servicePeople = _personService.GetPersons();
-            servicePeople.ForEach(p => People.Add(p));
+            List<Person> servicePeople = _personService?.GetPersons();
+            servicePeople?.ForEach(p => People.Add(p));
         }
     }
 }

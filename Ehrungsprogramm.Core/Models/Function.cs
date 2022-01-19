@@ -15,5 +15,7 @@ namespace Ehrungsprogramm.Core.Models
         public DateTime StartDate { get; set; }
 
         public DateTime EndDate { get; set; }
+
+        public int FunctionYears => (int)Math.Ceiling((EndDate - StartDate).TotalDays / 365);
     }
 }

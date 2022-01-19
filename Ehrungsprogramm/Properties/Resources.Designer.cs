@@ -151,6 +151,15 @@ namespace Ehrungsprogramm.Properties {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Years in Function ähnelt.
+        /// </summary>
+        public static string FunctionYearsString {
+            get {
+                return ResourceManager.GetString("FunctionYearsString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Generate Test Data ähnelt.
         /// </summary>
         public static string GenerateTestDataString {

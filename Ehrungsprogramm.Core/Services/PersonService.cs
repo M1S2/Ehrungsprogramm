@@ -24,16 +24,16 @@ namespace Ehrungsprogramm.Core.Services
         {
             List<Person> importedPeople = CsvFileParserProWinner.Parse(filepath);
             ClearPersons();
-            _peopleCollection.InsertBulk(importedPeople);
+            _peopleCollection?.InsertBulk(importedPeople);
         }
 
-        public List<Person> GetPersons() => _peopleCollection.Query().ToList();
-        public void ClearPersons() => _peopleCollection.DeleteAll();
-        public void AddPerson(Person person) => _peopleCollection.Insert(person);
+        public List<Person> GetPersons() => _peopleCollection?.Query().ToList();
+        public void ClearPersons() => _peopleCollection?.DeleteAll();
+        public void AddPerson(Person person) => _peopleCollection?.Insert(person);
         public void UpdatePerson(Person person)
         {
             if(person == null) { return; }
-            _peopleCollection.Update(person);
+            _peopleCollection?.Update(person);
         }
     }
 }
