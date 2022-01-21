@@ -89,7 +89,7 @@
                                 </StackPanel>
                             </GridViewColumn.Header>
                         </GridViewColumn>
-                        <GridViewColumn DisplayMemberBinding="{Binding StartDate, StringFormat=d}">
+                        <GridViewColumn DisplayMemberBinding="{Binding TimePeriod.Start, StringFormat=d}">
                             <GridViewColumn.Header>
                                 <StackPanel Orientation="Horizontal">
                                     <controls:FontIcon Glyph="&#xE768;" Margin="5"/>
@@ -97,7 +97,7 @@
                                 </StackPanel>
                             </GridViewColumn.Header>
                         </GridViewColumn>
-                        <GridViewColumn DisplayMemberBinding="{Binding EndDate, StringFormat=d}">
+                        <GridViewColumn DisplayMemberBinding="{Binding TimePeriod.End, StringFormat=d}">
                             <GridViewColumn.Header>
                                 <StackPanel Orientation="Horizontal">
                                     <controls:FontIcon Glyph="&#xE81B;" Margin="5"/>

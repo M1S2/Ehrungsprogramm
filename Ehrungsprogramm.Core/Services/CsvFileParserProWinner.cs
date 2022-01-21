@@ -80,14 +80,14 @@ namespace Ehrungsprogramm.Core.Services
 
                     Function function = new Function();
                     function.Description = functionName;
-                    if (!string.IsNullOrEmpty(functionStartDate)) { function.StartDate = DateTime.Parse(functionStartDate); }
+                    if (!string.IsNullOrEmpty(functionStartDate)) { function.TimePeriod.Start = DateTime.Parse(functionStartDate); }
                     if (!string.IsNullOrEmpty(functionEndDate)) 
                     { 
-                        function.EndDate = DateTime.Parse(functionEndDate);
+                        function.TimePeriod.End = DateTime.Parse(functionEndDate);
                     }
                     else    // if the end date column is empty, the function is not ended yet (lasts until now)
                     {
-                        function.EndDate = DateTime.Now;
+                        function.TimePeriod.End = DateTime.Now;
                     }
 
                     if (functionName.Contains(OTHER_FUNCTIONS_MARKER)) { function.Type = FunctionType.OTHER_FUNCTION; }

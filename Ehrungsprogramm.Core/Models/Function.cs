@@ -12,10 +12,13 @@ namespace Ehrungsprogramm.Core.Models
 
         public string Description { get; set; }
 
-        public DateTime StartDate { get; set; }
+        public DateTimeRange TimePeriod { get; set; }
 
-        public DateTime EndDate { get; set; }
+        public int FunctionYears => (int)Math.Ceiling(TimePeriod.Duration.TotalDays / 365);
 
-        public int FunctionYears => (int)Math.Ceiling((EndDate - StartDate).TotalDays / 365);
+        public Function()
+        {
+            TimePeriod = new DateTimeRange();
+        }
     }
 }

@@ -53,21 +53,18 @@ namespace Ehrungsprogramm.ViewModels
                 Name = "Mustermann",
                 BirthDate = new DateTime(1990, 01, 01),
                 EntryDate = new DateTime(2010, 01, 01),
-                ScoreTSV = 30,
                 Functions = new List<Function>()
                 {
                     new Function()
                     {
                         Type = FunctionType.OTHER_FUNCTION,
-                        StartDate = new DateTime(2010, 01, 01),
-                        EndDate = new DateTime(2015, 01, 01),
+                        TimePeriod = new DateTimeRange(new DateTime(2010, 01, 01), new DateTime(2015, 01, 01)),
                         Description = "Schwimmen-FKT Helfer"
                     },
                     new Function()
                     {
                         Type = FunctionType.BOARD_MEMBER,
-                        StartDate = new DateTime(2015, 01, 01),
-                        EndDate = new DateTime(2019, 01, 01),
+                        TimePeriod = new DateTimeRange(new DateTime(2015, 01, 01), new DateTime(2019, 01, 01)),
                         Description = "1. Vorstand"
                     }
                 }
@@ -79,14 +76,12 @@ namespace Ehrungsprogramm.ViewModels
                 Name = "Musterfrau",
                 BirthDate = new DateTime(1950, 02, 03),
                 EntryDate = new DateTime(1980, 01, 01),
-                ScoreTSV = 60,
                 Functions = new List<Function>()
                 {
                     new Function()
                     {
                         Type = FunctionType.OTHER_FUNCTION,
-                        StartDate = new DateTime(1090, 01, 01),
-                        EndDate = new DateTime(2010, 01, 01),
+                        TimePeriod = new DateTimeRange(new DateTime(1090, 01, 01), new DateTime(2010, 01, 01)),
                         Description = "Turnen-FKT ÜL"
                     }
                 }
@@ -102,14 +97,12 @@ namespace Ehrungsprogramm.ViewModels
                     Name = "Musterfrau" + i.ToString(),
                     BirthDate = new DateTime(1950, 02, 03),
                     EntryDate = new DateTime(1980, 01, 01),
-                    ScoreTSV = 60,
                     Functions = new List<Function>()
                 {
                     new Function()
                     {
                         Type = FunctionType.OTHER_FUNCTION,
-                        StartDate = new DateTime(1090, 01, 01),
-                        EndDate = new DateTime(2010, 01, 01),
+                        TimePeriod = new DateTimeRange(new DateTime(1090, 01, 01), new DateTime(2010, 01, 01)),
                         Description = "Turnen-FKT ÜL"
                     }
                 }
