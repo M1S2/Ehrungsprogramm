@@ -216,14 +216,11 @@
   <data name="DescriptionString" xml:space="preserve">
     <value>Beschreibung</value>
   </data>
-  <data name="EndString" xml:space="preserve">
-    <value>Bis</value>
-  </data>
   <data name="FunctionTypeString" xml:space="preserve">
     <value>Funktion</value>
   </data>
-  <data name="StartString" xml:space="preserve">
-    <value>Von</value>
+  <data name="TimePeriodString" xml:space="preserve">
+    <value>Zeitraum</value>
   </data>
   <data name="FunctionsString" xml:space="preserve">
     <value>Funktionen</value>
@@ -233,5 +230,14 @@
   </data>
   <data name="FunctionYearsString" xml:space="preserve">
     <value>Jahre in Funktion</value>
+  </data>
+  <data name="EffectiveScoringTimePeriod1String" xml:space="preserve">
+    <value>Effektiver Zeitraum 1</value>
+  </data>
+  <data name="EffectiveScoringTimePeriod2String" xml:space="preserve">
+    <value>Effektiver Zeitraum 2</value>
+  </data>
+  <data name="EffectiveScoringYearsString" xml:space="preserve">
+    <value>Effektive Jahre in Funktion</value>
   </data>
 </root>

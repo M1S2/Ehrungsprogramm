@@ -97,11 +97,29 @@ namespace Ehrungsprogramm.Properties {
         }
         
         /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die End ähnelt.
+        ///   Sucht eine lokalisierte Zeichenfolge, die Effective Time Period 1 ähnelt.
         /// </summary>
-        public static string EndString {
+        public static string EffectiveScoringTimePeriod1String {
             get {
-                return ResourceManager.GetString("EndString", resourceCulture);
+                return ResourceManager.GetString("EffectiveScoringTimePeriod1String", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Effective Time Period 2 ähnelt.
+        /// </summary>
+        public static string EffectiveScoringTimePeriod2String {
+            get {
+                return ResourceManager.GetString("EffectiveScoringTimePeriod2String", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Effective Years in Function ähnelt.
+        /// </summary>
+        public static string EffectiveScoringYearsString {
+            get {
+                return ResourceManager.GetString("EffectiveScoringYearsString", resourceCulture);
             }
         }
         
@@ -403,11 +421,11 @@ namespace Ehrungsprogramm.Properties {
         }
         
         /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die Start ähnelt.
+        ///   Sucht eine lokalisierte Zeichenfolge, die Time Period ähnelt.
         /// </summary>
-        public static string StartString {
+        public static string TimePeriodString {
             get {
-                return ResourceManager.GetString("StartString", resourceCulture);
+                return ResourceManager.GetString("TimePeriodString", resourceCulture);
             }
         }
     }

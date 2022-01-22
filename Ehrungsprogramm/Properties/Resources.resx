@@ -216,14 +216,8 @@
   <data name="DescriptionString" xml:space="preserve">
     <value>Description</value>
   </data>
-  <data name="EndString" xml:space="preserve">
-    <value>End</value>
-  </data>
   <data name="FunctionTypeString" xml:space="preserve">
     <value>Function Type</value>
-  </data>
-  <data name="StartString" xml:space="preserve">
-    <value>Start</value>
   </data>
   <data name="FunctionsString" xml:space="preserve">
     <value>Functions</value>
@@ -233,5 +227,17 @@
   </data>
   <data name="FunctionYearsString" xml:space="preserve">
     <value>Years in Function</value>
+  </data>
+  <data name="EffectiveScoringTimePeriod1String" xml:space="preserve">
+    <value>Effective Time Period 1</value>
+  </data>
+  <data name="EffectiveScoringTimePeriod2String" xml:space="preserve">
+    <value>Effective Time Period 2</value>
+  </data>
+  <data name="EffectiveScoringYearsString" xml:space="preserve">
+    <value>Effective Years in Function</value>
+  </data>
+  <data name="TimePeriodString" xml:space="preserve">
+    <value>Time Period</value>
   </data>
 </root>

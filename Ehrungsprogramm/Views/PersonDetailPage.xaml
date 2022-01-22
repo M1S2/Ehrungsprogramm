@@ -8,7 +8,7 @@
     xmlns:properties="clr-namespace:Ehrungsprogramm.Properties"
     xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
     mc:Ignorable="d"
-    d:DesignHeight="600" d:DesignWidth="800">
+    d:DesignHeight="600" d:DesignWidth="1300">
     
     <Grid Background="{StaticResource MahApps.Brushes.Window.Background}">
         <Grid.RowDefinitions>
@@ -89,19 +89,17 @@
                                 </StackPanel>
                             </GridViewColumn.Header>
                         </GridViewColumn>
-                        <GridViewColumn DisplayMemberBinding="{Binding TimePeriod.Start, StringFormat=d}">
+                        <GridViewColumn>
+                            <GridViewColumn.DisplayMemberBinding>
+                                <MultiBinding StringFormat="{}{0:d} - {1:d}">
+                                    <Binding Path="TimePeriod.Start"/>
+                                    <Binding Path="TimePeriod.End"/>
+                                </MultiBinding>
+                            </GridViewColumn.DisplayMemberBinding>
                             <GridViewColumn.Header>
                                 <StackPanel Orientation="Horizontal">
                                     <controls:FontIcon Glyph="&#xE768;" Margin="5"/>
-                                    <TextBlock Text="{x:Static properties:Resources.StartString}" VerticalAlignment="Center"/>
-                                </StackPanel>
-                            </GridViewColumn.Header>
-                        </GridViewColumn>
-                        <GridViewColumn DisplayMemberBinding="{Binding TimePeriod.End, StringFormat=d}">
-                            <GridViewColumn.Header>
-                                <StackPanel Orientation="Horizontal">
-                                    <controls:FontIcon Glyph="&#xE81B;" Margin="5"/>
-                                    <TextBlock Text="{x:Static properties:Resources.EndString}" VerticalAlignment="Center"/>
+                                    <TextBlock Text="{x:Static properties:Resources.TimePeriodString}" VerticalAlignment="Center"/>
                                 </StackPanel>
                             </GridViewColumn.Header>
                         </GridViewColumn>
@@ -110,6 +108,42 @@
                                 <StackPanel Orientation="Horizontal">
                                     <controls:FontIcon Glyph="&#xEC92;" Margin="5"/>
                                     <TextBlock Text="{x:Static properties:Resources.FunctionYearsString}" VerticalAlignment="Center"/>
+                                </StackPanel>
+                            </GridViewColumn.Header>
+                        </GridViewColumn>
+                        <GridViewColumn>
+                            <GridViewColumn.DisplayMemberBinding>
+                                <MultiBinding StringFormat="{}{0:d} - {1:d}">
+                                    <Binding Path="EffectiveScoreTimePeriod1.Start"/>
+                                    <Binding Path="EffectiveScoreTimePeriod1.End"/>
+                                </MultiBinding>
+                            </GridViewColumn.DisplayMemberBinding>
+                            <GridViewColumn.Header>
+                                <StackPanel Orientation="Horizontal">
+                                    <controls:FontIcon Glyph="&#xE768;" Margin="5"/>
+                                    <TextBlock Text="{x:Static properties:Resources.EffectiveScoringTimePeriod1String}" VerticalAlignment="Center"/>
+                                </StackPanel>
+                            </GridViewColumn.Header>
+                        </GridViewColumn>
+                        <GridViewColumn>
+                            <GridViewColumn.DisplayMemberBinding>
+                                <MultiBinding StringFormat="{}{0:d} - {1:d}">
+                                    <Binding Path="EffectiveScoreTimePeriod2.Start"/>
+                                    <Binding Path="EffectiveScoreTimePeriod2.End"/>
+                                </MultiBinding>
+                            </GridViewColumn.DisplayMemberBinding>
+                            <GridViewColumn.Header>
+                                <StackPanel Orientation="Horizontal">
+                                    <controls:FontIcon Glyph="&#xE768;" Margin="5"/>
+                                    <TextBlock Text="{x:Static properties:Resources.EffectiveScoringTimePeriod2String}" VerticalAlignment="Center"/>
+                                </StackPanel>
+                            </GridViewColumn.Header>
+                        </GridViewColumn>
+                        <GridViewColumn DisplayMemberBinding="{Binding EffectiveScoreYears}">
+                            <GridViewColumn.Header>
+                                <StackPanel Orientation="Horizontal">
+                                    <controls:FontIcon Glyph="&#xEC92;" Margin="5"/>
+                                    <TextBlock Text="{x:Static properties:Resources.EffectiveScoringYearsString}" VerticalAlignment="Center"/>
                                 </StackPanel>
                             </GridViewColumn.Header>
                         </GridViewColumn>
