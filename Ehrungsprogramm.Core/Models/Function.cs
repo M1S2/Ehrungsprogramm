@@ -28,7 +28,7 @@ namespace Ehrungsprogramm.Core.Models
             set => SetProperty(ref _description, value);
         }
 
-        private DateTimeRange _timePeriod;
+        private DateTimeRange _timePeriod = new DateTimeRange();
         public DateTimeRange TimePeriod 
         {
             get => _timePeriod;
@@ -37,35 +37,23 @@ namespace Ehrungsprogramm.Core.Models
 
         public int FunctionYears => (int)Math.Ceiling(TimePeriod.Duration.TotalDays / 365);
 
-        private DateTimeRange _effectiveScoreTimePeriod1;
-        public DateTimeRange EffectiveScoreTimePeriod1
+        private List<DateTimeRange> _effectiveScoreTimePeriods = new List<DateTimeRange>();
+        public List<DateTimeRange> EffectiveScoreTimePeriods
         {
-            get => _effectiveScoreTimePeriod1;
-            set { SetProperty(ref _effectiveScoreTimePeriod1, value); OnPropertyChanged(nameof(EffectiveScoreYears)); }
-        }
-
-        private DateTimeRange _effectiveScoreTimePeriod2;
-        public DateTimeRange EffectiveScoreTimePeriod2
-        {
-            get => _effectiveScoreTimePeriod2;
-            set { SetProperty(ref _effectiveScoreTimePeriod2, value); OnPropertyChanged(nameof(EffectiveScoreYears)); }
+            get => _effectiveScoreTimePeriods;
+            set { SetProperty(ref _effectiveScoreTimePeriods, value); OnPropertyChanged(nameof(EffectiveScoreYears)); }
         }
 
         public int EffectiveScoreYears
         {
             get
             {
-                double effectiveSum = EffectiveScoreTimePeriod1?.Duration.TotalDays ?? 0;
-                effectiveSum += EffectiveScoreTimePeriod2?.Duration.TotalDays ?? 0;
+                double effectiveSum = 0;
+                EffectiveScoreTimePeriods.ForEach(p => effectiveSum += p?.Duration.TotalDays ?? 0);
                 effectiveSum = Math.Ceiling(effectiveSum / 365);
                 return (int)effectiveSum;
             }
         }
         
-
-        public Function()
-        {
-            TimePeriod = new DateTimeRange();
-        }
     }
 }

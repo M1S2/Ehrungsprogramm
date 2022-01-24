@@ -7,8 +7,13 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:properties="clr-namespace:Ehrungsprogramm.Properties"
     xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
+    xmlns:converters="clr-namespace:Ehrungsprogramm.Converters"
     mc:Ignorable="d"
     d:DesignHeight="600" d:DesignWidth="1300">
+
+    <Page.Resources>
+        <converters:DateTimeRangeListToStringConverter x:Key="DateTimeRangeListStringConverter"/>
+    </Page.Resources>
     
     <Grid Background="{StaticResource MahApps.Brushes.Window.Background}">
         <Grid.RowDefinitions>
@@ -111,31 +116,11 @@
                                 </StackPanel>
                             </GridViewColumn.Header>
                         </GridViewColumn>
-                        <GridViewColumn>
-                            <GridViewColumn.DisplayMemberBinding>
-                                <MultiBinding StringFormat="{}{0:d} - {1:d}">
-                                    <Binding Path="EffectiveScoreTimePeriod1.Start"/>
-                                    <Binding Path="EffectiveScoreTimePeriod1.End"/>
-                                </MultiBinding>
-                            </GridViewColumn.DisplayMemberBinding>
+                        <GridViewColumn DisplayMemberBinding="{Binding EffectiveScoreTimePeriods, Converter={StaticResource DateTimeRangeListStringConverter}}">
                             <GridViewColumn.Header>
                                 <StackPanel Orientation="Horizontal">
                                     <controls:FontIcon Glyph="&#xE768;" Margin="5"/>
-                                    <TextBlock Text="{x:Static properties:Resources.EffectiveScoringTimePeriod1String}" VerticalAlignment="Center"/>
-                                </StackPanel>
-                            </GridViewColumn.Header>
-                        </GridViewColumn>
-                        <GridViewColumn>
-                            <GridViewColumn.DisplayMemberBinding>
-                                <MultiBinding StringFormat="{}{0:d} - {1:d}">
-                                    <Binding Path="EffectiveScoreTimePeriod2.Start"/>
-                                    <Binding Path="EffectiveScoreTimePeriod2.End"/>
-                                </MultiBinding>
-                            </GridViewColumn.DisplayMemberBinding>
-                            <GridViewColumn.Header>
-                                <StackPanel Orientation="Horizontal">
-                                    <controls:FontIcon Glyph="&#xE768;" Margin="5"/>
-                                    <TextBlock Text="{x:Static properties:Resources.EffectiveScoringTimePeriod2String}" VerticalAlignment="Center"/>
+                                    <TextBlock Text="{x:Static properties:Resources.EffectiveScoringTimePeriodsString}" VerticalAlignment="Center"/>
                                 </StackPanel>
                             </GridViewColumn.Header>
                         </GridViewColumn>

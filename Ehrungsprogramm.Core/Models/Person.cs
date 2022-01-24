@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using System.Linq;
 using Microsoft.Toolkit.Mvvm.ComponentModel;
 
 namespace Ehrungsprogramm.Core.Models
@@ -45,7 +44,12 @@ namespace Ehrungsprogramm.Core.Models
 
         public int MembershipYears => (int)Math.Ceiling((DateTime.Now - EntryDate).TotalDays / 365);
 
-        public int ScoreBLSV => CalculateScoreBLSV();
+        private int _scoreBLSV;
+        public int ScoreBLSV
+        {
+            get => _scoreBLSV;
+            set => SetProperty(ref _scoreBLSV, value);
+        }
 
         private int _scoreTSV;
         public int ScoreTSV
@@ -54,58 +58,11 @@ namespace Ehrungsprogramm.Core.Models
             set => SetProperty(ref _scoreTSV, value);
         }
 
-        private List<Function> _functions;
+        private List<Function> _functions = new List<Function>();
         public List<Function> Functions 
         {
             get => _functions; 
-            set { SetProperty(ref _functions, value); CalculateScoreTSV(); }
-        }
-
-
-
-        private int CalculateScoreBLSV()
-        {
-            return MembershipYears * 1;
-        }
-
-        private void CalculateScoreTSV()
-        {
-            ScoreTSV = 5;
-
-            List<Function> functionsBoardMember = Functions.Where(f => f.Type == FunctionType.BOARD_MEMBER).ToList();
-            List<Function> functionsHeadOfDepartement = Functions.Where(f => f.Type == FunctionType.HEAD_OF_DEPARTEMENT).ToList();
-            List<Function> functionsOther = Functions.Where(f => f.Type == FunctionType.OTHER_FUNCTION).ToList();
-
-            DateTimeRange additionalRange;
-
-            // Loop over all board member function entries and compare them against the other functions
-            foreach (Function funcBM in functionsBoardMember)
-            {
-                funcBM.EffectiveScoreTimePeriod1 = funcBM.TimePeriod;
-
-                foreach(Function funcHead in functionsHeadOfDepartement)
-                {
-                    funcHead.EffectiveScoreTimePeriod1 = funcHead.TimePeriod.Subtract(funcBM.TimePeriod, out additionalRange);
-                    funcHead.EffectiveScoreTimePeriod2 = additionalRange;
-                }
-                foreach (Function funcOther in functionsOther)
-                {
-                    funcOther.EffectiveScoreTimePeriod1 = funcOther.TimePeriod.Subtract(funcBM.TimePeriod, out additionalRange);
-                    funcOther.EffectiveScoreTimePeriod2 = additionalRange;
-                }
-            }
-
-            // Loop over all head of departement function entries and compare them against the other functions
-            foreach (Function funcHead in functionsHeadOfDepartement)
-            {
-                foreach (Function funcOther in functionsOther)
-                {
-                    funcOther.EffectiveScoreTimePeriod1 = funcOther.EffectiveScoreTimePeriod1.Subtract(funcHead.EffectiveScoreTimePeriod1, out additionalRange);
-                    if (additionalRange != null) { funcOther.EffectiveScoreTimePeriod2 = additionalRange; }
-                }
-            }
-
-            OnPropertyChanged(nameof(ScoreTSV));
+            set { SetProperty(ref _functions, value); }
         }
     }
 }
