@@ -231,10 +231,13 @@
   <data name="FunctionYearsString" xml:space="preserve">
     <value>Jahre in Funktion</value>
   </data>
-  <data name="EffectiveScoringTimePeriodsString" xml:space="preserve">
-    <value>Effektive Zeiträume</value>
+  <data name="EffectiveBoardMemberYears" xml:space="preserve">
+    <value>Eff. Jahre Vorstand</value>
   </data>
-  <data name="EffectiveScoringYearsString" xml:space="preserve">
-    <value>Effektive Jahre in Funktion</value>
+  <data name="EffectiveHeadOfDepartementYears" xml:space="preserve">
+    <value>Eff. Jahre Abteilungsleitung</value>
+  </data>
+  <data name="EffectiveOtherFunctionsYears" xml:space="preserve">
+    <value>Eff. Jahre andere Funktion</value>
   </data>
 </root>

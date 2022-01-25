@@ -7,14 +7,11 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:properties="clr-namespace:Ehrungsprogramm.Properties"
     xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
-    xmlns:converters="clr-namespace:Ehrungsprogramm.Converters"
+    xmlns:converters="clr-namespace:Ehrungsprogramm.Converters" 
+    xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
     mc:Ignorable="d"
-    d:DesignHeight="600" d:DesignWidth="1300">
+    d:DesignHeight="750" d:DesignWidth="1300">
 
-    <Page.Resources>
-        <converters:DateTimeRangeListToStringConverter x:Key="DateTimeRangeListStringConverter"/>
-    </Page.Resources>
-    
     <Grid Background="{StaticResource MahApps.Brushes.Window.Background}">
         <Grid.RowDefinitions>
             <RowDefinition Height="48" />
@@ -75,67 +72,85 @@
 
             <controls:FontIcon Grid.Row="7" Grid.Column="0" FontSize="30" Glyph="&#xE821;" ToolTip="{x:Static properties:Resources.FunctionsString}" VerticalAlignment="Top" Margin="3,20,3,3"/>
             <TextBlock Grid.Row="7" Grid.Column="1" Margin="3,20,3,3" VerticalAlignment="Top" Text="{x:Static properties:Resources.FunctionsString}" FontSize="{StaticResource MediumFontSize}"/>
-            <ListView Grid.Row="7" Grid.Column="2" Margin="3,20,3,3" ItemsSource="{Binding Person.Functions}">
-                <ListView.View>
-                    <GridView>
-                        <GridViewColumn DisplayMemberBinding="{Binding Description}">
-                            <GridViewColumn.Header>
-                                <StackPanel Orientation="Horizontal">
-                                    <controls:FontIcon Glyph="&#xE946;" Margin="5"/>
-                                    <TextBlock Text="{x:Static properties:Resources.DescriptionString}" VerticalAlignment="Center"/>
-                                </StackPanel>
-                            </GridViewColumn.Header>
-                        </GridViewColumn>
-                        <GridViewColumn DisplayMemberBinding="{Binding Type}">
-                            <GridViewColumn.Header>
-                                <StackPanel Orientation="Horizontal">
-                                    <controls:FontIcon Glyph="&#xE821;" Margin="5"/>
-                                    <TextBlock Text="{x:Static properties:Resources.FunctionTypeString}" VerticalAlignment="Center"/>
-                                </StackPanel>
-                            </GridViewColumn.Header>
-                        </GridViewColumn>
-                        <GridViewColumn>
-                            <GridViewColumn.DisplayMemberBinding>
-                                <MultiBinding StringFormat="{}{0:d} - {1:d}">
-                                    <Binding Path="TimePeriod.Start"/>
-                                    <Binding Path="TimePeriod.End"/>
-                                </MultiBinding>
-                            </GridViewColumn.DisplayMemberBinding>
-                            <GridViewColumn.Header>
-                                <StackPanel Orientation="Horizontal">
-                                    <controls:FontIcon Glyph="&#xE768;" Margin="5"/>
-                                    <TextBlock Text="{x:Static properties:Resources.TimePeriodString}" VerticalAlignment="Center"/>
-                                </StackPanel>
-                            </GridViewColumn.Header>
-                        </GridViewColumn>
-                        <GridViewColumn DisplayMemberBinding="{Binding FunctionYears, StringFormat=d}">
-                            <GridViewColumn.Header>
-                                <StackPanel Orientation="Horizontal">
-                                    <controls:FontIcon Glyph="&#xEC92;" Margin="5"/>
-                                    <TextBlock Text="{x:Static properties:Resources.FunctionYearsString}" VerticalAlignment="Center"/>
-                                </StackPanel>
-                            </GridViewColumn.Header>
-                        </GridViewColumn>
-                        <GridViewColumn DisplayMemberBinding="{Binding EffectiveScoreTimePeriods, Converter={StaticResource DateTimeRangeListStringConverter}}">
-                            <GridViewColumn.Header>
-                                <StackPanel Orientation="Horizontal">
-                                    <controls:FontIcon Glyph="&#xE768;" Margin="5"/>
-                                    <TextBlock Text="{x:Static properties:Resources.EffectiveScoringTimePeriodsString}" VerticalAlignment="Center"/>
-                                </StackPanel>
-                            </GridViewColumn.Header>
-                        </GridViewColumn>
-                        <GridViewColumn DisplayMemberBinding="{Binding EffectiveScoreYears}">
-                            <GridViewColumn.Header>
-                                <StackPanel Orientation="Horizontal">
-                                    <controls:FontIcon Glyph="&#xEC92;" Margin="5"/>
-                                    <TextBlock Text="{x:Static properties:Resources.EffectiveScoringYearsString}" VerticalAlignment="Center"/>
-                                </StackPanel>
-                            </GridViewColumn.Header>
-                        </GridViewColumn>
-                    </GridView>
-                </ListView.View>
-            </ListView>
-            
+
+            <DockPanel Grid.Row="7" Grid.Column="2" LastChildFill="True">
+                <Grid Margin="30,20,0,0" DockPanel.Dock="Right">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="40"/>
+                        <RowDefinition Height="40"/>
+                        <RowDefinition Height="40"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="80"/>
+                        <ColumnDefinition Width="210"/>
+                        <ColumnDefinition Width="80"/>
+                    </Grid.ColumnDefinitions>
+
+                    <iconPacks:PackIconMaterial Grid.Row="0" Grid.Column="0" Kind="CrownOutline" Width="30" Height="30" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                    <TextBlock Grid.Row="0" Grid.Column="1" Margin="3" VerticalAlignment="Center" Text="{x:Static properties:Resources.EffectiveBoardMemberYears}" FontSize="{StaticResource MediumFontSize}"/>
+                    <TextBlock Grid.Row="0" Grid.Column="2" Text="{Binding Person.EffectiveBoardMemberYears}" VerticalAlignment="Center" FontSize="{StaticResource MediumFontSize}"/>
+
+                    <iconPacks:PackIconUnicons Grid.Row="1" Grid.Column="0" Kind="HeadSide" Width="30" Height="30" VerticalAlignment="Center" HorizontalAlignment="Center" RenderTransformOrigin="0.5,0.5">
+                        <iconPacks:PackIconUnicons.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform ScaleX="-1"/>
+                            </TransformGroup>
+                        </iconPacks:PackIconUnicons.RenderTransform>
+                    </iconPacks:PackIconUnicons>
+                    <TextBlock Grid.Row="1" Grid.Column="1" Margin="3" VerticalAlignment="Center" Text="{x:Static properties:Resources.EffectiveHeadOfDepartementYears}" FontSize="{StaticResource MediumFontSize}"/>
+                    <TextBlock Grid.Row="1" Grid.Column="2" Text="{Binding Person.EffectiveHeadOfDepartementYears}" VerticalAlignment="Center" FontSize="{StaticResource MediumFontSize}"/>
+
+                    <iconPacks:PackIconUnicons Grid.Row="2" Grid.Column="0" Kind="Basketball" Width="30" Height="30" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                    <TextBlock Grid.Row="2" Grid.Column="1" Margin="3" VerticalAlignment="Center" Text="{x:Static properties:Resources.EffectiveOtherFunctionsYears}" FontSize="{StaticResource MediumFontSize}"/>
+                    <TextBlock Grid.Row="2" Grid.Column="2" Text="{Binding Person.EffectiveOtherFunctionsYears}" VerticalAlignment="Center" FontSize="{StaticResource MediumFontSize}"/>
+                </Grid>
+
+                <ListView Margin="3,20,3,3" DockPanel.Dock="Left" ItemsSource="{Binding Person.Functions}">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn DisplayMemberBinding="{Binding Description}">
+                                <GridViewColumn.Header>
+                                    <StackPanel Orientation="Horizontal">
+                                        <controls:FontIcon Glyph="&#xE946;" Margin="5"/>
+                                        <TextBlock Text="{x:Static properties:Resources.DescriptionString}" VerticalAlignment="Center"/>
+                                    </StackPanel>
+                                </GridViewColumn.Header>
+                            </GridViewColumn>
+                            <GridViewColumn DisplayMemberBinding="{Binding Type}">
+                                <GridViewColumn.Header>
+                                    <StackPanel Orientation="Horizontal">
+                                        <controls:FontIcon Glyph="&#xE821;" Margin="5"/>
+                                        <TextBlock Text="{x:Static properties:Resources.FunctionTypeString}" VerticalAlignment="Center"/>
+                                    </StackPanel>
+                                </GridViewColumn.Header>
+                            </GridViewColumn>
+                            <GridViewColumn>
+                                <GridViewColumn.DisplayMemberBinding>
+                                    <MultiBinding StringFormat="{}{0:d} - {1:d}">
+                                        <Binding Path="TimePeriod.Start"/>
+                                        <Binding Path="TimePeriod.End"/>
+                                    </MultiBinding>
+                                </GridViewColumn.DisplayMemberBinding>
+                                <GridViewColumn.Header>
+                                    <StackPanel Orientation="Horizontal">
+                                        <controls:FontIcon Glyph="&#xE787;" Margin="5"/>
+                                        <TextBlock Text="{x:Static properties:Resources.TimePeriodString}" VerticalAlignment="Center"/>
+                                    </StackPanel>
+                                </GridViewColumn.Header>
+                            </GridViewColumn>
+                            <GridViewColumn DisplayMemberBinding="{Binding FunctionYears, StringFormat=d}">
+                                <GridViewColumn.Header>
+                                    <StackPanel Orientation="Horizontal">
+                                        <controls:FontIcon Glyph="&#xEC92;" Margin="5"/>
+                                        <TextBlock Text="{x:Static properties:Resources.FunctionYearsString}" VerticalAlignment="Center"/>
+                                    </StackPanel>
+                                </GridViewColumn.Header>
+                            </GridViewColumn>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+            </DockPanel>
+
             <Button Grid.Row="8" Grid.Column="2" Command="{Binding OkCommand}" Style="{StaticResource MahApps.Styles.Button.Circle}" VerticalAlignment="Top" HorizontalAlignment="Right" Width="40" Height="40" Margin="3">
                 <controls:FontIcon FontSize="50" Margin="-5,-5,0,0" Glyph="&#xF13E;"/>
             </Button>

@@ -1,18 +1,26 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using System.Linq;
 using Ehrungsprogramm.Core.Contracts.Services;
 using Ehrungsprogramm.Core.Models;
 using LiteDB;
+using Itenso.TimePeriod;
 
 namespace Ehrungsprogramm.Core.Services
 {
+    /// <summary>
+    /// Service used to get and store a list of Person objects
+    /// </summary>
     public class PersonService : IPersonService
     {
-        private LiteDatabase _database;
-        private ILiteCollection<Person> _peopleCollection;
+        private LiteDatabase _database;                         // Handle to a database holding the collection of Persons
+        private ILiteCollection<Person> _peopleCollection;      // Collection of Persons
 
+        /// <summary>
+        /// Constructor that opens a database from file and gets all people from the database.
+        /// </summary>
         public PersonService()
         {
             // TODO Replace fixed filepath for batabase by some kind of property
@@ -20,6 +28,10 @@ namespace Ehrungsprogramm.Core.Services
             _peopleCollection = _database.GetCollection<Person>("people");
         }
 
+        /// <summary>
+        /// Import a list of Personsto an internal database.
+        /// </summary>
+        /// <param name="filepath">filepath of the database</param>
         public void ImportFromFile(string filepath)
         {
             List<Person> importedPeople = CsvFileParserProWinner.Parse(filepath);
@@ -27,6 +39,10 @@ namespace Ehrungsprogramm.Core.Services
             _peopleCollection?.InsertBulk(importedPeople);
         }
 
+        /// <summary>
+        /// Return all available Persons.
+        /// </summary>
+        /// <returns>List of Person objects</returns>
         public List<Person> GetPersons()
         {
             List<Person> people = _peopleCollection?.Query().ToList();
@@ -34,17 +50,28 @@ namespace Ehrungsprogramm.Core.Services
             return people;
         }
 
+        /// <summary>
+        /// Clear all Persons.
+        /// </summary>
         public void ClearPersons()
         {
             _peopleCollection?.DeleteAll();
         }
 
+        /// <summary>
+        /// Add a new Person to the list of Persons.
+        /// </summary>
+        /// <param name="person">Person to add</param>
         public void AddPerson(Person person)
         {
             updatePersonProperties(person);
             _peopleCollection?.Insert(person);
         }
 
+        /// <summary>
+        /// Update a Person object with the given one.
+        /// </summary>
+        /// <param name="person">New Person object</param>
         public void UpdatePerson(Person person)
         {
             if(person == null) { return; }
@@ -53,69 +80,50 @@ namespace Ehrungsprogramm.Core.Services
         }
 
 
+        /// <summary>
+        /// Update the following properties of the given Person:
+        /// - <see cref="Person.ScoreBLSV"/>
+        /// - <see cref="Person.ScoreTSV"/>
+        /// - <see cref="Person.EffectiveBoardMemberYears"/>
+        /// - <see cref="Person.EffectiveHeadOfDepartementYears"/>
+        /// - <see cref="Person.EffectiveOtherFunctionsYears"/>
+        /// </summary>
+        /// <param name="person">Person to update</param>
         private void updatePersonProperties(Person person)
         {
-            // ***** BLSV score *****
-            person.ScoreBLSV = person.MembershipYears * 1;  // One point per year of membership
-
             // ***** Effective score time periods *****
             List<Function> functionsBoardMember = person.Functions.Where(f => f.Type == FunctionType.BOARD_MEMBER).ToList();
             List<Function> functionsHeadOfDepartement = person.Functions.Where(f => f.Type == FunctionType.HEAD_OF_DEPARTEMENT).ToList();
             List<Function> functionsOther = person.Functions.Where(f => f.Type == FunctionType.OTHER_FUNCTION).ToList();
 
-            person.Functions.ForEach(f => f.EffectiveScoreTimePeriods.Clear());
-            DateTimeRange additionalRange = null;
+            TimePeriodCollection boardMemberPeriods = new TimePeriodCollection(functionsBoardMember.Select(f => f.TimePeriod));
+            TimePeriodCollection headOfDepartementPeriods = new TimePeriodCollection(functionsHeadOfDepartement.Select(f => f.TimePeriod));
+            TimePeriodCollection otherPeriods = new TimePeriodCollection(functionsOther.Select(f => f.TimePeriod));
 
-            // Loop over all board member function entries and compare them against the other functions
-            foreach (Function funcBM in functionsBoardMember)
-            {
-                funcBM.EffectiveScoreTimePeriods.Add(funcBM.TimePeriod);
+            // Consolidate the time periods for each function type
+            TimePeriodCombiner<TimeRange> periodCombiner = new TimePeriodCombiner<TimeRange>();
+            boardMemberPeriods = (TimePeriodCollection)periodCombiner.CombinePeriods(boardMemberPeriods);
+            headOfDepartementPeriods = (TimePeriodCollection)periodCombiner.CombinePeriods(headOfDepartementPeriods);
+            otherPeriods = (TimePeriodCollection)periodCombiner.CombinePeriods(otherPeriods);
 
-                foreach (Function funcHead in functionsHeadOfDepartement)
-                {
-                    funcHead.EffectiveScoreTimePeriods.Add(funcHead.TimePeriod.Subtract(funcBM.TimePeriod, out additionalRange));
-                    if (additionalRange != null) { funcHead.EffectiveScoreTimePeriods.Add(additionalRange); }
-                }
-                foreach (Function funcOther in functionsOther)
-                {
-                    funcOther.EffectiveScoreTimePeriods.Add(funcOther.TimePeriod.Subtract(funcBM.TimePeriod, out additionalRange));
-                    if (additionalRange != null) { funcOther.EffectiveScoreTimePeriods.Add(additionalRange); }
-                }
-            }
+            TimePeriodSubtractor<TimeRange> subtractor = new TimePeriodSubtractor<TimeRange>();
+            headOfDepartementPeriods = (TimePeriodCollection)subtractor.SubtractPeriods(headOfDepartementPeriods, boardMemberPeriods);
+            otherPeriods = (TimePeriodCollection)subtractor.SubtractPeriods(otherPeriods, boardMemberPeriods);
 
-            foreach (Function funcOther in functionsOther)
-            {
-                List<DateTimeRange> newFuncOtherEffectivePeriods = new List<DateTimeRange>();
-                foreach (DateTimeRange funcOtherEffectivePeriod in funcOther.EffectiveScoreTimePeriods)
-                {
-                    foreach (Function funcHead in functionsHeadOfDepartement)
-                    {
-                        foreach (DateTimeRange funcHeadEffectivePeriod in funcHead.EffectiveScoreTimePeriods)
-                        {
-                            newFuncOtherEffectivePeriods.Add(funcOtherEffectivePeriod?.Subtract(funcHeadEffectivePeriod, out additionalRange));
-                            if (additionalRange != null) { newFuncOtherEffectivePeriods.Add(additionalRange); }
-                        }
-                    }
-                }
-                funcOther.EffectiveScoreTimePeriods = newFuncOtherEffectivePeriods;
-            }
+            otherPeriods = (TimePeriodCollection)subtractor.SubtractPeriods(otherPeriods, headOfDepartementPeriods);
 
             // ***** TSV score *****
-            person.ScoreTSV = 0;
-            foreach (Function func in person.Functions)
-            {
-                int points = 0;
-                switch(func.Type)
-                {
-                    case FunctionType.BOARD_MEMBER: points = 3; break;
-                    case FunctionType.HEAD_OF_DEPARTEMENT: points = 2; break;
-                    case FunctionType.OTHER_FUNCTION: points = 1; break;
-                    default: break;
-                }
-                points *= func.EffectiveScoreYears;
-                person.ScoreTSV += points;
-            }
-            person.ScoreTSV += person.MembershipYears * 1;      // One point per membership year
+            person.EffectiveBoardMemberYears = (int)Math.Ceiling((boardMemberPeriods?.TotalDuration.TotalDays ?? 0) / 365);
+            person.EffectiveHeadOfDepartementYears = (int)Math.Ceiling((headOfDepartementPeriods?.TotalDuration.TotalDays ?? 0) / 365);
+            person.EffectiveOtherFunctionsYears = (int)Math.Ceiling((otherPeriods?.TotalDuration.TotalDays ?? 0) / 365);
+
+            person.ScoreTSV = person.MembershipYears * 1 +                      // One point per membership year
+                                person.EffectiveBoardMemberYears * 3 +          // Three points per year as board member
+                                person.EffectiveHeadOfDepartementYears * 2 +    // Two points per year as head of departement
+                                person.EffectiveOtherFunctionsYears * 1;        // One point per year in any other function
+
+            // ***** BLSV score *****
+            person.ScoreBLSV = person.MembershipYears * 1;  // One point per year of membership
         }
 
     }

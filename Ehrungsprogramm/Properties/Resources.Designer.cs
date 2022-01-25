@@ -97,20 +97,29 @@ namespace Ehrungsprogramm.Properties {
         }
         
         /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die Effective Time Periods ähnelt.
+        ///   Sucht eine lokalisierte Zeichenfolge, die Eff. Board Member Years ähnelt.
         /// </summary>
-        public static string EffectiveScoringTimePeriodsString {
+        public static string EffectiveBoardMemberYears {
             get {
-                return ResourceManager.GetString("EffectiveScoringTimePeriodsString", resourceCulture);
+                return ResourceManager.GetString("EffectiveBoardMemberYears", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die Effective Years in Function ähnelt.
+        ///   Sucht eine lokalisierte Zeichenfolge, die Eff. Head of Departement Years ähnelt.
         /// </summary>
-        public static string EffectiveScoringYearsString {
+        public static string EffectiveHeadOfDepartementYears {
             get {
-                return ResourceManager.GetString("EffectiveScoringYearsString", resourceCulture);
+                return ResourceManager.GetString("EffectiveHeadOfDepartementYears", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Eff. Other Years ähnelt.
+        /// </summary>
+        public static string EffectiveOtherFunctionsYears {
+            get {
+                return ResourceManager.GetString("EffectiveOtherFunctionsYears", resourceCulture);
             }
         }
         

@@ -6,6 +6,7 @@ using Microsoft.Toolkit.Mvvm.Input;
 using Microsoft.Win32;
 using Ehrungsprogramm.Core.Contracts.Services;
 using Ehrungsprogramm.Core.Models;
+using Itenso.TimePeriod;
 
 namespace Ehrungsprogramm.ViewModels
 {
@@ -58,13 +59,13 @@ namespace Ehrungsprogramm.ViewModels
                     new Function()
                     {
                         Type = FunctionType.OTHER_FUNCTION,
-                        TimePeriod = new DateTimeRange(new DateTime(2010, 01, 01), new DateTime(2015, 01, 01)),
+                        TimePeriod = new TimeRange(new DateTime(2010, 01, 01), new DateTime(2015, 01, 01)),
                         Description = "Schwimmen-FKT Helfer"
                     },
                     new Function()
                     {
                         Type = FunctionType.BOARD_MEMBER,
-                        TimePeriod = new DateTimeRange(new DateTime(2015, 01, 01), new DateTime(2019, 01, 01)),
+                        TimePeriod = new TimeRange(new DateTime(2015, 01, 01), new DateTime(2019, 01, 01)),
                         Description = "1. Vorstand"
                     }
                 }
@@ -81,31 +82,31 @@ namespace Ehrungsprogramm.ViewModels
                     new Function()
                     {
                         Type = FunctionType.BOARD_MEMBER,
-                        TimePeriod = new DateTimeRange(new DateTime(8, 01, 01), new DateTime(16, 01, 01)),
+                        TimePeriod = new TimeRange(new DateTime(8, 01, 01), new DateTime(16, 01, 01)),
                         Description = "BM"
                     },
                     new Function()
                     {
                         Type = FunctionType.HEAD_OF_DEPARTEMENT,
-                        TimePeriod = new DateTimeRange(new DateTime(6, 01, 01), new DateTime(12, 01, 01)),
+                        TimePeriod = new TimeRange(new DateTime(6, 01, 01), new DateTime(12, 01, 01)),
                         Description = "HEAD 1"
                     },
                     new Function()
                     {
                         Type = FunctionType.HEAD_OF_DEPARTEMENT,
-                        TimePeriod = new DateTimeRange(new DateTime(14, 01, 01), new DateTime(20, 01, 01)),
+                        TimePeriod = new TimeRange(new DateTime(14, 01, 01), new DateTime(20, 01, 01)),
                         Description = "HEAD 2"
                     },
                     new Function()
                     {
                         Type = FunctionType.OTHER_FUNCTION,
-                        TimePeriod = new DateTimeRange(new DateTime(2, 01, 01), new DateTime(10, 01, 01)),
+                        TimePeriod = new TimeRange(new DateTime(2, 01, 01), new DateTime(10, 01, 01)),
                         Description = "FKT 1"
                     },
                     new Function()
                     {
                         Type = FunctionType.OTHER_FUNCTION,
-                        TimePeriod = new DateTimeRange(new DateTime(4, 01, 01), new DateTime(23, 01, 01)),
+                        TimePeriod = new TimeRange(new DateTime(4, 01, 01), new DateTime(23, 01, 01)),
                         Description = "FKT 2"
                     }
                 }
@@ -126,7 +127,7 @@ namespace Ehrungsprogramm.ViewModels
                     new Function()
                     {
                         Type = FunctionType.OTHER_FUNCTION,
-                        TimePeriod = new DateTimeRange(new DateTime(1090, 01, 01), new DateTime(2010, 01, 01)),
+                        TimePeriod = new TimeRange(new DateTime(1990, 01, 01), new DateTime(2010, 01, 01)),
                         Description = "Turnen-FKT ÜL"
                     }
                 }
