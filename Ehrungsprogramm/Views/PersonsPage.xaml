@@ -7,6 +7,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:properties="clr-namespace:Ehrungsprogramm.Properties"
     xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
+    xmlns:localControls="clr-namespace:Ehrungsprogramm.Controls"
     xmlns:converters="clr-namespace:Ehrungsprogramm.Converters"
     mc:Ignorable="d"
     d:DesignHeight="450" d:DesignWidth="800">
@@ -57,22 +58,8 @@
             Margin="{StaticResource MediumLeftMargin}"
             Text="{x:Static properties:Resources.PersonsPageTitle}" />
 
-        <ListView Grid.Row="2" ItemsSource="{Binding People}" Margin="{StaticResource MediumLeftTopRightBottomMargin}">
-            <!-- Style to align the column contents at the top -->
-            <ListView.Style>
-                <Style TargetType="{x:Type ListView}">
-                    <Setter Property="BorderThickness" Value="0"/>
-                    <Setter Property="ItemContainerStyle">
-                        <Setter.Value>
-                            <Style TargetType="{x:Type ListViewItem}" BasedOn="{StaticResource MahApps.Styles.ListViewItem}">
-                                <Setter Property="VerticalContentAlignment" Value="Center"/>
-                            </Style>
-                        </Setter.Value>
-                    </Setter>
-                </Style>
-            </ListView.Style>
-
-            <ListView.View>
+        <localControls:FilteredListView Grid.Row="2" ItemsSource="{Binding People}" Margin="{StaticResource MediumLeftTopRightBottomMargin}" FilterPredicate="{Binding PersonFilter}">
+            <localControls:FilteredListView.View>
                 <GridView>
                     <GridViewColumn DisplayMemberBinding="{Binding FirstName}">
                         <GridViewColumn.Header>
@@ -116,7 +103,7 @@
                     </GridViewColumn>
                     <GridViewColumn CellTemplate="{StaticResource CellTemplateDetail}"/>
                 </GridView>
-            </ListView.View>
-        </ListView>
+            </localControls:FilteredListView.View>
+        </localControls:FilteredListView>
     </Grid>
 </Page>
