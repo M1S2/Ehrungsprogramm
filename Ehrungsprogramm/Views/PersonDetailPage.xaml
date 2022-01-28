@@ -9,8 +9,14 @@
     xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
     xmlns:converters="clr-namespace:Ehrungsprogramm.Converters" 
     xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+    xmlns:icons="http://metro.mahapps.com/winfx/xaml/iconpacks"
     mc:Ignorable="d"
-    d:DesignHeight="750" d:DesignWidth="1300">
+    d:DesignHeight="850" d:DesignWidth="1300">
+
+    <Page.Resources>
+        <converters:RewardObtainedToColorConverter x:Key="RewardObtainedColorConverter"/>
+        <converters:BoolToOpacityConverter x:Key="BoolOpacityConverter"/>
+    </Page.Resources>
 
     <Grid Background="{StaticResource MahApps.Brushes.Window.Background}">
         <Grid.RowDefinitions>
@@ -32,6 +38,7 @@
                 <RowDefinition Height="40"/>
                 <RowDefinition Height="40"/>
                 <RowDefinition Height="*"/>
+                <RowDefinition Height="180"/>
                 <RowDefinition Height="50"/>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
@@ -151,7 +158,12 @@
                 </ListView>
             </DockPanel>
 
-            <Button Grid.Row="8" Grid.Column="2" Command="{Binding OkCommand}" Style="{StaticResource MahApps.Styles.Button.Circle}" VerticalAlignment="Top" HorizontalAlignment="Right" Width="40" Height="40" Margin="3">
+            <icons:PackIconUnicons Grid.Row="8" Grid.Column="0" Width="35" Height="35" Kind="Award" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="3,20,3,3" ToolTip="{x:Static properties:Resources.RewardsString}"/>
+            <TextBlock Grid.Row="8" Grid.Column="1" Margin="3,20,3,3" VerticalAlignment="Top" Text="{x:Static properties:Resources.RewardsString}" FontSize="{StaticResource MediumFontSize}"/>
+            <TextBlock Grid.Row="8" Grid.Column="2" Text="Coming soon..." FontSize="{StaticResource MediumFontSize}" Margin="3,20,3,3"/>
+
+
+            <Button Grid.Row="9" Grid.Column="2" Command="{Binding OkCommand}" Style="{StaticResource MahApps.Styles.Button.Circle}" VerticalAlignment="Top" HorizontalAlignment="Right" Width="40" Height="40" Margin="3">
                 <controls:FontIcon FontSize="50" Margin="-5,-5,0,0" Glyph="&#xF13E;"/>
             </Button>
         </Grid>

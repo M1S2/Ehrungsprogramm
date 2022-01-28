@@ -240,4 +240,7 @@
   <data name="EffectiveOtherFunctionsYears" xml:space="preserve">
     <value>Eff. Jahre andere Funktion</value>
   </data>
+  <data name="RewardsString" xml:space="preserve">
+    <value>Ehrungen</value>
+  </data>
 </root>

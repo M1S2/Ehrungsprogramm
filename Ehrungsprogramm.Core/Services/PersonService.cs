@@ -15,6 +15,10 @@ namespace Ehrungsprogramm.Core.Services
     /// </summary>
     public class PersonService : IPersonService
     {
+        private const int REWARD_TSVSILVER_POINTS = 25;
+        private const int REWARD_TSVGOLD_POINTS = 50;
+        private const int REWARD_TSVHONORARY_POINTS = 75;
+
         private LiteDatabase _database;                         // Handle to a database holding the collection of Persons
         private ILiteCollection<Person> _peopleCollection;      // Collection of Persons
 
@@ -124,6 +128,16 @@ namespace Ehrungsprogramm.Core.Services
 
             // ***** BLSV score *****
             person.ScoreBLSV = person.MembershipYears * 1;  // One point per year of membership
+
+            // ***** Update Rewards *****
+            person.RewardsBLSV.BLSV40.Available = (person.ScoreBLSV >= 40);
+            person.RewardsBLSV.BLSV50.Available = (person.ScoreBLSV >= 50);
+            person.RewardsBLSV.BLSV60.Available = (person.ScoreBLSV >= 60);
+            person.RewardsBLSV.BLSV70.Available = (person.ScoreBLSV >= 70);
+            person.RewardsBLSV.BLSV80.Available = (person.ScoreBLSV >= 80);
+            person.RewardsTSV.TSVSilver.Available = (person.ScoreTSV >= REWARD_TSVSILVER_POINTS);
+            person.RewardsTSV.TSVGold.Available = (person.ScoreTSV >= REWARD_TSVGOLD_POINTS);
+            person.RewardsTSV.TSVHonorary.Available = (person.ScoreTSV >= REWARD_TSVHONORARY_POINTS);
         }
 
     }

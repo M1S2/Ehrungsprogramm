@@ -9,30 +9,13 @@
     xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
     xmlns:localControls="clr-namespace:Ehrungsprogramm.Controls"
     xmlns:converters="clr-namespace:Ehrungsprogramm.Converters"
+    xmlns:icons="http://metro.mahapps.com/winfx/xaml/iconpacks"
     mc:Ignorable="d"
     d:DesignHeight="450" d:DesignWidth="800">
 
     <Page.Resources>
         <converters:NumericComparisonGreaterToVisibilityConverter x:Key="NumericGreaterVisibilityConverter"/>
-
-        <DataTemplate x:Key="CellTemplateScoreBLSV">
-            <StackPanel Orientation="Horizontal">
-                <TextBlock MinWidth="30" Text="{Binding ScoreBLSV}" VerticalAlignment="Center"/>
-                <Ellipse Width="20" Height="20" Margin="3" StrokeThickness="1" Stroke="Black" Fill="Brown" Visibility="{Binding ScoreBLSV, Converter={StaticResource NumericGreaterVisibilityConverter}, ConverterParameter=25}"/>
-                <Ellipse Width="20" Height="20" Margin="3" StrokeThickness="1" Stroke="Black" Fill="Silver" Visibility="{Binding ScoreBLSV, Converter={StaticResource NumericGreaterVisibilityConverter}, ConverterParameter=50}"/>
-                <Ellipse Width="20" Height="20" Margin="3" StrokeThickness="1" Stroke="Black" Fill="Gold" Visibility="{Binding ScoreBLSV, Converter={StaticResource NumericGreaterVisibilityConverter}, ConverterParameter=75}"/>
-            </StackPanel>
-        </DataTemplate>
-
-        <DataTemplate x:Key="CellTemplateScoreTSV">
-            <StackPanel Orientation="Horizontal">
-                <TextBlock MinWidth="30" Text="{Binding ScoreTSV}" VerticalAlignment="Center"/>
-                <Ellipse Width="20" Height="20" Margin="3" StrokeThickness="1" Stroke="Black" Fill="Brown" Visibility="{Binding ScoreTSV, Converter={StaticResource NumericGreaterVisibilityConverter}, ConverterParameter=25}"/>
-                <Ellipse Width="20" Height="20" Margin="3" StrokeThickness="1" Stroke="Black" Fill="Silver" Visibility="{Binding ScoreTSV, Converter={StaticResource NumericGreaterVisibilityConverter}, ConverterParameter=50}"/>
-                <Ellipse Width="20" Height="20" Margin="3" StrokeThickness="1" Stroke="Black" Fill="Gold" Visibility="{Binding ScoreTSV, Converter={StaticResource NumericGreaterVisibilityConverter}, ConverterParameter=75}"/>
-            </StackPanel>
-        </DataTemplate>
-
+        
         <DataTemplate x:Key="CellTemplateDetail">
             <Button x:Name="DetailsButton" Style="{StaticResource MahApps.Styles.Button.Square.Accent}" Background="{StaticResource MahApps.Brushes.Gray2}" Visibility="Hidden" Width="30" Height="30" Command="{Binding RelativeSource={RelativeSource AncestorType={x:Type Page}}, Path=DataContext.PersonDetailCommand}" CommandParameter="{Binding}">
                 <controls:FontIcon FontSize="20" Glyph="&#xEA1F;"/>
@@ -85,21 +68,37 @@
                             </StackPanel>
                         </GridViewColumn.Header>
                     </GridViewColumn>
-                    <GridViewColumn CellTemplate="{StaticResource CellTemplateScoreBLSV}">
+                    <GridViewColumn>
                         <GridViewColumn.Header>
                             <StackPanel Orientation="Horizontal">
                                 <controls:FontIcon Glyph="&#xE734;" Margin="5"/>
                                 <TextBlock Text="{x:Static properties:Resources.ScoreBLSVString}" VerticalAlignment="Center"/>
                             </StackPanel>
                         </GridViewColumn.Header>
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock MinWidth="30" Text="{Binding ScoreBLSV}" VerticalAlignment="Center"/>
+                                    <localControls:RewardCollectionBLSVListViewUserControl Rewards="{Binding RewardsBLSV}"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
                     </GridViewColumn>
-                    <GridViewColumn CellTemplate="{StaticResource CellTemplateScoreTSV}">
+                    <GridViewColumn>
                         <GridViewColumn.Header>
                             <StackPanel Orientation="Horizontal">
                                 <controls:FontIcon Glyph="&#xE734;" Margin="5"/>
                                 <TextBlock Text="{x:Static properties:Resources.ScoreTSVString}" VerticalAlignment="Center"/>
                             </StackPanel>
                         </GridViewColumn.Header>
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock MinWidth="30" Text="{Binding ScoreTSV}" VerticalAlignment="Center"/>
+                                    <localControls:RewardCollectionTSVListViewUserControl Rewards="{Binding RewardsTSV}"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
                     </GridViewColumn>
                     <GridViewColumn CellTemplate="{StaticResource CellTemplateDetail}"/>
                 </GridView>

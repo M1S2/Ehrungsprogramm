@@ -71,12 +71,12 @@ namespace Ehrungsprogramm.ViewModels
                 }
             });
 
-            _personService?.AddPerson(new Person()
+            Person tmpPerson = new Person()
             {
                 FirstName = "Eva",
                 Name = "Musterfrau",
                 BirthDate = new DateTime(1950, 02, 03),
-                EntryDate = new DateTime(1980, 01, 01),
+                EntryDate = new DateTime(1960, 01, 01),
                 Functions = new List<Function>()
                 {
                     new Function()
@@ -110,7 +110,12 @@ namespace Ehrungsprogramm.ViewModels
                         Description = "FKT 2"
                     }
                 }
-            });
+            };
+            tmpPerson.RewardsBLSV.BLSV40.Obtained = true;
+            tmpPerson.RewardsBLSV.BLSV40.ObtainedDate = new DateTime(2000, 01, 01);
+            tmpPerson.RewardsTSV.TSVSilver.Obtained = true;
+            tmpPerson.RewardsTSV.TSVSilver.ObtainedDate = new DateTime(2000, 01, 01);
+            _personService?.AddPerson(tmpPerson);
 
 
 

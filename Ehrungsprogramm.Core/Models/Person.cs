@@ -124,5 +124,19 @@ namespace Ehrungsprogramm.Core.Models
             get => _effectiveOtherFunctionsYears;
             set => SetProperty(ref _effectiveOtherFunctionsYears, value);
         }
+
+        private RewardBLSVCollection _rewardsBLSV = new RewardBLSVCollection();
+        public RewardBLSVCollection RewardsBLSV
+        {
+            get => _rewardsBLSV;
+            set => SetProperty(ref _rewardsBLSV, value);
+        }
+
+        private RewardTSVCollection _rewardsTSV = new RewardTSVCollection();
+        public RewardTSVCollection RewardsTSV
+        {
+            get => _rewardsTSV;
+            set => SetProperty(ref _rewardsTSV, value);
+        }
     }
 }
