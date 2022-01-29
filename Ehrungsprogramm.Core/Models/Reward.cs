@@ -7,14 +7,19 @@ namespace Ehrungsprogramm.Core.Models
 {
     public enum RewardType
     {
+        BLSV20,
+        BLSV30,
+        BLSV25,
         BLSV40,
+        BLSV45,
         BLSV50,
         BLSV60,
         BLSV70,
         BLSV80,
-        TSVSilver,
-        TSVGold,
-        TSVHonorary
+        TSVSILVER,
+        TSVGOLD,
+        TSVHONORARY,
+        UNKNOWN
     }
 
     public class Reward : ObservableObject
@@ -34,6 +39,13 @@ namespace Ehrungsprogramm.Core.Models
         { 
             get => _type;
             set => SetProperty(ref _type, value);
+        }
+
+        private string _description;
+        public string Description
+        {
+            get => _description;
+            set => SetProperty(ref _description, value);
         }
 
         private bool _available;
@@ -86,14 +98,41 @@ namespace Ehrungsprogramm.Core.Models
 
         public RewardBLSVCollection()
         {
+            Rewards.Add(RewardType.BLSV20, new Reward() { Type = RewardType.BLSV20 });
+            Rewards.Add(RewardType.BLSV25, new Reward() { Type = RewardType.BLSV25 });
+            Rewards.Add(RewardType.BLSV30, new Reward() { Type = RewardType.BLSV30 });
             Rewards.Add(RewardType.BLSV40, new Reward() { Type = RewardType.BLSV40 });
+            Rewards.Add(RewardType.BLSV45, new Reward() { Type = RewardType.BLSV45 });
             Rewards.Add(RewardType.BLSV50, new Reward() { Type = RewardType.BLSV50 });
             Rewards.Add(RewardType.BLSV60, new Reward() { Type = RewardType.BLSV60 });
             Rewards.Add(RewardType.BLSV70, new Reward() { Type = RewardType.BLSV70 });
             Rewards.Add(RewardType.BLSV80, new Reward() { Type = RewardType.BLSV80 });
         }
 
-        public Reward BLSV40 => Rewards[RewardType.BLSV40];
+        public bool AddReward(Reward reward)
+        {
+            switch (reward.Type)
+            {
+                case RewardType.BLSV20:
+                case RewardType.BLSV25:
+                case RewardType.BLSV30:
+                case RewardType.BLSV40:
+                case RewardType.BLSV45:
+                case RewardType.BLSV50:
+                case RewardType.BLSV60:
+                case RewardType.BLSV70:
+                case RewardType.BLSV80:
+                    Rewards[reward.Type] = reward;
+                    return true;
+                default: return false;
+            }
+        }
+
+        public Reward BLSV20 => Rewards[RewardType.BLSV20];
+        public Reward BLSV25 => Rewards[RewardType.BLSV25];
+        public Reward BLSV30 => Rewards[RewardType.BLSV30];
+        public Reward BLSV40 => Rewards[RewardType.BLSV40]; 
+        public Reward BLSV45 => Rewards[RewardType.BLSV45];
         public Reward BLSV50 => Rewards[RewardType.BLSV50];
         public Reward BLSV60 => Rewards[RewardType.BLSV60];
         public Reward BLSV70 => Rewards[RewardType.BLSV70];
@@ -121,14 +160,27 @@ namespace Ehrungsprogramm.Core.Models
 
         public RewardTSVCollection()
         {
-            Rewards.Add(RewardType.TSVSilver, new Reward() { Type = RewardType.TSVSilver });
-            Rewards.Add(RewardType.TSVGold, new Reward() { Type = RewardType.TSVGold });
-            Rewards.Add(RewardType.TSVHonorary, new Reward() { Type = RewardType.TSVHonorary });
+            Rewards.Add(RewardType.TSVSILVER, new Reward() { Type = RewardType.TSVSILVER });
+            Rewards.Add(RewardType.TSVGOLD, new Reward() { Type = RewardType.TSVGOLD });
+            Rewards.Add(RewardType.TSVHONORARY, new Reward() { Type = RewardType.TSVHONORARY });
         }
 
-        public Reward TSVSilver => Rewards[RewardType.TSVSilver];
-        public Reward TSVGold => Rewards[RewardType.TSVGold];
-        public Reward TSVHonorary => Rewards[RewardType.TSVHonorary];
+        public bool AddReward(Reward reward)
+        {
+            switch(reward.Type)
+            {
+                case RewardType.TSVSILVER:
+                case RewardType.TSVGOLD:
+                case RewardType.TSVHONORARY:
+                    Rewards[reward.Type] = reward;
+                    return true;
+                default: return false;
+            }
+        }
+
+        public Reward TSVSilver => Rewards[RewardType.TSVSILVER];
+        public Reward TSVGold => Rewards[RewardType.TSVGOLD];
+        public Reward TSVHonorary => Rewards[RewardType.TSVHONORARY];
     }
 
 }
