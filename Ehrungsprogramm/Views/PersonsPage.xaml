@@ -14,8 +14,6 @@
     d:DesignHeight="450" d:DesignWidth="800">
 
     <Page.Resources>
-        <converters:NumericComparisonGreaterToVisibilityConverter x:Key="NumericGreaterVisibilityConverter"/>
-        
         <DataTemplate x:Key="CellTemplateDetail">
             <Button x:Name="DetailsButton" Style="{StaticResource MahApps.Styles.Button.Square.Accent}" Background="{StaticResource MahApps.Brushes.Gray2}" Visibility="Hidden" Width="30" Height="30" Command="{Binding RelativeSource={RelativeSource AncestorType={x:Type Page}}, Path=DataContext.PersonDetailCommand}" CommandParameter="{Binding}">
                 <controls:FontIcon FontSize="20" Glyph="&#xEA1F;"/>
@@ -52,6 +50,7 @@
                             </StackPanel>
                         </GridViewColumn.Header>
                     </GridViewColumn>
+                    
                     <GridViewColumn DisplayMemberBinding="{Binding Name}">
                         <GridViewColumn.Header>
                             <StackPanel Orientation="Horizontal">
@@ -60,6 +59,7 @@
                             </StackPanel>
                         </GridViewColumn.Header>
                     </GridViewColumn>
+                    
                     <GridViewColumn DisplayMemberBinding="{Binding EntryDate, StringFormat=d}">
                         <GridViewColumn.Header>
                             <StackPanel Orientation="Horizontal">
@@ -68,6 +68,7 @@
                             </StackPanel>
                         </GridViewColumn.Header>
                     </GridViewColumn>
+                    
                     <GridViewColumn>
                         <GridViewColumn.Header>
                             <StackPanel Orientation="Horizontal">
@@ -79,11 +80,20 @@
                             <DataTemplate>
                                 <StackPanel Orientation="Horizontal">
                                     <TextBlock MinWidth="30" Text="{Binding ScoreBLSV}" VerticalAlignment="Center"/>
-                                    <localControls:RewardCollectionBLSVListViewUserControl Rewards="{Binding RewardsBLSV}"/>
+                                    <localControls:RewardIconUserControl Reward="{Binding RewardsBLSV.BLSV20}"/>
+                                    <localControls:RewardIconUserControl Reward="{Binding RewardsBLSV.BLSV25}"/>
+                                    <localControls:RewardIconUserControl Reward="{Binding RewardsBLSV.BLSV30}"/>
+                                    <localControls:RewardIconUserControl Reward="{Binding RewardsBLSV.BLSV40}"/>
+                                    <localControls:RewardIconUserControl Reward="{Binding RewardsBLSV.BLSV45}"/>
+                                    <localControls:RewardIconUserControl Reward="{Binding RewardsBLSV.BLSV50}"/>
+                                    <localControls:RewardIconUserControl Reward="{Binding RewardsBLSV.BLSV60}"/>
+                                    <localControls:RewardIconUserControl Reward="{Binding RewardsBLSV.BLSV70}"/>
+                                    <localControls:RewardIconUserControl Reward="{Binding RewardsBLSV.BLSV80}"/>
                                 </StackPanel>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
+                    
                     <GridViewColumn>
                         <GridViewColumn.Header>
                             <StackPanel Orientation="Horizontal">
@@ -95,11 +105,14 @@
                             <DataTemplate>
                                 <StackPanel Orientation="Horizontal">
                                     <TextBlock MinWidth="30" Text="{Binding ScoreTSV}" VerticalAlignment="Center"/>
-                                    <localControls:RewardCollectionTSVListViewUserControl Rewards="{Binding RewardsTSV}"/>
+                                    <localControls:RewardIconUserControl Reward="{Binding RewardsTSV.TSVSilver}"/>
+                                    <localControls:RewardIconUserControl Reward="{Binding RewardsTSV.TSVGold}"/>
+                                    <localControls:RewardIconUserControl Reward="{Binding RewardsTSV.TSVHonorary}"/>
                                 </StackPanel>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
+                    
                     <GridViewColumn CellTemplate="{StaticResource CellTemplateDetail}"/>
                 </GridView>
             </localControls:FilteredListView.View>

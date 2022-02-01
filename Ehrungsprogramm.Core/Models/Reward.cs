@@ -7,19 +7,19 @@ namespace Ehrungsprogramm.Core.Models
 {
     public enum RewardType
     {
-        BLSV20,
-        BLSV30,
-        BLSV25,
-        BLSV40,
-        BLSV45,
-        BLSV50,
-        BLSV60,
-        BLSV70,
-        BLSV80,
-        TSVSILVER,
-        TSVGOLD,
-        TSVHONORARY,
-        UNKNOWN
+        BLSV20 = 20,
+        BLSV25 = 25,
+        BLSV30 = 30,
+        BLSV40 = 40,
+        BLSV45 = 45,
+        BLSV50 = 50,
+        BLSV60 = 60,
+        BLSV70 = 70,
+        BLSV80 = 80,
+        TSVSILVER = 101,
+        TSVGOLD = 102,
+        TSVHONORARY = 103,
+        UNKNOWN = 0
     }
 
     public class Reward : ObservableObject
@@ -38,7 +38,43 @@ namespace Ehrungsprogramm.Core.Models
         public RewardType Type 
         { 
             get => _type;
-            set => SetProperty(ref _type, value);
+            set { SetProperty(ref _type, value); OnPropertyChanged(nameof(IsBLSVType)); OnPropertyChanged(nameof(IsTSVType)); }
+        }
+
+        public bool IsBLSVType
+        {
+            get
+            {
+                switch (Type)
+                {
+                    case RewardType.BLSV20:
+                    case RewardType.BLSV25:
+                    case RewardType.BLSV30:
+                    case RewardType.BLSV40:
+                    case RewardType.BLSV45:
+                    case RewardType.BLSV50:
+                    case RewardType.BLSV60:
+                    case RewardType.BLSV70:
+                    case RewardType.BLSV80:
+                        return true;
+                    default: return false;
+                }
+            }
+        }
+
+        public bool IsTSVType
+        {
+            get
+            {
+                switch (Type)
+                {
+                    case RewardType.TSVSILVER:
+                    case RewardType.TSVGOLD:
+                    case RewardType.TSVHONORARY:
+                        return true;
+                    default: return false;
+                }
+            }
         }
 
         private string _description;
@@ -111,21 +147,12 @@ namespace Ehrungsprogramm.Core.Models
 
         public bool AddReward(Reward reward)
         {
-            switch (reward.Type)
-            {
-                case RewardType.BLSV20:
-                case RewardType.BLSV25:
-                case RewardType.BLSV30:
-                case RewardType.BLSV40:
-                case RewardType.BLSV45:
-                case RewardType.BLSV50:
-                case RewardType.BLSV60:
-                case RewardType.BLSV70:
-                case RewardType.BLSV80:
-                    Rewards[reward.Type] = reward;
-                    return true;
-                default: return false;
+            if (reward.IsBLSVType) 
+            { 
+                Rewards[reward.Type] = reward;
+                return true;
             }
+            return false;
         }
 
         public Reward BLSV20 => Rewards[RewardType.BLSV20];
@@ -167,15 +194,12 @@ namespace Ehrungsprogramm.Core.Models
 
         public bool AddReward(Reward reward)
         {
-            switch(reward.Type)
+            if (reward.IsTSVType)
             {
-                case RewardType.TSVSILVER:
-                case RewardType.TSVGOLD:
-                case RewardType.TSVHONORARY:
-                    Rewards[reward.Type] = reward;
-                    return true;
-                default: return false;
+                Rewards[reward.Type] = reward;
+                return true;
             }
+            return false;
         }
 
         public Reward TSVSilver => Rewards[RewardType.TSVSILVER];

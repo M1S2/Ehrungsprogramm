@@ -13,11 +13,6 @@
     mc:Ignorable="d"
     d:DesignHeight="850" d:DesignWidth="1300">
 
-    <Page.Resources>
-        <converters:RewardObtainedToColorConverter x:Key="RewardObtainedColorConverter"/>
-        <converters:BoolToOpacityConverter x:Key="BoolOpacityConverter"/>
-    </Page.Resources>
-
     <Grid Background="{StaticResource MahApps.Brushes.Window.Background}">
         <Grid.RowDefinitions>
             <RowDefinition Height="48" />
