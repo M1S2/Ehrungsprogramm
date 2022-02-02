@@ -243,4 +243,7 @@
   <data name="RewardsString" xml:space="preserve">
     <value>Ehrungen</value>
   </data>
+  <data name="ObtainedDateString" xml:space="preserve">
+    <value>Erhalten am</value>
+  </data>
 </root>

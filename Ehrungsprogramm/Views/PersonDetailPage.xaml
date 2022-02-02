@@ -7,6 +7,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:properties="clr-namespace:Ehrungsprogramm.Properties"
     xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
+    xmlns:localControls="clr-namespace:Ehrungsprogramm.Controls"
     xmlns:converters="clr-namespace:Ehrungsprogramm.Converters" 
     xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
     xmlns:icons="http://metro.mahapps.com/winfx/xaml/iconpacks"
@@ -155,8 +156,26 @@
 
             <icons:PackIconUnicons Grid.Row="8" Grid.Column="0" Width="35" Height="35" Kind="Award" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="3,20,3,3" ToolTip="{x:Static properties:Resources.RewardsString}"/>
             <TextBlock Grid.Row="8" Grid.Column="1" Margin="3,20,3,3" VerticalAlignment="Top" Text="{x:Static properties:Resources.RewardsString}" FontSize="{StaticResource MediumFontSize}"/>
-            <TextBlock Grid.Row="8" Grid.Column="2" Text="Coming soon..." FontSize="{StaticResource MediumFontSize}" Margin="3,20,3,3"/>
-
+            <!--<TextBlock Grid.Row="8" Grid.Column="2" Text="Coming soon..." FontSize="{StaticResource MediumFontSize}" Margin="3,20,3,3"/>
+            -->
+            <StackPanel Orientation="Horizontal" Grid.Row="8" Grid.Column="2" Margin="3,20,3,3">
+                <WrapPanel Orientation="Vertical">
+                    <localControls:RewardDetailUserControl Margin="5" Reward="{Binding Person.Rewards.BLSV20}"/>
+                    <localControls:RewardDetailUserControl Margin="5" Reward="{Binding Person.Rewards.BLSV25}"/>
+                    <localControls:RewardDetailUserControl Margin="5" Reward="{Binding Person.Rewards.BLSV30}"/>
+                    <localControls:RewardDetailUserControl Margin="5" Reward="{Binding Person.Rewards.BLSV40}"/>
+                    <localControls:RewardDetailUserControl Margin="5" Reward="{Binding Person.Rewards.BLSV45}"/>
+                    <localControls:RewardDetailUserControl Margin="5" Reward="{Binding Person.Rewards.BLSV50}"/>
+                    <localControls:RewardDetailUserControl Margin="5" Reward="{Binding Person.Rewards.BLSV60}"/>
+                    <localControls:RewardDetailUserControl Margin="5" Reward="{Binding Person.Rewards.BLSV70}"/>
+                    <localControls:RewardDetailUserControl Margin="5" Reward="{Binding Person.Rewards.BLSV80}"/>
+                </WrapPanel>
+                <WrapPanel Orientation="Vertical" Margin="100,0,0,0">
+                    <localControls:RewardDetailUserControl Margin="5" Reward="{Binding Person.Rewards.TSVSilver}"/>
+                    <localControls:RewardDetailUserControl Margin="5" Reward="{Binding Person.Rewards.TSVGold}"/>
+                    <localControls:RewardDetailUserControl Margin="5" Reward="{Binding Person.Rewards.TSVHonorary}"/>
+                </WrapPanel>
+            </StackPanel>
 
             <Button Grid.Row="9" Grid.Column="2" Command="{Binding OkCommand}" Style="{StaticResource MahApps.Styles.Button.Circle}" VerticalAlignment="Top" HorizontalAlignment="Right" Width="40" Height="40" Margin="3">
                 <controls:FontIcon FontSize="50" Margin="-5,-5,0,0" Glyph="&#xF13E;"/>

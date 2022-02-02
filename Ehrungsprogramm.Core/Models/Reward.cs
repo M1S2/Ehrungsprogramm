@@ -99,7 +99,7 @@ namespace Ehrungsprogramm.Core.Models
         /// </summary>
         public string Description
         {
-            get => _description;
+            get => _description ?? Type.ToString();
             set => SetProperty(ref _description, value);
         }
 

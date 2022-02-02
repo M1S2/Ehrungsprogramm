@@ -1,0 +1,32 @@
+﻿<UserControl x:Class="Ehrungsprogramm.Controls.RewardDetailUserControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Ehrungsprogramm.Controls"
+             xmlns:properties="clr-namespace:Ehrungsprogramm.Properties"
+             xmlns:icons="http://metro.mahapps.com/winfx/xaml/iconpacks"
+             xmlns:converters="clr-namespace:Ehrungsprogramm.Converters"
+             mc:Ignorable="d" 
+             d:DesignHeight="80" d:DesignWidth="200">
+
+    <UserControl.Resources>
+        <BooleanToVisibilityConverter x:Key="BoolVisibilityConverter"/>
+    </UserControl.Resources>
+
+    <StackPanel Orientation="Horizontal" Background="{StaticResource MahApps.Brushes.Window.Background}" Visibility="{Binding Reward.Available, RelativeSource={RelativeSource AncestorType=UserControl}, Converter={StaticResource BooleanToVisibilityConverter}}">
+        <local:RewardIconUserControl Reward="{Binding Reward, RelativeSource={RelativeSource AncestorType=UserControl}}"/>
+        <StackPanel>
+            <TextBlock Text="{Binding Reward.Description, RelativeSource={RelativeSource AncestorType=UserControl}}" d:Text="Description"/>
+            <TextBlock Visibility="{Binding Reward.Obtained, RelativeSource={RelativeSource AncestorType=UserControl}, Converter={StaticResource BooleanToVisibilityConverter}}">
+                <TextBlock.Text>
+                    <MultiBinding StringFormat="{}{0}: {1:d}">
+                        <Binding Source="{x:Static properties:Resources.ObtainedDateString}"/>
+                        <Binding Path="Reward.ObtainedDate" RelativeSource="{RelativeSource AncestorType=UserControl}"/>
+                    </MultiBinding>
+                </TextBlock.Text>
+            </TextBlock>
+        </StackPanel>
+    </StackPanel>
+
+</UserControl>

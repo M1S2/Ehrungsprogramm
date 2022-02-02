@@ -43,6 +43,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Page Update="Controls\RewardDetailUserControl.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="Controls\RewardIconUserControl.xaml">
       <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
     </Page>

@@ -38,11 +38,11 @@ namespace Ehrungsprogramm.Controls
         {
             get
             {
-                if (Reward.IsBLSVType)
+                if (Reward != null && Reward.IsBLSVType)
                 {
                     return ((int)(Reward.Type)).ToString();
                 }
-                else if(Reward.IsTSVType)
+                else if(Reward != null && Reward.IsTSVType)
                 {
                     switch(Reward.Type)
                     {

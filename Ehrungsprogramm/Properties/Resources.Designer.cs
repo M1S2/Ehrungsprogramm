@@ -250,6 +250,15 @@ namespace Ehrungsprogramm.Properties {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Obtained Date ähnelt.
+        /// </summary>
+        public static string ObtainedDateString {
+            get {
+                return ResourceManager.GetString("ObtainedDateString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Person Detail ähnelt.
         /// </summary>
         public static string PersonDetailPageTitle {
