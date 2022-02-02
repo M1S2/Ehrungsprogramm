@@ -125,18 +125,14 @@ namespace Ehrungsprogramm.Core.Models
             set => SetProperty(ref _effectiveOtherFunctionsYears, value);
         }
 
-        private RewardBLSVCollection _rewardsBLSV = new RewardBLSVCollection();
-        public RewardBLSVCollection RewardsBLSV
+        private RewardCollection _rewards = new RewardCollection();
+        /// <summary>
+        /// Collection with all rewards of the person (available and already obtained)
+        /// </summary>
+        public RewardCollection Rewards
         {
-            get => _rewardsBLSV;
-            set => SetProperty(ref _rewardsBLSV, value);
-        }
-
-        private RewardTSVCollection _rewardsTSV = new RewardTSVCollection();
-        public RewardTSVCollection RewardsTSV
-        {
-            get => _rewardsTSV;
-            set => SetProperty(ref _rewardsTSV, value);
+            get => _rewards;
+            set => SetProperty(ref _rewards, value);
         }
     }
 }

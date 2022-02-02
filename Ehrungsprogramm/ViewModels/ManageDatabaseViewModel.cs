@@ -111,10 +111,10 @@ namespace Ehrungsprogramm.ViewModels
                     }
                 }
             };
-            tmpPerson.RewardsBLSV.BLSV40.Obtained = true;
-            tmpPerson.RewardsBLSV.BLSV40.ObtainedDate = new DateTime(2000, 01, 01);
-            tmpPerson.RewardsTSV.TSVSilver.Obtained = true;
-            tmpPerson.RewardsTSV.TSVSilver.ObtainedDate = new DateTime(2000, 01, 01);
+            tmpPerson.Rewards.BLSV40.Obtained = true;
+            tmpPerson.Rewards.BLSV40.ObtainedDate = new DateTime(2000, 01, 01);
+            tmpPerson.Rewards.TSVSilver.Obtained = true;
+            tmpPerson.Rewards.TSVSilver.ObtainedDate = new DateTime(2000, 01, 01);
             _personService?.AddPerson(tmpPerson);
 
 

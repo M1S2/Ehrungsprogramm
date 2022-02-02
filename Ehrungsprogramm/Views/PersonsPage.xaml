@@ -80,15 +80,15 @@
                             <DataTemplate>
                                 <StackPanel Orientation="Horizontal">
                                     <TextBlock MinWidth="30" Text="{Binding ScoreBLSV}" VerticalAlignment="Center"/>
-                                    <localControls:RewardIconUserControl Reward="{Binding RewardsBLSV.BLSV20}"/>
-                                    <localControls:RewardIconUserControl Reward="{Binding RewardsBLSV.BLSV25}"/>
-                                    <localControls:RewardIconUserControl Reward="{Binding RewardsBLSV.BLSV30}"/>
-                                    <localControls:RewardIconUserControl Reward="{Binding RewardsBLSV.BLSV40}"/>
-                                    <localControls:RewardIconUserControl Reward="{Binding RewardsBLSV.BLSV45}"/>
-                                    <localControls:RewardIconUserControl Reward="{Binding RewardsBLSV.BLSV50}"/>
-                                    <localControls:RewardIconUserControl Reward="{Binding RewardsBLSV.BLSV60}"/>
-                                    <localControls:RewardIconUserControl Reward="{Binding RewardsBLSV.BLSV70}"/>
-                                    <localControls:RewardIconUserControl Reward="{Binding RewardsBLSV.BLSV80}"/>
+                                    <localControls:RewardIconUserControl Reward="{Binding Rewards.BLSV20}"/>
+                                    <localControls:RewardIconUserControl Reward="{Binding Rewards.BLSV25}"/>
+                                    <localControls:RewardIconUserControl Reward="{Binding Rewards.BLSV30}"/>
+                                    <localControls:RewardIconUserControl Reward="{Binding Rewards.BLSV40}"/>
+                                    <localControls:RewardIconUserControl Reward="{Binding Rewards.BLSV45}"/>
+                                    <localControls:RewardIconUserControl Reward="{Binding Rewards.BLSV50}"/>
+                                    <localControls:RewardIconUserControl Reward="{Binding Rewards.BLSV60}"/>
+                                    <localControls:RewardIconUserControl Reward="{Binding Rewards.BLSV70}"/>
+                                    <localControls:RewardIconUserControl Reward="{Binding Rewards.BLSV80}"/>
                                 </StackPanel>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
@@ -105,9 +105,9 @@
                             <DataTemplate>
                                 <StackPanel Orientation="Horizontal">
                                     <TextBlock MinWidth="30" Text="{Binding ScoreTSV}" VerticalAlignment="Center"/>
-                                    <localControls:RewardIconUserControl Reward="{Binding RewardsTSV.TSVSilver}"/>
-                                    <localControls:RewardIconUserControl Reward="{Binding RewardsTSV.TSVGold}"/>
-                                    <localControls:RewardIconUserControl Reward="{Binding RewardsTSV.TSVHonorary}"/>
+                                    <localControls:RewardIconUserControl Reward="{Binding Rewards.TSVSilver}"/>
+                                    <localControls:RewardIconUserControl Reward="{Binding Rewards.TSVGold}"/>
+                                    <localControls:RewardIconUserControl Reward="{Binding Rewards.TSVHonorary}"/>
                                 </StackPanel>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>

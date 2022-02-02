@@ -130,18 +130,18 @@ namespace Ehrungsprogramm.Core.Services
             person.ScoreBLSV = person.MembershipYears * 1;  // One point per year of membership
 
             // ***** Update Rewards *****
-            person.RewardsBLSV.BLSV20.Available = (person.ScoreBLSV >= 20);
-            person.RewardsBLSV.BLSV25.Available = (person.ScoreBLSV >= 25);
-            person.RewardsBLSV.BLSV30.Available = (person.ScoreBLSV >= 30);
-            person.RewardsBLSV.BLSV40.Available = (person.ScoreBLSV >= 40);
-            person.RewardsBLSV.BLSV45.Available = (person.ScoreBLSV >= 45);
-            person.RewardsBLSV.BLSV50.Available = (person.ScoreBLSV >= 50);
-            person.RewardsBLSV.BLSV60.Available = (person.ScoreBLSV >= 60);
-            person.RewardsBLSV.BLSV70.Available = (person.ScoreBLSV >= 70);
-            person.RewardsBLSV.BLSV80.Available = (person.ScoreBLSV >= 80);
-            person.RewardsTSV.TSVSilver.Available = (person.ScoreTSV >= REWARD_TSVSILVER_POINTS);
-            person.RewardsTSV.TSVGold.Available = (person.ScoreTSV >= REWARD_TSVGOLD_POINTS);
-            person.RewardsTSV.TSVHonorary.Available = (person.ScoreTSV >= REWARD_TSVHONORARY_POINTS);
+            person.Rewards.BLSV20.Available = (person.ScoreBLSV >= 20);
+            person.Rewards.BLSV25.Available = (person.ScoreBLSV >= 25);
+            person.Rewards.BLSV30.Available = (person.ScoreBLSV >= 30);
+            person.Rewards.BLSV40.Available = (person.ScoreBLSV >= 40);
+            person.Rewards.BLSV45.Available = (person.ScoreBLSV >= 45);
+            person.Rewards.BLSV50.Available = (person.ScoreBLSV >= 50);
+            person.Rewards.BLSV60.Available = (person.ScoreBLSV >= 60);
+            person.Rewards.BLSV70.Available = (person.ScoreBLSV >= 70);
+            person.Rewards.BLSV80.Available = (person.ScoreBLSV >= 80);
+            person.Rewards.TSVSilver.Available = (person.ScoreTSV >= REWARD_TSVSILVER_POINTS);
+            person.Rewards.TSVGold.Available = (person.ScoreTSV >= REWARD_TSVGOLD_POINTS);
+            person.Rewards.TSVHonorary.Available = (person.ScoreTSV >= REWARD_TSVHONORARY_POINTS);
         }
 
     }

@@ -5,6 +5,9 @@ using Microsoft.Toolkit.Mvvm.ComponentModel;
 
 namespace Ehrungsprogramm.Core.Models
 {
+    /// <summary>
+    /// Available reward types
+    /// </summary>
     public enum RewardType
     {
         BLSV20 = 20,
@@ -22,6 +25,10 @@ namespace Ehrungsprogramm.Core.Models
         UNKNOWN = 0
     }
 
+
+    /// <summary>
+    /// Class describing a reward
+    /// </summary>
     public class Reward : ObservableObject
     {
         private int _id;
@@ -35,12 +42,18 @@ namespace Ehrungsprogramm.Core.Models
         }
 
         private RewardType _type;
+        /// <summary>
+        /// Type of the reward
+        /// </summary>
         public RewardType Type 
         { 
             get => _type;
             set { SetProperty(ref _type, value); OnPropertyChanged(nameof(IsBLSVType)); OnPropertyChanged(nameof(IsTSVType)); }
         }
 
+        /// <summary>
+        /// Is the reward a BLSV reward
+        /// </summary>
         public bool IsBLSVType
         {
             get
@@ -62,6 +75,9 @@ namespace Ehrungsprogramm.Core.Models
             }
         }
 
+        /// <summary>
+        /// Is the reward a TSV reward
+        /// </summary>
         public bool IsTSVType
         {
             get
@@ -78,6 +94,9 @@ namespace Ehrungsprogramm.Core.Models
         }
 
         private string _description;
+        /// <summary>
+        /// Description string for the reward which contains details informations
+        /// </summary>
         public string Description
         {
             get => _description;
@@ -85,6 +104,9 @@ namespace Ehrungsprogramm.Core.Models
         }
 
         private bool _available;
+        /// <summary>
+        /// Indicating if the reward is available (if the corresponding score is high enough). The reward hasn't to be obtained yet.
+        /// </summary>
         public bool Available
         {
             get => _available;
@@ -92,6 +114,9 @@ namespace Ehrungsprogramm.Core.Models
         }
 
         private bool _obtained;
+        /// <summary>
+        /// Indicating if the reward was obtained already
+        /// </summary>
         public bool Obtained
         {
             get => _obtained;
@@ -99,112 +124,25 @@ namespace Ehrungsprogramm.Core.Models
         }
 
         private DateTime _obtainedDate;
+        /// <summary>
+        /// Date when the reward was obtained (only valid if <see cref="Obtained"/> is true)
+        /// </summary>
         public DateTime ObtainedDate
         {
             get => _obtainedDate;
             set => SetProperty(ref _obtainedDate, value);
         }
 
+        /// <summary>
+        /// Constructor for the Reward
+        /// </summary>
         public Reward()
         {
+            Description = "";
             Available = false;
             Obtained = false;
             ObtainedDate = DateTime.MinValue;
         }
-    }
-
-    public class RewardBLSVCollection : ObservableObject
-    {
-        private int _id;
-        /// <summary>
-        /// Id used to identify this object in a database.
-        /// </summary>
-        public int Id
-        {
-            get => _id;
-            set => SetProperty(ref _id, value);
-        }
-
-        private Dictionary<RewardType, Reward> _rewards = new Dictionary<RewardType, Reward>();
-        public Dictionary<RewardType, Reward> Rewards
-        {
-            get => _rewards;
-            set => SetProperty(ref _rewards, value);
-        }
-
-        public RewardBLSVCollection()
-        {
-            Rewards.Add(RewardType.BLSV20, new Reward() { Type = RewardType.BLSV20 });
-            Rewards.Add(RewardType.BLSV25, new Reward() { Type = RewardType.BLSV25 });
-            Rewards.Add(RewardType.BLSV30, new Reward() { Type = RewardType.BLSV30 });
-            Rewards.Add(RewardType.BLSV40, new Reward() { Type = RewardType.BLSV40 });
-            Rewards.Add(RewardType.BLSV45, new Reward() { Type = RewardType.BLSV45 });
-            Rewards.Add(RewardType.BLSV50, new Reward() { Type = RewardType.BLSV50 });
-            Rewards.Add(RewardType.BLSV60, new Reward() { Type = RewardType.BLSV60 });
-            Rewards.Add(RewardType.BLSV70, new Reward() { Type = RewardType.BLSV70 });
-            Rewards.Add(RewardType.BLSV80, new Reward() { Type = RewardType.BLSV80 });
-        }
-
-        public bool AddReward(Reward reward)
-        {
-            if (reward.IsBLSVType) 
-            { 
-                Rewards[reward.Type] = reward;
-                return true;
-            }
-            return false;
-        }
-
-        public Reward BLSV20 => Rewards[RewardType.BLSV20];
-        public Reward BLSV25 => Rewards[RewardType.BLSV25];
-        public Reward BLSV30 => Rewards[RewardType.BLSV30];
-        public Reward BLSV40 => Rewards[RewardType.BLSV40]; 
-        public Reward BLSV45 => Rewards[RewardType.BLSV45];
-        public Reward BLSV50 => Rewards[RewardType.BLSV50];
-        public Reward BLSV60 => Rewards[RewardType.BLSV60];
-        public Reward BLSV70 => Rewards[RewardType.BLSV70];
-        public Reward BLSV80 => Rewards[RewardType.BLSV80];
-    }
-
-    public class RewardTSVCollection : ObservableObject
-    {
-        private int _id;
-        /// <summary>
-        /// Id used to identify this object in a database.
-        /// </summary>
-        public int Id
-        {
-            get => _id;
-            set => SetProperty(ref _id, value);
-        }
-
-        private Dictionary<RewardType, Reward> _rewards = new Dictionary<RewardType, Reward>();
-        public Dictionary<RewardType, Reward> Rewards
-        {
-            get => _rewards;
-            set => SetProperty(ref _rewards, value);
-        }
-
-        public RewardTSVCollection()
-        {
-            Rewards.Add(RewardType.TSVSILVER, new Reward() { Type = RewardType.TSVSILVER });
-            Rewards.Add(RewardType.TSVGOLD, new Reward() { Type = RewardType.TSVGOLD });
-            Rewards.Add(RewardType.TSVHONORARY, new Reward() { Type = RewardType.TSVHONORARY });
-        }
-
-        public bool AddReward(Reward reward)
-        {
-            if (reward.IsTSVType)
-            {
-                Rewards[reward.Type] = reward;
-                return true;
-            }
-            return false;
-        }
-
-        public Reward TSVSilver => Rewards[RewardType.TSVSILVER];
-        public Reward TSVGold => Rewards[RewardType.TSVGOLD];
-        public Reward TSVHonorary => Rewards[RewardType.TSVHONORARY];
     }
 
 }

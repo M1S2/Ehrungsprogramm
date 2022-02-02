@@ -146,12 +146,9 @@ namespace Ehrungsprogramm.Core.Services
                         default: reward.Type = RewardType.UNKNOWN; break;
                     }
 
-                    if(!person.RewardsBLSV.AddReward(reward))
+                    if(!person.Rewards.AddReward(reward))
                     {
-                        if(!person.RewardsTSV.AddReward(reward))
-                        {
-                            // Unknown reward type
-                        }
+                        // Unknown reward type
                     }
                 }
 

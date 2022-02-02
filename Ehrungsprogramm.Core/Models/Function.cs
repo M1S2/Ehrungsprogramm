@@ -7,6 +7,33 @@ using Itenso.TimePeriod;
 namespace Ehrungsprogramm.Core.Models
 {
     /// <summary>
+    /// Available function types.
+    /// </summary>
+    public enum FunctionType
+    {
+        /// <summary>
+        /// Job as board member
+        /// </summary>
+        BOARD_MEMBER,
+
+        /// <summary>
+        /// Role as head of departement
+        /// </summary>
+        HEAD_OF_DEPARTEMENT,
+
+        /// <summary>
+        /// Any other function like trainer or press officer.
+        /// </summary>
+        OTHER_FUNCTION,
+
+        /// <summary>
+        /// Unknown function. This should only be used as placeholder.
+        /// </summary>
+        UNKNOWN
+    }
+
+
+    /// <summary>
     /// Class that is describing a function that a person has.
     /// This can be a job as board member, head of an departement
     /// or any other function like trainer or press officer.
