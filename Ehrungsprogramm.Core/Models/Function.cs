@@ -38,7 +38,7 @@ namespace Ehrungsprogramm.Core.Models
     /// This can be a job as board member, head of an departement
     /// or any other function like trainer or press officer.
     /// </summary>
-    public class Function : ObservableObject
+    public class Function : ObservableObject, IEquatable<Function>
     {
         private int _id;
         /// <summary>
@@ -83,6 +83,51 @@ namespace Ehrungsprogramm.Core.Models
         /// <summary>
         /// Number of years, the function was done. This is calculated from the <see cref="TimePeriod"/> property and is rounded up to the next full number of years.
         /// </summary>
-        public int FunctionYears => (int)Math.Ceiling(TimePeriod.Duration.TotalDays / 365);        
+        public int FunctionYears => (int)Math.Ceiling(TimePeriod.Duration.TotalDays / 365);
+
+        // +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+        /// <summary>
+        /// Compare if two Functions are equal
+        /// </summary>
+        /// <param name="obj">Other Function to compare against this instance.</param>
+        /// <returns>true if both instances are equal; false if not equal or obj isn't of type <see cref="Function"/></returns>
+        public override bool Equals(object obj)
+        {
+            Function other = obj as Function;
+            if (other == null) return false;
+
+            return Type.Equals(other.Type) &&
+                Description.Equals(other.Description) &&
+                TimePeriod.Equals(other.TimePeriod);
+        }
+
+        /// <summary>
+        /// Indicates wheather the current object is equal to another object of the same type.
+        /// </summary>
+        /// <param name="other">Other object to compare.</param>
+        /// <returns>true if the current object is equal to the other parameter; otherwise false.</returns>
+        public bool Equals(Function other)
+        {
+            return Equals((object)other);
+        }
+
+        /// <summary>
+        /// Serves as the default hash function.
+        /// </summary>
+        /// <returns>A hash code for the current object.</returns>
+        public override int GetHashCode()
+        {
+            return Id;
+        }
+
+        /// <summary>
+        /// Returns a string that represents the current object.
+        /// </summary>
+        /// <returns>A string that represents the current object.</returns>
+        public override string ToString()
+        {
+            return Type.ToString() + ": " + Description + " (" + TimePeriod.ToString() + ")";
+        }
     }
 }

@@ -23,163 +23,163 @@
             Style="{StaticResource PageTitleStyle}"
             Margin="{StaticResource MediumLeftMargin}"
             Text="{x:Static properties:Resources.PersonDetailPageTitle}" />
-        
-        <Grid Grid.Row="1" Margin="{StaticResource MediumLeftRightMargin}">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="80"/>
-                <RowDefinition Height="40"/>
-                <RowDefinition Height="40"/>
-                <RowDefinition Height="40"/>
-                <RowDefinition Height="40"/>
-                <RowDefinition Height="40"/>
-                <RowDefinition Height="40"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="180"/>
-                <RowDefinition Height="50"/>
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="80"/>
-                <ColumnDefinition Width="150"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
 
-            <controls:FontIcon Grid.Row="0" Grid.Column="0" FontSize="50" Glyph="&#xE77B;" ToolTip="{x:Static properties:Resources.NameString}"/>
-            <TextBlock Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" VerticalAlignment="Center" FontSize="{StaticResource LargeFontSize}">
-                <TextBlock.Text>
-                    <MultiBinding StringFormat="{}{0} {1}">
-                        <Binding Path="Person.FirstName"/>
-                        <Binding Path="Person.Name"/>
-                    </MultiBinding>
-                </TextBlock.Text>
-            </TextBlock>
+        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+            <Grid Margin="{StaticResource MediumLeftRightMargin}">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="80"/>
+                    <RowDefinition Height="40"/>
+                    <RowDefinition Height="40"/>
+                    <RowDefinition Height="40"/>
+                    <RowDefinition Height="40"/>
+                    <RowDefinition Height="40"/>
+                    <RowDefinition Height="40"/>
+                    <RowDefinition Height="250"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="50"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="80"/>
+                    <ColumnDefinition Width="150"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
 
-            <controls:FontIcon Grid.Row="1" Grid.Column="0" FontSize="30" Glyph="&#xED55;" ToolTip="{x:Static properties:Resources.BirthDateString}"/>
-            <TextBlock Grid.Row="1" Grid.Column="1" Margin="3" VerticalAlignment="Center" Text="{x:Static properties:Resources.BirthDateString}" FontSize="{StaticResource MediumFontSize}"/>
-            <TextBlock Grid.Row="1" Grid.Column="2" Margin="3" VerticalAlignment="Center" Text="{Binding Person.BirthDate, StringFormat=d}" FontSize="{StaticResource MediumFontSize}"/>
+                <controls:FontIcon Grid.Row="0" Grid.Column="0" FontSize="50" Glyph="&#xE77B;" ToolTip="{x:Static properties:Resources.NameString}"/>
+                <TextBlock Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" VerticalAlignment="Center" FontSize="{StaticResource LargeFontSize}">
+                    <TextBlock.Text>
+                        <MultiBinding StringFormat="{}{0} {1}">
+                            <Binding Path="Person.FirstName"/>
+                            <Binding Path="Person.Name"/>
+                        </MultiBinding>
+                    </TextBlock.Text>
+                </TextBlock>
 
-            <controls:FontIcon Grid.Row="2" Grid.Column="0" FontSize="30" Glyph="&#xE787;" ToolTip="{x:Static properties:Resources.EntryDateString}"/>
-            <TextBlock Grid.Row="2" Grid.Column="1" Margin="3" VerticalAlignment="Center" Text="{x:Static properties:Resources.EntryDateString}" FontSize="{StaticResource MediumFontSize}"/>
-            <TextBlock Grid.Row="2" Grid.Column="2" Margin="3" VerticalAlignment="Center" Text="{Binding Person.EntryDate, StringFormat=d}" FontSize="{StaticResource MediumFontSize}"/>
+                <controls:FontIcon Grid.Row="1" Grid.Column="0" FontSize="30" Glyph="&#xED55;" ToolTip="{x:Static properties:Resources.BirthDateString}"/>
+                <TextBlock Grid.Row="1" Grid.Column="1" Margin="3" VerticalAlignment="Center" Text="{x:Static properties:Resources.BirthDateString}" FontSize="{StaticResource MediumFontSize}"/>
+                <TextBlock Grid.Row="1" Grid.Column="2" Margin="3" VerticalAlignment="Center" Text="{Binding Person.BirthDate, StringFormat=d}" FontSize="{StaticResource MediumFontSize}"/>
 
-            <controls:FontIcon Grid.Row="3" Grid.Column="0" FontSize="30" Glyph="&#xEC92;" ToolTip="{x:Static properties:Resources.MembershipYearsString}"/>
-            <TextBlock Grid.Row="3" Grid.Column="1" Margin="3" VerticalAlignment="Center" Text="{x:Static properties:Resources.MembershipYearsString}" FontSize="{StaticResource MediumFontSize}"/>
-            <TextBlock Grid.Row="3" Grid.Column="2" Margin="3" VerticalAlignment="Center" Text="{Binding Person.MembershipYears}" FontSize="{StaticResource MediumFontSize}"/>
+                <controls:FontIcon Grid.Row="2" Grid.Column="0" FontSize="30" Glyph="&#xE787;" ToolTip="{x:Static properties:Resources.EntryDateString}"/>
+                <TextBlock Grid.Row="2" Grid.Column="1" Margin="3" VerticalAlignment="Center" Text="{x:Static properties:Resources.EntryDateString}" FontSize="{StaticResource MediumFontSize}"/>
+                <TextBlock Grid.Row="2" Grid.Column="2" Margin="3" VerticalAlignment="Center" Text="{Binding Person.EntryDate, StringFormat=d}" FontSize="{StaticResource MediumFontSize}"/>
 
-            <controls:FontIcon Grid.Row="5" Grid.Column="0" FontSize="30" Glyph="&#xE734;" ToolTip="{x:Static properties:Resources.ScoreBLSVString}"/>
-            <TextBlock Grid.Row="5" Grid.Column="1" Margin="3" VerticalAlignment="Center" Text="{x:Static properties:Resources.ScoreBLSVString}" FontSize="{StaticResource MediumFontSize}"/>
-            <TextBlock Grid.Row="5" Grid.Column="2" Margin="3" VerticalAlignment="Center" Text="{Binding Person.ScoreBLSV}" FontSize="{StaticResource MediumFontSize}"/>
+                <controls:FontIcon Grid.Row="3" Grid.Column="0" FontSize="30" Glyph="&#xEC92;" ToolTip="{x:Static properties:Resources.MembershipYearsString}"/>
+                <TextBlock Grid.Row="3" Grid.Column="1" Margin="3" VerticalAlignment="Center" Text="{x:Static properties:Resources.MembershipYearsString}" FontSize="{StaticResource MediumFontSize}"/>
+                <TextBlock Grid.Row="3" Grid.Column="2" Margin="3" VerticalAlignment="Center" Text="{Binding Person.MembershipYears}" FontSize="{StaticResource MediumFontSize}"/>
 
-            <controls:FontIcon Grid.Row="6" Grid.Column="0" FontSize="30" Glyph="&#xE734;" ToolTip="{x:Static properties:Resources.ScoreTSVString}"/>
-            <TextBlock Grid.Row="6" Grid.Column="1" Margin="3" VerticalAlignment="Center" Text="{x:Static properties:Resources.ScoreTSVString}" FontSize="{StaticResource MediumFontSize}"/>
-            <TextBlock Grid.Row="6" Grid.Column="2" Margin="3" VerticalAlignment="Center" Text="{Binding Person.ScoreTSV}" FontSize="{StaticResource MediumFontSize}"/>
+                <controls:FontIcon Grid.Row="5" Grid.Column="0" FontSize="30" Glyph="&#xE734;" ToolTip="{x:Static properties:Resources.ScoreBLSVString}"/>
+                <TextBlock Grid.Row="5" Grid.Column="1" Margin="3" VerticalAlignment="Center" Text="{x:Static properties:Resources.ScoreBLSVString}" FontSize="{StaticResource MediumFontSize}"/>
+                <TextBlock Grid.Row="5" Grid.Column="2" Margin="3" VerticalAlignment="Center" Text="{Binding Person.ScoreBLSV}" FontSize="{StaticResource MediumFontSize}"/>
 
-            <controls:FontIcon Grid.Row="7" Grid.Column="0" FontSize="30" Glyph="&#xE821;" ToolTip="{x:Static properties:Resources.FunctionsString}" VerticalAlignment="Top" Margin="3,20,3,3"/>
-            <TextBlock Grid.Row="7" Grid.Column="1" Margin="3,20,3,3" VerticalAlignment="Top" Text="{x:Static properties:Resources.FunctionsString}" FontSize="{StaticResource MediumFontSize}"/>
+                <controls:FontIcon Grid.Row="6" Grid.Column="0" FontSize="30" Glyph="&#xE734;" ToolTip="{x:Static properties:Resources.ScoreTSVString}"/>
+                <TextBlock Grid.Row="6" Grid.Column="1" Margin="3" VerticalAlignment="Center" Text="{x:Static properties:Resources.ScoreTSVString}" FontSize="{StaticResource MediumFontSize}"/>
+                <TextBlock Grid.Row="6" Grid.Column="2" Margin="3" VerticalAlignment="Center" Text="{Binding Person.ScoreTSV}" FontSize="{StaticResource MediumFontSize}"/>
 
-            <DockPanel Grid.Row="7" Grid.Column="2" LastChildFill="True">
-                <Grid Margin="30,20,0,0" DockPanel.Dock="Right">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="40"/>
-                        <RowDefinition Height="40"/>
-                        <RowDefinition Height="40"/>
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="80"/>
-                        <ColumnDefinition Width="210"/>
-                        <ColumnDefinition Width="80"/>
-                    </Grid.ColumnDefinitions>
+                <controls:FontIcon Grid.Row="7" Grid.Column="0" FontSize="30" Glyph="&#xE821;" ToolTip="{x:Static properties:Resources.FunctionsString}" VerticalAlignment="Top" Margin="3,20,3,3"/>
+                <TextBlock Grid.Row="7" Grid.Column="1" Margin="3,20,3,3" VerticalAlignment="Top" Text="{x:Static properties:Resources.FunctionsString}" FontSize="{StaticResource MediumFontSize}"/>
 
-                    <iconPacks:PackIconMaterial Grid.Row="0" Grid.Column="0" Kind="CrownOutline" Width="30" Height="30" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                    <TextBlock Grid.Row="0" Grid.Column="1" Margin="3" VerticalAlignment="Center" Text="{x:Static properties:Resources.EffectiveBoardMemberYears}" FontSize="{StaticResource MediumFontSize}"/>
-                    <TextBlock Grid.Row="0" Grid.Column="2" Text="{Binding Person.EffectiveBoardMemberYears}" VerticalAlignment="Center" FontSize="{StaticResource MediumFontSize}"/>
+                <DockPanel Grid.Row="7" Grid.Column="2" LastChildFill="True">
+                    <Grid Margin="30,20,0,0" DockPanel.Dock="Right">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="40"/>
+                            <RowDefinition Height="40"/>
+                            <RowDefinition Height="40"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="80"/>
+                            <ColumnDefinition Width="210"/>
+                            <ColumnDefinition Width="80"/>
+                        </Grid.ColumnDefinitions>
 
-                    <iconPacks:PackIconUnicons Grid.Row="1" Grid.Column="0" Kind="HeadSide" Width="30" Height="30" VerticalAlignment="Center" HorizontalAlignment="Center" RenderTransformOrigin="0.5,0.5">
-                        <iconPacks:PackIconUnicons.RenderTransform>
-                            <TransformGroup>
-                                <ScaleTransform ScaleX="-1"/>
-                            </TransformGroup>
-                        </iconPacks:PackIconUnicons.RenderTransform>
-                    </iconPacks:PackIconUnicons>
-                    <TextBlock Grid.Row="1" Grid.Column="1" Margin="3" VerticalAlignment="Center" Text="{x:Static properties:Resources.EffectiveHeadOfDepartementYears}" FontSize="{StaticResource MediumFontSize}"/>
-                    <TextBlock Grid.Row="1" Grid.Column="2" Text="{Binding Person.EffectiveHeadOfDepartementYears}" VerticalAlignment="Center" FontSize="{StaticResource MediumFontSize}"/>
+                        <iconPacks:PackIconMaterial Grid.Row="0" Grid.Column="0" Kind="CrownOutline" Width="30" Height="30" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                        <TextBlock Grid.Row="0" Grid.Column="1" Margin="3" VerticalAlignment="Center" Text="{x:Static properties:Resources.EffectiveBoardMemberYears}" FontSize="{StaticResource MediumFontSize}"/>
+                        <TextBlock Grid.Row="0" Grid.Column="2" Text="{Binding Person.EffectiveBoardMemberYears}" VerticalAlignment="Center" FontSize="{StaticResource MediumFontSize}"/>
 
-                    <iconPacks:PackIconUnicons Grid.Row="2" Grid.Column="0" Kind="Basketball" Width="30" Height="30" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                    <TextBlock Grid.Row="2" Grid.Column="1" Margin="3" VerticalAlignment="Center" Text="{x:Static properties:Resources.EffectiveOtherFunctionsYears}" FontSize="{StaticResource MediumFontSize}"/>
-                    <TextBlock Grid.Row="2" Grid.Column="2" Text="{Binding Person.EffectiveOtherFunctionsYears}" VerticalAlignment="Center" FontSize="{StaticResource MediumFontSize}"/>
-                </Grid>
+                        <iconPacks:PackIconUnicons Grid.Row="1" Grid.Column="0" Kind="HeadSide" Width="30" Height="30" VerticalAlignment="Center" HorizontalAlignment="Center" RenderTransformOrigin="0.5,0.5">
+                            <iconPacks:PackIconUnicons.RenderTransform>
+                                <TransformGroup>
+                                    <ScaleTransform ScaleX="-1"/>
+                                </TransformGroup>
+                            </iconPacks:PackIconUnicons.RenderTransform>
+                        </iconPacks:PackIconUnicons>
+                        <TextBlock Grid.Row="1" Grid.Column="1" Margin="3" VerticalAlignment="Center" Text="{x:Static properties:Resources.EffectiveHeadOfDepartementYears}" FontSize="{StaticResource MediumFontSize}"/>
+                        <TextBlock Grid.Row="1" Grid.Column="2" Text="{Binding Person.EffectiveHeadOfDepartementYears}" VerticalAlignment="Center" FontSize="{StaticResource MediumFontSize}"/>
 
-                <ListView Margin="3,20,3,3" DockPanel.Dock="Left" ItemsSource="{Binding Person.Functions}">
-                    <ListView.View>
-                        <GridView>
-                            <GridViewColumn DisplayMemberBinding="{Binding Description}">
-                                <GridViewColumn.Header>
-                                    <StackPanel Orientation="Horizontal">
-                                        <controls:FontIcon Glyph="&#xE946;" Margin="5"/>
-                                        <TextBlock Text="{x:Static properties:Resources.DescriptionString}" VerticalAlignment="Center"/>
-                                    </StackPanel>
-                                </GridViewColumn.Header>
-                            </GridViewColumn>
-                            <GridViewColumn DisplayMemberBinding="{Binding Type}">
-                                <GridViewColumn.Header>
-                                    <StackPanel Orientation="Horizontal">
-                                        <controls:FontIcon Glyph="&#xE821;" Margin="5"/>
-                                        <TextBlock Text="{x:Static properties:Resources.FunctionTypeString}" VerticalAlignment="Center"/>
-                                    </StackPanel>
-                                </GridViewColumn.Header>
-                            </GridViewColumn>
-                            <GridViewColumn>
-                                <GridViewColumn.DisplayMemberBinding>
-                                    <MultiBinding StringFormat="{}{0:d} - {1:d}">
-                                        <Binding Path="TimePeriod.Start"/>
-                                        <Binding Path="TimePeriod.End"/>
-                                    </MultiBinding>
-                                </GridViewColumn.DisplayMemberBinding>
-                                <GridViewColumn.Header>
-                                    <StackPanel Orientation="Horizontal">
-                                        <controls:FontIcon Glyph="&#xE787;" Margin="5"/>
-                                        <TextBlock Text="{x:Static properties:Resources.TimePeriodString}" VerticalAlignment="Center"/>
-                                    </StackPanel>
-                                </GridViewColumn.Header>
-                            </GridViewColumn>
-                            <GridViewColumn DisplayMemberBinding="{Binding FunctionYears, StringFormat=d}">
-                                <GridViewColumn.Header>
-                                    <StackPanel Orientation="Horizontal">
-                                        <controls:FontIcon Glyph="&#xEC92;" Margin="5"/>
-                                        <TextBlock Text="{x:Static properties:Resources.FunctionYearsString}" VerticalAlignment="Center"/>
-                                    </StackPanel>
-                                </GridViewColumn.Header>
-                            </GridViewColumn>
-                        </GridView>
-                    </ListView.View>
-                </ListView>
-            </DockPanel>
+                        <iconPacks:PackIconUnicons Grid.Row="2" Grid.Column="0" Kind="Basketball" Width="30" Height="30" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                        <TextBlock Grid.Row="2" Grid.Column="1" Margin="3" VerticalAlignment="Center" Text="{x:Static properties:Resources.EffectiveOtherFunctionsYears}" FontSize="{StaticResource MediumFontSize}"/>
+                        <TextBlock Grid.Row="2" Grid.Column="2" Text="{Binding Person.EffectiveOtherFunctionsYears}" VerticalAlignment="Center" FontSize="{StaticResource MediumFontSize}"/>
+                    </Grid>
 
-            <icons:PackIconUnicons Grid.Row="8" Grid.Column="0" Width="35" Height="35" Kind="Award" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="3,20,3,3" ToolTip="{x:Static properties:Resources.RewardsString}"/>
-            <TextBlock Grid.Row="8" Grid.Column="1" Margin="3,20,3,3" VerticalAlignment="Top" Text="{x:Static properties:Resources.RewardsString}" FontSize="{StaticResource MediumFontSize}"/>
-            <!--<TextBlock Grid.Row="8" Grid.Column="2" Text="Coming soon..." FontSize="{StaticResource MediumFontSize}" Margin="3,20,3,3"/>
-            -->
-            <StackPanel Orientation="Horizontal" Grid.Row="8" Grid.Column="2" Margin="3,20,3,3">
-                <WrapPanel Orientation="Vertical">
-                    <localControls:RewardDetailUserControl Margin="5" Reward="{Binding Person.Rewards.BLSV20}"/>
-                    <localControls:RewardDetailUserControl Margin="5" Reward="{Binding Person.Rewards.BLSV25}"/>
-                    <localControls:RewardDetailUserControl Margin="5" Reward="{Binding Person.Rewards.BLSV30}"/>
-                    <localControls:RewardDetailUserControl Margin="5" Reward="{Binding Person.Rewards.BLSV40}"/>
-                    <localControls:RewardDetailUserControl Margin="5" Reward="{Binding Person.Rewards.BLSV45}"/>
-                    <localControls:RewardDetailUserControl Margin="5" Reward="{Binding Person.Rewards.BLSV50}"/>
-                    <localControls:RewardDetailUserControl Margin="5" Reward="{Binding Person.Rewards.BLSV60}"/>
-                    <localControls:RewardDetailUserControl Margin="5" Reward="{Binding Person.Rewards.BLSV70}"/>
-                    <localControls:RewardDetailUserControl Margin="5" Reward="{Binding Person.Rewards.BLSV80}"/>
-                </WrapPanel>
-                <WrapPanel Orientation="Vertical" Margin="100,0,0,0">
-                    <localControls:RewardDetailUserControl Margin="5" Reward="{Binding Person.Rewards.TSVSilver}"/>
-                    <localControls:RewardDetailUserControl Margin="5" Reward="{Binding Person.Rewards.TSVGold}"/>
-                    <localControls:RewardDetailUserControl Margin="5" Reward="{Binding Person.Rewards.TSVHonorary}"/>
-                </WrapPanel>
-            </StackPanel>
+                    <ListView Margin="3,20,3,3" DockPanel.Dock="Left" ItemsSource="{Binding Person.Functions}">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn DisplayMemberBinding="{Binding Description}">
+                                    <GridViewColumn.Header>
+                                        <StackPanel Orientation="Horizontal">
+                                            <controls:FontIcon Glyph="&#xE946;" Margin="5"/>
+                                            <TextBlock Text="{x:Static properties:Resources.DescriptionString}" VerticalAlignment="Center"/>
+                                        </StackPanel>
+                                    </GridViewColumn.Header>
+                                </GridViewColumn>
+                                <GridViewColumn DisplayMemberBinding="{Binding Type}">
+                                    <GridViewColumn.Header>
+                                        <StackPanel Orientation="Horizontal">
+                                            <controls:FontIcon Glyph="&#xE821;" Margin="5"/>
+                                            <TextBlock Text="{x:Static properties:Resources.FunctionTypeString}" VerticalAlignment="Center"/>
+                                        </StackPanel>
+                                    </GridViewColumn.Header>
+                                </GridViewColumn>
+                                <GridViewColumn>
+                                    <GridViewColumn.DisplayMemberBinding>
+                                        <MultiBinding StringFormat="{}{0:d} - {1:d}">
+                                            <Binding Path="TimePeriod.Start"/>
+                                            <Binding Path="TimePeriod.End"/>
+                                        </MultiBinding>
+                                    </GridViewColumn.DisplayMemberBinding>
+                                    <GridViewColumn.Header>
+                                        <StackPanel Orientation="Horizontal">
+                                            <controls:FontIcon Glyph="&#xE787;" Margin="5"/>
+                                            <TextBlock Text="{x:Static properties:Resources.TimePeriodString}" VerticalAlignment="Center"/>
+                                        </StackPanel>
+                                    </GridViewColumn.Header>
+                                </GridViewColumn>
+                                <GridViewColumn DisplayMemberBinding="{Binding FunctionYears, StringFormat=d}">
+                                    <GridViewColumn.Header>
+                                        <StackPanel Orientation="Horizontal">
+                                            <controls:FontIcon Glyph="&#xEC92;" Margin="5"/>
+                                            <TextBlock Text="{x:Static properties:Resources.FunctionYearsString}" VerticalAlignment="Center"/>
+                                        </StackPanel>
+                                    </GridViewColumn.Header>
+                                </GridViewColumn>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                </DockPanel>
 
-            <Button Grid.Row="9" Grid.Column="2" Command="{Binding OkCommand}" Style="{StaticResource MahApps.Styles.Button.Circle}" VerticalAlignment="Top" HorizontalAlignment="Right" Width="40" Height="40" Margin="3">
-                <controls:FontIcon FontSize="50" Margin="-5,-5,0,0" Glyph="&#xF13E;"/>
-            </Button>
-        </Grid>
+                <icons:PackIconUnicons Grid.Row="8" Grid.Column="0" Width="35" Height="35" Kind="Award" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="3,20,3,3" ToolTip="{x:Static properties:Resources.RewardsString}"/>
+                <TextBlock Grid.Row="8" Grid.Column="1" Margin="3,20,3,3" VerticalAlignment="Top" Text="{x:Static properties:Resources.RewardsString}" FontSize="{StaticResource MediumFontSize}"/>
+                <StackPanel Orientation="Vertical" Grid.Row="8" Grid.Column="2" Margin="3,20,3,3">
+                    <WrapPanel Orientation="Horizontal">
+                        <localControls:RewardDetailUserControl Margin="5" Reward="{Binding Person.Rewards.BLSV20}"/>
+                        <localControls:RewardDetailUserControl Margin="5" Reward="{Binding Person.Rewards.BLSV25}"/>
+                        <localControls:RewardDetailUserControl Margin="5" Reward="{Binding Person.Rewards.BLSV30}"/>
+                        <localControls:RewardDetailUserControl Margin="5" Reward="{Binding Person.Rewards.BLSV40}"/>
+                        <localControls:RewardDetailUserControl Margin="5" Reward="{Binding Person.Rewards.BLSV45}"/>
+                        <localControls:RewardDetailUserControl Margin="5" Reward="{Binding Person.Rewards.BLSV50}"/>
+                        <localControls:RewardDetailUserControl Margin="5" Reward="{Binding Person.Rewards.BLSV60}"/>
+                        <localControls:RewardDetailUserControl Margin="5" Reward="{Binding Person.Rewards.BLSV70}"/>
+                        <localControls:RewardDetailUserControl Margin="5" Reward="{Binding Person.Rewards.BLSV80}"/>
+                    </WrapPanel>
+                    <WrapPanel Orientation="Horizontal" Margin="0,20,0,0">
+                        <localControls:RewardDetailUserControl Margin="5" Reward="{Binding Person.Rewards.TSVSilver}"/>
+                        <localControls:RewardDetailUserControl Margin="5" Reward="{Binding Person.Rewards.TSVGold}"/>
+                        <localControls:RewardDetailUserControl Margin="5" Reward="{Binding Person.Rewards.TSVHonorary}"/>
+                    </WrapPanel>
+                </StackPanel>
+
+                <Button Grid.Row="9" Grid.Column="2" Command="{Binding OkCommand}" Style="{StaticResource MahApps.Styles.Button.Circle}" VerticalAlignment="Top" HorizontalAlignment="Right" Width="40" Height="40" Margin="3">
+                    <controls:FontIcon FontSize="50" Margin="-5,-5,0,0" Glyph="&#xF13E;"/>
+                </Button>
+            </Grid>
+        </ScrollViewer>
     </Grid>
 </Page>

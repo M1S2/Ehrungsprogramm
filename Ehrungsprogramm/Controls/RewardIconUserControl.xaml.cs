@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -17,8 +18,14 @@ namespace Ehrungsprogramm.Controls
     /// <summary>
     /// Interaktionslogik für RewardIconUserControl.xaml
     /// </summary>
-    public partial class RewardIconUserControl : UserControl
+    public partial class RewardIconUserControl : UserControl, INotifyPropertyChanged
     {
+        public event PropertyChangedEventHandler PropertyChanged;
+        private void RaisePropertyChanged(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
         /// <summary>
         /// Reward for which the icon is generated
         /// </summary>
@@ -27,7 +34,12 @@ namespace Ehrungsprogramm.Controls
             get { return (Reward)GetValue(RewardProperty); }
             set { SetValue(RewardProperty, value); }
         }
-        public static readonly DependencyProperty RewardProperty = DependencyProperty.Register(nameof(Reward), typeof(Reward), typeof(RewardIconUserControl));
+        public static readonly DependencyProperty RewardProperty = DependencyProperty.Register(nameof(Reward), typeof(Reward), typeof(RewardIconUserControl), new PropertyMetadata(RewardChanged));
+
+        private static void RewardChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            (d as RewardIconUserControl).RaisePropertyChanged(nameof(IconNumberText));
+        }
 
         /// <summary>
         /// Text that is displayed in the icon.

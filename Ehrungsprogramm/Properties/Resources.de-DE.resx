@@ -246,4 +246,7 @@
   <data name="ObtainedDateString" xml:space="preserve">
     <value>Erhalten am</value>
   </data>
+  <data name="AvailableString" xml:space="preserve">
+    <value>Verfügbar</value>
+  </data>
 </root>

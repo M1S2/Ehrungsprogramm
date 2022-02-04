@@ -8,7 +8,7 @@ namespace Ehrungsprogramm.Core.Models
     /// <summary>
     /// Class describing a person.
     /// </summary>
-    public class Person : ObservableObject
+    public class Person : ObservableObject, IEquatable<Person>
     {
         private int _id;
         /// <summary>
@@ -63,6 +63,7 @@ namespace Ehrungsprogramm.Core.Models
         /// <summary>
         /// Number of years, the person was in the sports club. This is calculated from the <see cref="EntryDate"/> property until now and is rounded up to the next full number of years.
         /// </summary>
+#warning TODO: Replace DateTime.Now by evaluation date.
         public int MembershipYears => (int)Math.Ceiling((DateTime.Now - EntryDate).TotalDays / 365);
 
         private int _scoreBLSV;
@@ -133,6 +134,52 @@ namespace Ehrungsprogramm.Core.Models
         {
             get => _rewards;
             set => SetProperty(ref _rewards, value);
+        }
+
+        // +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+        /// <summary>
+        /// Compare if two Persons are equal
+        /// </summary>
+        /// <param name="obj">Other Person to compare against this instance.</param>
+        /// <returns>true if both instances are equal; false if not equal or obj isn't of type <see cref="Person"/></returns>
+        public override bool Equals(object obj)
+        {
+            Person other = obj as Person;
+            if (other == null) return false;
+
+            return Name.Equals(other.Name) &&
+                FirstName.Equals(other.FirstName) &&
+                BirthDate.Equals(other.BirthDate) &&
+                EntryDate.Equals(other.EntryDate);
+        }
+
+        /// <summary>
+        /// Indicates wheather the current object is equal to another object of the same type.
+        /// </summary>
+        /// <param name="other">Other object to compare.</param>
+        /// <returns>true if the current object is equal to the other parameter; otherwise false.</returns>
+        public bool Equals(Person other)
+        {
+            return Equals((object)other);
+        }
+
+        /// <summary>
+        /// Serves as the default hash function.
+        /// </summary>
+        /// <returns>A hash code for the current object.</returns>
+        public override int GetHashCode()
+        {
+            return Id;
+        }
+
+        /// <summary>
+        /// Returns a string that represents the current object.
+        /// </summary>
+        /// <returns>A string that represents the current object.</returns>
+        public override string ToString()
+        {
+            return FirstName + ", " + Name + " (Birth: " + BirthDate.ToShortDateString() + ")";
         }
     }
 }

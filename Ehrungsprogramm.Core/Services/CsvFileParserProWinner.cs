@@ -52,7 +52,7 @@ namespace Ehrungsprogramm.Core.Services
             }
 
             // Read all lines of the .csv file
-            string[] csv_lines = System.IO.File.ReadAllLines(filepath, Encoding.GetEncoding("iso-8859-1"));
+            string[] csv_lines = System.IO.File.ReadAllLines(filepath, Encoding.UTF8); //Encoding.GetEncoding("iso-8859-1"));
             
             string regexPatternLineElements = DELIMITER + "(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)";       //Using quotes to allow the delimiter
 
@@ -104,6 +104,7 @@ namespace Ehrungsprogramm.Core.Services
                     }
                     else    // if the end date column is empty, the function is not ended yet (lasts until now)
                     {
+#warning TODO: Replace DateTime.Now by evaluation date.
                         function.TimePeriod.End = DateTime.Now;
                     }
 
@@ -112,7 +113,10 @@ namespace Ehrungsprogramm.Core.Services
                     else if (functionName.Contains(BOARD_MEMBER_MARKER)) { function.Type = FunctionType.BOARD_MEMBER; }
                     else { function.Type = FunctionType.UNKNOWN; }
 
-                    person.Functions.Add(function);
+                    if (!person.Functions.Contains(function))
+                    {
+                        person.Functions.Add(function);
+                    }
                 }
 
                 for (int rewardBlockStartIndex = FIRST_REWARDBLOCK_INDEX; (rewardBlockStartIndex + REWARDBLOCK_COLUMNS - 1) < line_split.Length; rewardBlockStartIndex += (FUNCTIONBLOCK_COLUMNS + REWARDBLOCK_COLUMNS))
