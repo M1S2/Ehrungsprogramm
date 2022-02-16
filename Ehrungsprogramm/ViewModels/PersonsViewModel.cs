@@ -29,6 +29,10 @@ namespace Ehrungsprogramm.ViewModels
                     Person person = item as Person;
                     return person.Name.ToLower().Contains(text.ToLower()) 
                             || person.FirstName.ToLower().Contains(text.ToLower())
+                            || (person.FirstName.ToLower() + " " + person.Name.ToLower()).Contains(text.ToLower())
+                            || (person.Name.ToLower() + " " + person.FirstName.ToLower()).Contains(text.ToLower())
+                            || (person.FirstName.ToLower() + ", " + person.Name.ToLower()).Contains(text.ToLower())
+                            || (person.Name.ToLower() + ", " + person.FirstName.ToLower()).Contains(text.ToLower())
                             || person.ScoreBLSV.ToString().Contains(text)
                             || person.ScoreTSV.ToString().Contains(text)
                             || person.EntryDate.ToString().Contains(text);

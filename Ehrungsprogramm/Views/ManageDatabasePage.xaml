@@ -22,7 +22,10 @@
         <WrapPanel Grid.Row="1" Margin="{StaticResource MediumLeftRightMargin}">
             <Button Width="150" Height="150" Margin="10" Style="{StaticResource MahApps.Styles.Button.Square.Accent}" Command="{Binding ImportDataFromFileCommand}">
                 <StackPanel>
-                    <controls:FontIcon FontSize="50" Glyph="&#xE8B5;" Margin="10"/>
+                    <Grid>
+                        <controls:ProgressRing Foreground="White" Width="70" Visibility="{Binding IsImporting, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+                        <controls:FontIcon FontSize="50" Glyph="&#xE8B5;" Margin="10"/>
+                    </Grid>
                     <TextBlock Text="{x:Static properties:Resources.ImportDataFromFileString}" HorizontalAlignment="Center" FontSize="{StaticResource MediumFontSize}"/>
                 </StackPanel>
             </Button>

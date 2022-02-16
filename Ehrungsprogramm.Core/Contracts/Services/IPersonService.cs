@@ -17,6 +17,11 @@ namespace Ehrungsprogramm.Core.Contracts.Services
         void ImportFromFile(string filepath);
 
         /// <summary>
+        /// Event that is raised when the import from the file is finished.
+        /// </summary>
+        event EventHandler OnImportFromFileFinished;
+
+        /// <summary>
         /// Return all available Persons.
         /// </summary>
         /// <returns>List of Person objects</returns>

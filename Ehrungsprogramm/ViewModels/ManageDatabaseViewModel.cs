@@ -14,23 +14,39 @@ namespace Ehrungsprogramm.ViewModels
     {
         // TODO Add confirmation dialog for ClearDatabase command
         private ICommand _clearDatabaseCommand;
-        public ICommand ClearDatabaseCommand => _clearDatabaseCommand ?? (_clearDatabaseCommand = new RelayCommand(() => _personService?.ClearPersons()));
+        public ICommand ClearDatabaseCommand => _clearDatabaseCommand ?? (_clearDatabaseCommand = new RelayCommand(() => _personService?.ClearPersons(), () => !IsImporting));
 
         private ICommand _generateTestDataCommand;
-        public ICommand GenerateTestDataCommand => _generateTestDataCommand ?? (_generateTestDataCommand = new RelayCommand(() => GenerateTestData()));
+        public ICommand GenerateTestDataCommand => _generateTestDataCommand ?? (_generateTestDataCommand = new RelayCommand(() => GenerateTestData(), () => !IsImporting));
 
         private ICommand _importDataFromFileCommand;
-        public ICommand ImportDataFromFileCommand => _importDataFromFileCommand ?? (_importDataFromFileCommand = new RelayCommand(() => ImportFromFile()));
+        public ICommand ImportDataFromFileCommand => _importDataFromFileCommand ?? (_importDataFromFileCommand = new RelayCommand(() => ImportFromFile(), () => !IsImporting));
+
+        private bool _isImporting;
+        public bool IsImporting
+        {
+            get => _isImporting;
+            set 
+            { 
+                SetProperty(ref _isImporting, value); 
+                ((RelayCommand)ImportDataFromFileCommand).NotifyCanExecuteChanged();
+                ((RelayCommand)GenerateTestDataCommand).NotifyCanExecuteChanged();
+                ((RelayCommand)ClearDatabaseCommand).NotifyCanExecuteChanged();
+            }
+        }
 
         private IPersonService _personService;
 
         public ManageDatabaseViewModel(IPersonService personService)
         {
             _personService = personService;
+            _personService.OnImportFromFileFinished += (sender, e) => IsImporting = false;
         }
 
         public void ImportFromFile()
         {
+            IsImporting = true;
+
             OpenFileDialog openFileDialog = new OpenFileDialog()
             {
                 Filter = "CSV File|*.csv|TXT File|*.txt",
@@ -39,6 +55,10 @@ namespace Ehrungsprogramm.ViewModels
             if (openFileDialog.ShowDialog().Value)
             {
                 _personService?.ImportFromFile(openFileDialog.FileName);
+            }
+            else
+            {
+                IsImporting = false;
             }
         }
     

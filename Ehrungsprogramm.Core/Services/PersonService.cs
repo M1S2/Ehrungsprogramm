@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using System.Linq;
+using System.Threading.Tasks;
 using Ehrungsprogramm.Core.Contracts.Services;
 using Ehrungsprogramm.Core.Models;
 using LiteDB;
@@ -15,6 +16,11 @@ namespace Ehrungsprogramm.Core.Services
     /// </summary>
     public class PersonService : IPersonService
     {
+        /// <summary>
+        /// Event that is raised when the import from the file is finished.
+        /// </summary>
+        public event EventHandler OnImportFromFileFinished;
+
         private const int REWARD_TSVSILVER_POINTS = 25;
         private const int REWARD_TSVGOLD_POINTS = 50;
         private const int REWARD_TSVHONORARY_POINTS = 75;
@@ -34,13 +40,18 @@ namespace Ehrungsprogramm.Core.Services
 
         /// <summary>
         /// Import a list of Personsto an internal database.
+        /// This is using a separate Task because the file possibly can be large.
         /// </summary>
         /// <param name="filepath">filepath of the database</param>
-        public void ImportFromFile(string filepath)
+        public async void ImportFromFile(string filepath)
         {
-            List<Person> importedPeople = CsvFileParserProWinner.Parse(filepath);
-            ClearPersons();
-            _peopleCollection?.InsertBulk(importedPeople);
+            await Task.Run(() =>
+            {
+                List<Person> importedPeople = CsvFileParserProWinner.Parse(filepath);
+                ClearPersons();
+                _peopleCollection?.InsertBulk(importedPeople);
+            });
+            OnImportFromFileFinished?.Invoke(this, null);
         }
 
         /// <summary>
