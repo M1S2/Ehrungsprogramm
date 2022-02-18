@@ -7,6 +7,8 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:properties="clr-namespace:Ehrungsprogramm.Properties"
     xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
+    xmlns:Dialog="clr-namespace:MahApps.Metro.Controls.Dialogs;assembly=MahApps.Metro"
+    Dialog:DialogParticipation.Register="{Binding}"
     mc:Ignorable="d"
     d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
@@ -22,10 +24,7 @@
         <WrapPanel Grid.Row="1" Margin="{StaticResource MediumLeftRightMargin}">
             <Button Width="150" Height="150" Margin="10" Style="{StaticResource MahApps.Styles.Button.Square.Accent}" Command="{Binding ImportDataFromFileCommand}">
                 <StackPanel>
-                    <Grid>
-                        <controls:ProgressRing Foreground="White" Width="70" Visibility="{Binding IsImporting, Converter={StaticResource BooleanToVisibilityConverter}}"/>
-                        <controls:FontIcon FontSize="50" Glyph="&#xE8B5;" Margin="10"/>
-                    </Grid>
+                    <controls:FontIcon FontSize="50" Glyph="&#xE8B5;" Margin="10"/>
                     <TextBlock Text="{x:Static properties:Resources.ImportDataFromFileString}" HorizontalAlignment="Center" FontSize="{StaticResource MediumFontSize}"/>
                 </StackPanel>
             </Button>

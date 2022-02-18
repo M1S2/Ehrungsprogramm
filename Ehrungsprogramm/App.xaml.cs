@@ -16,6 +16,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
+using MahApps.Metro.Controls.Dialogs;
+
 namespace Ehrungsprogramm
 {
     // For more inforation about application lifecyle events see https://docs.microsoft.com/dotnet/framework/wpf/app-development/application-management-overview
@@ -71,6 +73,7 @@ namespace Ehrungsprogramm
             services.AddSingleton<IPageService, PageService>();
             services.AddSingleton<INavigationService, NavigationService>();
             services.AddSingleton<IPersonService, PersonService>();
+            services.AddSingleton<IDialogCoordinator>(DialogCoordinator.Instance);
 
             // Views and ViewModels
             services.AddTransient<IShellWindow, ShellWindow>();

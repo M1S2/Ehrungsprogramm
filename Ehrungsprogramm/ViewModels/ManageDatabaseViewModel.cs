@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Windows.Input;
 using System.Collections.Generic;
+using System.Threading;
 using Microsoft.Toolkit.Mvvm.ComponentModel;
 using Microsoft.Toolkit.Mvvm.Input;
 using Microsoft.Win32;
 using Ehrungsprogramm.Core.Contracts.Services;
 using Ehrungsprogramm.Core.Models;
 using Itenso.TimePeriod;
+using MahApps.Metro.Controls.Dialogs;
 
 namespace Ehrungsprogramm.ViewModels
 {
@@ -14,39 +16,42 @@ namespace Ehrungsprogramm.ViewModels
     {
         // TODO Add confirmation dialog for ClearDatabase command
         private ICommand _clearDatabaseCommand;
-        public ICommand ClearDatabaseCommand => _clearDatabaseCommand ?? (_clearDatabaseCommand = new RelayCommand(() => _personService?.ClearPersons(), () => !IsImporting));
+        public ICommand ClearDatabaseCommand => _clearDatabaseCommand ?? (_clearDatabaseCommand = new RelayCommand(() => _personService?.ClearPersons()));
 
         private ICommand _generateTestDataCommand;
-        public ICommand GenerateTestDataCommand => _generateTestDataCommand ?? (_generateTestDataCommand = new RelayCommand(() => GenerateTestData(), () => !IsImporting));
+        public ICommand GenerateTestDataCommand => _generateTestDataCommand ?? (_generateTestDataCommand = new RelayCommand(() => GenerateTestData()));
 
         private ICommand _importDataFromFileCommand;
-        public ICommand ImportDataFromFileCommand => _importDataFromFileCommand ?? (_importDataFromFileCommand = new RelayCommand(() => ImportFromFile(), () => !IsImporting));
+        public ICommand ImportDataFromFileCommand => _importDataFromFileCommand ?? (_importDataFromFileCommand = new RelayCommand(() => ImportFromFile()));
 
-        private bool _isImporting;
-        public bool IsImporting
-        {
-            get => _isImporting;
-            set 
-            { 
-                SetProperty(ref _isImporting, value); 
-                ((RelayCommand)ImportDataFromFileCommand).NotifyCanExecuteChanged();
-                ((RelayCommand)GenerateTestDataCommand).NotifyCanExecuteChanged();
-                ((RelayCommand)ClearDatabaseCommand).NotifyCanExecuteChanged();
-            }
-        }
 
         private IPersonService _personService;
+        private IDialogCoordinator _dialogCoordinator;
+        private ProgressDialogController _progressController;
 
-        public ManageDatabaseViewModel(IPersonService personService)
+        public ManageDatabaseViewModel(IPersonService personService, IDialogCoordinator dialogCoordinator)
         {
             _personService = personService;
-            _personService.OnImportFromFileFinished += (sender, e) => IsImporting = false;
+            _dialogCoordinator = dialogCoordinator;
+            
+            _personService.OnImportFromFileProgress += (filepath, progress) =>
+            {
+                _progressController?.SetProgress(progress / 100);
+                _progressController?.SetMessage(filepath + Environment.NewLine + (progress / 100).ToString("P0"));   // Format to percentage with 0 decimal digits
+            };
+
+            _personService.OnImportFromFileFinished += (sender, e) => 
+            {
+                try
+                {
+                    _progressController?.CloseAsync();
+                }
+                catch (Exception) { /* Nothing to do here. Seems already to be closed.*/}
+            };
         }
 
-        public void ImportFromFile()
+        public async void ImportFromFile()
         {
-            IsImporting = true;
-
             OpenFileDialog openFileDialog = new OpenFileDialog()
             {
                 Filter = "CSV File|*.csv|TXT File|*.txt",
@@ -54,14 +59,12 @@ namespace Ehrungsprogramm.ViewModels
 
             if (openFileDialog.ShowDialog().Value)
             {
-                _personService?.ImportFromFile(openFileDialog.FileName);
-            }
-            else
-            {
-                IsImporting = false;
+                CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
+                _progressController = await _dialogCoordinator.ShowProgressAsync(this, Properties.Resources.ImportDataFromFileString + "...", "", true);
+                _progressController.Canceled += (sender, e) => cancellationTokenSource.Cancel();
+                _personService?.ImportFromFile(openFileDialog.FileName, cancellationTokenSource.Token);
             }
         }
-    
 
 
         private void GenerateTestData()

@@ -3,12 +3,19 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading;
 using Ehrungsprogramm.Core.Models;
+using Ehrungsprogramm.Core.Contracts.Services;
 
 namespace Ehrungsprogramm.Core.Services
 {
     public static class CsvFileParserProWinner
     {
+        /// <summary>
+        /// Event that is raised when the import progress changes
+        /// </summary>
+        public static event ProgressDelegate OnParseProgress;
+
         public const string DELIMITER = ";";
         public const string HEADERLINE_START_STRING = "\"Name, Vorname\"";
         public const int FIRST_FUNCTIONBLOCK_INDEX = 2;
@@ -37,7 +44,7 @@ namespace Ehrungsprogramm.Core.Services
         //                             | FUNCTION 0                               | REWARD 0                                | FUNCTION 1                                                | REWARD 1                             | ...
         // "Name, Vorname";"Geb.Datum";"Eintritt am";"Funktionsname";"von -";"bis";"Ehr.Nr.";"Ehr.dat.";"Ehrungsbezeichnung";"Eintritt am";"Funktionsname";"Funktion von";"Funktion bis";"Ehrungs-Nr";"Ehrung am";"Ehrungsname"; ...
 
-        public static List<Person> Parse(string filepath)
+        public static List<Person> Parse(string filepath, CancellationToken cancellationToken)
         {
             List<Person> people = new List<Person>();
 
@@ -52,12 +59,17 @@ namespace Ehrungsprogramm.Core.Services
             }
 
             // Read all lines of the .csv file
-            string[] csv_lines = System.IO.File.ReadAllLines(filepath, Encoding.UTF8); //Encoding.GetEncoding("iso-8859-1"));
-            
+            string[] csv_lines = System.IO.File.ReadAllLines(filepath, Encoding.GetEncoding("iso-8859-1")); //Encoding.UTF8);
+
             string regexPatternLineElements = DELIMITER + "(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)";       //Using quotes to allow the delimiter
 
+            int current_line_index = 0;
             foreach (string line in csv_lines)
             {
+                cancellationToken.ThrowIfCancellationRequested();
+                
+                current_line_index++;
+
                 // if it's the header line, continue with the next line
                 if(line.StartsWith(HEADERLINE_START_STRING)) { continue; }
 
@@ -157,6 +169,8 @@ namespace Ehrungsprogramm.Core.Services
                 }
 
                 people.Add(person);
+
+                OnParseProgress?.Invoke(filepath, (current_line_index / (float)csv_lines.Length) * 100);
             }
 
             return people;

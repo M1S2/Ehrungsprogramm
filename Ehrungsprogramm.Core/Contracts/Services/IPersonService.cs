@@ -1,20 +1,37 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
 using Ehrungsprogramm.Core.Models;
 
 namespace Ehrungsprogramm.Core.Contracts.Services
 {
+    /// <summary>
+    /// Delegate void for progress changes
+    /// </summary>
+    /// <param name="filepath">filepath to the file to import</param>
+    /// <param name="progress">Progress 0 .. 100 </param>
+    public delegate void ProgressDelegate(string filepath, float progress);
+
+
     /// <summary>
     /// Interface for a service used to get and store a list of Person objects
     /// </summary>
     public interface IPersonService
     {
         /// <summary>
-        /// Import a list of Personsto an internal database.
+        /// Import a list of Persons to an internal database.
         /// </summary>
-        /// <param name="filepath">filepath of the database</param>
-        void ImportFromFile(string filepath);
+        /// <param name="filepath">filepath to the file to import</param>
+        /// <param name="cancellationToken">Cancellation token</param>
+        /// <returns>true if importing succeeded; false if importing failed (e.g. canceled)</returns>
+        Task<bool> ImportFromFile(string filepath, CancellationToken cancellationToken);
+
+        /// <summary>
+        /// Event that is raised when the import progress changes
+        /// </summary>
+        event ProgressDelegate OnImportFromFileProgress;
 
         /// <summary>
         /// Event that is raised when the import from the file is finished.

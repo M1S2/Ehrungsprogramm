@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using Ehrungsprogramm.Core.Contracts.Services;
 using Ehrungsprogramm.Core.Models;
@@ -20,6 +21,15 @@ namespace Ehrungsprogramm.Core.Services
         /// Event that is raised when the import from the file is finished.
         /// </summary>
         public event EventHandler OnImportFromFileFinished;
+
+        /// <summary>
+        /// Event that is raised when the import progress changes
+        /// </summary>
+        public event ProgressDelegate OnImportFromFileProgress
+        {
+            add { CsvFileParserProWinner.OnParseProgress += value; }
+            remove { CsvFileParserProWinner.OnParseProgress -= value; }
+        }
 
         private const int REWARD_TSVSILVER_POINTS = 25;
         private const int REWARD_TSVGOLD_POINTS = 50;
@@ -42,16 +52,28 @@ namespace Ehrungsprogramm.Core.Services
         /// Import a list of Personsto an internal database.
         /// This is using a separate Task because the file possibly can be large.
         /// </summary>
-        /// <param name="filepath">filepath of the database</param>
-        public async void ImportFromFile(string filepath)
+        /// <param name="filepath">filepath to the file to import</param>
+        /// <param name="cancellationToken">Cancellation token</param>
+        /// <returns>true if importing succeeded; false if importing failed (e.g. canceled)</returns>
+        public async Task<bool> ImportFromFile(string filepath, CancellationToken cancellationToken)
         {
+            bool importingResult = false;
             await Task.Run(() =>
             {
-                List<Person> importedPeople = CsvFileParserProWinner.Parse(filepath);
-                ClearPersons();
-                _peopleCollection?.InsertBulk(importedPeople);
+                try
+                {
+                    List<Person> importedPeople = CsvFileParserProWinner.Parse(filepath, cancellationToken);
+                    ClearPersons();
+                    _peopleCollection?.InsertBulk(importedPeople);
+                    importingResult = true;
+                }
+                catch(OperationCanceledException)
+                {
+                    importingResult = false;
+                }
             });
             OnImportFromFileFinished?.Invoke(this, null);
+            return importingResult;
         }
 
         /// <summary>
