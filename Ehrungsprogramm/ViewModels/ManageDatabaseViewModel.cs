@@ -14,6 +14,26 @@ namespace Ehrungsprogramm.ViewModels
 {
     public class ManageDatabaseViewModel : ObservableObject
     {
+        /// <summary>
+        /// End date that is used while calculating the membership years and the years for each function
+        /// This just sets or gets the property in the person service if available
+        /// </summary>
+        public DateTime CalculationDeadline
+        {
+            get
+            {
+                if (_personService == null) { return DateTime.Now; }
+                return _personService.CalculationDeadline;
+            }
+            set 
+            {
+                if(_personService == null) { return; }
+                _personService.CalculationDeadline = value; 
+                OnPropertyChanged(nameof(CalculationDeadline)); 
+            }
+        }
+
+
         // TODO Add confirmation dialog for ClearDatabase command
         private ICommand _clearDatabaseCommand;
         public ICommand ClearDatabaseCommand => _clearDatabaseCommand ?? (_clearDatabaseCommand = new RelayCommand(() => _personService?.ClearPersons()));

@@ -80,6 +80,16 @@ namespace Ehrungsprogramm.Core.Models
             set { SetProperty(ref _timePeriod, value); OnPropertyChanged(nameof(FunctionYears)); }
         }
 
+        private bool _isFunctionOngoing;
+        /// <summary>
+        /// True, if the function isn't ended yet.
+        /// </summary>
+        public bool IsFunctionOngoing
+        {
+            get => _isFunctionOngoing;
+            set { SetProperty(ref _isFunctionOngoing, value); }
+        }
+
         /// <summary>
         /// Number of years, the function was done. This is calculated from the <see cref="TimePeriod"/> property and is rounded up to the next full number of years.
         /// </summary>

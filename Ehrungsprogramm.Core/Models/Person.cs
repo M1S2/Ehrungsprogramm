@@ -60,11 +60,15 @@ namespace Ehrungsprogramm.Core.Models
             set { SetProperty(ref _entryDate, value); OnPropertyChanged(nameof(MembershipYears)); OnPropertyChanged(nameof(ScoreBLSV)); }
         }
 
+        private int _membershipYears;
         /// <summary>
-        /// Number of years, the person was in the sports club. This is calculated from the <see cref="EntryDate"/> property until now and is rounded up to the next full number of years.
+        /// Number of years, the person was in the sports club. This is calculated from the <see cref="EntryDate"/> property and is rounded up to the next full number of years.
         /// </summary>
-#warning TODO: Replace DateTime.Now by evaluation date.
-        public int MembershipYears => (int)Math.Ceiling((DateTime.Now - EntryDate).TotalDays / 365);
+        public int MembershipYears
+        {
+            get => _membershipYears;
+            set => SetProperty(ref _membershipYears, value);
+        }
 
         private int _scoreBLSV;
         /// <summary>

@@ -21,25 +21,37 @@
             Margin="{StaticResource MediumLeftMargin}"
             Text="{x:Static properties:Resources.ManageDatabasePageTitle}" />
 
-        <WrapPanel Grid.Row="1" Margin="{StaticResource MediumLeftRightMargin}">
-            <Button Width="150" Height="150" Margin="10" Style="{StaticResource MahApps.Styles.Button.Square.Accent}" Command="{Binding ImportDataFromFileCommand}">
-                <StackPanel>
-                    <controls:FontIcon FontSize="50" Glyph="&#xE8B5;" Margin="10"/>
-                    <TextBlock Text="{x:Static properties:Resources.ImportDataFromFileString}" HorizontalAlignment="Center" FontSize="{StaticResource MediumFontSize}"/>
-                </StackPanel>
-            </Button>
-            <Button Width="150" Height="150" Margin="10" Style="{StaticResource MahApps.Styles.Button.Square.Accent}" Command="{Binding GenerateTestDataCommand}">
-                <StackPanel>
-                    <controls:FontIcon FontSize="50" Glyph="&#xE8B1;" Margin="10"/>
-                    <TextBlock Text="{x:Static properties:Resources.GenerateTestDataString}" HorizontalAlignment="Center" FontSize="{StaticResource MediumFontSize}"/>
-                </StackPanel>
-            </Button>
-            <Button Width="150" Height="150" Margin="10" Style="{StaticResource MahApps.Styles.Button.Square.Accent}" Background="Red" Foreground="White" Command="{Binding ClearDatabaseCommand}">
-                <StackPanel>
-                    <controls:FontIcon FontSize="50" Glyph="&#xE74D;" Margin="10"/>
-                    <TextBlock Text="{x:Static properties:Resources.ClearDatabaseButton}" HorizontalAlignment="Center" FontSize="{StaticResource MediumFontSize}"/>
-                </StackPanel>
-            </Button>
-        </WrapPanel>
+        <StackPanel Orientation="Vertical" Grid.Row="1" Margin="{StaticResource MediumLeftRightMargin}">
+            <WrapPanel>
+                <Button Width="150" Height="150" Margin="10" Style="{StaticResource MahApps.Styles.Button.Square.Accent}" Command="{Binding ImportDataFromFileCommand}">
+                    <StackPanel>
+                        <controls:FontIcon FontSize="50" Glyph="&#xE8B5;" Margin="10"/>
+                        <TextBlock Text="{x:Static properties:Resources.ImportDataFromFileString}" HorizontalAlignment="Center" FontSize="{StaticResource MediumFontSize}"/>
+                    </StackPanel>
+                </Button>
+                <Button Width="150" Height="150" Margin="10" Style="{StaticResource MahApps.Styles.Button.Square.Accent}" Command="{Binding GenerateTestDataCommand}">
+                    <StackPanel>
+                        <controls:FontIcon FontSize="50" Glyph="&#xE8B1;" Margin="10"/>
+                        <TextBlock Text="{x:Static properties:Resources.GenerateTestDataString}" HorizontalAlignment="Center" FontSize="{StaticResource MediumFontSize}"/>
+                    </StackPanel>
+                </Button>
+                <Button Width="150" Height="150" Margin="10" Style="{StaticResource MahApps.Styles.Button.Square.Accent}" Background="Red" Foreground="White" Command="{Binding ClearDatabaseCommand}">
+                    <StackPanel>
+                        <controls:FontIcon FontSize="50" Glyph="&#xE74D;" Margin="10"/>
+                        <TextBlock Text="{x:Static properties:Resources.ClearDatabaseButton}" HorizontalAlignment="Center" FontSize="{StaticResource MediumFontSize}"/>
+                    </StackPanel>
+                </Button>
+            </WrapPanel>
+
+            <WrapPanel>
+                <Border Width="150" Height="150" Margin="10" Background="{StaticResource MahApps.Brushes.Gray}" BorderBrush="{StaticResource MahApps.Brushes.Text}" BorderThickness="2">
+                    <StackPanel>
+                        <controls:FontIcon Margin="10" FontSize="50" Glyph="&#xE787;"/>
+                        <TextBlock HorizontalAlignment="Center" Text="{x:Static properties:Resources.CalculationDeadlineString}" FontSize="{StaticResource MediumFontSize}"/>
+                        <DatePicker Margin="10" SelectedDate="{Binding CalculationDeadline}"/>
+                    </StackPanel>
+                </Border>
+            </WrapPanel>
+        </StackPanel>
     </Grid>
 </Page>

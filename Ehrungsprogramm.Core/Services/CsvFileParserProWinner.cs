@@ -111,13 +111,14 @@ namespace Ehrungsprogramm.Core.Services
                     function.Description = functionName;
                     if (!string.IsNullOrEmpty(functionStartDate)) { function.TimePeriod.Start = DateTime.Parse(functionStartDate); }
                     if (!string.IsNullOrEmpty(functionEndDate)) 
-                    { 
+                    {
+                        function.IsFunctionOngoing = false;
                         function.TimePeriod.End = DateTime.Parse(functionEndDate);
                     }
                     else    // if the end date column is empty, the function is not ended yet (lasts until now)
                     {
-#warning TODO: Replace DateTime.Now by evaluation date.
-                        function.TimePeriod.End = DateTime.Now;
+                        function.IsFunctionOngoing = true;
+                        function.TimePeriod.End = DateTime.Now;     // This date is replaced later by the calculation deadline. So it doesn't matter what it is set to.
                     }
 
                     if (functionName.Contains(OTHER_FUNCTIONS_MARKER)) { function.Type = FunctionType.OTHER_FUNCTION; }

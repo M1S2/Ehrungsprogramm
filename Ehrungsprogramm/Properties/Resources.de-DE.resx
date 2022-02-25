@@ -249,4 +249,7 @@
   <data name="AvailableString" xml:space="preserve">
     <value>Verfügbar</value>
   </data>
+  <data name="CalculationDeadlineString" xml:space="preserve">
+    <value>Stichtag</value>
+  </data>
 </root>

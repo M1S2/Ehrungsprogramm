@@ -249,4 +249,7 @@
   <data name="AvailableString" xml:space="preserve">
     <value>Available</value>
   </data>
+  <data name="CalculationDeadlineString" xml:space="preserve">
+    <value>Calculation Deadline</value>
+  </data>
 </root>

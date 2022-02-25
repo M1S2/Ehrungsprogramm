@@ -18,6 +18,16 @@ namespace Ehrungsprogramm.Core.Services
     public class PersonService : IPersonService
     {
         /// <summary>
+        /// Settings that are stored in the database beside the people
+        /// </summary>
+        public class PersonServiceSettings
+        {
+            public DateTime CalculationDeadline { get; set; }
+        }
+
+
+
+        /// <summary>
         /// Event that is raised when the import from the file is finished.
         /// </summary>
         public event EventHandler OnImportFromFileFinished;
@@ -31,12 +41,26 @@ namespace Ehrungsprogramm.Core.Services
             remove { CsvFileParserProWinner.OnParseProgress -= value; }
         }
 
+        /// <summary>
+        /// End date that is used while calculating the membership years and the years for each function
+        /// </summary>
+        public DateTime CalculationDeadline
+        {
+            get => _settingsCollection.Query().FirstOrDefault()?.CalculationDeadline ?? DateTime.Now;
+            set
+            {
+                _settingsCollection.DeleteAll();
+                _settingsCollection.Insert(new PersonServiceSettings() { CalculationDeadline = value });
+            }
+        }
+
         private const int REWARD_TSVSILVER_POINTS = 25;
         private const int REWARD_TSVGOLD_POINTS = 50;
         private const int REWARD_TSVHONORARY_POINTS = 75;
 
-        private LiteDatabase _database;                         // Handle to a database holding the collection of Persons
-        private ILiteCollection<Person> _peopleCollection;      // Collection of Persons
+        private LiteDatabase _database;                                     // Handle to a database holding the collection of Persons
+        private ILiteCollection<Person> _peopleCollection;                  // Collection of Persons
+        private ILiteCollection<PersonServiceSettings> _settingsCollection; // Collection of Settings
 
         /// <summary>
         /// Constructor that opens a database from file and gets all people from the database.
@@ -46,6 +70,7 @@ namespace Ehrungsprogramm.Core.Services
             // TODO Replace fixed filepath for batabase by some kind of property
             _database = new LiteDatabase(@"S:\IT\Ehrungsprogramm\Ehrungsprogramm_Persons.db");
             _peopleCollection = _database.GetCollection<Person>("people");
+            _settingsCollection = _database.GetCollection<PersonServiceSettings>("settings");
         }
 
         /// <summary>
@@ -128,10 +153,18 @@ namespace Ehrungsprogramm.Core.Services
         /// <param name="person">Person to update</param>
         private void updatePersonProperties(Person person)
         {
+            person.MembershipYears = (int)Math.Ceiling((CalculationDeadline - person.EntryDate).TotalDays / 365);
+            if(person.MembershipYears < 0) { person.MembershipYears = 0; }  // The membership years should be 0 or greater. It would be negative if CalculationDeadline < EntryDate.
+
             // ***** Effective score time periods *****
             List<Function> functionsBoardMember = person.Functions.Where(f => f.Type == FunctionType.BOARD_MEMBER).ToList();
             List<Function> functionsHeadOfDepartement = person.Functions.Where(f => f.Type == FunctionType.HEAD_OF_DEPARTEMENT).ToList();
             List<Function> functionsOther = person.Functions.Where(f => f.Type == FunctionType.OTHER_FUNCTION).ToList();
+
+            // Replace the function end date with the CalculationDeadline if the function is ongoing
+            functionsBoardMember.ForEach(f => f.TimePeriod.End = (f.IsFunctionOngoing ? CalculationDeadline : f.TimePeriod.End));
+            functionsHeadOfDepartement.ForEach(f => f.TimePeriod.End = (f.IsFunctionOngoing ? CalculationDeadline : f.TimePeriod.End));
+            functionsOther.ForEach(f => f.TimePeriod.End = (f.IsFunctionOngoing ? CalculationDeadline : f.TimePeriod.End));
 
             TimePeriodCollection boardMemberPeriods = new TimePeriodCollection(functionsBoardMember.Select(f => f.TimePeriod));
             TimePeriodCollection headOfDepartementPeriods = new TimePeriodCollection(functionsHeadOfDepartement.Select(f => f.TimePeriod));
@@ -144,6 +177,12 @@ namespace Ehrungsprogramm.Core.Services
             otherPeriods = (TimePeriodCollection)periodCombiner.CombinePeriods(otherPeriods);
 
             TimePeriodSubtractor<TimeRange> subtractor = new TimePeriodSubtractor<TimeRange>();
+            // Limit all time ranges to the CalculationDeadline
+            TimePeriodCollection afterCalculationDeadline = new TimePeriodCollection() { new TimeRange(CalculationDeadline, DateTime.Now) };
+            boardMemberPeriods = (TimePeriodCollection)subtractor.SubtractPeriods(boardMemberPeriods, afterCalculationDeadline);
+            headOfDepartementPeriods = (TimePeriodCollection)subtractor.SubtractPeriods(headOfDepartementPeriods, afterCalculationDeadline);
+            otherPeriods = (TimePeriodCollection)subtractor.SubtractPeriods(otherPeriods, afterCalculationDeadline);
+
             headOfDepartementPeriods = (TimePeriodCollection)subtractor.SubtractPeriods(headOfDepartementPeriods, boardMemberPeriods);
             otherPeriods = (TimePeriodCollection)subtractor.SubtractPeriods(otherPeriods, boardMemberPeriods);
 

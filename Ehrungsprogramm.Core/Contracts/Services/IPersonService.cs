@@ -39,6 +39,11 @@ namespace Ehrungsprogramm.Core.Contracts.Services
         event EventHandler OnImportFromFileFinished;
 
         /// <summary>
+        /// End date that is used while calculating the membership years and the years for each function
+        /// </summary>
+        DateTime CalculationDeadline { get; set; }
+
+        /// <summary>
         /// Return all available Persons.
         /// </summary>
         /// <returns>List of Person objects</returns>
