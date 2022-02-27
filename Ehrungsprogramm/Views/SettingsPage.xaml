@@ -79,15 +79,6 @@
                 <TextBlock
                     Margin="{StaticResource SmallTopMargin}"
                     Style="{StaticResource SubtitleTextStyle}"
-                    Text="{x:Static properties:Resources.LanguageString}"/>
-                <StackPanel Orientation="Horizontal">
-                    <Button Content="{x:Static properties:Resources.GermanString}" Margin="3" Command="{Binding LanguageCommand}" CommandParameter="de-DE" Style="{StaticResource MahApps.Styles.Button.Square}" mah:ControlsHelper.ContentCharacterCasing="Normal"/>
-                    <Button Content="{x:Static properties:Resources.EnglishString}" Margin="3" Command="{Binding LanguageCommand}" CommandParameter="en-US" Style="{StaticResource MahApps.Styles.Button.Square}" mah:ControlsHelper.ContentCharacterCasing="Normal"/>
-                </StackPanel>
-
-                <TextBlock
-                    Margin="{StaticResource SmallTopMargin}"
-                    Style="{StaticResource SubtitleTextStyle}"
                     Text="{x:Static properties:Resources.SettingsPageAboutTitle}" />
                 <TextBlock
                     Text="{Binding VersionDescription, Mode=OneWay}"

@@ -124,7 +124,7 @@
     <value>Settings</value>
   </data>
   <data name="SettingsPageAboutText" xml:space="preserve">
-    <value>Settings page placeholder text.  Your app description goes here.</value>
+    <value>Program to manage the rewards of the TSV Illertissen.</value>
   </data>
   <data name="SettingsPageAboutTitle" xml:space="preserve">
     <value>About this application</value>
@@ -160,7 +160,7 @@
     <value>Open or close navigation</value>
   </data>
   <data name="AppDisplayName" xml:space="preserve">
-    <value>App1</value>
+    <value>Reward Program</value>
   </data>
   <data name="ManageDatabasePageTitle" xml:space="preserve">
     <value>Manage Database</value>
@@ -188,9 +188,6 @@
   </data>
   <data name="EntryDateString" xml:space="preserve">
     <value>Entry Date</value>
-  </data>
-  <data name="LanguageString" xml:space="preserve">
-    <value>Language</value>
   </data>
   <data name="MembershipYearsString" xml:space="preserve">
     <value>Membership Years</value>

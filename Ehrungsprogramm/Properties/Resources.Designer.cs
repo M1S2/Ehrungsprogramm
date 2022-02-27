@@ -61,7 +61,7 @@ namespace Ehrungsprogramm.Properties {
         }
         
         /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die App1 ähnelt.
+        ///   Sucht eine lokalisierte Zeichenfolge, die Reward Program ähnelt.
         /// </summary>
         public static string AppDisplayName {
             get {
@@ -223,15 +223,6 @@ namespace Ehrungsprogramm.Properties {
         }
         
         /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die Language ähnelt.
-        /// </summary>
-        public static string LanguageString {
-            get {
-                return ResourceManager.GetString("LanguageString", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Main ähnelt.
         /// </summary>
         public static string MainPageTitle {
@@ -322,7 +313,7 @@ namespace Ehrungsprogramm.Properties {
         }
         
         /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die Settings page placeholder text.  Your app description goes here. ähnelt.
+        ///   Sucht eine lokalisierte Zeichenfolge, die Program to manage the rewards of the TSV Illertissen. ähnelt.
         /// </summary>
         public static string SettingsPageAboutText {
             get {

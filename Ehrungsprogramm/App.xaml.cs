@@ -2,6 +2,8 @@
 using System.Reflection;
 using System.Windows;
 using System.Windows.Threading;
+using System.Windows.Markup;
+using System.Globalization;
 
 using Ehrungsprogramm.Contracts.Services;
 using Ehrungsprogramm.Contracts.Views;
@@ -39,6 +41,10 @@ namespace Ehrungsprogramm
 
         private async void OnStartup(object sender, StartupEventArgs e)
         {
+            // Set the language for all FrameworkElements to the current culture
+            // see: https://serialseb.com/blog/2007/04/03/wpf-tips-1-have-all-your-dates-times/
+            FrameworkElement.LanguageProperty.OverrideMetadata(typeof(FrameworkElement), new FrameworkPropertyMetadata(XmlLanguage.GetLanguage(CultureInfo.CurrentCulture.IetfLanguageTag)));
+
             var appLocation = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
 
             // For more information about .NET generic host see  https://docs.microsoft.com/aspnet/core/fundamentals/host/generic-host?view=aspnetcore-3.0

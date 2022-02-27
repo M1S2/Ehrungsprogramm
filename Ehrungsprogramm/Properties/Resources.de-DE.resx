@@ -124,7 +124,7 @@
     <value>Einstellungen</value>
   </data>
   <data name="SettingsPageAboutText" xml:space="preserve">
-    <value>Programm zum Verwalten von Ehrungen des TSVs.</value>
+    <value>Programm zum Verwalten von Ehrungen des TSV Illertissen.</value>
   </data>
   <data name="SettingsPageAboutTitle" xml:space="preserve">
     <value>Über das Programm</value>
@@ -160,7 +160,7 @@
     <value>Navigation öffnen oder schließen</value>
   </data>
   <data name="AppDisplayName" xml:space="preserve">
-    <value>App1</value>
+    <value>Ehrungsprogramm</value>
   </data>
   <data name="ManageDatabasePageTitle" xml:space="preserve">
     <value>Datenbank verwalten</value>
@@ -188,9 +188,6 @@
   </data>
   <data name="EntryDateString" xml:space="preserve">
     <value>Eintritts Datum</value>
-  </data>
-  <data name="LanguageString" xml:space="preserve">
-    <value>Sprache</value>
   </data>
   <data name="MembershipYearsString" xml:space="preserve">
     <value>Mitgliedsjahre</value>
