@@ -41,6 +41,7 @@ namespace Ehrungsprogramm.ViewModels
         {
             new HamburgerMenuGlyphItem() { Label = Resources.ShellMainPage, Glyph = "\uE80F", TargetPageType = typeof(MainViewModel) },
             new HamburgerMenuGlyphItem() { Label = Resources.ShellPersonsPage, Glyph = "\uE77B", TargetPageType = typeof(PersonsViewModel) },
+            new HamburgerMenuGlyphItem() { Label = Resources.ShellRewardsPage, Glyph = "\uE734", TargetPageType = typeof(RewardsViewModel) },
             new HamburgerMenuGlyphItem() { Label = Resources.ShellManageDatabasePage, Glyph = "\uEC7A", TargetPageType = typeof(ManageDatabaseViewModel) },
         };
 

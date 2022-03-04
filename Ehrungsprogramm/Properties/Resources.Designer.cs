@@ -288,6 +288,15 @@ namespace Ehrungsprogramm.Properties {
         /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Rewards ähnelt.
         /// </summary>
+        public static string RewardsPageTitle {
+            get {
+                return ResourceManager.GetString("RewardsPageTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Rewards ähnelt.
+        /// </summary>
         public static string RewardsString {
             get {
                 return ResourceManager.GetString("RewardsString", resourceCulture);
@@ -435,6 +444,15 @@ namespace Ehrungsprogramm.Properties {
         public static string ShellPersonsPage {
             get {
                 return ResourceManager.GetString("ShellPersonsPage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Rewards ähnelt.
+        /// </summary>
+        public static string ShellRewardsPage {
+            get {
+                return ResourceManager.GetString("ShellRewardsPage", resourceCulture);
             }
         }
         

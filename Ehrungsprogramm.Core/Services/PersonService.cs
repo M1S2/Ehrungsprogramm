@@ -162,9 +162,9 @@ namespace Ehrungsprogramm.Core.Services
             List<Function> functionsOther = person.Functions.Where(f => f.Type == FunctionType.OTHER_FUNCTION).ToList();
 
             // Replace the function end date with the CalculationDeadline if the function is ongoing
-            functionsBoardMember.ForEach(f => f.TimePeriod.End = (f.IsFunctionOngoing ? CalculationDeadline : f.TimePeriod.End));
-            functionsHeadOfDepartement.ForEach(f => f.TimePeriod.End = (f.IsFunctionOngoing ? CalculationDeadline : f.TimePeriod.End));
-            functionsOther.ForEach(f => f.TimePeriod.End = (f.IsFunctionOngoing ? CalculationDeadline : f.TimePeriod.End));
+            functionsBoardMember.ForEach(f => f.TimePeriod.End = (!f.IsFunctionOngoing ? f.TimePeriod.End : (CalculationDeadline > f.TimePeriod.Start ? CalculationDeadline : f.TimePeriod.Start)));
+            functionsHeadOfDepartement.ForEach(f => f.TimePeriod.End = (!f.IsFunctionOngoing ? f.TimePeriod.End : (CalculationDeadline > f.TimePeriod.Start ? CalculationDeadline : f.TimePeriod.Start)));
+            functionsOther.ForEach(f => f.TimePeriod.End = (!f.IsFunctionOngoing ? f.TimePeriod.End : (CalculationDeadline > f.TimePeriod.Start ? CalculationDeadline : f.TimePeriod.Start)));
 
             TimePeriodCollection boardMemberPeriods = new TimePeriodCollection(functionsBoardMember.Select(f => f.TimePeriod));
             TimePeriodCollection headOfDepartementPeriods = new TimePeriodCollection(functionsHeadOfDepartement.Select(f => f.TimePeriod));

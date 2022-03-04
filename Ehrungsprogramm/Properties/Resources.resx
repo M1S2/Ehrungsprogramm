@@ -249,4 +249,10 @@
   <data name="CalculationDeadlineString" xml:space="preserve">
     <value>Calculation Deadline</value>
   </data>
+  <data name="RewardsPageTitle" xml:space="preserve">
+    <value>Rewards</value>
+  </data>
+  <data name="ShellRewardsPage" xml:space="preserve">
+    <value>Rewards</value>
+  </data>
 </root>

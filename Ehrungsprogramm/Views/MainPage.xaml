@@ -26,6 +26,12 @@
                     <TextBlock Text="{x:Static properties:Resources.ShellPersonsPage}" HorizontalAlignment="Center" FontSize="{StaticResource MediumFontSize}"/>
                 </StackPanel>
             </Button>
+            <Button Width="150" Height="150" Margin="10" Style="{StaticResource MahApps.Styles.Button.Square.Accent}" Command="{Binding RewardsCommand}">
+                <StackPanel>
+                    <controls:FontIcon FontSize="50" Glyph="&#xE734;" Margin="10"/>
+                    <TextBlock Text="{x:Static properties:Resources.ShellRewardsPage}" HorizontalAlignment="Center" FontSize="{StaticResource MediumFontSize}"/>
+                </StackPanel>
+            </Button>
             <Button Width="150" Height="150" Margin="10" Style="{StaticResource MahApps.Styles.Button.Square.Accent}" Command="{Binding ManageDatabaseCommand}">
                 <StackPanel>
                     <controls:FontIcon FontSize="50" Glyph="&#xEC7A;" Margin="10"/>

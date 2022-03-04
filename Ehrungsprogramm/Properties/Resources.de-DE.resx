@@ -249,4 +249,10 @@
   <data name="CalculationDeadlineString" xml:space="preserve">
     <value>Stichtag</value>
   </data>
+  <data name="RewardsPageTitle" xml:space="preserve">
+    <value>Ehrungen</value>
+  </data>
+  <data name="ShellRewardsPage" xml:space="preserve">
+    <value>Ehrungen</value>
+  </data>
 </root>

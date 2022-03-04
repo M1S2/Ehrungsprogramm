@@ -155,7 +155,7 @@
                     </ListView>
                 </DockPanel>
 
-                <icons:PackIconUnicons Grid.Row="8" Grid.Column="0" Width="35" Height="35" Kind="Award" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="3,20,3,3" ToolTip="{x:Static properties:Resources.RewardsString}"/>
+                <controls:FontIcon Grid.Row="8" Grid.Column="0" FontSize="30" Glyph="&#xE734;" VerticalAlignment="Top" Margin="3,15,3,3" ToolTip="{x:Static properties:Resources.RewardsString}"/>
                 <TextBlock Grid.Row="8" Grid.Column="1" Margin="3,20,3,3" VerticalAlignment="Top" Text="{x:Static properties:Resources.RewardsString}" FontSize="{StaticResource MediumFontSize}"/>
                 <StackPanel Orientation="Vertical" Grid.Row="8" Grid.Column="2" Margin="3,20,3,3">
                     <WrapPanel Orientation="Horizontal">

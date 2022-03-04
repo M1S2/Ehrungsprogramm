@@ -58,9 +58,9 @@ namespace Ehrungsprogramm.Controls
                 {
                     switch(Reward.Type)
                     {
-                        case RewardType.TSVSILVER: return "S";
-                        case RewardType.TSVGOLD: return "G";
-                        case RewardType.TSVHONORARY: return "H";
+                        case RewardTypes.TSVSILVER: return "S";
+                        case RewardTypes.TSVGOLD: return "G";
+                        case RewardTypes.TSVHONORARY: return "H";
                         default: return "?";
                     }
                 }

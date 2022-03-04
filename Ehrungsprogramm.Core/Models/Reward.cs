@@ -8,7 +8,7 @@ namespace Ehrungsprogramm.Core.Models
     /// <summary>
     /// Available reward types
     /// </summary>
-    public enum RewardType
+    public enum RewardTypes
     {
         BLSV20 = 20,
         BLSV25 = 25,
@@ -41,11 +41,11 @@ namespace Ehrungsprogramm.Core.Models
             set => SetProperty(ref _id, value);
         }
 
-        private RewardType _type;
+        private RewardTypes _type;
         /// <summary>
         /// Type of the reward
         /// </summary>
-        public RewardType Type 
+        public RewardTypes Type 
         { 
             get => _type;
             set { SetProperty(ref _type, value); OnPropertyChanged(nameof(IsBLSVType)); OnPropertyChanged(nameof(IsTSVType)); }
@@ -60,15 +60,15 @@ namespace Ehrungsprogramm.Core.Models
             {
                 switch (Type)
                 {
-                    case RewardType.BLSV20:
-                    case RewardType.BLSV25:
-                    case RewardType.BLSV30:
-                    case RewardType.BLSV40:
-                    case RewardType.BLSV45:
-                    case RewardType.BLSV50:
-                    case RewardType.BLSV60:
-                    case RewardType.BLSV70:
-                    case RewardType.BLSV80:
+                    case RewardTypes.BLSV20:
+                    case RewardTypes.BLSV25:
+                    case RewardTypes.BLSV30:
+                    case RewardTypes.BLSV40:
+                    case RewardTypes.BLSV45:
+                    case RewardTypes.BLSV50:
+                    case RewardTypes.BLSV60:
+                    case RewardTypes.BLSV70:
+                    case RewardTypes.BLSV80:
                         return true;
                     default: return false;
                 }
@@ -84,9 +84,9 @@ namespace Ehrungsprogramm.Core.Models
             {
                 switch (Type)
                 {
-                    case RewardType.TSVSILVER:
-                    case RewardType.TSVGOLD:
-                    case RewardType.TSVHONORARY:
+                    case RewardTypes.TSVSILVER:
+                    case RewardTypes.TSVGOLD:
+                    case RewardTypes.TSVHONORARY:
                         return true;
                     default: return false;
                 }
@@ -142,6 +142,15 @@ namespace Ehrungsprogramm.Core.Models
             Available = false;
             Obtained = false;
             ObtainedDate = DateTime.MinValue;
+        }
+
+        /// <summary>
+        /// Override the ToString method.
+        /// </summary>
+        /// <returns>Return an more readable string for the reward object</returns>
+        public override string ToString()
+        {
+            return Description + " (Type: " + Type.ToString() + ")";
         }
     }
 

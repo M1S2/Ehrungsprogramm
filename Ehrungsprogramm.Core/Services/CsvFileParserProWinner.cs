@@ -148,19 +148,19 @@ namespace Ehrungsprogramm.Core.Services
                     if (!string.IsNullOrEmpty(rewardDate)) { reward.ObtainedDate = DateTime.Parse(rewardDate); }
                     switch (int.Parse(rewardNumber))
                     {
-                        case REWARD_NUMBER_BLSV20: reward.Type = RewardType.BLSV20; break;
-                        case REWARD_NUMBER_BLSV25: reward.Type = RewardType.BLSV25; break;
-                        case REWARD_NUMBER_BLSV30: reward.Type = RewardType.BLSV30; break;
-                        case REWARD_NUMBER_BLSV40: reward.Type = RewardType.BLSV40; break;
-                        case REWARD_NUMBER_BLSV45: reward.Type = RewardType.BLSV45; break;
-                        case REWARD_NUMBER_BLSV50: reward.Type = RewardType.BLSV50; break;
-                        case REWARD_NUMBER_BLSV60: reward.Type = RewardType.BLSV60; break;
-                        case REWARD_NUMBER_BLSV70: reward.Type = RewardType.BLSV70; break;
-                        case REWARD_NUMBER_BLSV80: reward.Type = RewardType.BLSV80; break;
-                        case REWARD_NUMBER_TSV_SILVER: reward.Type = RewardType.TSVSILVER; break;
-                        case REWARD_NUMBER_TSV_GOLD: reward.Type = RewardType.TSVGOLD; break;
-                        case REWARD_NUMBER_TSV_HONORARY: reward.Type = RewardType.TSVHONORARY; break;
-                        default: reward.Type = RewardType.UNKNOWN; break;
+                        case REWARD_NUMBER_BLSV20: reward.Type = RewardTypes.BLSV20; break;
+                        case REWARD_NUMBER_BLSV25: reward.Type = RewardTypes.BLSV25; break;
+                        case REWARD_NUMBER_BLSV30: reward.Type = RewardTypes.BLSV30; break;
+                        case REWARD_NUMBER_BLSV40: reward.Type = RewardTypes.BLSV40; break;
+                        case REWARD_NUMBER_BLSV45: reward.Type = RewardTypes.BLSV45; break;
+                        case REWARD_NUMBER_BLSV50: reward.Type = RewardTypes.BLSV50; break;
+                        case REWARD_NUMBER_BLSV60: reward.Type = RewardTypes.BLSV60; break;
+                        case REWARD_NUMBER_BLSV70: reward.Type = RewardTypes.BLSV70; break;
+                        case REWARD_NUMBER_BLSV80: reward.Type = RewardTypes.BLSV80; break;
+                        case REWARD_NUMBER_TSV_SILVER: reward.Type = RewardTypes.TSVSILVER; break;
+                        case REWARD_NUMBER_TSV_GOLD: reward.Type = RewardTypes.TSVGOLD; break;
+                        case REWARD_NUMBER_TSV_HONORARY: reward.Type = RewardTypes.TSVHONORARY; break;
+                        default: reward.Type = RewardTypes.UNKNOWN; break;
                     }
 
                     if(!person.Rewards.AddReward(reward))

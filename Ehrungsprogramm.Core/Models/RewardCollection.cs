@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Linq;
 using Microsoft.Toolkit.Mvvm.ComponentModel;
 
 namespace Ehrungsprogramm.Core.Models
@@ -20,14 +21,29 @@ namespace Ehrungsprogramm.Core.Models
             set => SetProperty(ref _id, value);
         }
 
-        private Dictionary<RewardType, Reward> _rewards = new Dictionary<RewardType, Reward>();
+        private List<Reward> _rewards = new List<Reward>();
         /// <summary>
-        /// Dictionary with all rewards
+        /// List with all rewards
         /// </summary>
-        public Dictionary<RewardType, Reward> Rewards
+        public List<Reward> Rewards
         {
             get => _rewards;
             set => SetProperty(ref _rewards, value);
+        }
+
+        /// <summary>
+        /// Indexer for this <see cref="RewardCollection"/>
+        /// </summary>
+        /// <param name="rewardType">Type of the reward to get of set</param>
+        /// <returns>Found <see cref="Reward"/> of null</returns>
+        public Reward this[RewardTypes rewardType]
+        {
+            get => Rewards.Where(r => r.Type == rewardType).FirstOrDefault();
+            set
+            {
+                Rewards.RemoveAll(r => r.Type == value.Type);
+                Rewards.Add(value);
+            }
         }
 
         /// <summary>
@@ -35,19 +51,11 @@ namespace Ehrungsprogramm.Core.Models
         /// </summary>
         public RewardCollection()
         {
-            Rewards.Add(RewardType.BLSV20, new Reward() { Type = RewardType.BLSV20 });
-            Rewards.Add(RewardType.BLSV25, new Reward() { Type = RewardType.BLSV25 });
-            Rewards.Add(RewardType.BLSV30, new Reward() { Type = RewardType.BLSV30 });
-            Rewards.Add(RewardType.BLSV40, new Reward() { Type = RewardType.BLSV40 });
-            Rewards.Add(RewardType.BLSV45, new Reward() { Type = RewardType.BLSV45 });
-            Rewards.Add(RewardType.BLSV50, new Reward() { Type = RewardType.BLSV50 });
-            Rewards.Add(RewardType.BLSV60, new Reward() { Type = RewardType.BLSV60 });
-            Rewards.Add(RewardType.BLSV70, new Reward() { Type = RewardType.BLSV70 });
-            Rewards.Add(RewardType.BLSV80, new Reward() { Type = RewardType.BLSV80 });
-
-            Rewards.Add(RewardType.TSVSILVER, new Reward() { Type = RewardType.TSVSILVER });
-            Rewards.Add(RewardType.TSVGOLD, new Reward() { Type = RewardType.TSVGOLD });
-            Rewards.Add(RewardType.TSVHONORARY, new Reward() { Type = RewardType.TSVHONORARY });
+            foreach(RewardTypes rewardType in Enum.GetValues(typeof(RewardTypes)).Cast<RewardTypes>())
+            {
+                Rewards.Add(new Reward() { Type = rewardType });
+            }
+            Rewards.RemoveAll(r => r.Type == RewardTypes.UNKNOWN);      // Remove the UNKNOWN reward again
         }
 
         /// <summary>
@@ -59,24 +67,75 @@ namespace Ehrungsprogramm.Core.Models
         {
             if (reward.IsBLSVType || reward.IsTSVType)
             {
-                Rewards[reward.Type] = reward;
+                this[reward.Type] = reward;
+
+                //Rewards.RemoveAll(r => r.Type == reward.Type);
+                //Rewards.Add(reward);
                 return true;
             }
             return false;
         }
 
-        public Reward BLSV20 => Rewards[RewardType.BLSV20];
-        public Reward BLSV25 => Rewards[RewardType.BLSV25];
-        public Reward BLSV30 => Rewards[RewardType.BLSV30];
-        public Reward BLSV40 => Rewards[RewardType.BLSV40];
-        public Reward BLSV45 => Rewards[RewardType.BLSV45];
-        public Reward BLSV50 => Rewards[RewardType.BLSV50];
-        public Reward BLSV60 => Rewards[RewardType.BLSV60];
-        public Reward BLSV70 => Rewards[RewardType.BLSV70];
-        public Reward BLSV80 => Rewards[RewardType.BLSV80];
+        public Reward BLSV20 => this[RewardTypes.BLSV20];
+        public Reward BLSV25 => this[RewardTypes.BLSV25];
+        public Reward BLSV30 => this[RewardTypes.BLSV30];
+        public Reward BLSV40 => this[RewardTypes.BLSV40];
+        public Reward BLSV45 => this[RewardTypes.BLSV45];
+        public Reward BLSV50 => this[RewardTypes.BLSV50];
+        public Reward BLSV60 => this[RewardTypes.BLSV60];
+        public Reward BLSV70 => this[RewardTypes.BLSV70];
+        public Reward BLSV80 => this[RewardTypes.BLSV80];
 
-        public Reward TSVSilver => Rewards[RewardType.TSVSILVER];
-        public Reward TSVGold => Rewards[RewardType.TSVGOLD];
-        public Reward TSVHonorary => Rewards[RewardType.TSVHONORARY];
+        public Reward TSVSilver => this[RewardTypes.TSVSILVER];
+        public Reward TSVGold => this[RewardTypes.TSVGOLD];
+        public Reward TSVHonorary => this[RewardTypes.TSVHONORARY];
+
+        /// <summary>
+        /// Contains the highest BLSV reward that is available but not obtained. If not matching reward is found, null is returned.
+        /// </summary>
+        public Reward HighestAvailableBLSVReward
+        {
+            get
+            {
+                Rewards = Rewards.OrderBy(r => r.Type).ToList();
+                Reward highestBLSVReward = null;
+                foreach(Reward reward in Rewards)
+                {
+                    if (reward.IsBLSVType && reward.Available && !reward.Obtained)
+                    {
+                        highestBLSVReward = reward;
+                    }
+                    else if(reward.IsBLSVType && reward.Available && reward.Obtained)
+                    {
+                        highestBLSVReward = null;
+                    }
+                }
+                return highestBLSVReward;
+            }
+        }
+
+        /// <summary>
+        /// Contains the highest TSV reward that is available but not obtained. If not matching reward is found, null is returned.
+        /// </summary>
+        public Reward HighestAvailableTSVReward
+        {
+            get
+            {
+                Rewards = Rewards.OrderBy(r => r.Type).ToList();
+                Reward highestTSVReward = null;
+                foreach (Reward reward in Rewards)
+                {
+                    if (reward.IsTSVType && reward.Available && !reward.Obtained)
+                    {
+                        highestTSVReward = reward;
+                    }
+                    else if (reward.IsTSVType && reward.Available && reward.Obtained)
+                    {
+                        highestTSVReward = null;
+                    }
+                }
+                return highestTSVReward;
+            }
+        }
     }
 }
