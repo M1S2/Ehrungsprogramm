@@ -14,6 +14,20 @@
     d:DesignHeight="450" d:DesignWidth="800">
 
     <Page.Resources>
+        <DataTemplate x:Key="CellTemplateDetail">
+            <Button Margin="0,5,0,5" x:Name="DetailsButton" Style="{StaticResource MahApps.Styles.Button.Square.Accent}" Background="{StaticResource MahApps.Brushes.Gray2}" Visibility="Hidden" Width="30" Height="30" Command="{Binding RelativeSource={RelativeSource AncestorType={x:Type Page}}, Path=DataContext.PersonDetailCommand}" CommandParameter="{Binding}">
+                <controls:FontIcon FontSize="20" Glyph="&#xEA1F;"/>
+            </Button>
+            <DataTemplate.Triggers>
+                <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ListViewItem}}, Path=IsMouseOver}" Value="True">
+                    <Setter TargetName="DetailsButton" Property="Visibility" Value="Visible"/>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ListViewItem}}, Path=IsSelected}" Value="True">
+                    <Setter TargetName="DetailsButton" Property="Visibility" Value="Visible"/>
+                </DataTrigger>
+            </DataTemplate.Triggers>
+        </DataTemplate>
+        
         <CollectionViewSource x:Key="PeopleItemsTSVRewards" Source="{Binding People}">
             <CollectionViewSource.GroupDescriptions>
                 <PropertyGroupDescription PropertyName="Rewards.HighestAvailableTSVReward.Type" />
@@ -50,6 +64,7 @@
     <Grid Background="{StaticResource MahApps.Brushes.Window.Background}">
         <Grid.RowDefinitions>
             <RowDefinition Height="48" />
+            <RowDefinition Height="50" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
@@ -62,7 +77,8 @@
             Margin="{StaticResource MediumLeftMargin}"
             Text="{x:Static properties:Resources.RewardsPageTitle}" />
 
-        <ListView Grid.Row="1" Grid.Column="0" ItemsSource="{Binding Source={StaticResource PeopleItemsTSVRewards}}" Margin="{StaticResource MediumLeftTopRightBottomMargin}">
+        <TextBlock Grid.Row="1" Grid.Column="0" Text="TSV" Style="{StaticResource SubtitleTextStyle}" Margin="{StaticResource MediumLeftMargin}" VerticalAlignment="Center"/>
+        <ListView Grid.Row="2" Grid.Column="0" ItemsSource="{Binding Source={StaticResource PeopleItemsTSVRewards}}" Margin="{StaticResource MediumLeftRightMargin}">
             <ListView.View>
                 <GridView>
                     <GridViewColumn DisplayMemberBinding="{Binding FirstName}">
@@ -82,6 +98,8 @@
                             </StackPanel>
                         </GridViewColumn.Header>
                     </GridViewColumn>
+
+                    <GridViewColumn CellTemplate="{StaticResource CellTemplateDetail}"/>
                 </GridView>
             </ListView.View>
             
@@ -90,7 +108,8 @@
             </ListView.GroupStyle>
         </ListView>
 
-        <ListView Grid.Row="2" Grid.Column="1" ItemsSource="{Binding Source={StaticResource PeopleItemsBLSVRewards}}" Margin="{StaticResource MediumLeftTopRightBottomMargin}">
+        <TextBlock Grid.Row="1" Grid.Column="1" Text="BLSV" Style="{StaticResource SubtitleTextStyle}" Margin="{StaticResource MediumLeftMargin}" VerticalAlignment="Center"/>
+        <ListView Grid.Row="2" Grid.Column="1" ItemsSource="{Binding Source={StaticResource PeopleItemsBLSVRewards}}" Margin="{StaticResource MediumLeftRightMargin}">
             <ListView.View>
                 <GridView>
                     <GridViewColumn DisplayMemberBinding="{Binding FirstName}">
@@ -110,6 +129,8 @@
                             </StackPanel>
                         </GridViewColumn.Header>
                     </GridViewColumn>
+
+                    <GridViewColumn CellTemplate="{StaticResource CellTemplateDetail}"/>
                 </GridView>
             </ListView.View>
             
