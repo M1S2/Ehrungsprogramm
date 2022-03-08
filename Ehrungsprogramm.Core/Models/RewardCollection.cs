@@ -68,9 +68,6 @@ namespace Ehrungsprogramm.Core.Models
             if (reward.IsBLSVType || reward.IsTSVType)
             {
                 this[reward.Type] = reward;
-
-                //Rewards.RemoveAll(r => r.Type == reward.Type);
-                //Rewards.Add(reward);
                 return true;
             }
             return false;

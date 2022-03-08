@@ -54,9 +54,9 @@ namespace Ehrungsprogramm.Core.Services
             }
         }
 
-        private const int REWARD_TSVSILVER_POINTS = 25;
-        private const int REWARD_TSVGOLD_POINTS = 50;
-        private const int REWARD_TSVHONORARY_POINTS = 75;
+        private const int REWARD_TSVSILVER_POINTS = 45;
+        private const int REWARD_TSVGOLD_POINTS = 70;
+        private const int REWARD_TSVHONORARY_POINTS = 85;
 
         private LiteDatabase _database;                                     // Handle to a database holding the collection of Persons
         private ILiteCollection<Person> _peopleCollection;                  // Collection of Persons
@@ -149,6 +149,7 @@ namespace Ehrungsprogramm.Core.Services
         /// - <see cref="Person.EffectiveBoardMemberYears"/>
         /// - <see cref="Person.EffectiveHeadOfDepartementYears"/>
         /// - <see cref="Person.EffectiveOtherFunctionsYears"/>
+        /// - <see cref="Person.Rewards"/>
         /// </summary>
         /// <param name="person">Person to update</param>
         private void updatePersonProperties(Person person)

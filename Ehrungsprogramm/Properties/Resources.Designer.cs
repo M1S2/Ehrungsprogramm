@@ -160,6 +160,114 @@ namespace Ehrungsprogramm.Properties {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die BLSV 20 ähnelt.
+        /// </summary>
+        public static string Enum_RewardTypes_BLSV20 {
+            get {
+                return ResourceManager.GetString("Enum_RewardTypes_BLSV20", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die BLSV 25 ähnelt.
+        /// </summary>
+        public static string Enum_RewardTypes_BLSV25 {
+            get {
+                return ResourceManager.GetString("Enum_RewardTypes_BLSV25", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die BLSV 30 ähnelt.
+        /// </summary>
+        public static string Enum_RewardTypes_BLSV30 {
+            get {
+                return ResourceManager.GetString("Enum_RewardTypes_BLSV30", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die BLSV 40 ähnelt.
+        /// </summary>
+        public static string Enum_RewardTypes_BLSV40 {
+            get {
+                return ResourceManager.GetString("Enum_RewardTypes_BLSV40", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die BLSV 45 ähnelt.
+        /// </summary>
+        public static string Enum_RewardTypes_BLSV45 {
+            get {
+                return ResourceManager.GetString("Enum_RewardTypes_BLSV45", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die BLSV 50 ähnelt.
+        /// </summary>
+        public static string Enum_RewardTypes_BLSV50 {
+            get {
+                return ResourceManager.GetString("Enum_RewardTypes_BLSV50", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die BLSV 60 ähnelt.
+        /// </summary>
+        public static string Enum_RewardTypes_BLSV60 {
+            get {
+                return ResourceManager.GetString("Enum_RewardTypes_BLSV60", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die BLSV 70 ähnelt.
+        /// </summary>
+        public static string Enum_RewardTypes_BLSV70 {
+            get {
+                return ResourceManager.GetString("Enum_RewardTypes_BLSV70", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die BLSV 80 ähnelt.
+        /// </summary>
+        public static string Enum_RewardTypes_BLSV80 {
+            get {
+                return ResourceManager.GetString("Enum_RewardTypes_BLSV80", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die TSV Gold ähnelt.
+        /// </summary>
+        public static string Enum_RewardTypes_TSVGOLD {
+            get {
+                return ResourceManager.GetString("Enum_RewardTypes_TSVGOLD", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die TSV Honorary ähnelt.
+        /// </summary>
+        public static string Enum_RewardTypes_TSVHONORARY {
+            get {
+                return ResourceManager.GetString("Enum_RewardTypes_TSVHONORARY", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die TSV Silver ähnelt.
+        /// </summary>
+        public static string Enum_RewardTypes_TSVSILVER {
+            get {
+                return ResourceManager.GetString("Enum_RewardTypes_TSVSILVER", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die First Name ähnelt.
         /// </summary>
         public static string FirstNameString {

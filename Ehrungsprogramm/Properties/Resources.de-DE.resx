@@ -255,4 +255,40 @@
   <data name="ShellRewardsPage" xml:space="preserve">
     <value>Ehrungen</value>
   </data>
+  <data name="Enum_RewardTypes_BLSV20" xml:space="preserve">
+    <value>BLSV 20</value>
+  </data>
+  <data name="Enum_RewardTypes_BLSV25" xml:space="preserve">
+    <value>BLSV 25</value>
+  </data>
+  <data name="Enum_RewardTypes_BLSV30" xml:space="preserve">
+    <value>BLSV 30</value>
+  </data>
+  <data name="Enum_RewardTypes_BLSV40" xml:space="preserve">
+    <value>BLSV 40</value>
+  </data>
+  <data name="Enum_RewardTypes_BLSV45" xml:space="preserve">
+    <value>BLSV 45</value>
+  </data>
+  <data name="Enum_RewardTypes_BLSV50" xml:space="preserve">
+    <value>BLSV 50</value>
+  </data>
+  <data name="Enum_RewardTypes_BLSV60" xml:space="preserve">
+    <value>BLSV 60</value>
+  </data>
+  <data name="Enum_RewardTypes_BLSV70" xml:space="preserve">
+    <value>BLSV 70</value>
+  </data>
+  <data name="Enum_RewardTypes_BLSV80" xml:space="preserve">
+    <value>BLSV 80</value>
+  </data>
+  <data name="Enum_RewardTypes_TSVGOLD" xml:space="preserve">
+    <value>TSV Gold</value>
+  </data>
+  <data name="Enum_RewardTypes_TSVHONORARY" xml:space="preserve">
+    <value>TSV Ehrenmitglied</value>
+  </data>
+  <data name="Enum_RewardTypes_TSVSILVER" xml:space="preserve">
+    <value>TSV Silber</value>
+  </data>
 </root>
