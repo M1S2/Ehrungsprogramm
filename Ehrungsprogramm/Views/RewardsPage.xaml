@@ -27,24 +27,12 @@
                 </DataTrigger>
             </DataTemplate.Triggers>
         </DataTemplate>
-        
-        <CollectionViewSource x:Key="PeopleItemsTSVRewards" Source="{Binding People}">
-            <CollectionViewSource.GroupDescriptions>
-                <PropertyGroupDescription PropertyName="Rewards.HighestAvailableTSVReward.Type" />
-            </CollectionViewSource.GroupDescriptions>
-        </CollectionViewSource>
-
-        <CollectionViewSource x:Key="PeopleItemsBLSVRewards" Source="{Binding People}">
-            <CollectionViewSource.GroupDescriptions>
-                <PropertyGroupDescription PropertyName="Rewards.HighestAvailableBLSVReward.Type" />
-            </CollectionViewSource.GroupDescriptions>
-        </CollectionViewSource>
 
         <Style x:Key="RewardListViewGroupContainerStyle" TargetType="{x:Type GroupItem}">
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate>
-                        <Expander IsExpanded="True" controls:HeaderedControlHelper.HeaderBackground="Transparent">
+                        <Expander IsExpanded="True" controls:HeaderedControlHelper.HeaderBackground="{StaticResource MahApps.Brushes.Gray}">
                             <Expander.Header>
                                 <StackPanel Orientation="Horizontal">
                                     <TextBlock Text="{Binding Name}" FontSize="{StaticResource LargeFontSize}" VerticalAlignment="Center"/>
@@ -78,7 +66,7 @@
             Text="{x:Static properties:Resources.RewardsPageTitle}" />
 
         <TextBlock Grid.Row="1" Grid.Column="0" Text="TSV" Style="{StaticResource SubtitleTextStyle}" Margin="{StaticResource MediumLeftMargin}" VerticalAlignment="Center"/>
-        <ListView Grid.Row="2" Grid.Column="0" ItemsSource="{Binding Source={StaticResource PeopleItemsTSVRewards}}" Margin="{StaticResource MediumLeftRightMargin}">
+        <ListView Grid.Row="2" Grid.Column="0" ItemsSource="{Binding PeopleItemsTSVRewardsCollectionView}" Margin="{StaticResource MediumLeftRightMargin}">
             <ListView.View>
                 <GridView>
                     <GridViewColumn DisplayMemberBinding="{Binding FirstName}">
@@ -109,7 +97,7 @@
         </ListView>
 
         <TextBlock Grid.Row="1" Grid.Column="1" Text="BLSV" Style="{StaticResource SubtitleTextStyle}" Margin="{StaticResource MediumLeftMargin}" VerticalAlignment="Center"/>
-        <ListView Grid.Row="2" Grid.Column="1" ItemsSource="{Binding Source={StaticResource PeopleItemsBLSVRewards}}" Margin="{StaticResource MediumLeftRightMargin}">
+        <ListView Grid.Row="2" Grid.Column="1" ItemsSource="{Binding PeopleItemsBLSVRewardsCollectionView}" Margin="{StaticResource MediumLeftRightMargin}">
             <ListView.View>
                 <GridView>
                     <GridViewColumn DisplayMemberBinding="{Binding FirstName}">
