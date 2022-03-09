@@ -71,20 +71,20 @@
         <ListView Grid.Row="2" Grid.Column="0" ItemsSource="{Binding PeopleItemsTSVRewardsCollectionView}" Margin="{StaticResource MediumLeftRightMargin}">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn DisplayMemberBinding="{Binding FirstName}">
-                        <GridViewColumn.Header>
-                            <StackPanel Orientation="Horizontal">
-                                <controls:FontIcon Glyph="&#xE77B;" Margin="5"/>
-                                <TextBlock Text="{x:Static properties:Resources.FirstNameString}" VerticalAlignment="Center"/>
-                            </StackPanel>
-                        </GridViewColumn.Header>
-                    </GridViewColumn>
-
                     <GridViewColumn DisplayMemberBinding="{Binding Name}">
                         <GridViewColumn.Header>
                             <StackPanel Orientation="Horizontal">
                                 <controls:FontIcon Glyph="&#xE77B;" Margin="5"/>
                                 <TextBlock Text="{x:Static properties:Resources.NameString}" VerticalAlignment="Center"/>
+                            </StackPanel>
+                        </GridViewColumn.Header>
+                    </GridViewColumn>
+                    
+                    <GridViewColumn DisplayMemberBinding="{Binding FirstName}">
+                        <GridViewColumn.Header>
+                            <StackPanel Orientation="Horizontal">
+                                <controls:FontIcon Glyph="&#xE77B;" Margin="5"/>
+                                <TextBlock Text="{x:Static properties:Resources.FirstNameString}" VerticalAlignment="Center"/>
                             </StackPanel>
                         </GridViewColumn.Header>
                     </GridViewColumn>
@@ -102,20 +102,20 @@
         <ListView Grid.Row="2" Grid.Column="1" ItemsSource="{Binding PeopleItemsBLSVRewardsCollectionView}" Margin="{StaticResource MediumLeftRightMargin}">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn DisplayMemberBinding="{Binding FirstName}">
-                        <GridViewColumn.Header>
-                            <StackPanel Orientation="Horizontal">
-                                <controls:FontIcon Glyph="&#xE77B;" Margin="5"/>
-                                <TextBlock Text="{x:Static properties:Resources.FirstNameString}" VerticalAlignment="Center"/>
-                            </StackPanel>
-                        </GridViewColumn.Header>
-                    </GridViewColumn>
-
                     <GridViewColumn DisplayMemberBinding="{Binding Name}">
                         <GridViewColumn.Header>
                             <StackPanel Orientation="Horizontal">
                                 <controls:FontIcon Glyph="&#xE77B;" Margin="5"/>
                                 <TextBlock Text="{x:Static properties:Resources.NameString}" VerticalAlignment="Center"/>
+                            </StackPanel>
+                        </GridViewColumn.Header>
+                    </GridViewColumn>
+                    
+                    <GridViewColumn DisplayMemberBinding="{Binding FirstName}">
+                        <GridViewColumn.Header>
+                            <StackPanel Orientation="Horizontal">
+                                <controls:FontIcon Glyph="&#xE77B;" Margin="5"/>
+                                <TextBlock Text="{x:Static properties:Resources.FirstNameString}" VerticalAlignment="Center"/>
                             </StackPanel>
                         </GridViewColumn.Header>
                     </GridViewColumn>

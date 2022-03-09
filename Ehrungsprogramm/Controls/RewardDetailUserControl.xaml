@@ -12,12 +12,21 @@
 
     <UserControl.Resources>
         <BooleanToVisibilityConverter x:Key="BoolVisibilityConverter"/>
+        <converters:EnumToLocalizedStringConverter x:Key="EnumLocalizedStringConverter"/>
+        <converters:StringNullOrEmptyToVisibilityConverter x:Key="StringEmptyVisibilityConverter"/>
     </UserControl.Resources>
 
-    <StackPanel Orientation="Horizontal" Background="{StaticResource MahApps.Brushes.Window.Background}" Visibility="{Binding Reward.Available, RelativeSource={RelativeSource AncestorType=UserControl}, Converter={StaticResource BooleanToVisibilityConverter}}">
+    <StackPanel Orientation="Horizontal" Background="{StaticResource MahApps.Brushes.Window.Background}" 
+                Visibility="{Binding Reward.Available, RelativeSource={RelativeSource AncestorType=UserControl}, Converter={StaticResource BooleanToVisibilityConverter}}">
         <local:RewardIconUserControl Reward="{Binding Reward, RelativeSource={RelativeSource AncestorType=UserControl}}"/>
         <StackPanel Margin="5,0,0,0">
-            <TextBlock Text="{Binding Reward.Description, RelativeSource={RelativeSource AncestorType=UserControl}}" d:Text="Description" FontSize="{StaticResource MediumFontSize}"/>
+            <TextBlock Text="{Binding Reward.Type, RelativeSource={RelativeSource AncestorType=UserControl}, Converter={StaticResource EnumLocalizedStringConverter}}" 
+                       d:Text="Type" 
+                       FontSize="{StaticResource MediumFontSize}"/>
+            <TextBlock Text="{Binding Reward.Description, RelativeSource={RelativeSource AncestorType=UserControl}}" 
+                       Visibility="{Binding Reward.Description, RelativeSource={RelativeSource AncestorType=UserControl}, Converter={StaticResource StringEmptyVisibilityConverter}}" 
+                       d:Text="Description" 
+                       FontSize="{StaticResource MediumFontSize}"/>
             <TextBlock FontSize="{StaticResource MediumFontSize}">
                 <TextBlock.Style>
                     <Style TargetType="TextBlock">

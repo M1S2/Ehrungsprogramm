@@ -67,10 +67,14 @@ namespace Ehrungsprogramm.ViewModels
             PeopleItemsTSVRewardsCollectionView = new CollectionViewSource() { Source = People }.View;
             PeopleItemsTSVRewardsCollectionView.Filter += (item) => ((Person)item).Rewards.HighestAvailableTSVReward != null;
             PeopleItemsTSVRewardsCollectionView.GroupDescriptions.Add(new PropertyGroupDescription("Rewards.HighestAvailableTSVReward.Type"));
+            PeopleItemsTSVRewardsCollectionView.SortDescriptions.Add(new SortDescription("Rewards.HighestAvailableTSVReward.Type", ListSortDirection.Ascending));
+            PeopleItemsTSVRewardsCollectionView.SortDescriptions.Add(new SortDescription("Name", ListSortDirection.Ascending));
 
             PeopleItemsBLSVRewardsCollectionView = new CollectionViewSource() { Source = People }.View;
             PeopleItemsBLSVRewardsCollectionView.Filter += (item) => ((Person)item).Rewards.HighestAvailableBLSVReward != null;
-            PeopleItemsBLSVRewardsCollectionView.GroupDescriptions.Add(new PropertyGroupDescription("Rewards.HighestAvailableBLSVReward.Type"));
+            PeopleItemsBLSVRewardsCollectionView.GroupDescriptions.Add(new PropertyGroupDescription("Rewards.HighestAvailableBLSVReward.Type")); 
+            PeopleItemsBLSVRewardsCollectionView.SortDescriptions.Add(new SortDescription("Rewards.HighestAvailableBLSVReward.Type", ListSortDirection.Ascending));
+            PeopleItemsBLSVRewardsCollectionView.SortDescriptions.Add(new SortDescription("Name", ListSortDirection.Ascending));
         }
     }
 }

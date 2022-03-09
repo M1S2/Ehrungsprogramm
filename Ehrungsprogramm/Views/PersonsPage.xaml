@@ -42,15 +42,6 @@
         <localControls:FilteredListView Grid.Row="2" ItemsSource="{Binding People}" Margin="{StaticResource MediumLeftTopRightBottomMargin}" FilterPredicate="{Binding PersonFilter}">
             <localControls:FilteredListView.View>
                 <GridView>
-                    <GridViewColumn DisplayMemberBinding="{Binding FirstName}">
-                        <GridViewColumn.Header>
-                            <StackPanel Orientation="Horizontal">
-                                <controls:FontIcon Glyph="&#xE77B;" Margin="5"/>
-                                <TextBlock Text="{x:Static properties:Resources.FirstNameString}" VerticalAlignment="Center"/>
-                            </StackPanel>
-                        </GridViewColumn.Header>
-                    </GridViewColumn>
-                    
                     <GridViewColumn DisplayMemberBinding="{Binding Name}">
                         <GridViewColumn.Header>
                             <StackPanel Orientation="Horizontal">
@@ -59,7 +50,16 @@
                             </StackPanel>
                         </GridViewColumn.Header>
                     </GridViewColumn>
-                    
+
+                    <GridViewColumn DisplayMemberBinding="{Binding FirstName}">
+                        <GridViewColumn.Header>
+                            <StackPanel Orientation="Horizontal">
+                                <controls:FontIcon Glyph="&#xE77B;" Margin="5"/>
+                                <TextBlock Text="{x:Static properties:Resources.FirstNameString}" VerticalAlignment="Center"/>
+                            </StackPanel>
+                        </GridViewColumn.Header>
+                    </GridViewColumn>
+
                     <GridViewColumn DisplayMemberBinding="{Binding EntryDate, StringFormat=d}">
                         <GridViewColumn.Header>
                             <StackPanel Orientation="Horizontal">
