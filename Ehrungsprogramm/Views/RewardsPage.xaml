@@ -30,7 +30,32 @@
             </DataTemplate.Triggers>
         </DataTemplate>
 
-        <Style x:Key="RewardListViewGroupContainerStyle" TargetType="{x:Type GroupItem}">
+        <Style x:Key="GroupItemControlTemplateStickyScrollHeader" TargetType="{x:Type GroupItem}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <!-- https://stackoverflow.com/questions/14801102/wpf-scroll-itemcontrol-content-fixed-header -->
+                    <ControlTemplate>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition  Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <Grid Grid.Row="0" localControls:StickyScrollHeader.AttachToControl="{Binding RelativeSource={RelativeSource Mode=FindAncestor,AncestorType=Grid}}">
+                                <Border Background="{StaticResource MahApps.Brushes.Gray}" BorderBrush="{StaticResource MahApps.Brushes.Accent}" BorderThickness="1">
+                                    <StackPanel Margin="5" Orientation="Horizontal">
+                                        <TextBlock Text="{Binding Name}" FontSize="{StaticResource LargeFontSize}" VerticalAlignment="Center"/>
+                                        <TextBlock Text="{Binding ItemCount, StringFormat=({0})}" FontSize="{StaticResource LargeFontSize}" Margin="10,0,0,0" VerticalAlignment="Center"/>
+                                    </StackPanel>
+                                </Border>
+                            </Grid>
+                            <ItemsPresenter Grid.Row="1"/>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        
+        <!--<Style x:Key="RewardListViewGroupContainerStyle" TargetType="{x:Type GroupItem}">
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate>
@@ -46,7 +71,7 @@
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
-        </Style>
+        </Style>-->
     </Page.Resources>
 
     
@@ -94,7 +119,7 @@
             </ListView.View>
             
             <ListView.GroupStyle>
-                <GroupStyle ContainerStyle="{StaticResource RewardListViewGroupContainerStyle}"/>
+                <GroupStyle ContainerStyle="{StaticResource GroupItemControlTemplateStickyScrollHeader}"/>
             </ListView.GroupStyle>
         </ListView>
 
@@ -125,7 +150,7 @@
             </ListView.View>
             
             <ListView.GroupStyle>
-                <GroupStyle ContainerStyle="{StaticResource RewardListViewGroupContainerStyle}"/>
+                <GroupStyle ContainerStyle="{StaticResource GroupItemControlTemplateStickyScrollHeader}"/>
             </ListView.GroupStyle>
         </ListView>
     </Grid>
