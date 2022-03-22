@@ -83,6 +83,7 @@ namespace Ehrungsprogramm.Core.Services
         public async Task<bool> ImportFromFile(string filepath, CancellationToken cancellationToken)
         {
             bool importingResult = false;
+            Exception exception = null;
             await Task.Run(() =>
             {
                 try
@@ -96,8 +97,13 @@ namespace Ehrungsprogramm.Core.Services
                 {
                     importingResult = false;
                 }
+                catch(Exception ex)
+                {
+                    exception = ex;
+                }
             });
             OnImportFromFileFinished?.Invoke(this, null);
+            if(exception != null) { throw exception; }
             return importingResult;
         }
 

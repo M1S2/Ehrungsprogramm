@@ -13,8 +13,8 @@ namespace Ehrungsprogramm.ViewModels
 {
     public class PersonsViewModel : ObservableObject, INavigationAware
     {
-        private ObservableCollection<Person> _people;
-        public ObservableCollection<Person> People
+        private List<Person> _people;
+        public List<Person> People
         {
             get => _people;
             set => SetProperty(ref _people, value);
@@ -51,7 +51,7 @@ namespace Ehrungsprogramm.ViewModels
         {
             _personService = personService;
             _navigationService = navigationService;
-            People = new ObservableCollection<Person>();
+            People = new List<Person>();
         }
 
         public void OnNavigatedFrom()
@@ -63,6 +63,7 @@ namespace Ehrungsprogramm.ViewModels
             People.Clear();
             List<Person> servicePeople = _personService?.GetPersons();
             servicePeople?.ForEach(p => People.Add(p));
+            OnPropertyChanged(nameof(People));
         }
     }
 }

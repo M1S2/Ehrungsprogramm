@@ -82,7 +82,15 @@ namespace Ehrungsprogramm.ViewModels
                 CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
                 _progressController = await _dialogCoordinator.ShowProgressAsync(this, Properties.Resources.ImportDataFromFileString + "...", "", true);
                 _progressController.Canceled += (sender, e) => cancellationTokenSource.Cancel();
-                _personService?.ImportFromFile(openFileDialog.FileName, cancellationTokenSource.Token);
+                try
+                {
+                    await _personService?.ImportFromFile(openFileDialog.FileName, cancellationTokenSource.Token);
+                }
+                catch (Exception ex) 
+                {
+                    await _progressController.CloseAsync();
+                    await _dialogCoordinator.ShowMessageAsync(this, "Error", ex.Message);
+                }
             }
         }
 

@@ -16,11 +16,11 @@ namespace Ehrungsprogramm.ViewModels
 {
     public class RewardsViewModel : ObservableObject, INavigationAware
     {
-        private ObservableCollection<Person> _people;
+        private List<Person> _people;
         /// <summary>
         /// Collection with all people
         /// </summary>
-        public ObservableCollection<Person> People
+        public List<Person> People
         {
             get => _people;
             set => SetProperty(ref _people, value);
@@ -51,7 +51,7 @@ namespace Ehrungsprogramm.ViewModels
         {
             _personService = personService;
             _navigationService = navigationService;
-            People = new ObservableCollection<Person>();
+            People = new List<Person>();
         }
 
         public void OnNavigatedFrom()
@@ -65,16 +65,24 @@ namespace Ehrungsprogramm.ViewModels
             servicePeople?.ForEach(p => People.Add(p));
 
             PeopleItemsTSVRewardsCollectionView = new CollectionViewSource() { Source = People }.View;
-            PeopleItemsTSVRewardsCollectionView.Filter += (item) => ((Person)item).Rewards.HighestAvailableTSVReward != null;
-            PeopleItemsTSVRewardsCollectionView.GroupDescriptions.Add(new PropertyGroupDescription("Rewards.HighestAvailableTSVReward.Type"));
-            PeopleItemsTSVRewardsCollectionView.SortDescriptions.Add(new SortDescription("Rewards.HighestAvailableTSVReward.Type", ListSortDirection.Ascending));
-            PeopleItemsTSVRewardsCollectionView.SortDescriptions.Add(new SortDescription("Name", ListSortDirection.Ascending));
+            using (PeopleItemsTSVRewardsCollectionView.DeferRefresh())
+            {
+                PeopleItemsTSVRewardsCollectionView.Filter += (item) => ((Person)item).Rewards.HighestAvailableTSVReward != null;
+                PeopleItemsTSVRewardsCollectionView.GroupDescriptions.Add(new PropertyGroupDescription("Rewards.HighestAvailableTSVReward.Type"));
+                PeopleItemsTSVRewardsCollectionView.SortDescriptions.Add(new SortDescription("Rewards.HighestAvailableTSVReward.Type", ListSortDirection.Ascending));
+                PeopleItemsTSVRewardsCollectionView.SortDescriptions.Add(new SortDescription("Name", ListSortDirection.Ascending));
+            }
 
             PeopleItemsBLSVRewardsCollectionView = new CollectionViewSource() { Source = People }.View;
-            PeopleItemsBLSVRewardsCollectionView.Filter += (item) => ((Person)item).Rewards.HighestAvailableBLSVReward != null;
-            PeopleItemsBLSVRewardsCollectionView.GroupDescriptions.Add(new PropertyGroupDescription("Rewards.HighestAvailableBLSVReward.Type")); 
-            PeopleItemsBLSVRewardsCollectionView.SortDescriptions.Add(new SortDescription("Rewards.HighestAvailableBLSVReward.Type", ListSortDirection.Ascending));
-            PeopleItemsBLSVRewardsCollectionView.SortDescriptions.Add(new SortDescription("Name", ListSortDirection.Ascending));
+            using (PeopleItemsBLSVRewardsCollectionView.DeferRefresh())
+            {
+                PeopleItemsBLSVRewardsCollectionView.Filter += (item) => ((Person)item).Rewards.HighestAvailableBLSVReward != null;
+                PeopleItemsBLSVRewardsCollectionView.GroupDescriptions.Add(new PropertyGroupDescription("Rewards.HighestAvailableBLSVReward.Type"));
+                PeopleItemsBLSVRewardsCollectionView.SortDescriptions.Add(new SortDescription("Rewards.HighestAvailableBLSVReward.Type", ListSortDirection.Ascending));
+                PeopleItemsBLSVRewardsCollectionView.SortDescriptions.Add(new SortDescription("Name", ListSortDirection.Ascending));
+            }
+
+            OnPropertyChanged(nameof(People));
         }
     }
 }

@@ -63,6 +63,8 @@ namespace Ehrungsprogramm.Core.Services
 
             string regexPatternLineElements = DELIMITER + "(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)";       //Using quotes to allow the delimiter
 
+            DateTime dateTimeNow = DateTime.Now;        // Get the current time once to always have the same value (otherwise Equals could fail)
+
             int current_line_index = 0;
             foreach (string line in csv_lines)
             {
@@ -110,6 +112,8 @@ namespace Ehrungsprogramm.Core.Services
                     Function function = new Function();
                     function.Description = functionName;
                     if (!string.IsNullOrEmpty(functionStartDate)) { function.TimePeriod.Start = DateTime.Parse(functionStartDate); }
+                    else { throw new Exception(String.Format("CsvFileParser: Function Start Date empty (Person: {0} {1}, Function: {2})!", person.Name, person.FirstName, functionName)); }
+
                     if (!string.IsNullOrEmpty(functionEndDate)) 
                     {
                         function.IsFunctionOngoing = false;
@@ -118,7 +122,7 @@ namespace Ehrungsprogramm.Core.Services
                     else    // if the end date column is empty, the function is not ended yet (lasts until now)
                     {
                         function.IsFunctionOngoing = true;
-                        function.TimePeriod.End = DateTime.Now;     // This date is replaced later by the calculation deadline. So it doesn't matter what it is set to.
+                        function.TimePeriod.End = dateTimeNow;      // This date is replaced later by the calculation deadline. So it doesn't matter what it is set to.
                     }
 
                     if (functionName.Contains(OTHER_FUNCTIONS_MARKER)) { function.Type = FunctionType.OTHER_FUNCTION; }

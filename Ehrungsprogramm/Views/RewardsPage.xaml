@@ -54,24 +54,6 @@
                 </Setter.Value>
             </Setter>
         </Style>
-        
-        <!--<Style x:Key="RewardListViewGroupContainerStyle" TargetType="{x:Type GroupItem}">
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate>
-                        <Expander IsExpanded="True" controls:HeaderedControlHelper.HeaderBackground="{StaticResource MahApps.Brushes.Gray}">
-                            <Expander.Header>
-                                <StackPanel Orientation="Horizontal">
-                                    <TextBlock Text="{Binding Name, Converter={StaticResource EnumLocalizedStringConverter}}" FontSize="{StaticResource LargeFontSize}" VerticalAlignment="Center"/>
-                                    <TextBlock Text="{Binding ItemCount, StringFormat=({0})}" FontSize="{StaticResource LargeFontSize}" Margin="10,0,0,0" VerticalAlignment="Center"/>
-                                </StackPanel>
-                            </Expander.Header>
-                            <ItemsPresenter />
-                        </Expander>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>-->
     </Page.Resources>
 
     

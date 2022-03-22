@@ -14,6 +14,8 @@
     d:DesignHeight="450" d:DesignWidth="800">
 
     <Page.Resources>
+        <converters:NullToVisibilityConverter x:Key="NullVisibilityConverter"/>
+
         <DataTemplate x:Key="CellTemplateDetail">
             <Button Margin="0,10,0,10" x:Name="DetailsButton" Style="{StaticResource MahApps.Styles.Button.Square.Accent}" Background="{StaticResource MahApps.Brushes.Gray2}" Visibility="Hidden" Width="30" Height="30" Command="{Binding RelativeSource={RelativeSource AncestorType={x:Type Page}}, Path=DataContext.PersonDetailCommand}" CommandParameter="{Binding}">
                 <controls:FontIcon FontSize="20" Glyph="&#xEA1F;"/>
@@ -46,7 +48,7 @@
                         <GridViewColumn.Header>
                             <StackPanel Orientation="Horizontal">
                                 <controls:FontIcon Glyph="&#xE77B;" Margin="5"/>
-                                <TextBlock Text="{x:Static properties:Resources.NameString}" VerticalAlignment="Center"/>
+                                <TextBlock Text="{x:Static properties:Resources.NameString}" VerticalAlignment="Center" FontSize="{StaticResource MediumFontSize}"/>
                             </StackPanel>
                         </GridViewColumn.Header>
                     </GridViewColumn>
@@ -55,7 +57,7 @@
                         <GridViewColumn.Header>
                             <StackPanel Orientation="Horizontal">
                                 <controls:FontIcon Glyph="&#xE77B;" Margin="5"/>
-                                <TextBlock Text="{x:Static properties:Resources.FirstNameString}" VerticalAlignment="Center"/>
+                                <TextBlock Text="{x:Static properties:Resources.FirstNameString}" VerticalAlignment="Center" FontSize="{StaticResource MediumFontSize}"/>
                             </StackPanel>
                         </GridViewColumn.Header>
                     </GridViewColumn>
@@ -64,7 +66,7 @@
                         <GridViewColumn.Header>
                             <StackPanel Orientation="Horizontal">
                                 <controls:FontIcon Glyph="&#xE787;" Margin="5"/>
-                                <TextBlock Text="{x:Static properties:Resources.EntryDateString}" VerticalAlignment="Center"/>
+                                <TextBlock Text="{x:Static properties:Resources.EntryDateString}" VerticalAlignment="Center" FontSize="{StaticResource MediumFontSize}"/>
                             </StackPanel>
                         </GridViewColumn.Header>
                     </GridViewColumn>
@@ -73,46 +75,36 @@
                         <GridViewColumn.Header>
                             <StackPanel Orientation="Horizontal">
                                 <controls:FontIcon Glyph="&#xE734;" Margin="5"/>
-                                <TextBlock Text="{x:Static properties:Resources.ScoreBLSVString}" VerticalAlignment="Center"/>
+                                <TextBlock Text="{x:Static properties:Resources.ScoreBLSVString}" VerticalAlignment="Center" FontSize="{StaticResource MediumFontSize}"/>
                             </StackPanel>
                         </GridViewColumn.Header>
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <StackPanel Orientation="Horizontal">
-                                    <TextBlock MinWidth="30" Text="{Binding ScoreBLSV}" VerticalAlignment="Center"/>
-                                    <localControls:RewardIconUserControl Reward="{Binding Rewards.BLSV20}"/>
-                                    <localControls:RewardIconUserControl Reward="{Binding Rewards.BLSV25}"/>
-                                    <localControls:RewardIconUserControl Reward="{Binding Rewards.BLSV30}"/>
-                                    <localControls:RewardIconUserControl Reward="{Binding Rewards.BLSV40}"/>
-                                    <localControls:RewardIconUserControl Reward="{Binding Rewards.BLSV45}"/>
-                                    <localControls:RewardIconUserControl Reward="{Binding Rewards.BLSV50}"/>
-                                    <localControls:RewardIconUserControl Reward="{Binding Rewards.BLSV60}"/>
-                                    <localControls:RewardIconUserControl Reward="{Binding Rewards.BLSV70}"/>
-                                    <localControls:RewardIconUserControl Reward="{Binding Rewards.BLSV80}"/>
+                                    <TextBlock MinWidth="30" Text="{Binding ScoreBLSV}" VerticalAlignment="Center" FontSize="{StaticResource MediumFontSize}"/>
+                                    <localControls:RewardIconUserControl Reward="{Binding Rewards.HighestAvailableBLSVReward}" Visibility="{Binding Rewards.HighestAvailableBLSVReward, Converter={StaticResource NullVisibilityConverter}}"/>
                                 </StackPanel>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
-                    
+
                     <GridViewColumn>
                         <GridViewColumn.Header>
                             <StackPanel Orientation="Horizontal">
                                 <controls:FontIcon Glyph="&#xE734;" Margin="5"/>
-                                <TextBlock Text="{x:Static properties:Resources.ScoreTSVString}" VerticalAlignment="Center"/>
+                                <TextBlock Text="{x:Static properties:Resources.ScoreTSVString}" VerticalAlignment="Center" FontSize="{StaticResource MediumFontSize}"/>
                             </StackPanel>
                         </GridViewColumn.Header>
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <StackPanel Orientation="Horizontal">
-                                    <TextBlock MinWidth="30" Text="{Binding ScoreTSV}" VerticalAlignment="Center"/>
-                                    <localControls:RewardIconUserControl Reward="{Binding Rewards.TSVSilver}"/>
-                                    <localControls:RewardIconUserControl Reward="{Binding Rewards.TSVGold}"/>
-                                    <localControls:RewardIconUserControl Reward="{Binding Rewards.TSVHonorary}"/>
+                                    <TextBlock MinWidth="30" Text="{Binding ScoreTSV}" VerticalAlignment="Center" FontSize="{StaticResource MediumFontSize}"/>
+                                    <localControls:RewardIconUserControl Reward="{Binding Rewards.HighestAvailableTSVReward}" Visibility="{Binding Rewards.HighestAvailableTSVReward, Converter={StaticResource NullVisibilityConverter}}"/>
                                 </StackPanel>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
-                    
+
                     <GridViewColumn CellTemplate="{StaticResource CellTemplateDetail}"/>
                 </GridView>
             </localControls:FilteredListView.View>
