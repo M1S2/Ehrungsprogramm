@@ -15,6 +15,7 @@
 
     <Page.Resources>
         <converters:EnumToLocalizedStringConverter x:Key="EnumLocalizedStringConverter"/>
+        <converters:StringNullOrEmptyToVisibilityConverter x:Key="StringNullOrEmptyVisibilityConverter"/>
 
         <DataTemplate x:Key="CellTemplateDetail">
             <Button Margin="0,5,0,5" x:Name="DetailsButton" Style="{StaticResource MahApps.Styles.Button.Square.Accent}" Background="{StaticResource MahApps.Brushes.Gray2}" Visibility="Hidden" Width="30" Height="30" Command="{Binding RelativeSource={RelativeSource AncestorType={x:Type Page}}, Path=DataContext.PersonDetailCommand}" CommandParameter="{Binding}">
@@ -96,6 +97,14 @@
                         </GridViewColumn.Header>
                     </GridViewColumn>
 
+                    <GridViewColumn Width="50">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <controls:FontIcon FontSize="35" Glyph="&#xE7BA;" Foreground="{StaticResource MahApps.Brushes.Control.Validation}" Visibility="{Binding ParsingFailureMessage, Converter={StaticResource StringNullOrEmptyVisibilityConverter}}" ToolTip="{Binding ParsingFailureMessage}"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    
                     <GridViewColumn CellTemplate="{StaticResource CellTemplateDetail}"/>
                 </GridView>
             </ListView.View>
@@ -127,6 +136,14 @@
                         </GridViewColumn.Header>
                     </GridViewColumn>
 
+                    <GridViewColumn Width="50">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <controls:FontIcon FontSize="35" Glyph="&#xE7BA;" Foreground="{StaticResource MahApps.Brushes.Control.Validation}" Visibility="{Binding ParsingFailureMessage, Converter={StaticResource StringNullOrEmptyVisibilityConverter}}" ToolTip="{Binding ParsingFailureMessage}"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    
                     <GridViewColumn CellTemplate="{StaticResource CellTemplateDetail}"/>
                 </GridView>
             </ListView.View>

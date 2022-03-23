@@ -140,6 +140,17 @@ namespace Ehrungsprogramm.Core.Models
             set => SetProperty(ref _rewards, value);
         }
 
+        private string _parsingFailureMessage;
+        /// <summary>
+        /// If an error occured while parsing this person, this string holds a detailed message of the error.
+        /// If no error occured, this string is empty.
+        /// </summary>
+        public string ParsingFailureMessage
+        {
+            get => _parsingFailureMessage;
+            set => SetProperty(ref _parsingFailureMessage, value);
+        }
+
         // +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
         /// <summary>

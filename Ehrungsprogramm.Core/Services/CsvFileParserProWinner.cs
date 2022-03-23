@@ -69,17 +69,17 @@ namespace Ehrungsprogramm.Core.Services
             foreach (string line in csv_lines)
             {
                 cancellationToken.ThrowIfCancellationRequested();
-                
+
                 current_line_index++;
 
                 // if it's the header line, continue with the next line
-                if(line.StartsWith(HEADERLINE_START_STRING)) { continue; }
+                if (line.StartsWith(HEADERLINE_START_STRING)) { continue; }
 
                 Person person = new Person();
                 string[] line_split = Regex.Split(line, regexPatternLineElements);                  //split line (using quotes to allow the delimiter)
 
                 // The first column contains the name and first name in the format "<Name>, <First Name>"
-                if(line_split.Length >= 1)
+                if (line_split.Length >= 1)
                 {
                     string[] nameSplit = line_split[0].Trim('"').Split(',');
                     person.Name = nameSplit[0].Trim();
@@ -112,8 +112,8 @@ namespace Ehrungsprogramm.Core.Services
                     Function function = new Function();
                     function.Description = functionName;
                     if (!string.IsNullOrEmpty(functionStartDate)) { function.TimePeriod.Start = DateTime.Parse(functionStartDate); }
-                    else { throw new Exception(String.Format("CsvFileParser: Function Start Date empty (Person: {0} {1}, Function: {2})!", person.Name, person.FirstName, functionName)); }
-
+                    else { person.ParsingFailureMessage = String.Format("Function Start Date empty (Function: {0})!", functionName); }
+                    
                     if (!string.IsNullOrEmpty(functionEndDate)) 
                     {
                         function.IsFunctionOngoing = false;
