@@ -66,12 +66,6 @@ namespace Ehrungsprogramm.Core.Contracts.Services
         void AddPerson(Person person);
 
         /// <summary>
-        /// Update a <see cref="Person"/> object with the given one.
-        /// </summary>
-        /// <param name="person">New <see cref="Person"/> object</param>
-        void UpdatePerson(Person person);
-
-        /// <summary>
         /// Return the number of <see cref="Person"/> in the database
         /// </summary>
         /// <returns>Number of <see cref="Person"/> in the database</returns>

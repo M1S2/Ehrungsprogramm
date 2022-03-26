@@ -56,9 +56,8 @@ namespace Ehrungsprogramm.ViewModels
         public string LastImportFilePath => _personService?.LastImportFilePath ?? "";
 
 
-        // TODO Add confirmation dialog for ClearDatabase command
         private ICommand _clearDatabaseCommand;
-        public ICommand ClearDatabaseCommand => _clearDatabaseCommand ?? (_clearDatabaseCommand = new RelayCommand(() => { _personService?.ClearPersons(); RefreshStatistics(); }));
+        public ICommand ClearDatabaseCommand => _clearDatabaseCommand ?? (_clearDatabaseCommand = new RelayCommand(async() => await ClearDatabase()));
 
         private ICommand _generateTestDataCommand;
         public ICommand GenerateTestDataCommand => _generateTestDataCommand ?? (_generateTestDataCommand = new RelayCommand(() => GenerateTestData()));
@@ -120,6 +119,22 @@ namespace Ehrungsprogramm.ViewModels
             }
         }
 
+        /// <summary>
+        /// Clear all people from the database
+        /// </summary>
+        private async Task ClearDatabase()
+        {
+            MessageDialogResult dialogResult = await _dialogCoordinator.ShowMessageAsync(this, Properties.Resources.ClearDatabaseString, Properties.Resources.ClearDatabaseConfirmationString, MessageDialogStyle.AffirmativeAndNegative, new MetroDialogSettings() { AffirmativeButtonText = Properties.Resources.ClearDatabaseString, NegativeButtonText = Properties.Resources.CancelString });
+            if (dialogResult == MessageDialogResult.Affirmative)
+            {
+                _personService?.ClearPersons();
+                RefreshStatistics();
+            }
+        }
+
+        /// <summary>
+        /// Refresh all database statistic indicators by raising a property changed event
+        /// </summary>
         private void RefreshStatistics()
         {
             OnPropertyChanged(nameof(PersonCount));

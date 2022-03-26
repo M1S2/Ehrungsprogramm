@@ -19,7 +19,7 @@ namespace Ehrungsprogramm.Properties {
     // -Klasse über ein Tool wie ResGen oder Visual Studio automatisch generiert.
     // Um einen Member hinzuzufügen oder zu entfernen, bearbeiten Sie die .ResX-Datei und führen dann ResGen
     // mit der /str-Option erneut aus, oder Sie erstellen Ihr VS-Projekt neu.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class Resources {
@@ -115,11 +115,29 @@ namespace Ehrungsprogramm.Properties {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Cancel ähnelt.
+        /// </summary>
+        public static string CancelString {
+            get {
+                return ResourceManager.GetString("CancelString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Really clear the database? All imported people will be deleted! ähnelt.
+        /// </summary>
+        public static string ClearDatabaseConfirmationString {
+            get {
+                return ResourceManager.GetString("ClearDatabaseConfirmationString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Clear Database ähnelt.
         /// </summary>
-        public static string ClearDatabaseButton {
+        public static string ClearDatabaseString {
             get {
-                return ResourceManager.GetString("ClearDatabaseButton", resourceCulture);
+                return ResourceManager.GetString("ClearDatabaseString", resourceCulture);
             }
         }
         

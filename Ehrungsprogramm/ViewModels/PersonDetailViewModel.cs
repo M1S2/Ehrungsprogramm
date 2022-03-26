@@ -18,21 +18,8 @@ namespace Ehrungsprogramm.ViewModels
             set => SetProperty(ref _person, value);
         }
 
-        private ICommand _okCommand;
-        public ICommand OkCommand => _okCommand ?? (_okCommand = new RelayCommand(() =>
+        public PersonDetailViewModel()
         {
-            _personService.UpdatePerson(Person);
-            _navigationService.NavigateTo(typeof(PersonsViewModel).FullName);
-        }));
-
-
-        private IPersonService _personService;
-        private INavigationService _navigationService;
-
-        public PersonDetailViewModel(IPersonService personService, INavigationService navigationService)
-        {
-            _personService = personService;
-            _navigationService = navigationService;
         }
 
         public void OnNavigatedFrom()

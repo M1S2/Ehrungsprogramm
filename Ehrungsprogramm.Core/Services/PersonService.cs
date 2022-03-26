@@ -17,16 +17,33 @@ namespace Ehrungsprogramm.Core.Services
     /// </summary>
     public class PersonService : IPersonService
     {
+        private const int REWARD_TSVSILVER_POINTS = 45;                             // Score needed to obtain a TSV Silver reward
+        private const int REWARD_TSVGOLD_POINTS = 70;                               // Score needed to obtain a TSV Gold reward
+        private const int REWARD_TSVHONORARY_POINTS = 85;                           // Score needed to obtain a TSV Honorary reward
+        private const string DATABASE_FILENAME = "Ehrungsprogramm_Persons.db";      // Filename of the database (located beside the application .exe)
+
         /// <summary>
         /// Settings that are stored in the database beside the people
         /// </summary>
         public class PersonServiceSettings
         {
+            /// <summary>
+            /// Id used to identify this object in a database.
+            /// </summary>
+            public int Id { get; set; }
+
+            /// <summary>
+            /// End date that is used while calculating the membership years and the years for each function
+            /// </summary>
             public DateTime CalculationDeadline { get; set; }
+
+            /// <summary>
+            /// Path of the last imported file
+            /// </summary>
             public string LastImportFilePath { get; set; }
         }
 
-
+        // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
         /// <summary>
         /// Event that is raised when the import from the file is finished.
@@ -42,17 +59,21 @@ namespace Ehrungsprogramm.Core.Services
             remove { CsvFileParserProWinner.OnParseProgress -= value; }
         }
 
+        // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
         /// <summary>
         /// End date that is used while calculating the membership years and the years for each function
         /// </summary>
         public DateTime CalculationDeadline
         {
-            get => _settingsCollection.Query().FirstOrDefault()?.CalculationDeadline ?? DateTime.Now;
+            get => _settings?.CalculationDeadline ?? DateTime.Now;
             set
             {
-                string lastImportFilePath = LastImportFilePath;
-                _settingsCollection.DeleteAll();
-                _settingsCollection.Insert(new PersonServiceSettings() { CalculationDeadline = value, LastImportFilePath = lastImportFilePath });
+                _settings.CalculationDeadline = value;
+                if(!_settingsCollection.Update(_settings))
+                {
+                    _settingsCollection.Insert(_settings);
+                }
             }
         }
 
@@ -62,32 +83,35 @@ namespace Ehrungsprogramm.Core.Services
         /// </summary>
         public string LastImportFilePath
         {
-            get => _settingsCollection.Query().FirstOrDefault()?.LastImportFilePath ?? "";
+            get => _settings?.LastImportFilePath ?? "";
             set
             {
-                DateTime calculationDeadline = CalculationDeadline;
-                _settingsCollection.DeleteAll();
-                _settingsCollection.Insert(new PersonServiceSettings() { LastImportFilePath = value, CalculationDeadline = calculationDeadline });
+                _settings.LastImportFilePath = value;
+                if(!_settingsCollection.Update(_settings))
+                {
+                    _settingsCollection.Insert(_settings);
+                }
             }
         }
 
-        private const int REWARD_TSVSILVER_POINTS = 45;
-        private const int REWARD_TSVGOLD_POINTS = 70;
-        private const int REWARD_TSVHONORARY_POINTS = 85;
+        // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
         private LiteDatabase _database;                                     // Handle to a database holding the collection of Persons
         private ILiteCollection<Person> _peopleCollection;                  // Collection of Persons
         private ILiteCollection<PersonServiceSettings> _settingsCollection; // Collection of Settings
+        private PersonServiceSettings _settings;                            // Settings for the database
+
+        // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
         /// <summary>
         /// Constructor that opens a database from file and gets all people from the database.
         /// </summary>
         public PersonService()
         {
-            // TODO Replace fixed filepath for batabase by some kind of property
-            _database = new LiteDatabase(@"S:\IT\Ehrungsprogramm\Ehrungsprogramm_Persons.db");
+            _database = new LiteDatabase(AppDomain.CurrentDomain.BaseDirectory + DATABASE_FILENAME);
             _peopleCollection = _database.GetCollection<Person>("people");
             _settingsCollection = _database.GetCollection<PersonServiceSettings>("settings");
+            _settings = _settingsCollection.Query().FirstOrDefault() ?? new PersonServiceSettings();
         }
 
         /// <summary>
@@ -125,6 +149,8 @@ namespace Ehrungsprogramm.Core.Services
             return importingResult;
         }
 
+        // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
         /// <summary>
         /// Return all available Persons.
         /// </summary>
@@ -142,6 +168,7 @@ namespace Ehrungsprogramm.Core.Services
         public void ClearPersons()
         {
             _peopleCollection?.DeleteAll();
+            LastImportFilePath = "";
         }
 
         /// <summary>
@@ -154,16 +181,7 @@ namespace Ehrungsprogramm.Core.Services
             _peopleCollection?.Insert(person);
         }
 
-        /// <summary>
-        /// Update a <see cref="Person"/> object with the given one.
-        /// </summary>
-        /// <param name="person">New <see cref="Person"/> object</param>
-        public void UpdatePerson(Person person)
-        {
-            if(person == null) { return; }
-            updatePersonProperties(person);
-            _peopleCollection?.Update(person);
-        }
+        // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
         /// <summary>
         /// Return the number of <see cref="Person"/> in the database
@@ -204,6 +222,7 @@ namespace Ehrungsprogramm.Core.Services
             return people.Count(p => p.Rewards.HighestAvailableTSVReward != null);
         }
 
+        // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
         /// <summary>
         /// Update the following properties of the given Person:

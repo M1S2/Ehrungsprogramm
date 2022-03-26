@@ -41,7 +41,7 @@
                         <Button Width="150" Height="150" Margin="10" Style="{StaticResource MahApps.Styles.Button.Square.Accent}" Background="Red" Foreground="White" Command="{Binding ClearDatabaseCommand}">
                             <StackPanel>
                                 <controls:FontIcon FontSize="50" Glyph="&#xE74D;" Margin="10"/>
-                                <TextBlock Text="{x:Static properties:Resources.ClearDatabaseButton}" HorizontalAlignment="Center" FontSize="{StaticResource MediumFontSize}"/>
+                                <TextBlock Text="{x:Static properties:Resources.ClearDatabaseString}" HorizontalAlignment="Center" FontSize="{StaticResource MediumFontSize}"/>
                             </StackPanel>
                         </Button>
                     </WrapPanel>

@@ -174,7 +174,7 @@
   <data name="ShellPersonsPage" xml:space="preserve">
     <value>Personen</value>
   </data>
-  <data name="ClearDatabaseButton" xml:space="preserve">
+  <data name="ClearDatabaseString" xml:space="preserve">
     <value>Datenbank leeren</value>
   </data>
   <data name="PersonDetailPageTitle" xml:space="preserve">
@@ -308,5 +308,11 @@
   </data>
   <data name="DatabaseStatisticsString" xml:space="preserve">
     <value>Datenbank Statistik</value>
+  </data>
+  <data name="ClearDatabaseConfirmationString" xml:space="preserve">
+    <value>Datenbank wirklich leeren? Alle importierten Personen werden gelöscht!</value>
+  </data>
+  <data name="CancelString" xml:space="preserve">
+    <value>Abbrechen</value>
   </data>
 </root>
