@@ -16,7 +16,7 @@
         <converters:EnumToBooleanConverter x:Key="EnumToBooleanConverter" EnumType="{x:Type models:AppTheme}" />
     </Page.Resources>
     <ScrollViewer>
-        <Grid Margin="{StaticResource SmallTopBottomMargin}">
+        <Grid Margin="{StaticResource SmallTopBottomMargin}" Background="{StaticResource MahApps.Brushes.Window.Background}">
             <Grid.RowDefinitions>
                 <RowDefinition Height="48" />
                 <RowDefinition Height="*" />

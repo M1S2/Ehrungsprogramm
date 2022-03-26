@@ -19,7 +19,7 @@ namespace Ehrungsprogramm.Properties {
     // -Klasse über ein Tool wie ResGen oder Visual Studio automatisch generiert.
     // Um einen Member hinzuzufügen oder zu entfernen, bearbeiten Sie die .ResX-Datei und führen dann ResGen
     // mit der /str-Option erneut aus, oder Sie erstellen Ihr VS-Projekt neu.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class Resources {
@@ -70,11 +70,29 @@ namespace Ehrungsprogramm.Properties {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Available BLSV Rewards ähnelt.
+        /// </summary>
+        public static string AvailableBLSVRewardsCountString {
+            get {
+                return ResourceManager.GetString("AvailableBLSVRewardsCountString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Available ähnelt.
         /// </summary>
         public static string AvailableString {
             get {
                 return ResourceManager.GetString("AvailableString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Available TSV Rewards ähnelt.
+        /// </summary>
+        public static string AvailableTSVRewardsCountString {
+            get {
+                return ResourceManager.GetString("AvailableTSVRewardsCountString", resourceCulture);
             }
         }
         
@@ -102,6 +120,15 @@ namespace Ehrungsprogramm.Properties {
         public static string ClearDatabaseButton {
             get {
                 return ResourceManager.GetString("ClearDatabaseButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Database Statistics ähnelt.
+        /// </summary>
+        public static string DatabaseStatisticsString {
+            get {
+                return ResourceManager.GetString("DatabaseStatisticsString", resourceCulture);
             }
         }
         
@@ -331,6 +358,15 @@ namespace Ehrungsprogramm.Properties {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Last Imported File ähnelt.
+        /// </summary>
+        public static string LastImportedFileString {
+            get {
+                return ResourceManager.GetString("LastImportedFileString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Main ähnelt.
         /// </summary>
         public static string MainPageTitle {
@@ -376,11 +412,29 @@ namespace Ehrungsprogramm.Properties {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Parsing Errors Count ähnelt.
+        /// </summary>
+        public static string ParsingErrorsCountString {
+            get {
+                return ResourceManager.GetString("ParsingErrorsCountString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Person Detail ähnelt.
         /// </summary>
         public static string PersonDetailPageTitle {
             get {
                 return ResourceManager.GetString("PersonDetailPageTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Persons Count ähnelt.
+        /// </summary>
+        public static string PersonsCountString {
+            get {
+                return ResourceManager.GetString("PersonsCountString", resourceCulture);
             }
         }
         

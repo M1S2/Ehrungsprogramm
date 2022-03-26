@@ -23,6 +23,7 @@ namespace Ehrungsprogramm.Core.Services
         public class PersonServiceSettings
         {
             public DateTime CalculationDeadline { get; set; }
+            public string LastImportFilePath { get; set; }
         }
 
 
@@ -49,8 +50,24 @@ namespace Ehrungsprogramm.Core.Services
             get => _settingsCollection.Query().FirstOrDefault()?.CalculationDeadline ?? DateTime.Now;
             set
             {
+                string lastImportFilePath = LastImportFilePath;
                 _settingsCollection.DeleteAll();
-                _settingsCollection.Insert(new PersonServiceSettings() { CalculationDeadline = value });
+                _settingsCollection.Insert(new PersonServiceSettings() { CalculationDeadline = value, LastImportFilePath = lastImportFilePath });
+            }
+        }
+
+
+        /// <summary>
+        /// Path of the last imported file
+        /// </summary>
+        public string LastImportFilePath
+        {
+            get => _settingsCollection.Query().FirstOrDefault()?.LastImportFilePath ?? "";
+            set
+            {
+                DateTime calculationDeadline = CalculationDeadline;
+                _settingsCollection.DeleteAll();
+                _settingsCollection.Insert(new PersonServiceSettings() { LastImportFilePath = value, CalculationDeadline = calculationDeadline });
             }
         }
 
@@ -92,6 +109,7 @@ namespace Ehrungsprogramm.Core.Services
                     ClearPersons();
                     _peopleCollection?.InsertBulk(importedPeople);
                     importingResult = true;
+                    LastImportFilePath = filepath;
                 }
                 catch(OperationCanceledException)
                 {
@@ -110,7 +128,7 @@ namespace Ehrungsprogramm.Core.Services
         /// <summary>
         /// Return all available Persons.
         /// </summary>
-        /// <returns>List of Person objects</returns>
+        /// <returns>List of <see cref="Person"/> objects</returns>
         public List<Person> GetPersons()
         {
             List<Person> people = _peopleCollection?.Query().ToList();
@@ -127,9 +145,9 @@ namespace Ehrungsprogramm.Core.Services
         }
 
         /// <summary>
-        /// Add a new Person to the list of Persons.
+        /// Add a new <see cref="Person"/> to the list of Persons.
         /// </summary>
-        /// <param name="person">Person to add</param>
+        /// <param name="person"><see cref="Person"/> to add</param>
         public void AddPerson(Person person)
         {
             updatePersonProperties(person);
@@ -137,14 +155,53 @@ namespace Ehrungsprogramm.Core.Services
         }
 
         /// <summary>
-        /// Update a Person object with the given one.
+        /// Update a <see cref="Person"/> object with the given one.
         /// </summary>
-        /// <param name="person">New Person object</param>
+        /// <param name="person">New <see cref="Person"/> object</param>
         public void UpdatePerson(Person person)
         {
             if(person == null) { return; }
             updatePersonProperties(person);
             _peopleCollection?.Update(person);
+        }
+
+        /// <summary>
+        /// Return the number of <see cref="Person"/> in the database
+        /// </summary>
+        /// <returns>Number of <see cref="Person"/> in the database</returns>
+        public int GetPersonCount()
+        {
+            return _peopleCollection?.Count() ?? 0;
+        }
+
+        /// <summary>
+        /// Get the number of <see cref="Person"/> with parsing errors/>
+        /// </summary>
+        /// <returns>number of <see cref="Person"/> with parsing errors</returns>
+        public int GetParsingErrorCount()
+        {
+            List<Person> people = _peopleCollection?.Query().ToList();
+            return people.Where(p => !string.IsNullOrEmpty(p.ParsingFailureMessage)).Count();
+        }
+
+        /// <summary>
+        /// Get the number of available (but not obtained) BLSV <see cref="Reward"/>
+        /// </summary>
+        /// <returns>Number of available (but not obtained) BLSV <see cref="Reward"/></returns>
+        public int GetAvailableBLSVRewardsCount()
+        {
+            List<Person> people = GetPersons();
+            return people.Count(p => p.Rewards.HighestAvailableBLSVReward != null);
+        }
+
+        /// <summary>
+        /// Get the number of available (but not obtained) TSV <see cref="Reward"/>
+        /// </summary>
+        /// <returns>Number of available (but not obtained) TSV <see cref="Reward"/></returns>
+        public int GetAvailableTSVRewardsCount()
+        {
+            List<Person> people = GetPersons();
+            return people.Count(p => p.Rewards.HighestAvailableTSVReward != null);
         }
 
 

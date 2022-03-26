@@ -291,4 +291,22 @@
   <data name="Enum_RewardTypes_TSVSILVER" xml:space="preserve">
     <value>TSV Silber</value>
   </data>
+  <data name="ParsingErrorsCountString" xml:space="preserve">
+    <value>Anzahl Import Fehler</value>
+  </data>
+  <data name="PersonsCountString" xml:space="preserve">
+    <value>Anzahl Personen</value>
+  </data>
+  <data name="AvailableBLSVRewardsCountString" xml:space="preserve">
+    <value>Anzahl verfügbare BLSV Ehrungen</value>
+  </data>
+  <data name="AvailableTSVRewardsCountString" xml:space="preserve">
+    <value>Anzahl verfügbare TSV Ehrungen</value>
+  </data>
+  <data name="LastImportedFileString" xml:space="preserve">
+    <value>Zuletzt importierte Datei</value>
+  </data>
+  <data name="DatabaseStatisticsString" xml:space="preserve">
+    <value>Datenbank Statistik</value>
+  </data>
 </root>

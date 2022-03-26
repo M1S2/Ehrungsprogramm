@@ -2,6 +2,7 @@
 using System.Windows.Input;
 using System.Collections.Generic;
 using System.Threading;
+using System.Threading.Tasks;
 using Microsoft.Toolkit.Mvvm.ComponentModel;
 using Microsoft.Toolkit.Mvvm.Input;
 using Microsoft.Win32;
@@ -20,11 +21,7 @@ namespace Ehrungsprogramm.ViewModels
         /// </summary>
         public DateTime CalculationDeadline
         {
-            get
-            {
-                if (_personService == null) { return DateTime.Now; }
-                return _personService.CalculationDeadline;
-            }
+            get => _personService?.CalculationDeadline ?? DateTime.Now;
             set 
             {
                 if(_personService == null) { return; }
@@ -33,16 +30,41 @@ namespace Ehrungsprogramm.ViewModels
             }
         }
 
+        /// <summary>
+        /// Number of Persons in the database
+        /// </summary>
+        public int PersonCount => _personService?.GetPersonCount() ?? 0;
+
+        /// <summary>
+        /// Number of <see cref="Person"/> with parsing errors/>
+        /// </summary>
+        public int ParsingErrorCount => _personService?.GetParsingErrorCount() ?? 0;
+
+        /// <summary>
+        /// Number of available (but not obtained) BLSV <see cref="Reward"/>
+        /// </summary>
+        public int AvailableBLSVRewardsCount => _personService?.GetAvailableBLSVRewardsCount() ?? 0;
+
+        /// <summary>
+        /// Number of available (but not obtained) TSV <see cref="Reward"/>
+        /// </summary>
+        public int AvailableTSVRewardsCount => _personService?.GetAvailableTSVRewardsCount() ?? 0;
+
+        /// <summary>
+        /// Path of the last imported file
+        /// </summary>
+        public string LastImportFilePath => _personService?.LastImportFilePath ?? "";
+
 
         // TODO Add confirmation dialog for ClearDatabase command
         private ICommand _clearDatabaseCommand;
-        public ICommand ClearDatabaseCommand => _clearDatabaseCommand ?? (_clearDatabaseCommand = new RelayCommand(() => _personService?.ClearPersons()));
+        public ICommand ClearDatabaseCommand => _clearDatabaseCommand ?? (_clearDatabaseCommand = new RelayCommand(() => { _personService?.ClearPersons(); RefreshStatistics(); }));
 
         private ICommand _generateTestDataCommand;
         public ICommand GenerateTestDataCommand => _generateTestDataCommand ?? (_generateTestDataCommand = new RelayCommand(() => GenerateTestData()));
 
         private ICommand _importDataFromFileCommand;
-        public ICommand ImportDataFromFileCommand => _importDataFromFileCommand ?? (_importDataFromFileCommand = new RelayCommand(() => ImportFromFile()));
+        public ICommand ImportDataFromFileCommand => _importDataFromFileCommand ?? (_importDataFromFileCommand = new RelayCommand(async() => await ImportFromFile()));
 
 
         private IPersonService _personService;
@@ -70,7 +92,10 @@ namespace Ehrungsprogramm.ViewModels
             };
         }
 
-        public async void ImportFromFile()
+        /// <summary>
+        /// Import a list of Persons from a .csv or .txt file.
+        /// </summary>
+        public async Task ImportFromFile()
         {
             OpenFileDialog openFileDialog = new OpenFileDialog()
             {
@@ -85,6 +110,7 @@ namespace Ehrungsprogramm.ViewModels
                 try
                 {
                     await _personService?.ImportFromFile(openFileDialog.FileName, cancellationTokenSource.Token);
+                    RefreshStatistics();
                 }
                 catch (Exception ex) 
                 {
@@ -94,6 +120,14 @@ namespace Ehrungsprogramm.ViewModels
             }
         }
 
+        private void RefreshStatistics()
+        {
+            OnPropertyChanged(nameof(PersonCount));
+            OnPropertyChanged(nameof(ParsingErrorCount));
+            OnPropertyChanged(nameof(AvailableBLSVRewardsCount));
+            OnPropertyChanged(nameof(AvailableTSVRewardsCount));
+            OnPropertyChanged(nameof(LastImportFilePath));
+        }
 
         private void GenerateTestData()
         {
@@ -119,7 +153,8 @@ namespace Ehrungsprogramm.ViewModels
                         TimePeriod = new TimeRange(new DateTime(2015, 01, 01), new DateTime(2019, 01, 01)),
                         Description = "1. Vorstand"
                     }
-                }
+                },
+                ParsingFailureMessage = "Test Parsing Error Message"
             });
 
             Person tmpPerson = new Person()
@@ -189,6 +224,8 @@ namespace Ehrungsprogramm.ViewModels
                 }
                 });
             }
+
+            RefreshStatistics();
         }
     }
 }

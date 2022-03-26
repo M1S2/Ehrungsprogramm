@@ -44,9 +44,14 @@ namespace Ehrungsprogramm.Core.Contracts.Services
         DateTime CalculationDeadline { get; set; }
 
         /// <summary>
+        /// Path of the last imported file
+        /// </summary>
+        string LastImportFilePath { get; set; }
+
+        /// <summary>
         /// Return all available Persons.
         /// </summary>
-        /// <returns>List of Person objects</returns>
+        /// <returns>List of <see cref="Person"/> objects</returns>
         List<Person> GetPersons();
 
         /// <summary>
@@ -55,15 +60,39 @@ namespace Ehrungsprogramm.Core.Contracts.Services
         void ClearPersons();
 
         /// <summary>
-        /// Add a new Person to the list of Persons.
+        /// Add a new <see cref="Person"/> to the list of Persons.
         /// </summary>
-        /// <param name="person">Person to add</param>
+        /// <param name="person"><see cref="Person"/> to add</param>
         void AddPerson(Person person);
 
         /// <summary>
-        /// Update a Person object with the given one.
+        /// Update a <see cref="Person"/> object with the given one.
         /// </summary>
-        /// <param name="person">New Person object</param>
+        /// <param name="person">New <see cref="Person"/> object</param>
         void UpdatePerson(Person person);
+
+        /// <summary>
+        /// Return the number of <see cref="Person"/> in the database
+        /// </summary>
+        /// <returns>Number of <see cref="Person"/> in the database</returns>
+        int GetPersonCount();
+
+        /// <summary>
+        /// Get the number of <see cref="Person"/> with parsing errors/>
+        /// </summary>
+        /// <returns>number of <see cref="Person"/> with parsing errors</returns>
+        int GetParsingErrorCount();
+
+        /// <summary>
+        /// Get the number of available (but not obtained) BLSV <see cref="Reward"/>
+        /// </summary>
+        /// <returns>Number of available (but not obtained) BLSV <see cref="Reward"/></returns>
+        int GetAvailableBLSVRewardsCount();
+
+        /// <summary>
+        /// Get the number of available (but not obtained) TSV <see cref="Reward"/>
+        /// </summary>
+        /// <returns>Number of available (but not obtained) TSV <see cref="Reward"/></returns>
+        int GetAvailableTSVRewardsCount();
     }
 }

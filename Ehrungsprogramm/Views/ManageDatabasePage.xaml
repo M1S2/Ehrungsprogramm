@@ -10,48 +10,94 @@
     xmlns:Dialog="clr-namespace:MahApps.Metro.Controls.Dialogs;assembly=MahApps.Metro"
     Dialog:DialogParticipation.Register="{Binding}"
     mc:Ignorable="d"
-    d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="48" />
-            <RowDefinition Height="*" />
-        </Grid.RowDefinitions>
-        <TextBlock
+    d:DesignHeight="800" d:DesignWidth="800">
+
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <Grid Background="{StaticResource MahApps.Brushes.Window.Background}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="48" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <TextBlock
             Style="{StaticResource PageTitleStyle}"
             Margin="{StaticResource MediumLeftMargin}"
             Text="{x:Static properties:Resources.ManageDatabasePageTitle}" />
 
-        <StackPanel Orientation="Vertical" Grid.Row="1" Margin="{StaticResource MediumLeftRightMargin}">
-            <WrapPanel>
-                <Button Width="150" Height="150" Margin="10" Style="{StaticResource MahApps.Styles.Button.Square.Accent}" Command="{Binding ImportDataFromFileCommand}">
-                    <StackPanel>
-                        <controls:FontIcon FontSize="50" Glyph="&#xE8B5;" Margin="10"/>
-                        <TextBlock Text="{x:Static properties:Resources.ImportDataFromFileString}" HorizontalAlignment="Center" FontSize="{StaticResource MediumFontSize}"/>
-                    </StackPanel>
-                </Button>
-                <Button Width="150" Height="150" Margin="10" Style="{StaticResource MahApps.Styles.Button.Square.Accent}" Command="{Binding GenerateTestDataCommand}">
-                    <StackPanel>
-                        <controls:FontIcon FontSize="50" Glyph="&#xE8B1;" Margin="10"/>
-                        <TextBlock Text="{x:Static properties:Resources.GenerateTestDataString}" HorizontalAlignment="Center" FontSize="{StaticResource MediumFontSize}"/>
-                    </StackPanel>
-                </Button>
-                <Button Width="150" Height="150" Margin="10" Style="{StaticResource MahApps.Styles.Button.Square.Accent}" Background="Red" Foreground="White" Command="{Binding ClearDatabaseCommand}">
-                    <StackPanel>
-                        <controls:FontIcon FontSize="50" Glyph="&#xE74D;" Margin="10"/>
-                        <TextBlock Text="{x:Static properties:Resources.ClearDatabaseButton}" HorizontalAlignment="Center" FontSize="{StaticResource MediumFontSize}"/>
-                    </StackPanel>
-                </Button>
-            </WrapPanel>
+            <DockPanel LastChildFill="False" Grid.Row="1" Margin="{StaticResource MediumLeftRightMargin}">
+                <StackPanel Orientation="Vertical" DockPanel.Dock="Top">
+                    <WrapPanel>
+                        <Button Width="150" Height="150" Margin="10" Style="{StaticResource MahApps.Styles.Button.Square.Accent}" Command="{Binding ImportDataFromFileCommand}">
+                            <StackPanel>
+                                <controls:FontIcon FontSize="50" Glyph="&#xE8E5;" Margin="10"/>
+                                <TextBlock Text="{x:Static properties:Resources.ImportDataFromFileString}" HorizontalAlignment="Center" FontSize="{StaticResource MediumFontSize}"/>
+                            </StackPanel>
+                        </Button>
+                        <Button Width="150" Height="150" Margin="10" Style="{StaticResource MahApps.Styles.Button.Square.Accent}" Command="{Binding GenerateTestDataCommand}">
+                            <StackPanel>
+                                <controls:FontIcon FontSize="50" Glyph="&#xE8B1;" Margin="10"/>
+                                <TextBlock Text="{x:Static properties:Resources.GenerateTestDataString}" HorizontalAlignment="Center" FontSize="{StaticResource MediumFontSize}"/>
+                            </StackPanel>
+                        </Button>
+                        <Button Width="150" Height="150" Margin="10" Style="{StaticResource MahApps.Styles.Button.Square.Accent}" Background="Red" Foreground="White" Command="{Binding ClearDatabaseCommand}">
+                            <StackPanel>
+                                <controls:FontIcon FontSize="50" Glyph="&#xE74D;" Margin="10"/>
+                                <TextBlock Text="{x:Static properties:Resources.ClearDatabaseButton}" HorizontalAlignment="Center" FontSize="{StaticResource MediumFontSize}"/>
+                            </StackPanel>
+                        </Button>
+                    </WrapPanel>
 
-            <WrapPanel>
-                <Border Width="150" Height="150" Margin="10" Background="{StaticResource MahApps.Brushes.Gray}" BorderBrush="{StaticResource MahApps.Brushes.Text}" BorderThickness="2">
-                    <StackPanel>
-                        <controls:FontIcon Margin="10" FontSize="50" Glyph="&#xE787;"/>
-                        <TextBlock HorizontalAlignment="Center" Text="{x:Static properties:Resources.CalculationDeadlineString}" FontSize="{StaticResource MediumFontSize}"/>
-                        <DatePicker Margin="10" SelectedDate="{Binding CalculationDeadline}"/>
-                    </StackPanel>
+                    <WrapPanel>
+                        <Border Width="150" Height="150" Margin="10" Background="{StaticResource MahApps.Brushes.Gray}" BorderBrush="{StaticResource MahApps.Brushes.Text}" BorderThickness="2">
+                            <StackPanel>
+                                <controls:FontIcon Margin="10" FontSize="50" Glyph="&#xE787;"/>
+                                <TextBlock HorizontalAlignment="Center" Text="{x:Static properties:Resources.CalculationDeadlineString}" FontSize="{StaticResource MediumFontSize}"/>
+                                <DatePicker Margin="10" SelectedDate="{Binding CalculationDeadline}"/>
+                            </StackPanel>
+                        </Border>
+                    </WrapPanel>
+                </StackPanel>
+
+                <Border DockPanel.Dock="Bottom" CornerRadius="10" BorderThickness="2" BorderBrush="{StaticResource MahApps.Brushes.AccentBase}" Margin="{StaticResource MediumLeftTopRightBottomMargin}">
+                    <Grid Margin="{StaticResource MediumLeftTopRightBottomMargin}">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="40"/>
+                            <RowDefinition Height="40"/>
+                            <RowDefinition Height="40"/>
+                            <RowDefinition Height="40"/>
+                            <RowDefinition Height="40"/>
+                            <RowDefinition Height="40"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="70"/>
+                            <ColumnDefinition Width="250"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Text="{x:Static properties:Resources.DatabaseStatisticsString}" FontSize="{StaticResource LargeFontSize}"/>
+
+                        <controls:FontIcon Grid.Row="1" Grid.Column="0" Glyph="&#xE77B;" FontSize="30" Margin="5"/>
+                        <TextBlock Grid.Row="1" Grid.Column="1" FontSize="{StaticResource MediumFontSize}" VerticalAlignment="Center" Text="{x:Static properties:Resources.PersonsCountString}"/>
+                        <TextBlock Grid.Row="1" Grid.Column="2" FontSize="{StaticResource LargeFontSize}" VerticalAlignment="Center" Text="{Binding PersonCount}"/>
+
+                        <controls:FontIcon Grid.Row="2" Grid.Column="0" Glyph="&#xE7BA;" FontSize="30" Margin="5"/>
+                        <TextBlock Grid.Row="2" Grid.Column="1" FontSize="{StaticResource MediumFontSize}" VerticalAlignment="Center" Text="{x:Static properties:Resources.ParsingErrorsCountString}"/>
+                        <TextBlock Grid.Row="2" Grid.Column="2" FontSize="{StaticResource LargeFontSize}" VerticalAlignment="Center" Text="{Binding ParsingErrorCount}"/>
+
+                        <controls:FontIcon Grid.Row="3" Grid.Column="0" Glyph="&#xE734;" FontSize="30" Margin="5"/>
+                        <TextBlock Grid.Row="3" Grid.Column="1" FontSize="{StaticResource MediumFontSize}" VerticalAlignment="Center" Text="{x:Static properties:Resources.AvailableBLSVRewardsCountString}"/>
+                        <TextBlock Grid.Row="3" Grid.Column="2" FontSize="{StaticResource LargeFontSize}" VerticalAlignment="Center" Text="{Binding AvailableBLSVRewardsCount}"/>
+
+                        <controls:FontIcon Grid.Row="4" Grid.Column="0" Glyph="&#xE734;" FontSize="30" Margin="5"/>
+                        <TextBlock Grid.Row="4" Grid.Column="1" FontSize="{StaticResource MediumFontSize}" VerticalAlignment="Center" Text="{x:Static properties:Resources.AvailableTSVRewardsCountString}"/>
+                        <TextBlock Grid.Row="4" Grid.Column="2" FontSize="{StaticResource LargeFontSize}" VerticalAlignment="Center" Text="{Binding AvailableTSVRewardsCount}"/>
+
+                        <controls:FontIcon Grid.Row="5" Grid.Column="0" Glyph="&#xE8E5;" FontSize="30" Margin="5"/>
+                        <TextBlock Grid.Row="5" Grid.Column="1" FontSize="{StaticResource MediumFontSize}" VerticalAlignment="Center" Text="{x:Static properties:Resources.LastImportedFileString}"/>
+                        <TextBlock Grid.Row="5" Grid.Column="2" FontSize="{StaticResource MediumFontSize}" VerticalAlignment="Center" Text="{Binding LastImportFilePath}"/>
+
+                    </Grid>
                 </Border>
-            </WrapPanel>
-        </StackPanel>
-    </Grid>
+            </DockPanel>
+        </Grid>
+    </ScrollViewer>
 </Page>
