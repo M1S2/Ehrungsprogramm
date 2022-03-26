@@ -538,15 +538,6 @@ namespace Ehrungsprogramm.Properties {
         }
         
         /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die Privacy Statement ähnelt.
-        /// </summary>
-        public static string SettingsPagePrivacyStatementText {
-            get {
-                return ResourceManager.GetString("SettingsPagePrivacyStatementText", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Dark ähnelt.
         /// </summary>
         public static string SettingsPageRadioButtonDarkTheme {

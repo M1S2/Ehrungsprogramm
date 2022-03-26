@@ -11,7 +11,6 @@ using Microsoft.Toolkit.Mvvm.Input;
 
 namespace Ehrungsprogramm.ViewModels
 {
-    // TODO WTS: Change the URL for your privacy policy in the appsettings.json file, currently set to https://YourPrivacyUrlGoesHere
     public class SettingsViewModel : ObservableObject, INavigationAware
     {
         private readonly AppConfig _appConfig;
@@ -21,7 +20,6 @@ namespace Ehrungsprogramm.ViewModels
         private AppTheme _theme;
         private string _versionDescription;
         private ICommand _setThemeCommand;
-        private ICommand _privacyStatementCommand;
 
         public AppTheme Theme
         {
@@ -36,8 +34,6 @@ namespace Ehrungsprogramm.ViewModels
         }
 
         public ICommand SetThemeCommand => _setThemeCommand ?? (_setThemeCommand = new RelayCommand<string>(OnSetTheme));
-
-        public ICommand PrivacyStatementCommand => _privacyStatementCommand ?? (_privacyStatementCommand = new RelayCommand(OnPrivacyStatement));
 
         public SettingsViewModel(IOptions<AppConfig> appConfig, IThemeSelectorService themeSelectorService, ISystemService systemService, IApplicationInfoService applicationInfoService)
         {
@@ -62,9 +58,6 @@ namespace Ehrungsprogramm.ViewModels
             var theme = (AppTheme)Enum.Parse(typeof(AppTheme), themeName);
             _themeSelectorService.SetTheme(theme);
         }
-
-        private void OnPrivacyStatement()
-            => _systemService.OpenInWebBrowser(_appConfig.PrivacyStatement);
 
     }
 }

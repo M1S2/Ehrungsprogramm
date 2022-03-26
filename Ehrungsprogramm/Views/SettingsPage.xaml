@@ -16,7 +16,7 @@
         <converters:EnumToBooleanConverter x:Key="EnumToBooleanConverter" EnumType="{x:Type models:AppTheme}" />
     </Page.Resources>
     <ScrollViewer>
-        <Grid Margin="{StaticResource SmallTopBottomMargin}" Background="{StaticResource MahApps.Brushes.Window.Background}">
+        <Grid Margin="{StaticResource SmallTopBottomMargin}" >
             <Grid.RowDefinitions>
                 <RowDefinition Height="48" />
                 <RowDefinition Height="*" />
@@ -88,17 +88,6 @@
                     Margin="{StaticResource XSmallTopMargin}"
                     Style="{StaticResource BodyTextStyle}"
                     Text="{x:Static properties:Resources.SettingsPageAboutText}" />
-
-                <TextBlock
-                    Margin="{StaticResource SmallTopMargin}"
-                    AutomationProperties.Name="{Binding Text, ElementName=settingsPrivacyStatement}"><Hyperlink
-                        Command="{Binding PrivacyStatementCommand}"
-                        AutomationProperties.Name="{Binding Text, ElementName=settingsPrivacyStatement}"><InlineUIContainer>
-                            <TextBlock
-                                x:Name="settingsPrivacyStatement"
-                                Style="{StaticResource BodyTextStyle}"
-                                Text="{x:Static properties:Resources.SettingsPagePrivacyStatementText}" />
-                        </InlineUIContainer></Hyperlink></TextBlock>
             </StackPanel>
         </Grid>
     </ScrollViewer>
