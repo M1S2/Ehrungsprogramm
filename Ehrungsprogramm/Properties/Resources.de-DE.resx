@@ -312,4 +312,13 @@
   <data name="CancelString" xml:space="preserve">
     <value>Abbrechen</value>
   </data>
+  <data name="ErrorString" xml:space="preserve">
+    <value>Fehler</value>
+  </data>
+  <data name="PrintString" xml:space="preserve">
+    <value>Drucken</value>
+  </data>
+  <data name="SuccessfulString" xml:space="preserve">
+    <value>Erfolgreich</value>
+  </data>
 </root>

@@ -10,6 +10,8 @@
     xmlns:localControls="clr-namespace:Ehrungsprogramm.Controls"
     xmlns:converters="clr-namespace:Ehrungsprogramm.Converters"
     xmlns:icons="http://metro.mahapps.com/winfx/xaml/iconpacks"
+    xmlns:Dialog="clr-namespace:MahApps.Metro.Controls.Dialogs;assembly=MahApps.Metro"
+    Dialog:DialogParticipation.Register="{Binding}"
     mc:Ignorable="d"
     d:DesignHeight="450" d:DesignWidth="800">
 
@@ -37,11 +39,16 @@
             <RowDefinition Height="48" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        <TextBlock
-            Style="{StaticResource PageTitleStyle}"
-            Margin="{StaticResource MediumLeftMargin}"
-            Text="{x:Static properties:Resources.PersonsPageTitle}" />
-
+        <DockPanel LastChildFill="False">
+            <TextBlock Style="{StaticResource PageTitleStyle}" Margin="{StaticResource MediumLeftMargin}" Text="{x:Static properties:Resources.PersonsPageTitle}"/>
+            <Grid DockPanel.Dock="Right" Margin="0,0,10,0">
+                <Button  Width="40" Height="40" Style="{StaticResource MahApps.Styles.Button.Circle}" Command="{Binding PrintCommand}">
+                    <controls:FontIcon Glyph="&#xE749;" Margin="5"/>
+                </Button>
+                <controls:ProgressRing Width="40" Height="40" Visibility="{Binding IsPrinting, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+            </Grid>
+        </DockPanel>
+        
         <localControls:FilteredListView Grid.Row="2" ItemsSource="{Binding People}" Margin="{StaticResource MediumLeftTopRightBottomMargin}" FilterPredicate="{Binding PersonFilter}">
             <localControls:FilteredListView.View>
                 <GridView>

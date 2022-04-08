@@ -8,6 +8,7 @@ using Ehrungsprogramm.Core.Models;
 using Ehrungsprogramm.Core.Contracts.Services;
 using Ehrungsprogramm.Contracts.Services;
 using Ehrungsprogramm.Contracts.ViewModels;
+using MahApps.Metro.Controls.Dialogs;
 
 namespace Ehrungsprogramm.ViewModels
 {
@@ -43,14 +44,45 @@ namespace Ehrungsprogramm.ViewModels
         private ICommand _personDetailCommand;
         public ICommand PersonDetailCommand => _personDetailCommand ?? (_personDetailCommand = new RelayCommand<Person>((person) => _navigationService.NavigateTo(typeof(PersonDetailViewModel).FullName, person)));
 
+        private bool _isPrinting;
+        public bool IsPrinting 
+        {
+            get => _isPrinting;
+            set { SetProperty(ref _isPrinting, value); ((RelayCommand)PrintCommand).NotifyCanExecuteChanged(); }
+        }
+
+        private ICommand _printCommand;
+        public ICommand PrintCommand => _printCommand ?? (_printCommand = new RelayCommand(async () =>
+        {
+            try
+            {
+                IsPrinting = true;
+                await _printService?.PrintPersonList(People);
+                await _dialogCoordinator.ShowMessageAsync(this, Properties.Resources.PrintString, Properties.Resources.PrintString + " " + Properties.Resources.SuccessfulString.ToLower());
+            }
+            catch (Exception ex)
+            {
+                await _dialogCoordinator.ShowMessageAsync(this, Properties.Resources.PrintString, Properties.Resources.ErrorString + ": " + ex.Message);
+            }
+            finally
+            {
+                IsPrinting = false;
+            }
+        },
+        () => !_isPrinting));
+
 
         private IPersonService _personService;
+        private IPrintService _printService;
         private INavigationService _navigationService;
+        private IDialogCoordinator _dialogCoordinator;
 
-        public PersonsViewModel(IPersonService personService, INavigationService navigationService)
+        public PersonsViewModel(IPersonService personService, IPrintService printService, INavigationService navigationService, IDialogCoordinator dialogCoordinator)
         {
             _personService = personService;
+            _printService = printService;
             _navigationService = navigationService;
+            _dialogCoordinator = dialogCoordinator;
             People = new List<Person>();
         }
 

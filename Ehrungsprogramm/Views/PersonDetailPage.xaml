@@ -11,6 +11,8 @@
     xmlns:converters="clr-namespace:Ehrungsprogramm.Converters" 
     xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
     xmlns:icons="http://metro.mahapps.com/winfx/xaml/iconpacks"
+    xmlns:Dialog="clr-namespace:MahApps.Metro.Controls.Dialogs;assembly=MahApps.Metro"
+    Dialog:DialogParticipation.Register="{Binding}"
     mc:Ignorable="d"
     d:DesignHeight="950" d:DesignWidth="1300">
 
@@ -23,10 +25,15 @@
             <RowDefinition Height="48" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        <TextBlock
-            Style="{StaticResource PageTitleStyle}"
-            Margin="{StaticResource MediumLeftMargin}"
-            Text="{x:Static properties:Resources.PersonDetailPageTitle}" />
+        <DockPanel LastChildFill="False">
+            <TextBlock Style="{StaticResource PageTitleStyle}" Margin="{StaticResource MediumLeftMargin}" Text="{x:Static properties:Resources.PersonDetailPageTitle}"/>
+            <Grid DockPanel.Dock="Right" Margin="0,0,10,0">
+                <Button  Width="40" Height="40" Style="{StaticResource MahApps.Styles.Button.Circle}" Command="{Binding PrintCommand}">
+                    <controls:FontIcon Glyph="&#xE749;" Margin="5"/>
+                </Button>
+                <controls:ProgressRing Width="40" Height="40" Visibility="{Binding IsPrinting, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+            </Grid>
+        </DockPanel>
 
         <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
             <Grid Margin="{StaticResource MediumLeftRightMargin}">

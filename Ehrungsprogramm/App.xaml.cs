@@ -79,6 +79,7 @@ namespace Ehrungsprogramm
             services.AddSingleton<IPageService, PageService>();
             services.AddSingleton<INavigationService, NavigationService>();
             services.AddSingleton<IPersonService, PersonService>();
+            services.AddSingleton<IPrintService, PrintService>();
             services.AddSingleton<IDialogCoordinator>(DialogCoordinator.Instance);
 
             // Views and ViewModels
