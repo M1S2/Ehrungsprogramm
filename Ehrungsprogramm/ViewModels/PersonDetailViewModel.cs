@@ -13,6 +13,9 @@ namespace Ehrungsprogramm.ViewModels
     public class PersonDetailViewModel : ObservableObject, INavigationAware
     {
         private Person _person;
+        /// <summary>
+        /// Person object that is used to show the detail page.
+        /// </summary>
         public Person Person
         {
             get => _person;
@@ -20,6 +23,9 @@ namespace Ehrungsprogramm.ViewModels
         }
 
         private bool _isPrinting;
+        /// <summary>
+        /// True, if printing person detail overview. False if not currently printing.
+        /// </summary>
         public bool IsPrinting
         {
             get => _isPrinting;
@@ -27,13 +33,20 @@ namespace Ehrungsprogramm.ViewModels
         }
 
         private ICommand _printCommand;
+        /// <summary>
+        /// Command used to print a person detail overview.
+        /// </summary>
         public ICommand PrintCommand => _printCommand ?? (_printCommand = new RelayCommand(async () =>
         {
             try
             {
                 IsPrinting = true;
-                await _printService?.PrintPerson(Person);
-                await _dialogCoordinator.ShowMessageAsync(this, Properties.Resources.PrintString, Properties.Resources.PrintString + " " + Properties.Resources.SuccessfulString.ToLower());
+                System.Windows.Forms.SaveFileDialog saveFileDialog = new System.Windows.Forms.SaveFileDialog() { FileName = "PersonDetail.pdf" };
+                if (saveFileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                {
+                    await _printService?.PrintPerson(Person, saveFileDialog.FileName);
+                    await _dialogCoordinator.ShowMessageAsync(this, Properties.Resources.PrintString, Properties.Resources.PrintString + " " + Properties.Resources.SuccessfulString.ToLower());
+                }
             }
             catch (Exception ex)
             {

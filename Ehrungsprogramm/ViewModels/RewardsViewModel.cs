@@ -45,6 +45,9 @@ namespace Ehrungsprogramm.ViewModels
         public ICommand PersonDetailCommand => _personDetailCommand ?? (_personDetailCommand = new RelayCommand<Person>((person) => _navigationService.NavigateTo(typeof(PersonDetailViewModel).FullName, person)));
 
         private bool _isPrinting;
+        /// <summary>
+        /// True, if printing reward overview. False if not currently printing.
+        /// </summary>
         public bool IsPrinting
         {
             get => _isPrinting;
@@ -52,13 +55,20 @@ namespace Ehrungsprogramm.ViewModels
         }
 
         private ICommand _printCommand;
+        /// <summary>
+        /// Command used to print a reward overview.
+        /// </summary>
         public ICommand PrintCommand => _printCommand ?? (_printCommand = new RelayCommand(async () =>
         {
             try
             {
                 IsPrinting = true;
-                await _printService?.PrintRewards(People);
-                await _dialogCoordinator.ShowMessageAsync(this, Properties.Resources.PrintString, Properties.Resources.PrintString + " " + Properties.Resources.SuccessfulString.ToLower());
+                System.Windows.Forms.SaveFileDialog saveFileDialog = new System.Windows.Forms.SaveFileDialog() { FileName = "RewardOverview.pdf" };
+                if (saveFileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                {
+                    await _printService?.PrintRewards(People, saveFileDialog.FileName);
+                    await _dialogCoordinator.ShowMessageAsync(this, Properties.Resources.PrintString, Properties.Resources.PrintString + " " + Properties.Resources.SuccessfulString.ToLower());
+                }
             }
             catch (Exception ex)
             {

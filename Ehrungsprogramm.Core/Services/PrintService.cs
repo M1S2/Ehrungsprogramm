@@ -35,7 +35,8 @@ namespace Ehrungsprogramm.Core.Services
         /// Print details of a single person.
         /// </summary>
         /// <param name="person"><see cref="Person"/> that should be printed</param>
-        public Task<bool> PrintPerson(Person person)
+        /// <param name="pdfFilePath">Filepath of the output PDF file</param>
+        public Task<bool> PrintPerson(Person person, string pdfFilePath)
         {
             throw new NotImplementedException();
         }
@@ -44,21 +45,21 @@ namespace Ehrungsprogramm.Core.Services
         /// Print an overview list of all people.
         /// </summary>
         /// <param name="people">List with all available <see cref="Person"/> objects</param>
+        /// <param name="pdfFilePath">Filepath of the output PDF file</param>
         /// <returns>true if printing succeeded; false if printing failed</returns>
-        public async Task<bool> PrintPersonList(List<Person> people)
+        public async Task<bool> PrintPersonList(List<Person> people, string pdfFilePath)
         {
             bool printingResult = false;
             await Task.Run(() =>
             {
                 try
                 {
-#warning Fixed path should be replaced by Save Dialog
-                    using (PdfWriter writer = new PdfWriter(@"S:\IT\Ehrungsprogramm\PersonOverview.pdf"))
+                    using (PdfWriter writer = new PdfWriter(pdfFilePath))
                     using (PdfDocument pdf = new PdfDocument(writer))
                     using (Document document = new Document(pdf, PageSize.A4, false))
                     {
-                        Paragraph header = new Paragraph("Personen Übersicht").SetTextAlignment(TextAlignment.CENTER).SetFontSize(20);
-                        document.Add(header);
+                        document.Add(new Paragraph("Personen Übersicht").SetTextAlignment(TextAlignment.CENTER).SetFontSize(20));
+                        document.Add(new Paragraph("Anzahl: " + people.Count.ToString() + " Personen"));
 
                         Table table = new Table(6, false);      // 6 columns for: ID, Name, First Name, Entry Date, BLSV Score, TSV Score
                         table.AddHeaderCell(new Cell(1, 1).SetBackgroundColor(ColorConstants.LIGHT_GRAY).SetTextAlignment(TextAlignment.CENTER).Add(new Paragraph("ID")));
@@ -105,7 +106,8 @@ namespace Ehrungsprogramm.Core.Services
         /// Print an overview of all rewards.
         /// </summary>
         /// <param name="people">List with all available <see cref="Person"/> objects used to generate the rewards overview</param>
-        public Task<bool> PrintRewards(List<Person> people)
+        /// <param name="pdfFilePath">Filepath of the output PDF file</param>
+        public Task<bool> PrintRewards(List<Person> people, string pdfFilePath)
         {
             throw new NotImplementedException();
         }

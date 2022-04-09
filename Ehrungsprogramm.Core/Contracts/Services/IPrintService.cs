@@ -16,18 +16,21 @@ namespace Ehrungsprogramm.Core.Contracts.Services
         /// Print details of a single person.
         /// </summary>
         /// <param name="person"><see cref="Person"/> that should be printed</param>
-        Task<bool> PrintPerson(Person person);
+        /// <param name="pdfFilePath">Filepath of the output PDF file</param>
+        Task<bool> PrintPerson(Person person, string pdfFilePath);
 
         /// <summary>
         /// Print an overview list of all people.
         /// </summary>
         /// <param name="people">List with all available <see cref="Person"/> objects</param>
-        Task<bool> PrintPersonList(List<Person> people);
+        /// <param name="pdfFilePath">Filepath of the output PDF file</param>
+        Task<bool> PrintPersonList(List<Person> people, string pdfFilePath);
 
         /// <summary>
         /// Print an overview of all rewards.
         /// </summary>
         /// <param name="people">List with all available <see cref="Person"/> objects used to generate the rewards overview</param>
-        Task<bool> PrintRewards(List<Person> people);
+        /// <param name="pdfFilePath">Filepath of the output PDF file</param>
+        Task<bool> PrintRewards(List<Person> people, string pdfFilePath);
     }
 }
