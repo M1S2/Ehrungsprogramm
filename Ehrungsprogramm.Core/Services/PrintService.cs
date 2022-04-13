@@ -31,15 +31,19 @@ namespace Ehrungsprogramm.Core.Services
         {
         }
 
+        // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
         /// <summary>
         /// Print details of a single person.
         /// </summary>
         /// <param name="person"><see cref="Person"/> that should be printed</param>
         /// <param name="pdfFilePath">Filepath of the output PDF file</param>
-        public Task<bool> PrintPerson(Person person, string pdfFilePath)
+        public async Task<bool> PrintPerson(Person person, string pdfFilePath)
         {
             throw new NotImplementedException();
         }
+
+        // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
         /// <summary>
         /// Print an overview list of all people.
@@ -81,15 +85,7 @@ namespace Ehrungsprogramm.Core.Services
 
                         document.Add(table);
 
-                        DateTime exportDate = DateTime.Now;
-                        // Page numbers and export date
-                        int numPages = pdf.GetNumberOfPages();
-                        for (int i = 1; i <= numPages; i++)
-                        {
-                            document.ShowTextAligned(new Paragraph("Export Datum: " + exportDate.ToString()), 20, 20, i, TextAlignment.LEFT, VerticalAlignment.BOTTOM, 0);
-                            document.ShowTextAligned(new Paragraph(string.Format("Seite {0} von {1}", i, numPages)), 559, 20, i, TextAlignment.RIGHT, VerticalAlignment.BOTTOM, 0);
-                        }
-
+                        writeDocumentExportDatePageNumbers(document);
                         document.Close();
                     }
                     printingResult = true;
@@ -102,14 +98,125 @@ namespace Ehrungsprogramm.Core.Services
             return printingResult;
         }
 
+        // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
         /// <summary>
         /// Print an overview of all rewards.
         /// </summary>
         /// <param name="people">List with all available <see cref="Person"/> objects used to generate the rewards overview</param>
         /// <param name="pdfFilePath">Filepath of the output PDF file</param>
-        public Task<bool> PrintRewards(List<Person> people, string pdfFilePath)
+        public async Task<bool> PrintRewards(List<Person> people, string pdfFilePath)
         {
-            throw new NotImplementedException();
+            bool printingResult = false;
+            await Task.Run(() =>
+            {
+                try
+                {
+                    using (PdfWriter writer = new PdfWriter(pdfFilePath))
+                    using (PdfDocument pdf = new PdfDocument(writer))
+                    using (Document document = new Document(pdf, PageSize.A4, false))
+                    {
+                        document.Add(new Paragraph("TSV Ehrungen Übersicht").SetTextAlignment(TextAlignment.CENTER).SetFontSize(20));
+                        document.Add(new Paragraph("Nur die neuesten, noch nicht erhaltenen Ehrungen sind aufgeführt." + Environment.NewLine));
+
+                        List<Person> peopleTsvRewardAvailable = people.Where(p => p.Rewards.HighestAvailableTSVReward != null).ToList();
+                        List <IGrouping<RewardTypes, Person>> tsvRewardGroups = peopleTsvRewardAvailable.OrderBy(p => p.Name).
+                                                                                        OrderBy(p => p.Rewards.HighestAvailableTSVReward.Type).
+                                                                                        GroupBy(p => p.Rewards.HighestAvailableTSVReward.Type).ToList();
+
+                        document.Add(new Paragraph("Anzahl TSV Ehrungen: " + peopleTsvRewardAvailable.Count.ToString()));
+
+                        Table tableTsv = new Table(4, false);      // 4 columns for: ID, Name, First Name, Score
+                        tableTsv.AddHeaderCell(new Cell(1, 1).SetBackgroundColor(ColorConstants.LIGHT_GRAY).SetTextAlignment(TextAlignment.CENTER).Add(new Paragraph("ID")));
+                        tableTsv.AddHeaderCell(new Cell(1, 1).SetBackgroundColor(ColorConstants.LIGHT_GRAY).SetTextAlignment(TextAlignment.CENTER).Add(new Paragraph("Name")));
+                        tableTsv.AddHeaderCell(new Cell(1, 1).SetBackgroundColor(ColorConstants.LIGHT_GRAY).SetTextAlignment(TextAlignment.CENTER).Add(new Paragraph("Vorname")));
+                        tableTsv.AddHeaderCell(new Cell(1, 1).SetBackgroundColor(ColorConstants.LIGHT_GRAY).SetTextAlignment(TextAlignment.CENTER).Add(new Paragraph("Punkte")));
+
+                        int counter = 0;
+                        foreach (IGrouping<RewardTypes, Person> tsvRewardGroup in tsvRewardGroups)
+                        {
+                            string tsvRewardName = tsvRewardGroup.Key.ToString();
+                            switch (tsvRewardGroup.Key)
+                            {
+                                case RewardTypes.TSVSILVER: tsvRewardName = "TSV Silber"; break;
+                                case RewardTypes.TSVGOLD: tsvRewardName = "TSV Gold"; break;
+                                case RewardTypes.TSVHONORARY: tsvRewardName = "TSV Ehrenmitglied"; break;
+                                default: break;
+                            }
+
+                            tableTsv.AddCell(new Cell(1, 4).SetBackgroundColor(ColorConstants.GRAY).SetTextAlignment(TextAlignment.LEFT).Add(new Paragraph(tsvRewardName)));
+                            foreach (Person person in tsvRewardGroup)
+                            {
+                                tableTsv.AddCell(new Cell(1, 1).Add(new Paragraph((++counter).ToString())));
+                                tableTsv.AddCell(new Cell(1, 1).Add(new Paragraph(person.Name)));
+                                tableTsv.AddCell(new Cell(1, 1).Add(new Paragraph(person.FirstName)));
+                                tableTsv.AddCell(new Cell(1, 1).Add(new Paragraph(person.ScoreTSV.ToString())));
+                            }
+                        }
+                        document.Add(tableTsv);
+                        document.Add(new AreaBreak(AreaBreakType.NEXT_PAGE));
+
+                        // ------------------------------------------------------------------------------------------------------------------
+
+                        document.Add(new Paragraph("BLSV Ehrungen Übersicht").SetTextAlignment(TextAlignment.CENTER).SetFontSize(20));
+                        document.Add(new Paragraph("Nur die neuesten, noch nicht erhaltenen Ehrungen sind aufgeführt." + Environment.NewLine));
+
+                        List<Person> peopleBlsvRewardAvailable = people.Where(p => p.Rewards.HighestAvailableBLSVReward != null).ToList();
+                        List<IGrouping<RewardTypes, Person>> blsvRewardGroups = peopleBlsvRewardAvailable.OrderBy(p => p.Name).
+                                                                                        OrderBy(p => p.Rewards.HighestAvailableBLSVReward.Type).
+                                                                                        GroupBy(p => p.Rewards.HighestAvailableBLSVReward.Type).ToList();
+
+                        document.Add(new Paragraph("Anzahl BLSV Ehrungen: " + peopleBlsvRewardAvailable.Count.ToString()));
+
+                        Table tableBlsv = new Table(4, false);      // 4 columns for: ID, Name, First Name, Score
+                        tableBlsv.AddHeaderCell(new Cell(1, 1).SetBackgroundColor(ColorConstants.LIGHT_GRAY).SetTextAlignment(TextAlignment.CENTER).Add(new Paragraph("ID")));
+                        tableBlsv.AddHeaderCell(new Cell(1, 1).SetBackgroundColor(ColorConstants.LIGHT_GRAY).SetTextAlignment(TextAlignment.CENTER).Add(new Paragraph("Name")));
+                        tableBlsv.AddHeaderCell(new Cell(1, 1).SetBackgroundColor(ColorConstants.LIGHT_GRAY).SetTextAlignment(TextAlignment.CENTER).Add(new Paragraph("Vorname")));
+                        tableBlsv.AddHeaderCell(new Cell(1, 1).SetBackgroundColor(ColorConstants.LIGHT_GRAY).SetTextAlignment(TextAlignment.CENTER).Add(new Paragraph("Punkte")));
+
+                        counter = 0;
+                        foreach (IGrouping<RewardTypes, Person> blsvRewardGroup in blsvRewardGroups)
+                        {
+                            tableBlsv.AddCell(new Cell(1, 4).SetBackgroundColor(ColorConstants.GRAY).SetTextAlignment(TextAlignment.LEFT).Add(new Paragraph(blsvRewardGroup.Key.ToString())));
+                            foreach (Person person in blsvRewardGroup)
+                            {
+                                tableBlsv.AddCell(new Cell(1, 1).Add(new Paragraph((++counter).ToString())));
+                                tableBlsv.AddCell(new Cell(1, 1).Add(new Paragraph(person.Name)));
+                                tableBlsv.AddCell(new Cell(1, 1).Add(new Paragraph(person.FirstName)));
+                                tableBlsv.AddCell(new Cell(1, 1).Add(new Paragraph(person.ScoreBLSV.ToString())));
+                            }
+                        }
+                        document.Add(tableBlsv);
+
+                        writeDocumentExportDatePageNumbers(document);
+                        document.Close();
+                    }
+                    printingResult = true;
+                }
+                catch (Exception)
+                {
+                    printingResult = false;
+                }
+            });
+            return printingResult;
+        }
+
+        // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+        /// <summary>
+        /// Write the export date (DateTime.Now) and the page numbers to the document
+        /// </summary>
+        /// <param name="document">Document to which the export date and page numbers are added</param>
+        private void writeDocumentExportDatePageNumbers(Document document)
+        {
+            DateTime exportDate = DateTime.Now;
+            // Page numbers and export date
+            int numPages = document.GetPdfDocument().GetNumberOfPages();
+            for (int i = 1; i <= numPages; i++)
+            {
+                document.ShowTextAligned(new Paragraph("Export Datum: " + exportDate.ToString()), 20, 20, i, TextAlignment.LEFT, VerticalAlignment.BOTTOM, 0);
+                document.ShowTextAligned(new Paragraph(string.Format("Seite {0} von {1}", i, numPages)), 559, 20, i, TextAlignment.RIGHT, VerticalAlignment.BOTTOM, 0);
+            }
         }
     }
 }

@@ -90,7 +90,7 @@
                         <GridViewColumn.Header>
                             <StackPanel Orientation="Horizontal">
                                 <controls:FontIcon Glyph="&#xE77B;" Margin="5"/>
-                                <TextBlock Text="{x:Static properties:Resources.NameString}" VerticalAlignment="Center"/>
+                                <TextBlock Text="{x:Static properties:Resources.NameString}" VerticalAlignment="Center" FontSize="{StaticResource MediumFontSize}"/>
                             </StackPanel>
                         </GridViewColumn.Header>
                     </GridViewColumn>
@@ -99,7 +99,16 @@
                         <GridViewColumn.Header>
                             <StackPanel Orientation="Horizontal">
                                 <controls:FontIcon Glyph="&#xE77B;" Margin="5"/>
-                                <TextBlock Text="{x:Static properties:Resources.FirstNameString}" VerticalAlignment="Center"/>
+                                <TextBlock Text="{x:Static properties:Resources.FirstNameString}" VerticalAlignment="Center" FontSize="{StaticResource MediumFontSize}"/>
+                            </StackPanel>
+                        </GridViewColumn.Header>
+                    </GridViewColumn>
+
+                    <GridViewColumn DisplayMemberBinding="{Binding ScoreTSV}">
+                        <GridViewColumn.Header>
+                            <StackPanel Orientation="Horizontal">
+                                <controls:FontIcon Glyph="&#xE734;" Margin="5"/>
+                                <TextBlock Text="{x:Static properties:Resources.ScoreTSVString}" VerticalAlignment="Center" FontSize="{StaticResource MediumFontSize}"/>
                             </StackPanel>
                         </GridViewColumn.Header>
                     </GridViewColumn>
@@ -129,7 +138,7 @@
                         <GridViewColumn.Header>
                             <StackPanel Orientation="Horizontal">
                                 <controls:FontIcon Glyph="&#xE77B;" Margin="5"/>
-                                <TextBlock Text="{x:Static properties:Resources.NameString}" VerticalAlignment="Center"/>
+                                <TextBlock Text="{x:Static properties:Resources.NameString}" VerticalAlignment="Center" FontSize="{StaticResource MediumFontSize}"/>
                             </StackPanel>
                         </GridViewColumn.Header>
                     </GridViewColumn>
@@ -138,7 +147,16 @@
                         <GridViewColumn.Header>
                             <StackPanel Orientation="Horizontal">
                                 <controls:FontIcon Glyph="&#xE77B;" Margin="5"/>
-                                <TextBlock Text="{x:Static properties:Resources.FirstNameString}" VerticalAlignment="Center"/>
+                                <TextBlock Text="{x:Static properties:Resources.FirstNameString}" VerticalAlignment="Center" FontSize="{StaticResource MediumFontSize}"/>
+                            </StackPanel>
+                        </GridViewColumn.Header>
+                    </GridViewColumn>
+
+                    <GridViewColumn DisplayMemberBinding="{Binding ScoreBLSV}">
+                        <GridViewColumn.Header>
+                            <StackPanel Orientation="Horizontal">
+                                <controls:FontIcon Glyph="&#xE734;" Margin="5"/>
+                                <TextBlock Text="{x:Static properties:Resources.ScoreBLSVString}" VerticalAlignment="Center" FontSize="{StaticResource MediumFontSize}"/>
                             </StackPanel>
                         </GridViewColumn.Header>
                     </GridViewColumn>
