@@ -40,7 +40,79 @@ namespace Ehrungsprogramm.Core.Services
         /// <param name="pdfFilePath">Filepath of the output PDF file</param>
         public async Task<bool> PrintPerson(Person person, string pdfFilePath)
         {
-            throw new NotImplementedException();
+            bool printingResult = false;
+            await Task.Run(() =>
+            {
+                try
+                {
+                    using (PdfWriter writer = new PdfWriter(pdfFilePath))
+                    using (PdfDocument pdf = new PdfDocument(writer))
+                    using (Document document = new Document(pdf, PageSize.A4, false))
+                    {
+                        document.Add(new Paragraph("Person Details").SetTextAlignment(TextAlignment.CENTER).SetFontSize(20));
+
+                        Dictionary<string, string> personBasicDetailValues = new Dictionary<string, string>();
+                        personBasicDetailValues.Add("Name: ", person.FirstName + " " + person.Name);
+                        personBasicDetailValues.Add("Geburtsdatum: ", person.BirthDate.ToShortDateString());
+                        personBasicDetailValues.Add("Eintrittsdatum: ", person.EntryDate.ToShortDateString());
+                        personBasicDetailValues.Add("Mitgliedsjahre: ", person.MembershipYears.ToString());
+                        personBasicDetailValues.Add("BLSV Punkte: ", person.ScoreBLSV.ToString());
+                        personBasicDetailValues.Add("TSV Punkte: ", person.ScoreTSV.ToString());
+                        personBasicDetailValues.Add("Effektive Jahre Vorstand: ", person.EffectiveBoardMemberYears.ToString());
+                        personBasicDetailValues.Add("Effektive Jahre Abteilungsleitung: ", person.EffectiveHeadOfDepartementYears.ToString());
+                        personBasicDetailValues.Add("Effektive Jahre andere Funktion: ", person.EffectiveOtherFunctionsYears.ToString());
+
+                        Table tableBasicDetails = new Table(2, false);      // 2 columns for: Parameter, Value
+                        foreach (KeyValuePair<string, string> personBasicDetailValue in personBasicDetailValues)
+                        {
+                            tableBasicDetails.AddCell(new Cell(1, 1).Add(new Paragraph(personBasicDetailValue.Key)));
+                            tableBasicDetails.AddCell(new Cell(1, 1).Add(new Paragraph(personBasicDetailValue.Value)));
+                        }
+                        document.Add(tableBasicDetails);
+
+                        // ------------------------------------------------------------------------------------------------------------------
+
+                        document.Add(new Paragraph("Funktionen").SetFontSize(20));
+                        Table tableFunctions = new Table(3, false);      // 3 columns for: Description, Time Period, Years in function
+                        tableFunctions.AddHeaderCell(new Cell(1, 1).SetBackgroundColor(ColorConstants.LIGHT_GRAY).SetTextAlignment(TextAlignment.CENTER).Add(new Paragraph("Funktion")));
+                        tableFunctions.AddHeaderCell(new Cell(1, 1).SetBackgroundColor(ColorConstants.LIGHT_GRAY).SetTextAlignment(TextAlignment.CENTER).Add(new Paragraph("Zeitraum")));
+                        tableFunctions.AddHeaderCell(new Cell(1, 1).SetBackgroundColor(ColorConstants.LIGHT_GRAY).SetTextAlignment(TextAlignment.CENTER).Add(new Paragraph("Jahre")));
+                        foreach (Function function in person.Functions)
+                        {
+                            tableFunctions.AddCell(new Cell(1, 1).Add(new Paragraph(function.Description)));
+                            tableFunctions.AddCell(new Cell(1, 1).Add(new Paragraph(function.TimePeriod.Start.ToShortDateString() + " - " + function.TimePeriod.End.ToShortDateString())));
+                            tableFunctions.AddCell(new Cell(1, 1).Add(new Paragraph(function.FunctionYears.ToString())));
+                        }
+                        document.Add(tableFunctions);
+
+                        // ------------------------------------------------------------------------------------------------------------------
+
+                        document.Add(new Paragraph("Ehrungen").SetFontSize(20));
+                        Table tableRewards = new Table(2, false);      // 2 columns for: Description, Status
+                        tableRewards.AddHeaderCell(new Cell(1, 1).SetBackgroundColor(ColorConstants.LIGHT_GRAY).SetTextAlignment(TextAlignment.CENTER).Add(new Paragraph("Beschreibung")));
+                        tableRewards.AddHeaderCell(new Cell(1, 1).SetBackgroundColor(ColorConstants.LIGHT_GRAY).SetTextAlignment(TextAlignment.CENTER).Add(new Paragraph("Status")));
+                        foreach (Reward reward in person.Rewards.Rewards)
+                        {
+                            if (reward.Available || reward.Obtained)
+                            {
+                                tableRewards.AddCell(new Cell(1, 1).Add(new Paragraph(reward.Description ?? rewardTypeToString(reward.Type))));
+                                tableRewards.AddCell(new Cell(1, 1).Add(new Paragraph(reward.Obtained ? ("Erhalten am: " + reward.ObtainedDate.ToShortDateString()) : "Verfügbar")));
+                            }
+                        }
+                        document.Add(tableRewards);
+
+                        writeDocumentExportDatePageNumbers(document);
+                        document.Close();
+                    }
+                    printingResult = true;
+                }
+                catch (Exception ex)
+                {
+                    printingResult = false;
+                    throw ex;
+                }
+            });
+            return printingResult;
         }
 
         // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -90,9 +162,10 @@ namespace Ehrungsprogramm.Core.Services
                     }
                     printingResult = true;
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
                     printingResult = false;
+                    throw ex;
                 }
             });
             return printingResult;
@@ -135,15 +208,7 @@ namespace Ehrungsprogramm.Core.Services
                         int counter = 0;
                         foreach (IGrouping<RewardTypes, Person> tsvRewardGroup in tsvRewardGroups)
                         {
-                            string tsvRewardName = tsvRewardGroup.Key.ToString();
-                            switch (tsvRewardGroup.Key)
-                            {
-                                case RewardTypes.TSVSILVER: tsvRewardName = "TSV Silber"; break;
-                                case RewardTypes.TSVGOLD: tsvRewardName = "TSV Gold"; break;
-                                case RewardTypes.TSVHONORARY: tsvRewardName = "TSV Ehrenmitglied"; break;
-                                default: break;
-                            }
-
+                            string tsvRewardName = rewardTypeToString(tsvRewardGroup.Key);
                             tableTsv.AddCell(new Cell(1, 4).SetBackgroundColor(ColorConstants.GRAY).SetTextAlignment(TextAlignment.LEFT).Add(new Paragraph(tsvRewardName)));
                             foreach (Person person in tsvRewardGroup)
                             {
@@ -193,9 +258,10 @@ namespace Ehrungsprogramm.Core.Services
                     }
                     printingResult = true;
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
                     printingResult = false;
+                    throw ex;
                 }
             });
             return printingResult;
@@ -217,6 +283,23 @@ namespace Ehrungsprogramm.Core.Services
                 document.ShowTextAligned(new Paragraph("Export Datum: " + exportDate.ToString()), 20, 20, i, TextAlignment.LEFT, VerticalAlignment.BOTTOM, 0);
                 document.ShowTextAligned(new Paragraph(string.Format("Seite {0} von {1}", i, numPages)), 559, 20, i, TextAlignment.RIGHT, VerticalAlignment.BOTTOM, 0);
             }
+        }
+
+        /// <summary>
+        /// Convert the given <see cref="RewardTypes"/> to a string
+        /// </summary>
+        /// <param name="rewardType">Reward type to convert to a string</param>
+        private string rewardTypeToString(RewardTypes rewardType)
+        {
+            string rewardName = rewardType.ToString();
+            switch (rewardType)
+            {
+                case RewardTypes.TSVSILVER: rewardName = "TSV Silber"; break;
+                case RewardTypes.TSVGOLD: rewardName = "TSV Gold"; break;
+                case RewardTypes.TSVHONORARY: rewardName = "TSV Ehrenmitglied"; break;
+                default: break;
+            }
+            return rewardName;
         }
     }
 }
