@@ -22,14 +22,14 @@ namespace Ehrungsprogramm.Properties {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public class Resources {
+    public class Enums {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal Resources() {
+        internal Enums() {
         }
         
         /// <summary>
@@ -201,6 +201,150 @@ namespace Ehrungsprogramm.Properties {
         public static string EntryDateString {
             get {
                 return ResourceManager.GetString("EntryDateString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Board Member ähnelt.
+        /// </summary>
+        public static string Enum_FunctionType_BOARD_MEMBER {
+            get {
+                return ResourceManager.GetString("Enum_FunctionType_BOARD_MEMBER", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Head of Departement ähnelt.
+        /// </summary>
+        public static string Enum_FunctionType_HEAD_OF_DEPARTEMENT {
+            get {
+                return ResourceManager.GetString("Enum_FunctionType_HEAD_OF_DEPARTEMENT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Other Function ähnelt.
+        /// </summary>
+        public static string Enum_FunctionType_OTHER_FUNCTION {
+            get {
+                return ResourceManager.GetString("Enum_FunctionType_OTHER_FUNCTION", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Unknown ähnelt.
+        /// </summary>
+        public static string Enum_FunctionType_UNKNOWN {
+            get {
+                return ResourceManager.GetString("Enum_FunctionType_UNKNOWN", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die BLSV 20 ähnelt.
+        /// </summary>
+        public static string Enum_RewardTypes_BLSV20 {
+            get {
+                return ResourceManager.GetString("Enum_RewardTypes_BLSV20", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die BLSV 25 ähnelt.
+        /// </summary>
+        public static string Enum_RewardTypes_BLSV25 {
+            get {
+                return ResourceManager.GetString("Enum_RewardTypes_BLSV25", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die BLSV 30 ähnelt.
+        /// </summary>
+        public static string Enum_RewardTypes_BLSV30 {
+            get {
+                return ResourceManager.GetString("Enum_RewardTypes_BLSV30", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die BLSV 40 ähnelt.
+        /// </summary>
+        public static string Enum_RewardTypes_BLSV40 {
+            get {
+                return ResourceManager.GetString("Enum_RewardTypes_BLSV40", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die BLSV 45 ähnelt.
+        /// </summary>
+        public static string Enum_RewardTypes_BLSV45 {
+            get {
+                return ResourceManager.GetString("Enum_RewardTypes_BLSV45", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die BLSV 50 ähnelt.
+        /// </summary>
+        public static string Enum_RewardTypes_BLSV50 {
+            get {
+                return ResourceManager.GetString("Enum_RewardTypes_BLSV50", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die BLSV 60 ähnelt.
+        /// </summary>
+        public static string Enum_RewardTypes_BLSV60 {
+            get {
+                return ResourceManager.GetString("Enum_RewardTypes_BLSV60", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die BLSV 70 ähnelt.
+        /// </summary>
+        public static string Enum_RewardTypes_BLSV70 {
+            get {
+                return ResourceManager.GetString("Enum_RewardTypes_BLSV70", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die BLSV 80 ähnelt.
+        /// </summary>
+        public static string Enum_RewardTypes_BLSV80 {
+            get {
+                return ResourceManager.GetString("Enum_RewardTypes_BLSV80", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die TSV Gold ähnelt.
+        /// </summary>
+        public static string Enum_RewardTypes_TSVGOLD {
+            get {
+                return ResourceManager.GetString("Enum_RewardTypes_TSVGOLD", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die TSV Honorary ähnelt.
+        /// </summary>
+        public static string Enum_RewardTypes_TSVHONORARY {
+            get {
+                return ResourceManager.GetString("Enum_RewardTypes_TSVHONORARY", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die TSV Silver ähnelt.
+        /// </summary>
+        public static string Enum_RewardTypes_TSVSILVER {
+            get {
+                return ResourceManager.GetString("Enum_RewardTypes_TSVSILVER", resourceCulture);
             }
         }
         

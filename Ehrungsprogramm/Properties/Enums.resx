@@ -117,172 +117,52 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="ShellSettingsPage" xml:space="preserve">
-    <value>Settings</value>
+  <data name="RewardTypes_BLSV20" xml:space="preserve">
+    <value>BLSV 20</value>
   </data>
-  <data name="SettingsPageTitle" xml:space="preserve">
-    <value>Settings</value>
+  <data name="RewardTypes_BLSV25" xml:space="preserve">
+    <value>BLSV 25</value>
   </data>
-  <data name="SettingsPageAboutText" xml:space="preserve">
-    <value>Program to manage the rewards of the TSV Illertissen.</value>
+  <data name="RewardTypes_BLSV30" xml:space="preserve">
+    <value>BLSV 30</value>
   </data>
-  <data name="SettingsPageAboutTitle" xml:space="preserve">
-    <value>About this application</value>
+  <data name="RewardTypes_BLSV40" xml:space="preserve">
+    <value>BLSV 40</value>
   </data>
-  <data name="SettingsPageChooseThemeText" xml:space="preserve">
-    <value>Choose Theme</value>
+  <data name="RewardTypes_BLSV45" xml:space="preserve">
+    <value>BLSV 45</value>
   </data>
-  <data name="SettingsPagePersonalizationTitle" xml:space="preserve">
-    <value>Personalization</value>
+  <data name="RewardTypes_BLSV50" xml:space="preserve">
+    <value>BLSV 50</value>
   </data>
-  <data name="SettingsPageRadioButtonDarkTheme" xml:space="preserve">
-    <value>Dark</value>
+  <data name="RewardTypes_BLSV60" xml:space="preserve">
+    <value>BLSV 60</value>
   </data>
-  <data name="SettingsPageRadioButtonLightTheme" xml:space="preserve">
-    <value>Light</value>
+  <data name="RewardTypes_BLSV70" xml:space="preserve">
+    <value>BLSV 70</value>
   </data>
-  <data name="SettingsPageRadioButtonWindowsDefaultTheme" xml:space="preserve">
-    <value>Default</value>
+  <data name="RewardTypes_BLSV80" xml:space="preserve">
+    <value>BLSV 80</value>
   </data>
-  <data name="ShellMainPage" xml:space="preserve">
-    <value>Main</value>
+  <data name="RewardTypes_TSVGOLD" xml:space="preserve">
+    <value>TSV Gold</value>
   </data>
-  <data name="MainPageTitle" xml:space="preserve">
-    <value>Main</value>
+  <data name="RewardTypes_TSVHONORARY" xml:space="preserve">
+    <value>TSV Honorary</value>
   </data>
-  <data name="ShellGoBackButton" xml:space="preserve">
-    <value>Go back</value>
+  <data name="RewardTypes_TSVSILVER" xml:space="preserve">
+    <value>TSV Silver</value>
   </data>
-  <data name="ShellHamburgerButtonName" xml:space="preserve">
-    <value>Open or close navigation</value>
+  <data name="FunctionType_BOARD_MEMBER" xml:space="preserve">
+    <value>Board Member</value>
   </data>
-  <data name="AppDisplayName" xml:space="preserve">
-    <value>Reward Program</value>
+  <data name="FunctionType_HEAD_OF_DEPARTEMENT" xml:space="preserve">
+    <value>Head of Departement</value>
   </data>
-  <data name="ManageDatabasePageTitle" xml:space="preserve">
-    <value>Manage Database</value>
+  <data name="FunctionType_OTHER_FUNCTION" xml:space="preserve">
+    <value>Other Function</value>
   </data>
-  <data name="ShellManageDatabasePage" xml:space="preserve">
-    <value>Manage Database</value>
-  </data>
-  <data name="PersonsPageTitle" xml:space="preserve">
-    <value>Persons</value>
-  </data>
-  <data name="ShellPersonsPage" xml:space="preserve">
-    <value>Persons</value>
-  </data>
-  <data name="ClearDatabaseString" xml:space="preserve">
-    <value>Clear Database</value>
-  </data>
-  <data name="PersonDetailPageTitle" xml:space="preserve">
-    <value>Person Detail</value>
-  </data>
-  <data name="FirstNameString" xml:space="preserve">
-    <value>First Name</value>
-  </data>
-  <data name="NameString" xml:space="preserve">
-    <value>Name</value>
-  </data>
-  <data name="EntryDateString" xml:space="preserve">
-    <value>Entry Date</value>
-  </data>
-  <data name="MembershipYearsString" xml:space="preserve">
-    <value>Membership Years</value>
-  </data>
-  <data name="ScoreBLSVString" xml:space="preserve">
-    <value>Score BLSV</value>
-  </data>
-  <data name="ScoreTSVString" xml:space="preserve">
-    <value>Score TSV</value>
-  </data>
-  <data name="EnglishString" xml:space="preserve">
-    <value>English</value>
-  </data>
-  <data name="GermanString" xml:space="preserve">
-    <value>Deutsch</value>
-  </data>
-  <data name="BirthDateString" xml:space="preserve">
-    <value>Birth Date</value>
-  </data>
-  <data name="GenerateTestDataString" xml:space="preserve">
-    <value>Generate Test Data</value>
-  </data>
-  <data name="DescriptionString" xml:space="preserve">
-    <value>Description</value>
-  </data>
-  <data name="FunctionTypeString" xml:space="preserve">
-    <value>Function Type</value>
-  </data>
-  <data name="FunctionsString" xml:space="preserve">
-    <value>Functions</value>
-  </data>
-  <data name="ImportDataFromFileString" xml:space="preserve">
-    <value>Import from File</value>
-  </data>
-  <data name="FunctionYearsString" xml:space="preserve">
-    <value>Years in Function</value>
-  </data>
-  <data name="TimePeriodString" xml:space="preserve">
-    <value>Time Period</value>
-  </data>
-  <data name="EffectiveBoardMemberYears" xml:space="preserve">
-    <value>Eff. Board Member Years</value>
-  </data>
-  <data name="EffectiveHeadOfDepartementYears" xml:space="preserve">
-    <value>Eff. Head of Departement Years</value>
-  </data>
-  <data name="EffectiveOtherFunctionsYears" xml:space="preserve">
-    <value>Eff. Other Years</value>
-  </data>
-  <data name="RewardsString" xml:space="preserve">
-    <value>Rewards</value>
-  </data>
-  <data name="ObtainedDateString" xml:space="preserve">
-    <value>Obtained Date</value>
-  </data>
-  <data name="AvailableString" xml:space="preserve">
-    <value>Available</value>
-  </data>
-  <data name="CalculationDeadlineString" xml:space="preserve">
-    <value>Calculation Deadline</value>
-  </data>
-  <data name="RewardsPageTitle" xml:space="preserve">
-    <value>Rewards</value>
-  </data>
-  <data name="ShellRewardsPage" xml:space="preserve">
-    <value>Rewards</value>
-  </data>
-  <data name="ParsingErrorsCountString" xml:space="preserve">
-    <value>Parsing Errors Count</value>
-  </data>
-  <data name="PersonsCountString" xml:space="preserve">
-    <value>Persons Count</value>
-  </data>
-  <data name="AvailableBLSVRewardsCountString" xml:space="preserve">
-    <value>Available BLSV Rewards</value>
-  </data>
-  <data name="AvailableTSVRewardsCountString" xml:space="preserve">
-    <value>Available TSV Rewards</value>
-  </data>
-  <data name="LastImportedFileString" xml:space="preserve">
-    <value>Last Imported File</value>
-  </data>
-  <data name="DatabaseStatisticsString" xml:space="preserve">
-    <value>Database Statistics</value>
-  </data>
-  <data name="ClearDatabaseConfirmationString" xml:space="preserve">
-    <value>Really clear the database? All imported people will be deleted!</value>
-  </data>
-  <data name="CancelString" xml:space="preserve">
-    <value>Cancel</value>
-  </data>
-  <data name="ErrorString" xml:space="preserve">
-    <value>Error</value>
-  </data>
-  <data name="PrintString" xml:space="preserve">
-    <value>Print</value>
-  </data>
-  <data name="SuccessfulString" xml:space="preserve">
-    <value>Successful</value>
+  <data name="FunctionType_UNKNOWN" xml:space="preserve">
+    <value>Unknown</value>
   </data>
 </root>

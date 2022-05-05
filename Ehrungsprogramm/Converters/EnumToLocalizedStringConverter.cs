@@ -7,7 +7,7 @@ namespace Ehrungsprogramm.Converters
 {
     /// <summary>
     /// Get a localized string based on the enum value to convert.
-    /// The entries in the Resources file must have the format "Enum_{EnumType}_{EnumValue}"
+    /// The entries in the separate Enums .resx file must have the format "{EnumType}_{EnumValue}"
     /// </summary>
     public class EnumToLocalizedStringConverter : IValueConverter
     {
@@ -16,8 +16,8 @@ namespace Ehrungsprogramm.Converters
             Enum enumValue = (Enum)value;
 
             // https://stackoverflow.com/questions/17380900/enum-localization
-            ResourceManager rm = new ResourceManager(typeof(Properties.Resources));
-            string resourceDisplayName = rm.GetString("Enum_" + enumValue.GetType().Name + "_" + enumValue);
+            ResourceManager rm = new ResourceManager(typeof(Properties.Enums));
+            string resourceDisplayName = rm.GetString(enumValue.GetType().Name + "_" + enumValue);
             return string.IsNullOrWhiteSpace(resourceDisplayName) ? string.Format("{0}", enumValue) : resourceDisplayName;
         }
 

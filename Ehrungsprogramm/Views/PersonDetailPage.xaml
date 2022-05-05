@@ -18,6 +18,7 @@
 
     <Page.Resources>
         <converters:StringNullOrEmptyToVisibilityConverter x:Key="StringNullOrEmptyVisibilityConverter"/>
+        <converters:EnumToLocalizedStringConverter x:Key="EnumLocalizedStringConverter"/>
     </Page.Resources>
     
     <Grid Background="{StaticResource MahApps.Brushes.Window.Background}">
@@ -138,7 +139,7 @@
                                         </StackPanel>
                                     </GridViewColumn.Header>
                                 </GridViewColumn>
-                                <GridViewColumn DisplayMemberBinding="{Binding Type}">
+                                <GridViewColumn DisplayMemberBinding="{Binding Type, Converter={StaticResource EnumLocalizedStringConverter}}">
                                     <GridViewColumn.Header>
                                         <StackPanel Orientation="Horizontal">
                                             <controls:FontIcon Glyph="&#xE821;" Margin="5"/>
