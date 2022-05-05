@@ -23,7 +23,8 @@ namespace Ehrungsprogramm.Core.Services
         public const int FIRST_REWARDBLOCK_INDEX = 6;
         public const int REWARDBLOCK_COLUMNS = 3;
 
-        public const string BOARD_MEMBER_MARKER = "Vorstand";
+        public const string BOARD_MEMBER_MARKER = "1. 2. 3. Vorstand";
+        public const string BOARD_MEMBER_FUNCTION_MARKER = "Vorstandschaft";        // someone who has another function than 1. - 3. board member but is in the board too.
         public const string HEAD_OF_DEPARTEMENT_MARKER = "Abteilungsleiter";
         public const string OTHER_FUNCTIONS_MARKER = "FKT";
 
@@ -126,7 +127,7 @@ namespace Ehrungsprogramm.Core.Services
                     }
 
                     if (functionName.Contains(OTHER_FUNCTIONS_MARKER)) { function.Type = FunctionType.OTHER_FUNCTION; }
-                    else if (functionName.Contains(HEAD_OF_DEPARTEMENT_MARKER)) { function.Type = FunctionType.HEAD_OF_DEPARTEMENT; }
+                    else if (functionName.Contains(HEAD_OF_DEPARTEMENT_MARKER) || functionName.Contains(BOARD_MEMBER_FUNCTION_MARKER)) { function.Type = FunctionType.HEAD_OF_DEPARTEMENT; }
                     else if (functionName.Contains(BOARD_MEMBER_MARKER)) { function.Type = FunctionType.BOARD_MEMBER; }
                     else { function.Type = FunctionType.UNKNOWN; }
 

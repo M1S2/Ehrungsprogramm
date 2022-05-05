@@ -91,9 +91,9 @@ namespace Ehrungsprogramm.Core.Models
         }
 
         /// <summary>
-        /// Number of years, the function was done. This is calculated from the <see cref="TimePeriod"/> property and is rounded up to the next full number of years.
+        /// Number of years, the function was done. This is calculated from the <see cref="TimePeriod"/> property and is rounded down to the next full number of years.
         /// </summary>
-        public int FunctionYears => (int)Math.Ceiling(TimePeriod.Duration.TotalDays / 365);
+        public int FunctionYears => (int)Math.Floor(TimePeriod.Duration.TotalDays / 365);
 
         // +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 

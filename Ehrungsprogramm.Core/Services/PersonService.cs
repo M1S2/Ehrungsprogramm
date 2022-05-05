@@ -20,6 +20,12 @@ namespace Ehrungsprogramm.Core.Services
         private const int REWARD_TSVSILVER_POINTS = 45;                             // Score needed to obtain a TSV Silver reward
         private const int REWARD_TSVGOLD_POINTS = 70;                               // Score needed to obtain a TSV Gold reward
         private const int REWARD_TSVHONORARY_POINTS = 85;                           // Score needed to obtain a TSV Honorary reward
+
+        private const int POINTS_PER_MEMBERSHIP_YEAR = 1;                           // One point per membership year
+        private const int POINTS_PER_BOARD_MEMBER_YEAR = 3;                         // Three points per year as board member
+        private const int POINTS_PER_HEAD_OF_DEPARTEMENT_YEAR = 2;                  // Two points per year as head of departement
+        private const int POINTS_PER_OTHER_FUNCTIONS_YEAR = 1;                      // One point per year in any other function     
+
         private const string DATABASE_FILENAME = "Ehrungsprogramm_Persons.db";      // Filename of the database (located beside the application .exe)
 
         /// <summary>
@@ -236,7 +242,8 @@ namespace Ehrungsprogramm.Core.Services
         /// <param name="person">Person to update</param>
         private void updatePersonProperties(Person person)
         {
-            person.MembershipYears = (int)Math.Ceiling((CalculationDeadline - person.EntryDate).TotalDays / 365);
+            // Only full years are counted (0 days to 364 days => 0 years, 365 days to 729 days => 1 year)
+            person.MembershipYears = (int)Math.Floor((CalculationDeadline - person.EntryDate).TotalDays / 365);
             if(person.MembershipYears < 0) { person.MembershipYears = 0; }  // The membership years should be 0 or greater. It would be negative if CalculationDeadline < EntryDate.
 
             // ***** Effective score time periods *****
@@ -272,14 +279,15 @@ namespace Ehrungsprogramm.Core.Services
             otherPeriods = (TimePeriodCollection)subtractor.SubtractPeriods(otherPeriods, headOfDepartementPeriods);
 
             // ***** TSV score *****
-            person.EffectiveBoardMemberYears = (int)Math.Ceiling((boardMemberPeriods?.TotalDuration.TotalDays ?? 0) / 365);
-            person.EffectiveHeadOfDepartementYears = (int)Math.Ceiling((headOfDepartementPeriods?.TotalDuration.TotalDays ?? 0) / 365);
-            person.EffectiveOtherFunctionsYears = (int)Math.Ceiling((otherPeriods?.TotalDuration.TotalDays ?? 0) / 365);
+            // Only full years are counted (0 days to 364 days => 0 years, 365 days to 729 days => 1 year)
+            person.EffectiveBoardMemberYears = (int)Math.Floor((boardMemberPeriods?.TotalDuration.TotalDays ?? 0) / 365);
+            person.EffectiveHeadOfDepartementYears = (int)Math.Floor((headOfDepartementPeriods?.TotalDuration.TotalDays ?? 0) / 365);
+            person.EffectiveOtherFunctionsYears = (int)Math.Floor((otherPeriods?.TotalDuration.TotalDays ?? 0) / 365);
 
-            person.ScoreTSV = person.MembershipYears * 1 +                      // One point per membership year
-                                person.EffectiveBoardMemberYears * 3 +          // Three points per year as board member
-                                person.EffectiveHeadOfDepartementYears * 2 +    // Two points per year as head of departement
-                                person.EffectiveOtherFunctionsYears * 1;        // One point per year in any other function
+            person.ScoreTSV = person.MembershipYears * POINTS_PER_MEMBERSHIP_YEAR +
+                                person.EffectiveBoardMemberYears * POINTS_PER_BOARD_MEMBER_YEAR+
+                                person.EffectiveHeadOfDepartementYears * POINTS_PER_HEAD_OF_DEPARTEMENT_YEAR +
+                                person.EffectiveOtherFunctionsYears * POINTS_PER_OTHER_FUNCTIONS_YEAR;
 
             // ***** BLSV score *****
             person.ScoreBLSV = person.MembershipYears * 1;  // One point per year of membership
