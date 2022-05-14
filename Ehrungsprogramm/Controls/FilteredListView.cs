@@ -14,6 +14,7 @@ using System.Windows.Shapes;
 using System.Reactive.Linq;
 using System.Reactive.Subjects;
 using Microsoft.Toolkit.Mvvm.Input;
+using System.Threading;
 
 namespace Ehrungsprogramm.Controls
 {
@@ -87,7 +88,7 @@ namespace Ehrungsprogramm.Controls
 
         private void InitThrottle()
         {
-            FilterInputSubject.Throttle(TimeSpan.FromMilliseconds(250)).ObserveOnDispatcher().Subscribe(HandleFilterThrottle);
+            FilterInputSubject.Throttle(TimeSpan.FromMilliseconds(250)).ObserveOn(SynchronizationContext.Current).Subscribe(HandleFilterThrottle);
         }
 
         private void HandleFilterThrottle(bool b)
