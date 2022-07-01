@@ -1,3 +1,4 @@
+using System.Reflection;
 using System.Runtime.InteropServices;
 
 [assembly: System.Windows.ThemeInfo(System.Windows.ResourceDictionaryLocation.None, System.Windows.ResourceDictionaryLocation.SourceAssembly)]
@@ -20,3 +21,5 @@ using System.Runtime.InteropServices;
 // bereitgestellt wird.
 
 [assembly: Guid("fa4ee75a-f5f4-4d26-a332-ea72ff6b92ef")]
+
+[assembly: AssemblyInfoHelper.GitHub.GitHubRepo("https://github.com/M1S2/Ehrungsprogramm")]

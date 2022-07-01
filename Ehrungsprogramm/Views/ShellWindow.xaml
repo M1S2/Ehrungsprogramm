@@ -9,6 +9,7 @@
     xmlns:properties="clr-namespace:Ehrungsprogramm.Properties"
     xmlns:templateSelectors="clr-namespace:Ehrungsprogramm.TemplateSelectors"
     Style="{StaticResource CustomMetroWindow}"
+    xmlns:assemblyInfoHelper="clr-namespace:AssemblyInfoHelper;assembly=AssemblyInfoHelper"
     mc:Ignorable="d"
     MinWidth="500"
     MinHeight="350"
@@ -36,6 +37,11 @@
             </Button>
         </controls:WindowCommands>
     </controls:MetroWindow.LeftWindowCommands>
+    <controls:MetroWindow.RightWindowCommands>
+        <controls:WindowCommands>
+            <assemblyInfoHelper:AppInfoButton EnableNewVersionNotification="True"/>
+        </controls:WindowCommands>
+    </controls:MetroWindow.RightWindowCommands>
     <controls:MetroWindow.Resources>
         <templateSelectors:MenuItemTemplateSelector
             x:Key="MenuItemTemplateSelector">
