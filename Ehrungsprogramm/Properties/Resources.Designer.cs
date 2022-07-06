@@ -376,6 +376,15 @@ namespace Ehrungsprogramm.Properties {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Reload Last File ähnelt.
+        /// </summary>
+        public static string ReloadDataFileString {
+            get {
+                return ResourceManager.GetString("ReloadDataFileString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Rewards ähnelt.
         /// </summary>
         public static string RewardsPageTitle {

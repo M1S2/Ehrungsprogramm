@@ -10,6 +10,7 @@ namespace Ehrungsprogramm.Views
         {
             InitializeComponent();
             DataContext = viewModel;
+            this.Drop += viewModel.OnFileDrop;
         }
     }
 }

@@ -285,4 +285,7 @@
   <data name="SuccessfulString" xml:space="preserve">
     <value>Successful</value>
   </data>
+  <data name="ReloadDataFileString" xml:space="preserve">
+    <value>Reload Last File</value>
+  </data>
 </root>

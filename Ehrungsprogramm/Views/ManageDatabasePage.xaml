@@ -10,7 +10,7 @@
     xmlns:Dialog="clr-namespace:MahApps.Metro.Controls.Dialogs;assembly=MahApps.Metro"
     Dialog:DialogParticipation.Register="{Binding}"
     mc:Ignorable="d"
-    d:DesignHeight="800" d:DesignWidth="800">
+    d:DesignHeight="800" d:DesignWidth="800" AllowDrop="True">
 
     <ScrollViewer VerticalScrollBarVisibility="Auto">
         <Grid Background="{StaticResource MahApps.Brushes.Window.Background}">
@@ -30,6 +30,12 @@
                             <StackPanel>
                                 <controls:FontIcon FontSize="50" Glyph="&#xE8E5;" Margin="10"/>
                                 <TextBlock Text="{x:Static properties:Resources.ImportDataFromFileString}" HorizontalAlignment="Center" FontSize="{StaticResource MediumFontSize}"/>
+                            </StackPanel>
+                        </Button>
+                        <Button Width="150" Height="150" Margin="10" Style="{StaticResource MahApps.Styles.Button.Square.Accent}" Command="{Binding ReloadDataFileCommand}">
+                            <StackPanel>
+                                <controls:FontIcon FontSize="50" Glyph="&#xE777;" Margin="10"/>
+                                <TextBlock Text="{x:Static properties:Resources.ReloadDataFileString}" HorizontalAlignment="Center" FontSize="{StaticResource MediumFontSize}"/>
                             </StackPanel>
                         </Button>
                         <Button Width="150" Height="150" Margin="10" Style="{StaticResource MahApps.Styles.Button.Square.Accent}" Command="{Binding GenerateTestDataCommand}">

@@ -3,6 +3,8 @@ using System.Windows.Input;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Windows;
+using System.Linq;
 using Microsoft.Toolkit.Mvvm.ComponentModel;
 using Microsoft.Toolkit.Mvvm.Input;
 using Microsoft.Win32;
@@ -26,7 +28,8 @@ namespace Ehrungsprogramm.ViewModels
             {
                 if(_personService == null) { return; }
                 _personService.CalculationDeadline = value; 
-                OnPropertyChanged(nameof(CalculationDeadline)); 
+                OnPropertyChanged(nameof(CalculationDeadline));
+                RefreshStatistics();
             }
         }
 
@@ -65,6 +68,9 @@ namespace Ehrungsprogramm.ViewModels
         private ICommand _importDataFromFileCommand;
         public ICommand ImportDataFromFileCommand => _importDataFromFileCommand ?? (_importDataFromFileCommand = new RelayCommand(async() => await ImportFromFile()));
 
+        private ICommand _reloadDataFileCommand;
+        public ICommand ReloadDataFileCommand => _reloadDataFileCommand ?? (_reloadDataFileCommand = new RelayCommand(async () => await ImportFromFile(LastImportFilePath)));
+
 
         private IPersonService _personService;
         private IDialogCoordinator _dialogCoordinator;
@@ -92,26 +98,43 @@ namespace Ehrungsprogramm.ViewModels
         }
 
         /// <summary>
+        /// Allow to drop files to the ManageDatabasePage and load the first dropped file (if it's .csv or .txt)
+        /// </summary>
+        public async void OnFileDrop(object sender, DragEventArgs e)
+        {
+            if (e.Data.GetDataPresent(DataFormats.FileDrop))
+            {
+                List<string> fileNames = ((string[])e.Data.GetData(DataFormats.FileDrop)).ToList();
+                string firstFileName = fileNames.FirstOrDefault();
+                if (System.IO.Path.GetExtension(firstFileName).ToLower() == ".csv" || System.IO.Path.GetExtension(firstFileName).ToLower() == ".txt")
+                {
+                    await ImportFromFile(firstFileName);
+                }
+            }
+        }
+
+        /// <summary>
         /// Import a list of Persons from a .csv or .txt file.
         /// </summary>
-        public async Task ImportFromFile()
+        /// <param name="filePath">If the path isn't empty, the given file is loaded; otherwise show a dialog to select a file</param>
+        public async Task ImportFromFile(string filePath = "")
         {
             OpenFileDialog openFileDialog = new OpenFileDialog()
             {
                 Filter = "CSV File|*.csv|TXT File|*.txt",
             };
 
-            if (openFileDialog.ShowDialog().Value)
+            if (!string.IsNullOrEmpty(filePath) || openFileDialog.ShowDialog().Value)    // if filePath isn't empty, the dialog isn't opened
             {
                 CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
                 _progressController = await _dialogCoordinator.ShowProgressAsync(this, Properties.Resources.ImportDataFromFileString + "...", "", true);
                 _progressController.Canceled += (sender, e) => cancellationTokenSource.Cancel();
                 try
                 {
-                    await _personService?.ImportFromFile(openFileDialog.FileName, cancellationTokenSource.Token);
+                    await _personService?.ImportFromFile(!string.IsNullOrEmpty(filePath) ? filePath : openFileDialog.FileName, cancellationTokenSource.Token);
                     RefreshStatistics();
                 }
-                catch (Exception ex) 
+                catch (Exception ex)
                 {
                     await _progressController.CloseAsync();
                     await _dialogCoordinator.ShowMessageAsync(this, "Error", ex.Message);
