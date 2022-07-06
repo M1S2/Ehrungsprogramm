@@ -9,9 +9,13 @@
 		<Copyright>Copyright ©  2022</Copyright>
 		<Company>Markus Scheich</Company>
 		<Description>Programm zum Verwalten von Ehrungen des TSV Illertissen.</Description>
+		<ApplicationIcon>appicon.ico</ApplicationIcon>
 	</PropertyGroup>
 	<ItemGroup>
 		<Compile Remove="ViewModels\ViewModelLocator.cs" />
+	</ItemGroup>
+	<ItemGroup>
+	  <Content Include="appicon.ico" />
 	</ItemGroup>
 	<ItemGroup>
 		<PackageReference Include="AssemblyInfoHelper" Version="5.1.0" />

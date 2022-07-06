@@ -1,4 +1,4 @@
-# ![Logo](logo.png) Ehrungsprogramm
+# ![AppIcon](AppIcon/AppIcon.png) Ehrungsprogramm
 
 [![GitHub Release Version](https://img.shields.io/github/v/release/M1S2/Ehrungsprogramm)](https://github.com/M1S2/Ehrungsprogramm/releases/latest)
 [![GitHub License](https://img.shields.io/github/license/M1S2/Ehrungsprogramm)](LICENSE.md)
@@ -8,5 +8,5 @@ Programm um Ehrungen für den TSV Illertissen zu verwalten.
 
 ... Under construction ...
 
-## Logo
-Logo from https://www.clipartmax.com/middle/m2i8N4G6i8Z5Z5H7_medal-scalable-vector-graphics-icon-cartoon-medal-vector/
+## AppIcon
+AppIcon from https://www.clipartmax.com/middle/m2i8N4G6i8Z5Z5H7_medal-scalable-vector-graphics-icon-cartoon-medal-vector/
