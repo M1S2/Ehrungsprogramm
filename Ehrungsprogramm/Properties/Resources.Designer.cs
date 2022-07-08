@@ -385,6 +385,33 @@ namespace Ehrungsprogramm.Properties {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die G ähnelt.
+        /// </summary>
+        public static string RewardIconGoldString {
+            get {
+                return ResourceManager.GetString("RewardIconGoldString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die H ähnelt.
+        /// </summary>
+        public static string RewardIconHonoraryString {
+            get {
+                return ResourceManager.GetString("RewardIconHonoraryString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die S ähnelt.
+        /// </summary>
+        public static string RewardIconSilverString {
+            get {
+                return ResourceManager.GetString("RewardIconSilverString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Rewards ähnelt.
         /// </summary>
         public static string RewardsPageTitle {

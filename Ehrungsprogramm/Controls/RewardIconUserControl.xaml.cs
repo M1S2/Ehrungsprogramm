@@ -44,7 +44,7 @@ namespace Ehrungsprogramm.Controls
         /// <summary>
         /// Text that is displayed in the icon.
         /// For BLSV Rewards this is the number of years of the Reward.
-        /// For TSV Rewards this is "S" for Silver, "G" for Gold or "H" for Honorary.
+        /// For TSV Rewards this is Resources.RewardIconSilverString for Silver (e.g. "S"), Resources.RewardIconGoldString for Gold (e.g. "G") or Resources.RewardIconHonoraryString for Honorary (e.g. "H").
         /// </summary>
         public string IconNumberText
         {
@@ -58,9 +58,9 @@ namespace Ehrungsprogramm.Controls
                 {
                     switch(Reward.Type)
                     {
-                        case RewardTypes.TSVSILVER: return "S";
-                        case RewardTypes.TSVGOLD: return "G";
-                        case RewardTypes.TSVHONORARY: return "H";
+                        case RewardTypes.TSVSILVER: return Properties.Resources.RewardIconSilverString;
+                        case RewardTypes.TSVGOLD: return Properties.Resources.RewardIconGoldString;
+                        case RewardTypes.TSVHONORARY: return Properties.Resources.RewardIconHonoraryString;
                         default: return "?";
                     }
                 }

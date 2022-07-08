@@ -288,4 +288,13 @@
   <data name="ReloadDataFileString" xml:space="preserve">
     <value>Letzte Datei neu laden</value>
   </data>
+  <data name="RewardIconGoldString" xml:space="preserve">
+    <value>G</value>
+  </data>
+  <data name="RewardIconHonoraryString" xml:space="preserve">
+    <value>E</value>
+  </data>
+  <data name="RewardIconSilverString" xml:space="preserve">
+    <value>S</value>
+  </data>
 </root>
