@@ -60,7 +60,8 @@ namespace Ehrungsprogramm.Core.Services
             }
 
             // Read all lines of the .csv file
-            string[] csv_lines = System.IO.File.ReadAllLines(filepath, Encoding.GetEncoding("iso-8859-1")); //Encoding.UTF8);
+            Encoding fileEncoding = getFileEncoding(filepath);
+            string[] csv_lines = System.IO.File.ReadAllLines(filepath, fileEncoding);
 
             string regexPatternLineElements = DELIMITER + "(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)";       //Using quotes to allow the delimiter
 
@@ -181,5 +182,34 @@ namespace Ehrungsprogramm.Core.Services
 
             return people;
         }
+
+        /// <summary>
+        /// Using encoding from BOM or UTF8 if no BOM found, check if the file is valid, by reading all lines
+        /// If decoding fails, use the Latin1 codepage
+        /// </summary>
+        /// <param name="filename">file to check</param>
+        /// <returns>Detected Encoding</returns>
+        /// https://stackoverflow.com/questions/3825390/effective-way-to-find-any-files-encoding
+        private static Encoding getFileEncoding(string filename)
+        {
+            Encoding Utf8EncodingVerifier = Encoding.GetEncoding("utf-8", new EncoderExceptionFallback(), new DecoderExceptionFallback());
+            using (var reader = new StreamReader(filename, Utf8EncodingVerifier, true))
+            {
+                try
+                {
+                    while (!reader.EndOfStream)
+                    {
+                        var line = reader.ReadLine();
+                    }
+                    return reader.CurrentEncoding;
+                }
+                catch (Exception)
+                {
+                    // Failed to decode the file using the BOM/UT8. Assume it's Latin1
+                    return Encoding.Latin1;
+                }
+            }
+        }
+
     }
 }
