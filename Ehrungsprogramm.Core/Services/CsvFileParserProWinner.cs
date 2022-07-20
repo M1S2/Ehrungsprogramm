@@ -77,6 +77,7 @@ namespace Ehrungsprogramm.Core.Services
                 // if it's the header line, continue with the next line
                 if (line.StartsWith(HEADERLINE_START_STRING)) { continue; }
 
+                StringBuilder person_errors = new StringBuilder();
                 Person person = new Person();
                 string[] line_split = Regex.Split(line, regexPatternLineElements);                  //split line (using quotes to allow the delimiter)
 
@@ -91,18 +92,30 @@ namespace Ehrungsprogramm.Core.Services
                 // The second column contains the birth date
                 if (line_split.Length >= 2)
                 {
-                    person.BirthDate = DateTime.Parse(line_split[1].Trim('"').Trim());
+                    DateTime birthDate;
+                    if (DateTime.TryParse(line_split[1].Trim('"').Trim(), out birthDate))
+                    {
+                        person.BirthDate = birthDate;
+                    }
+                    else { person_errors.AppendLine(String.Format("Birth date couldn't be parsed correctly ({0})!", line_split[1].Trim('"').Trim())); }
                 }
 
                 // The third column contains the entry date
                 if (line_split.Length >= 3)
                 {
-                    person.EntryDate = DateTime.Parse(line_split[2].Trim('"').Trim());
+                    DateTime entryDate;
+                    if (DateTime.TryParse(line_split[2].Trim('"').Trim(), out entryDate))
+                    {
+                        person.EntryDate = entryDate;
+                    }
+                    else { person_errors.AppendLine(String.Format("Entry date couldn't be parsed correctly ({0})!", line_split[2].Trim('"').Trim())); }
                 }
 
                 person.Functions = new List<Function>();
                 for (int functionBlockStartIndex = FIRST_FUNCTIONBLOCK_INDEX; (functionBlockStartIndex + (FUNCTIONBLOCK_COLUMNS + REWARDBLOCK_COLUMNS) - 1) < line_split.Length; functionBlockStartIndex += (FUNCTIONBLOCK_COLUMNS + REWARDBLOCK_COLUMNS))
                 {
+                    StringBuilder function_error = new StringBuilder();
+
                     string entryDate = line_split[functionBlockStartIndex].Trim('"').Trim();
                     string functionName = line_split[functionBlockStartIndex + 1].Trim('"').Trim();
                     string functionStartDate = line_split[functionBlockStartIndex + 2].Trim('"').Trim();
@@ -113,13 +126,24 @@ namespace Ehrungsprogramm.Core.Services
 
                     Function function = new Function();
                     function.Description = functionName;
-                    if (!string.IsNullOrEmpty(functionStartDate)) { function.TimePeriod.Start = DateTime.Parse(functionStartDate); }
-                    else { person.ParsingFailureMessage = String.Format("Function Start Date empty (Function: {0})!", functionName); }
+
+                    DateTime parsedFunctionStartDate;
+                    if (DateTime.TryParse(functionStartDate, out parsedFunctionStartDate))
+                    {
+                        function.TimePeriod.Start = parsedFunctionStartDate;
+                    }
+                    else { function_error.AppendLine(String.Format("Function Start Date empty or corrupt ({0}, Function: {1})!", functionStartDate, functionName)); }
                     
                     if (!string.IsNullOrEmpty(functionEndDate)) 
                     {
                         function.IsFunctionOngoing = false;
-                        function.TimePeriod.End = DateTime.Parse(functionEndDate);
+
+                        DateTime parsedFunctionEndDate;
+                        if (DateTime.TryParse(functionEndDate, out parsedFunctionEndDate))
+                        {
+                            function.TimePeriod.End = parsedFunctionEndDate;
+                        }
+                        else { function_error.AppendLine(String.Format("Function End Date empty or corrupt ({0}, Function: {1})!", functionEndDate, functionName)); }
                     }
                     else    // if the end date column is empty, the function is not ended yet (lasts until now)
                     {
@@ -134,6 +158,7 @@ namespace Ehrungsprogramm.Core.Services
 
                     if (!person.Functions.Contains(function))
                     {
+                        if (function_error.Length > 0) { person_errors.Append(function_error.ToString()); }
                         person.Functions.Add(function);
                     }
                 }
@@ -151,30 +176,43 @@ namespace Ehrungsprogramm.Core.Services
                     reward.Description = rewardDescription;
                     reward.Obtained = true;
                     reward.Available = true;
-                    if (!string.IsNullOrEmpty(rewardDate)) { reward.ObtainedDate = DateTime.Parse(rewardDate); }
-                    switch (int.Parse(rewardNumber))
-                    {
-                        case REWARD_NUMBER_BLSV20: reward.Type = RewardTypes.BLSV20; break;
-                        case REWARD_NUMBER_BLSV25: reward.Type = RewardTypes.BLSV25; break;
-                        case REWARD_NUMBER_BLSV30: reward.Type = RewardTypes.BLSV30; break;
-                        case REWARD_NUMBER_BLSV40: reward.Type = RewardTypes.BLSV40; break;
-                        case REWARD_NUMBER_BLSV45: reward.Type = RewardTypes.BLSV45; break;
-                        case REWARD_NUMBER_BLSV50: reward.Type = RewardTypes.BLSV50; break;
-                        case REWARD_NUMBER_BLSV60: reward.Type = RewardTypes.BLSV60; break;
-                        case REWARD_NUMBER_BLSV70: reward.Type = RewardTypes.BLSV70; break;
-                        case REWARD_NUMBER_BLSV80: reward.Type = RewardTypes.BLSV80; break;
-                        case REWARD_NUMBER_TSV_SILVER: reward.Type = RewardTypes.TSVSILVER; break;
-                        case REWARD_NUMBER_TSV_GOLD: reward.Type = RewardTypes.TSVGOLD; break;
-                        case REWARD_NUMBER_TSV_HONORARY: reward.Type = RewardTypes.TSVHONORARY; break;
-                        default: reward.Type = RewardTypes.UNKNOWN; break;
-                    }
 
-                    if(!person.Rewards.AddReward(reward))
+                    DateTime parsedRewardObtainedDate;
+                    if (DateTime.TryParse(rewardDate, out parsedRewardObtainedDate))
                     {
-                        // Unknown reward type
+                        reward.ObtainedDate = parsedRewardObtainedDate;
                     }
+                    else { person_errors.AppendLine(String.Format("Reward Obtained Date empty or corrupt ({0}, Reward: {1})!", rewardDate, rewardDescription)); }
+
+                    int parsedRewardNumber;
+                    if (int.TryParse(rewardNumber, out parsedRewardNumber))
+                    {
+                        switch (parsedRewardNumber)
+                        {
+                            case REWARD_NUMBER_BLSV20: reward.Type = RewardTypes.BLSV20; break;
+                            case REWARD_NUMBER_BLSV25: reward.Type = RewardTypes.BLSV25; break;
+                            case REWARD_NUMBER_BLSV30: reward.Type = RewardTypes.BLSV30; break;
+                            case REWARD_NUMBER_BLSV40: reward.Type = RewardTypes.BLSV40; break;
+                            case REWARD_NUMBER_BLSV45: reward.Type = RewardTypes.BLSV45; break;
+                            case REWARD_NUMBER_BLSV50: reward.Type = RewardTypes.BLSV50; break;
+                            case REWARD_NUMBER_BLSV60: reward.Type = RewardTypes.BLSV60; break;
+                            case REWARD_NUMBER_BLSV70: reward.Type = RewardTypes.BLSV70; break;
+                            case REWARD_NUMBER_BLSV80: reward.Type = RewardTypes.BLSV80; break;
+                            case REWARD_NUMBER_TSV_SILVER: reward.Type = RewardTypes.TSVSILVER; break;
+                            case REWARD_NUMBER_TSV_GOLD: reward.Type = RewardTypes.TSVGOLD; break;
+                            case REWARD_NUMBER_TSV_HONORARY: reward.Type = RewardTypes.TSVHONORARY; break;
+                            default: reward.Type = RewardTypes.UNKNOWN; break;
+                        }
+
+                        if (!person.Rewards.AddReward(reward))
+                        {
+                            // Unknown reward type
+                        }
+                    }
+                    else { person_errors.AppendLine(String.Format("Reward Number empty or corrupt ({0}, Reward: {1})!", rewardNumber, rewardDescription)); }
                 }
 
+                person.ParsingFailureMessage = person_errors.ToString();
                 people.Add(person);
 
                 OnParseProgress?.Invoke(filepath, (current_line_index / (float)csv_lines.Length) * 100);
