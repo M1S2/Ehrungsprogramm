@@ -15,6 +15,7 @@ using iText.Layout;
 using iText.Layout.Element;
 using iText.Layout.Properties;
 using Microsoft.Win32;
+using iText.Kernel.Font;
 
 namespace Ehrungsprogramm.Core.Services
 {
@@ -50,6 +51,10 @@ namespace Ehrungsprogramm.Core.Services
                     using (Document document = new Document(pdf, PageSize.A4, false))
                     {
                         document.Add(new Paragraph("Person Details").SetTextAlignment(TextAlignment.CENTER).SetFontSize(20));
+                        if (!String.IsNullOrEmpty(person.ParsingFailureMessage))
+                        { 
+                            document.Add(new Paragraph("Einlesefehler: " + Environment.NewLine + person.ParsingFailureMessage));
+                        }
 
                         Dictionary<string, string> personBasicDetailValues = new Dictionary<string, string>();
                         personBasicDetailValues.Add("Name: ", person.FirstName + " " + person.Name);
@@ -61,7 +66,7 @@ namespace Ehrungsprogramm.Core.Services
                         personBasicDetailValues.Add("Effektive Jahre Vorstand: ", person.EffectiveBoardMemberYears.ToString());
                         personBasicDetailValues.Add("Effektive Jahre Abteilungsleitung: ", person.EffectiveHeadOfDepartementYears.ToString());
                         personBasicDetailValues.Add("Effektive Jahre andere Funktion: ", person.EffectiveOtherFunctionsYears.ToString());
-
+                        
                         Table tableBasicDetails = new Table(2, false);      // 2 columns for: Parameter, Value
                         foreach (KeyValuePair<string, string> personBasicDetailValue in personBasicDetailValues)
                         {
@@ -137,13 +142,14 @@ namespace Ehrungsprogramm.Core.Services
                         document.Add(new Paragraph("Personen Übersicht").SetTextAlignment(TextAlignment.CENTER).SetFontSize(20));
                         document.Add(new Paragraph("Anzahl: " + people.Count.ToString() + " Personen"));
 
-                        Table table = new Table(6, false);      // 6 columns for: ID, Name, First Name, Entry Date, BLSV Score, TSV Score
+                        Table table = new Table(7, false);      // 7 columns for: ID, Name, First Name, Entry Date, BLSV Score, TSV Score, ParsingErrors
                         table.AddHeaderCell(new Cell(1, 1).SetBackgroundColor(ColorConstants.LIGHT_GRAY).SetTextAlignment(TextAlignment.CENTER).Add(new Paragraph("ID")));
                         table.AddHeaderCell(new Cell(1, 1).SetBackgroundColor(ColorConstants.LIGHT_GRAY).SetTextAlignment(TextAlignment.CENTER).Add(new Paragraph("Name")));
                         table.AddHeaderCell(new Cell(1, 1).SetBackgroundColor(ColorConstants.LIGHT_GRAY).SetTextAlignment(TextAlignment.CENTER).Add(new Paragraph("Vorname")));
                         table.AddHeaderCell(new Cell(1, 1).SetBackgroundColor(ColorConstants.LIGHT_GRAY).SetTextAlignment(TextAlignment.CENTER).Add(new Paragraph("Eintrittsdatum")));
                         table.AddHeaderCell(new Cell(1, 1).SetBackgroundColor(ColorConstants.LIGHT_GRAY).SetTextAlignment(TextAlignment.CENTER).Add(new Paragraph("BLSV Punkte")));
                         table.AddHeaderCell(new Cell(1, 1).SetBackgroundColor(ColorConstants.LIGHT_GRAY).SetTextAlignment(TextAlignment.CENTER).Add(new Paragraph("TSV Punkte")));
+                        table.AddHeaderCell(new Cell(1, 1).SetBackgroundColor(ColorConstants.LIGHT_GRAY).SetTextAlignment(TextAlignment.CENTER).Add(new Paragraph("Einlesefehler")));
 
                         foreach (Person person in people)
                         {
@@ -153,6 +159,7 @@ namespace Ehrungsprogramm.Core.Services
                             table.AddCell(new Cell(1, 1).Add(new Paragraph(person.EntryDate.ToShortDateString())));
                             table.AddCell(new Cell(1, 1).Add(new Paragraph(person.ScoreBLSV.ToString())));
                             table.AddCell(new Cell(1, 1).Add(new Paragraph(person.ScoreTSV.ToString())));
+                            table.AddCell(new Cell(1, 1).Add(new Paragraph(String.IsNullOrEmpty(person.ParsingFailureMessage) ? "" : "X")));
                         }
 
                         document.Add(table);
@@ -199,23 +206,25 @@ namespace Ehrungsprogramm.Core.Services
 
                         document.Add(new Paragraph("Anzahl TSV Ehrungen: " + peopleTsvRewardAvailable.Count.ToString()));
 
-                        Table tableTsv = new Table(4, false);      // 4 columns for: ID, Name, First Name, Score
+                        Table tableTsv = new Table(5, false);      // 5 columns for: ID, Name, First Name, Score, ParsingErrors
                         tableTsv.AddHeaderCell(new Cell(1, 1).SetBackgroundColor(ColorConstants.LIGHT_GRAY).SetTextAlignment(TextAlignment.CENTER).Add(new Paragraph("ID")));
                         tableTsv.AddHeaderCell(new Cell(1, 1).SetBackgroundColor(ColorConstants.LIGHT_GRAY).SetTextAlignment(TextAlignment.CENTER).Add(new Paragraph("Name")));
                         tableTsv.AddHeaderCell(new Cell(1, 1).SetBackgroundColor(ColorConstants.LIGHT_GRAY).SetTextAlignment(TextAlignment.CENTER).Add(new Paragraph("Vorname")));
                         tableTsv.AddHeaderCell(new Cell(1, 1).SetBackgroundColor(ColorConstants.LIGHT_GRAY).SetTextAlignment(TextAlignment.CENTER).Add(new Paragraph("Punkte")));
+                        tableTsv.AddHeaderCell(new Cell(1, 1).SetBackgroundColor(ColorConstants.LIGHT_GRAY).SetTextAlignment(TextAlignment.CENTER).Add(new Paragraph("Einlesefehler")));
 
                         int counter = 0;
                         foreach (IGrouping<RewardTypes, Person> tsvRewardGroup in tsvRewardGroups)
                         {
                             string tsvRewardName = rewardTypeToString(tsvRewardGroup.Key);
-                            tableTsv.AddCell(new Cell(1, 4).SetBackgroundColor(ColorConstants.GRAY).SetTextAlignment(TextAlignment.LEFT).Add(new Paragraph(tsvRewardName)));
+                            tableTsv.AddCell(new Cell(1, 5).SetBackgroundColor(ColorConstants.GRAY).SetTextAlignment(TextAlignment.LEFT).Add(new Paragraph(tsvRewardName)));
                             foreach (Person person in tsvRewardGroup)
                             {
                                 tableTsv.AddCell(new Cell(1, 1).Add(new Paragraph((++counter).ToString())));
                                 tableTsv.AddCell(new Cell(1, 1).Add(new Paragraph(person.Name)));
                                 tableTsv.AddCell(new Cell(1, 1).Add(new Paragraph(person.FirstName)));
                                 tableTsv.AddCell(new Cell(1, 1).Add(new Paragraph(person.ScoreTSV.ToString())));
+                                tableTsv.AddCell(new Cell(1, 1).Add(new Paragraph(String.IsNullOrEmpty(person.ParsingFailureMessage) ? "" : "X")));
                             }
                         }
                         document.Add(tableTsv);
@@ -233,22 +242,24 @@ namespace Ehrungsprogramm.Core.Services
 
                         document.Add(new Paragraph("Anzahl BLSV Ehrungen: " + peopleBlsvRewardAvailable.Count.ToString()));
 
-                        Table tableBlsv = new Table(4, false);      // 4 columns for: ID, Name, First Name, Score
+                        Table tableBlsv = new Table(5, false);      // 5 columns for: ID, Name, First Name, Score, ParsingErrors
                         tableBlsv.AddHeaderCell(new Cell(1, 1).SetBackgroundColor(ColorConstants.LIGHT_GRAY).SetTextAlignment(TextAlignment.CENTER).Add(new Paragraph("ID")));
                         tableBlsv.AddHeaderCell(new Cell(1, 1).SetBackgroundColor(ColorConstants.LIGHT_GRAY).SetTextAlignment(TextAlignment.CENTER).Add(new Paragraph("Name")));
                         tableBlsv.AddHeaderCell(new Cell(1, 1).SetBackgroundColor(ColorConstants.LIGHT_GRAY).SetTextAlignment(TextAlignment.CENTER).Add(new Paragraph("Vorname")));
                         tableBlsv.AddHeaderCell(new Cell(1, 1).SetBackgroundColor(ColorConstants.LIGHT_GRAY).SetTextAlignment(TextAlignment.CENTER).Add(new Paragraph("Punkte")));
+                        tableBlsv.AddHeaderCell(new Cell(1, 1).SetBackgroundColor(ColorConstants.LIGHT_GRAY).SetTextAlignment(TextAlignment.CENTER).Add(new Paragraph("Einlesefehler")));
 
                         counter = 0;
                         foreach (IGrouping<RewardTypes, Person> blsvRewardGroup in blsvRewardGroups)
                         {
-                            tableBlsv.AddCell(new Cell(1, 4).SetBackgroundColor(ColorConstants.GRAY).SetTextAlignment(TextAlignment.LEFT).Add(new Paragraph(blsvRewardGroup.Key.ToString())));
+                            tableBlsv.AddCell(new Cell(1, 5).SetBackgroundColor(ColorConstants.GRAY).SetTextAlignment(TextAlignment.LEFT).Add(new Paragraph(blsvRewardGroup.Key.ToString())));
                             foreach (Person person in blsvRewardGroup)
                             {
                                 tableBlsv.AddCell(new Cell(1, 1).Add(new Paragraph((++counter).ToString())));
                                 tableBlsv.AddCell(new Cell(1, 1).Add(new Paragraph(person.Name)));
                                 tableBlsv.AddCell(new Cell(1, 1).Add(new Paragraph(person.FirstName)));
                                 tableBlsv.AddCell(new Cell(1, 1).Add(new Paragraph(person.ScoreBLSV.ToString())));
+                                tableBlsv.AddCell(new Cell(1, 1).Add(new Paragraph(String.IsNullOrEmpty(person.ParsingFailureMessage) ? "" : "X")));
                             }
                         }
                         document.Add(tableBlsv);
