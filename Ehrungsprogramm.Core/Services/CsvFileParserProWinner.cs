@@ -97,7 +97,7 @@ namespace Ehrungsprogramm.Core.Services
                     {
                         person.BirthDate = birthDate;
                     }
-                    else { person_errors.AppendLine(String.Format("Birth date couldn't be parsed correctly ({0})!", line_split[1].Trim('"').Trim())); }
+                    else { person_errors.AppendLine(String.Format(Properties.Resources.ErrorCsvFileParserBirthDate, line_split[1].Trim('"').Trim())); }
                 }
 
                 // The third column contains the entry date
@@ -108,7 +108,7 @@ namespace Ehrungsprogramm.Core.Services
                     {
                         person.EntryDate = entryDate;
                     }
-                    else { person_errors.AppendLine(String.Format("Entry date couldn't be parsed correctly ({0})!", line_split[2].Trim('"').Trim())); }
+                    else { person_errors.AppendLine(String.Format(Properties.Resources.ErrorCsvFileParserEntryDate, line_split[2].Trim('"').Trim())); }
                 }
 
                 person.Functions = new List<Function>();
@@ -132,7 +132,7 @@ namespace Ehrungsprogramm.Core.Services
                     {
                         function.TimePeriod.Start = parsedFunctionStartDate;
                     }
-                    else { function_error.AppendLine(String.Format("Function Start Date empty or corrupt ({0}, Function: {1})!", functionStartDate, functionName)); }
+                    else { function_error.AppendLine(String.Format(Properties.Resources.ErrorCsvFileParserFunctionStartDate, functionStartDate, functionName)); }
                     
                     if (!string.IsNullOrEmpty(functionEndDate)) 
                     {
@@ -143,7 +143,7 @@ namespace Ehrungsprogramm.Core.Services
                         {
                             function.TimePeriod.End = parsedFunctionEndDate;
                         }
-                        else { function_error.AppendLine(String.Format("Function End Date empty or corrupt ({0}, Function: {1})!", functionEndDate, functionName)); }
+                        else { function_error.AppendLine(String.Format(Properties.Resources.ErrorCsvFileParserFunctionEndDate, functionEndDate, functionName)); }
                     }
                     else    // if the end date column is empty, the function is not ended yet (lasts until now)
                     {
@@ -182,7 +182,7 @@ namespace Ehrungsprogramm.Core.Services
                     {
                         reward.ObtainedDate = parsedRewardObtainedDate;
                     }
-                    else { person_errors.AppendLine(String.Format("Reward Obtained Date empty or corrupt ({0}, Reward: {1})!", rewardDate, rewardDescription)); }
+                    else { person_errors.AppendLine(String.Format(Properties.Resources.ErrorCsvFileParserRewardObtainedDate, rewardDate, rewardDescription)); }
 
                     int parsedRewardNumber;
                     if (int.TryParse(rewardNumber, out parsedRewardNumber))
@@ -209,7 +209,7 @@ namespace Ehrungsprogramm.Core.Services
                             // Unknown reward type
                         }
                     }
-                    else { person_errors.AppendLine(String.Format("Reward Number empty or corrupt ({0}, Reward: {1})!", rewardNumber, rewardDescription)); }
+                    else { person_errors.AppendLine(String.Format(Properties.Resources.ErrorCsvFileParserRewardNumber, rewardNumber, rewardDescription)); }
                 }
 
                 person.ParsingFailureMessage = person_errors.ToString();
