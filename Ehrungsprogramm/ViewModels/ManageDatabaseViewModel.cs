@@ -62,9 +62,6 @@ namespace Ehrungsprogramm.ViewModels
         private ICommand _clearDatabaseCommand;
         public ICommand ClearDatabaseCommand => _clearDatabaseCommand ?? (_clearDatabaseCommand = new RelayCommand(async() => await ClearDatabase()));
 
-        private ICommand _generateTestDataCommand;
-        public ICommand GenerateTestDataCommand => _generateTestDataCommand ?? (_generateTestDataCommand = new RelayCommand(() => GenerateTestData()));
-
         private ICommand _importDataFromFileCommand;
         public ICommand ImportDataFromFileCommand => _importDataFromFileCommand ?? (_importDataFromFileCommand = new RelayCommand(async() => await ImportFromFile()));
 
@@ -165,105 +162,6 @@ namespace Ehrungsprogramm.ViewModels
             OnPropertyChanged(nameof(AvailableBLSVRewardsCount));
             OnPropertyChanged(nameof(AvailableTSVRewardsCount));
             OnPropertyChanged(nameof(LastImportFilePath));
-        }
-
-        private void GenerateTestData()
-        {
-            _personService?.ClearPersons();
-
-            _personService?.AddPerson(new Person()
-            {
-                FirstName = "Max",
-                Name = "Mustermann",
-                BirthDate = new DateTime(1990, 01, 01),
-                EntryDate = new DateTime(2010, 01, 01),
-                Functions = new List<Function>()
-                {
-                    new Function()
-                    {
-                        Type = FunctionType.OTHER_FUNCTION,
-                        TimePeriod = new TimeRange(new DateTime(2010, 01, 01), new DateTime(2015, 01, 01)),
-                        Description = "Schwimmen-FKT Helfer"
-                    },
-                    new Function()
-                    {
-                        Type = FunctionType.BOARD_MEMBER,
-                        TimePeriod = new TimeRange(new DateTime(2015, 01, 01), new DateTime(2019, 01, 01)),
-                        Description = "1. Vorstand"
-                    }
-                },
-                ParsingFailureMessage = "Test Parsing Error Message"
-            });
-
-            Person tmpPerson = new Person()
-            {
-                FirstName = "Eva",
-                Name = "Musterfrau",
-                BirthDate = new DateTime(1950, 02, 03),
-                EntryDate = new DateTime(1960, 01, 01),
-                Functions = new List<Function>()
-                {
-                    new Function()
-                    {
-                        Type = FunctionType.BOARD_MEMBER,
-                        TimePeriod = new TimeRange(new DateTime(8, 01, 01), new DateTime(16, 01, 01)),
-                        Description = "BM"
-                    },
-                    new Function()
-                    {
-                        Type = FunctionType.HEAD_OF_DEPARTEMENT,
-                        TimePeriod = new TimeRange(new DateTime(6, 01, 01), new DateTime(12, 01, 01)),
-                        Description = "HEAD 1"
-                    },
-                    new Function()
-                    {
-                        Type = FunctionType.HEAD_OF_DEPARTEMENT,
-                        TimePeriod = new TimeRange(new DateTime(14, 01, 01), new DateTime(20, 01, 01)),
-                        Description = "HEAD 2"
-                    },
-                    new Function()
-                    {
-                        Type = FunctionType.OTHER_FUNCTION,
-                        TimePeriod = new TimeRange(new DateTime(2, 01, 01), new DateTime(10, 01, 01)),
-                        Description = "FKT 1"
-                    },
-                    new Function()
-                    {
-                        Type = FunctionType.OTHER_FUNCTION,
-                        TimePeriod = new TimeRange(new DateTime(4, 01, 01), new DateTime(23, 01, 01)),
-                        Description = "FKT 2"
-                    }
-                }
-            };
-            tmpPerson.Rewards.BLSV40.Obtained = true;
-            tmpPerson.Rewards.BLSV40.ObtainedDate = new DateTime(2000, 01, 01);
-            tmpPerson.Rewards.TSVSilver.Obtained = true;
-            tmpPerson.Rewards.TSVSilver.ObtainedDate = new DateTime(2000, 01, 01);
-            _personService?.AddPerson(tmpPerson);
-
-
-
-            for (int i = 0; i < 100; i++)
-            {
-                _personService?.AddPerson(new Person()
-                {
-                    FirstName = "Eva" + i.ToString(),
-                    Name = "Musterfrau" + i.ToString(),
-                    BirthDate = new DateTime(1950, 02, 03),
-                    EntryDate = new DateTime(1980, 01, 01),
-                    Functions = new List<Function>()
-                {
-                    new Function()
-                    {
-                        Type = FunctionType.OTHER_FUNCTION,
-                        TimePeriod = new TimeRange(new DateTime(1990, 01, 01), new DateTime(2010, 01, 01)),
-                        Description = "Turnen-FKT ÜL"
-                    }
-                }
-                });
-            }
-
-            RefreshStatistics();
         }
     }
 }

@@ -38,12 +38,6 @@
                                 <TextBlock Text="{x:Static properties:Resources.ReloadDataFileString}" HorizontalAlignment="Center" FontSize="{StaticResource MediumFontSize}"/>
                             </StackPanel>
                         </Button>
-                        <Button Width="150" Height="150" Margin="10" Style="{StaticResource MahApps.Styles.Button.Square.Accent}" Command="{Binding GenerateTestDataCommand}">
-                            <StackPanel>
-                                <controls:FontIcon FontSize="50" Glyph="&#xE8B1;" Margin="10"/>
-                                <TextBlock Text="{x:Static properties:Resources.GenerateTestDataString}" HorizontalAlignment="Center" FontSize="{StaticResource MediumFontSize}"/>
-                            </StackPanel>
-                        </Button>
                         <Button Width="150" Height="150" Margin="10" Style="{StaticResource MahApps.Styles.Button.Square.Accent}" Background="Red" Foreground="White" Command="{Binding ClearDatabaseCommand}">
                             <StackPanel>
                                 <controls:FontIcon FontSize="50" Glyph="&#xE74D;" Margin="10"/>
