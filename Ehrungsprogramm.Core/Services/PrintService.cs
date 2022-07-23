@@ -16,6 +16,7 @@ using iText.Layout.Element;
 using iText.Layout.Properties;
 using Microsoft.Win32;
 using iText.Kernel.Font;
+using iText.IO.Font;
 
 namespace Ehrungsprogramm.Core.Services
 {
@@ -50,22 +51,22 @@ namespace Ehrungsprogramm.Core.Services
                     using (PdfDocument pdf = new PdfDocument(writer))
                     using (Document document = new Document(pdf, PageSize.A4, false))
                     {
-                        document.Add(new Paragraph("Person Details").SetTextAlignment(TextAlignment.CENTER).SetFontSize(20));
+                        document.Add(new Paragraph(Properties.Resources.PrintPersonDetailsString).SetTextAlignment(TextAlignment.CENTER).SetFontSize(20));
                         if (!String.IsNullOrEmpty(person.ParsingFailureMessage))
                         { 
-                            document.Add(new Paragraph("Einlesefehler: " + Environment.NewLine + person.ParsingFailureMessage));
+                            document.Add(new Paragraph(Properties.Resources.PrintParsingErrorString + ": " + Environment.NewLine + person.ParsingFailureMessage));
                         }
 
                         Dictionary<string, string> personBasicDetailValues = new Dictionary<string, string>();
-                        personBasicDetailValues.Add("Name: ", person.FirstName + " " + person.Name);
-                        personBasicDetailValues.Add("Geburtsdatum: ", person.BirthDate.ToShortDateString());
-                        personBasicDetailValues.Add("Eintrittsdatum: ", person.EntryDate.ToShortDateString());
-                        personBasicDetailValues.Add("Mitgliedsjahre: ", person.MembershipYears.ToString());
-                        personBasicDetailValues.Add("BLSV Punkte: ", person.ScoreBLSV.ToString());
-                        personBasicDetailValues.Add("TSV Punkte: ", person.ScoreTSV.ToString());
-                        personBasicDetailValues.Add("Effektive Jahre Vorstand: ", person.EffectiveBoardMemberYears.ToString());
-                        personBasicDetailValues.Add("Effektive Jahre Abteilungsleitung: ", person.EffectiveHeadOfDepartementYears.ToString());
-                        personBasicDetailValues.Add("Effektive Jahre andere Funktion: ", person.EffectiveOtherFunctionsYears.ToString());
+                        personBasicDetailValues.Add(Properties.Resources.PrintNameString + ": ", person.FirstName + " " + person.Name);
+                        personBasicDetailValues.Add(Properties.Resources.PrintBirthdateString + ": ", person.BirthDate.ToShortDateString());
+                        personBasicDetailValues.Add(Properties.Resources.PrintEntrydateString + ": ", person.EntryDate.ToShortDateString());
+                        personBasicDetailValues.Add(Properties.Resources.PrintMembershipYearsString + ": ", person.MembershipYears.ToString());
+                        personBasicDetailValues.Add(Properties.Resources.PrintBLSVScoreString + ": ", person.ScoreBLSV.ToString());
+                        personBasicDetailValues.Add(Properties.Resources.PrintTSVScoreString + ": ", person.ScoreTSV.ToString());
+                        personBasicDetailValues.Add(Properties.Resources.PrintEffectiveYearsBoardMemberString + ": ", person.EffectiveBoardMemberYears.ToString());
+                        personBasicDetailValues.Add(Properties.Resources.PrintEffectiveYearsHeadOfDepartementString + ": ", person.EffectiveHeadOfDepartementYears.ToString());
+                        personBasicDetailValues.Add(Properties.Resources.PrintEffectiveYearsOtherFunctionString + ": ", person.EffectiveOtherFunctionsYears.ToString());
                         
                         Table tableBasicDetails = new Table(2, false);      // 2 columns for: Parameter, Value
                         foreach (KeyValuePair<string, string> personBasicDetailValue in personBasicDetailValues)
@@ -77,11 +78,11 @@ namespace Ehrungsprogramm.Core.Services
 
                         // ------------------------------------------------------------------------------------------------------------------
 
-                        document.Add(new Paragraph("Funktionen").SetFontSize(20));
+                        document.Add(new Paragraph(Properties.Resources.PrintFunctionsString).SetFontSize(20));
                         Table tableFunctions = new Table(3, false);      // 3 columns for: Description, Time Period, Years in function
-                        tableFunctions.AddHeaderCell(new Cell(1, 1).SetBackgroundColor(ColorConstants.LIGHT_GRAY).SetTextAlignment(TextAlignment.CENTER).Add(new Paragraph("Funktion")));
-                        tableFunctions.AddHeaderCell(new Cell(1, 1).SetBackgroundColor(ColorConstants.LIGHT_GRAY).SetTextAlignment(TextAlignment.CENTER).Add(new Paragraph("Zeitraum")));
-                        tableFunctions.AddHeaderCell(new Cell(1, 1).SetBackgroundColor(ColorConstants.LIGHT_GRAY).SetTextAlignment(TextAlignment.CENTER).Add(new Paragraph("Jahre")));
+                        tableFunctions.AddHeaderCell(new Cell(1, 1).SetBackgroundColor(ColorConstants.LIGHT_GRAY).SetTextAlignment(TextAlignment.CENTER).Add(new Paragraph(Properties.Resources.PrintFunctionString)));
+                        tableFunctions.AddHeaderCell(new Cell(1, 1).SetBackgroundColor(ColorConstants.LIGHT_GRAY).SetTextAlignment(TextAlignment.CENTER).Add(new Paragraph(Properties.Resources.PrintTimePeriodString)));
+                        tableFunctions.AddHeaderCell(new Cell(1, 1).SetBackgroundColor(ColorConstants.LIGHT_GRAY).SetTextAlignment(TextAlignment.CENTER).Add(new Paragraph(Properties.Resources.PrintYearsString)));
                         foreach (Function function in person.Functions)
                         {
                             tableFunctions.AddCell(new Cell(1, 1).Add(new Paragraph(function.Description)));
@@ -92,16 +93,16 @@ namespace Ehrungsprogramm.Core.Services
 
                         // ------------------------------------------------------------------------------------------------------------------
 
-                        document.Add(new Paragraph("Ehrungen").SetFontSize(20));
+                        document.Add(new Paragraph(Properties.Resources.PrintRewardsString).SetFontSize(20));
                         Table tableRewards = new Table(2, false);      // 2 columns for: Description, Status
-                        tableRewards.AddHeaderCell(new Cell(1, 1).SetBackgroundColor(ColorConstants.LIGHT_GRAY).SetTextAlignment(TextAlignment.CENTER).Add(new Paragraph("Beschreibung")));
-                        tableRewards.AddHeaderCell(new Cell(1, 1).SetBackgroundColor(ColorConstants.LIGHT_GRAY).SetTextAlignment(TextAlignment.CENTER).Add(new Paragraph("Status")));
+                        tableRewards.AddHeaderCell(new Cell(1, 1).SetBackgroundColor(ColorConstants.LIGHT_GRAY).SetTextAlignment(TextAlignment.CENTER).Add(new Paragraph(Properties.Resources.PrintDescriptionString)));
+                        tableRewards.AddHeaderCell(new Cell(1, 1).SetBackgroundColor(ColorConstants.LIGHT_GRAY).SetTextAlignment(TextAlignment.CENTER).Add(new Paragraph(Properties.Resources.PrintStatusString)));
                         foreach (Reward reward in person.Rewards.Rewards)
                         {
                             if (reward.Available || reward.Obtained)
                             {
                                 tableRewards.AddCell(new Cell(1, 1).Add(new Paragraph(reward.Description ?? rewardTypeToString(reward.Type))));
-                                tableRewards.AddCell(new Cell(1, 1).Add(new Paragraph(reward.Obtained ? ("Erhalten am: " + reward.ObtainedDate.ToShortDateString()) : "Verfügbar")));
+                                tableRewards.AddCell(new Cell(1, 1).Add(new Paragraph(reward.Obtained ? (Properties.Resources.PrintObtainedDateString + ": " + reward.ObtainedDate.ToShortDateString()) : Properties.Resources.PrintAvailableString)));
                             }
                         }
                         document.Add(tableRewards);
@@ -111,10 +112,10 @@ namespace Ehrungsprogramm.Core.Services
                     }
                     printingResult = true;
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
                     printingResult = false;
-                    throw ex;
+                    throw;
                 }
             });
             return printingResult;
@@ -139,17 +140,17 @@ namespace Ehrungsprogramm.Core.Services
                     using (PdfDocument pdf = new PdfDocument(writer))
                     using (Document document = new Document(pdf, PageSize.A4, false))
                     {
-                        document.Add(new Paragraph("Personen Übersicht").SetTextAlignment(TextAlignment.CENTER).SetFontSize(20));
-                        document.Add(new Paragraph("Anzahl: " + people.Count.ToString() + " Personen"));
+                        document.Add(new Paragraph(Properties.Resources.PrintPeopleOverviewString).SetTextAlignment(TextAlignment.CENTER).SetFontSize(20));
+                        document.Add(new Paragraph(Properties.Resources.PrintCountString + ": " + people.Count.ToString() + " " + Properties.Resources.PrintPeopleString));
 
                         Table table = new Table(7, false);      // 7 columns for: ID, Name, First Name, Entry Date, BLSV Score, TSV Score, ParsingErrors
-                        table.AddHeaderCell(new Cell(1, 1).SetBackgroundColor(ColorConstants.LIGHT_GRAY).SetTextAlignment(TextAlignment.CENTER).Add(new Paragraph("ID")));
-                        table.AddHeaderCell(new Cell(1, 1).SetBackgroundColor(ColorConstants.LIGHT_GRAY).SetTextAlignment(TextAlignment.CENTER).Add(new Paragraph("Name")));
-                        table.AddHeaderCell(new Cell(1, 1).SetBackgroundColor(ColorConstants.LIGHT_GRAY).SetTextAlignment(TextAlignment.CENTER).Add(new Paragraph("Vorname")));
-                        table.AddHeaderCell(new Cell(1, 1).SetBackgroundColor(ColorConstants.LIGHT_GRAY).SetTextAlignment(TextAlignment.CENTER).Add(new Paragraph("Eintrittsdatum")));
-                        table.AddHeaderCell(new Cell(1, 1).SetBackgroundColor(ColorConstants.LIGHT_GRAY).SetTextAlignment(TextAlignment.CENTER).Add(new Paragraph("BLSV Punkte")));
-                        table.AddHeaderCell(new Cell(1, 1).SetBackgroundColor(ColorConstants.LIGHT_GRAY).SetTextAlignment(TextAlignment.CENTER).Add(new Paragraph("TSV Punkte")));
-                        table.AddHeaderCell(new Cell(1, 1).SetBackgroundColor(ColorConstants.LIGHT_GRAY).SetTextAlignment(TextAlignment.CENTER).Add(new Paragraph("Einlesefehler")));
+                        table.AddHeaderCell(new Cell(1, 1).SetBackgroundColor(ColorConstants.LIGHT_GRAY).SetTextAlignment(TextAlignment.CENTER).Add(new Paragraph(Properties.Resources.PrintIDString)));
+                        table.AddHeaderCell(new Cell(1, 1).SetBackgroundColor(ColorConstants.LIGHT_GRAY).SetTextAlignment(TextAlignment.CENTER).Add(new Paragraph(Properties.Resources.PrintNameString)));
+                        table.AddHeaderCell(new Cell(1, 1).SetBackgroundColor(ColorConstants.LIGHT_GRAY).SetTextAlignment(TextAlignment.CENTER).Add(new Paragraph(Properties.Resources.PrintFirstNameString)));
+                        table.AddHeaderCell(new Cell(1, 1).SetBackgroundColor(ColorConstants.LIGHT_GRAY).SetTextAlignment(TextAlignment.CENTER).Add(new Paragraph(Properties.Resources.PrintEntrydateString)));
+                        table.AddHeaderCell(new Cell(1, 1).SetBackgroundColor(ColorConstants.LIGHT_GRAY).SetTextAlignment(TextAlignment.CENTER).Add(new Paragraph(Properties.Resources.PrintBLSVScoreString)));
+                        table.AddHeaderCell(new Cell(1, 1).SetBackgroundColor(ColorConstants.LIGHT_GRAY).SetTextAlignment(TextAlignment.CENTER).Add(new Paragraph(Properties.Resources.PrintTSVScoreString)));
+                        table.AddHeaderCell(new Cell(1, 1).SetBackgroundColor(ColorConstants.LIGHT_GRAY).SetTextAlignment(TextAlignment.CENTER).Add(new Paragraph(Properties.Resources.PrintParsingErrorString)));
 
                         foreach (Person person in people)
                         {
@@ -169,10 +170,10 @@ namespace Ehrungsprogramm.Core.Services
                     }
                     printingResult = true;
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
                     printingResult = false;
-                    throw ex;
+                    throw;
                 }
             });
             return printingResult;
@@ -196,22 +197,22 @@ namespace Ehrungsprogramm.Core.Services
                     using (PdfDocument pdf = new PdfDocument(writer))
                     using (Document document = new Document(pdf, PageSize.A4, false))
                     {
-                        document.Add(new Paragraph("TSV Ehrungen Übersicht").SetTextAlignment(TextAlignment.CENTER).SetFontSize(20));
-                        document.Add(new Paragraph("Nur die neuesten, noch nicht erhaltenen Ehrungen sind aufgeführt." + Environment.NewLine));
+                        document.Add(new Paragraph(Properties.Resources.PrintTSVRewardOverviewString).SetTextAlignment(TextAlignment.CENTER).SetFontSize(20));
+                        document.Add(new Paragraph(Properties.Resources.PrintOnlyNewestRewardsAreShownString + Environment.NewLine));
 
                         List<Person> peopleTsvRewardAvailable = people.Where(p => p.Rewards.HighestAvailableTSVReward != null).ToList();
                         List <IGrouping<RewardTypes, Person>> tsvRewardGroups = peopleTsvRewardAvailable.OrderBy(p => p.Name).
                                                                                         OrderBy(p => p.Rewards.HighestAvailableTSVReward.Type).
                                                                                         GroupBy(p => p.Rewards.HighestAvailableTSVReward.Type).ToList();
 
-                        document.Add(new Paragraph("Anzahl TSV Ehrungen: " + peopleTsvRewardAvailable.Count.ToString()));
+                        document.Add(new Paragraph(Properties.Resources.PrintCountTSVRewardsString + ": " + peopleTsvRewardAvailable.Count.ToString()));
 
                         Table tableTsv = new Table(5, false);      // 5 columns for: ID, Name, First Name, Score, ParsingErrors
-                        tableTsv.AddHeaderCell(new Cell(1, 1).SetBackgroundColor(ColorConstants.LIGHT_GRAY).SetTextAlignment(TextAlignment.CENTER).Add(new Paragraph("ID")));
-                        tableTsv.AddHeaderCell(new Cell(1, 1).SetBackgroundColor(ColorConstants.LIGHT_GRAY).SetTextAlignment(TextAlignment.CENTER).Add(new Paragraph("Name")));
-                        tableTsv.AddHeaderCell(new Cell(1, 1).SetBackgroundColor(ColorConstants.LIGHT_GRAY).SetTextAlignment(TextAlignment.CENTER).Add(new Paragraph("Vorname")));
-                        tableTsv.AddHeaderCell(new Cell(1, 1).SetBackgroundColor(ColorConstants.LIGHT_GRAY).SetTextAlignment(TextAlignment.CENTER).Add(new Paragraph("Punkte")));
-                        tableTsv.AddHeaderCell(new Cell(1, 1).SetBackgroundColor(ColorConstants.LIGHT_GRAY).SetTextAlignment(TextAlignment.CENTER).Add(new Paragraph("Einlesefehler")));
+                        tableTsv.AddHeaderCell(new Cell(1, 1).SetBackgroundColor(ColorConstants.LIGHT_GRAY).SetTextAlignment(TextAlignment.CENTER).Add(new Paragraph(Properties.Resources.PrintIDString)));
+                        tableTsv.AddHeaderCell(new Cell(1, 1).SetBackgroundColor(ColorConstants.LIGHT_GRAY).SetTextAlignment(TextAlignment.CENTER).Add(new Paragraph(Properties.Resources.PrintNameString)));
+                        tableTsv.AddHeaderCell(new Cell(1, 1).SetBackgroundColor(ColorConstants.LIGHT_GRAY).SetTextAlignment(TextAlignment.CENTER).Add(new Paragraph(Properties.Resources.PrintFirstNameString)));
+                        tableTsv.AddHeaderCell(new Cell(1, 1).SetBackgroundColor(ColorConstants.LIGHT_GRAY).SetTextAlignment(TextAlignment.CENTER).Add(new Paragraph(Properties.Resources.PrintScoreString)));
+                        tableTsv.AddHeaderCell(new Cell(1, 1).SetBackgroundColor(ColorConstants.LIGHT_GRAY).SetTextAlignment(TextAlignment.CENTER).Add(new Paragraph(Properties.Resources.PrintParsingErrorString)));
 
                         int counter = 0;
                         foreach (IGrouping<RewardTypes, Person> tsvRewardGroup in tsvRewardGroups)
@@ -232,22 +233,22 @@ namespace Ehrungsprogramm.Core.Services
 
                         // ------------------------------------------------------------------------------------------------------------------
 
-                        document.Add(new Paragraph("BLSV Ehrungen Übersicht").SetTextAlignment(TextAlignment.CENTER).SetFontSize(20));
-                        document.Add(new Paragraph("Nur die neuesten, noch nicht erhaltenen Ehrungen sind aufgeführt." + Environment.NewLine));
+                        document.Add(new Paragraph(Properties.Resources.PrintBLSVRewardOverviewString).SetTextAlignment(TextAlignment.CENTER).SetFontSize(20));
+                        document.Add(new Paragraph(Properties.Resources.PrintOnlyNewestRewardsAreShownString + Environment.NewLine));
 
                         List<Person> peopleBlsvRewardAvailable = people.Where(p => p.Rewards.HighestAvailableBLSVReward != null).ToList();
                         List<IGrouping<RewardTypes, Person>> blsvRewardGroups = peopleBlsvRewardAvailable.OrderBy(p => p.Name).
                                                                                         OrderBy(p => p.Rewards.HighestAvailableBLSVReward.Type).
                                                                                         GroupBy(p => p.Rewards.HighestAvailableBLSVReward.Type).ToList();
 
-                        document.Add(new Paragraph("Anzahl BLSV Ehrungen: " + peopleBlsvRewardAvailable.Count.ToString()));
+                        document.Add(new Paragraph(Properties.Resources.PrintCountBLSVRewardsString + ": " + peopleBlsvRewardAvailable.Count.ToString()));
 
                         Table tableBlsv = new Table(5, false);      // 5 columns for: ID, Name, First Name, Score, ParsingErrors
-                        tableBlsv.AddHeaderCell(new Cell(1, 1).SetBackgroundColor(ColorConstants.LIGHT_GRAY).SetTextAlignment(TextAlignment.CENTER).Add(new Paragraph("ID")));
-                        tableBlsv.AddHeaderCell(new Cell(1, 1).SetBackgroundColor(ColorConstants.LIGHT_GRAY).SetTextAlignment(TextAlignment.CENTER).Add(new Paragraph("Name")));
-                        tableBlsv.AddHeaderCell(new Cell(1, 1).SetBackgroundColor(ColorConstants.LIGHT_GRAY).SetTextAlignment(TextAlignment.CENTER).Add(new Paragraph("Vorname")));
-                        tableBlsv.AddHeaderCell(new Cell(1, 1).SetBackgroundColor(ColorConstants.LIGHT_GRAY).SetTextAlignment(TextAlignment.CENTER).Add(new Paragraph("Punkte")));
-                        tableBlsv.AddHeaderCell(new Cell(1, 1).SetBackgroundColor(ColorConstants.LIGHT_GRAY).SetTextAlignment(TextAlignment.CENTER).Add(new Paragraph("Einlesefehler")));
+                        tableBlsv.AddHeaderCell(new Cell(1, 1).SetBackgroundColor(ColorConstants.LIGHT_GRAY).SetTextAlignment(TextAlignment.CENTER).Add(new Paragraph(Properties.Resources.PrintIDString)));
+                        tableBlsv.AddHeaderCell(new Cell(1, 1).SetBackgroundColor(ColorConstants.LIGHT_GRAY).SetTextAlignment(TextAlignment.CENTER).Add(new Paragraph(Properties.Resources.PrintNameString)));
+                        tableBlsv.AddHeaderCell(new Cell(1, 1).SetBackgroundColor(ColorConstants.LIGHT_GRAY).SetTextAlignment(TextAlignment.CENTER).Add(new Paragraph(Properties.Resources.PrintFirstNameString)));
+                        tableBlsv.AddHeaderCell(new Cell(1, 1).SetBackgroundColor(ColorConstants.LIGHT_GRAY).SetTextAlignment(TextAlignment.CENTER).Add(new Paragraph(Properties.Resources.PrintScoreString)));
+                        tableBlsv.AddHeaderCell(new Cell(1, 1).SetBackgroundColor(ColorConstants.LIGHT_GRAY).SetTextAlignment(TextAlignment.CENTER).Add(new Paragraph(Properties.Resources.PrintParsingErrorString)));
 
                         counter = 0;
                         foreach (IGrouping<RewardTypes, Person> blsvRewardGroup in blsvRewardGroups)
@@ -269,10 +270,10 @@ namespace Ehrungsprogramm.Core.Services
                     }
                     printingResult = true;
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
                     printingResult = false;
-                    throw ex;
+                    throw;
                 }
             });
             return printingResult;
@@ -291,8 +292,8 @@ namespace Ehrungsprogramm.Core.Services
             int numPages = document.GetPdfDocument().GetNumberOfPages();
             for (int i = 1; i <= numPages; i++)
             {
-                document.ShowTextAligned(new Paragraph("Export Datum: " + exportDate.ToString()), 20, 20, i, TextAlignment.LEFT, VerticalAlignment.BOTTOM, 0);
-                document.ShowTextAligned(new Paragraph(string.Format("Seite {0} von {1}", i, numPages)), 559, 20, i, TextAlignment.RIGHT, VerticalAlignment.BOTTOM, 0);
+                document.ShowTextAligned(new Paragraph(Properties.Resources.PrintExportDateString + ": " + exportDate.ToString()), 20, 20, i, TextAlignment.LEFT, VerticalAlignment.BOTTOM, 0);
+                document.ShowTextAligned(new Paragraph(string.Format(Properties.Resources.PrintPageString, i, numPages)), 559, 20, i, TextAlignment.RIGHT, VerticalAlignment.BOTTOM, 0);
             }
         }
 
@@ -305,9 +306,9 @@ namespace Ehrungsprogramm.Core.Services
             string rewardName = rewardType.ToString();
             switch (rewardType)
             {
-                case RewardTypes.TSVSILVER: rewardName = "TSV Silber"; break;
-                case RewardTypes.TSVGOLD: rewardName = "TSV Gold"; break;
-                case RewardTypes.TSVHONORARY: rewardName = "TSV Ehrenmitglied"; break;
+                case RewardTypes.TSVSILVER: rewardName = Properties.Resources.PrintRewardTypeTSVSilver; break;
+                case RewardTypes.TSVGOLD: rewardName = Properties.Resources.PrintRewardTypeTSVGold; break;
+                case RewardTypes.TSVHONORARY: rewardName = Properties.Resources.PrintRewardTypeTSVHonorary; break;
                 default: break;
             }
             return rewardName;

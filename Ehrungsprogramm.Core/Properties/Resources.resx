@@ -135,4 +135,112 @@
   <data name="ErrorCsvFileParserRewardObtainedDate" xml:space="preserve">
     <value>Reward Obtained Date couldn't be parsed correctly ({0}, Reward: {1})!</value>
   </data>
+  <data name="PrintAvailableString" xml:space="preserve">
+    <value>Available</value>
+  </data>
+  <data name="PrintBirthdateString" xml:space="preserve">
+    <value>Birthdate</value>
+  </data>
+  <data name="PrintBLSVRewardOverviewString" xml:space="preserve">
+    <value>BLSV Rewards Overview</value>
+  </data>
+  <data name="PrintBLSVScoreString" xml:space="preserve">
+    <value>BLSV Score</value>
+  </data>
+  <data name="PrintCountBLSVRewardsString" xml:space="preserve">
+    <value>Count BLSV Rewards</value>
+  </data>
+  <data name="PrintCountString" xml:space="preserve">
+    <value>Count</value>
+  </data>
+  <data name="PrintCountTSVRewardsString" xml:space="preserve">
+    <value>Count TSV Rewards</value>
+  </data>
+  <data name="PrintDescriptionString" xml:space="preserve">
+    <value>Description</value>
+  </data>
+  <data name="PrintEffectiveYearsBoardMemberString" xml:space="preserve">
+    <value>Effective Years Board Member</value>
+  </data>
+  <data name="PrintEffectiveYearsHeadOfDepartementString" xml:space="preserve">
+    <value>Effective Years Head Of Departement</value>
+  </data>
+  <data name="PrintEffectiveYearsOtherFunctionString" xml:space="preserve">
+    <value>Effective Years Other Function</value>
+  </data>
+  <data name="PrintEntrydateString" xml:space="preserve">
+    <value>Entrydate</value>
+  </data>
+  <data name="PrintExportDateString" xml:space="preserve">
+    <value>Export Date</value>
+  </data>
+  <data name="PrintFirstNameString" xml:space="preserve">
+    <value>First Name</value>
+  </data>
+  <data name="PrintFunctionsString" xml:space="preserve">
+    <value>Functions</value>
+  </data>
+  <data name="PrintFunctionString" xml:space="preserve">
+    <value>Function</value>
+  </data>
+  <data name="PrintIDString" xml:space="preserve">
+    <value>ID</value>
+  </data>
+  <data name="PrintMembershipYearsString" xml:space="preserve">
+    <value>Membership Years</value>
+  </data>
+  <data name="PrintNameString" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="PrintObtainedDateString" xml:space="preserve">
+    <value>Obtained Date</value>
+  </data>
+  <data name="PrintOnlyNewestRewardsAreShownString" xml:space="preserve">
+    <value>Only the most recent rewards not yet received are listed.</value>
+  </data>
+  <data name="PrintPageString" xml:space="preserve">
+    <value>Page {0} of {1}</value>
+  </data>
+  <data name="PrintParsingErrorString" xml:space="preserve">
+    <value>Parsing Error</value>
+  </data>
+  <data name="PrintPeopleOverviewString" xml:space="preserve">
+    <value>People Overview</value>
+  </data>
+  <data name="PrintPeopleString" xml:space="preserve">
+    <value>People</value>
+  </data>
+  <data name="PrintPersonDetailsString" xml:space="preserve">
+    <value>Person Details</value>
+  </data>
+  <data name="PrintRewardsString" xml:space="preserve">
+    <value>Rewards</value>
+  </data>
+  <data name="PrintRewardTypeTSVGold" xml:space="preserve">
+    <value>TSV Gold</value>
+  </data>
+  <data name="PrintRewardTypeTSVHonorary" xml:space="preserve">
+    <value>TSV Honorary</value>
+  </data>
+  <data name="PrintRewardTypeTSVSilver" xml:space="preserve">
+    <value>TSV Silver</value>
+  </data>
+  <data name="PrintScoreString" xml:space="preserve">
+    <value>Score</value>
+  </data>
+  <data name="PrintStatusString" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="PrintTimePeriodString" xml:space="preserve">
+    <value>Time Period</value>
+  </data>
+  <data name="PrintTSVRewardOverviewString" xml:space="preserve">
+    <value>TSV Rewards Overview</value>
+  </data>
+  <data name="PrintTSVScoreString" xml:space="preserve">
+    <value>TSV Score</value>
+  </data>
+  <data name="PrintYearsString" xml:space="preserve">
+    <value>Years</value>
+  </data>
 </root>

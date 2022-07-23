@@ -135,4 +135,112 @@
   <data name="ErrorCsvFileParserRewardObtainedDate" xml:space="preserve">
     <value>Das Ehrungsdatum konnte nicht richtig eingelesen werden ({0}, Reward: {1})!</value>
   </data>
+  <data name="PrintAvailableString" xml:space="preserve">
+    <value>Verfügbar</value>
+  </data>
+  <data name="PrintBirthdateString" xml:space="preserve">
+    <value>Geburtsdatum</value>
+  </data>
+  <data name="PrintBLSVRewardOverviewString" xml:space="preserve">
+    <value>BLSV Ehrungen Übersicht</value>
+  </data>
+  <data name="PrintBLSVScoreString" xml:space="preserve">
+    <value>BLSV Punkte</value>
+  </data>
+  <data name="PrintCountBLSVRewardsString" xml:space="preserve">
+    <value>Anzahl BLSV Ehrungen</value>
+  </data>
+  <data name="PrintCountString" xml:space="preserve">
+    <value>Anzahl</value>
+  </data>
+  <data name="PrintCountTSVRewardsString" xml:space="preserve">
+    <value>Anzahl TSV Ehrungen</value>
+  </data>
+  <data name="PrintDescriptionString" xml:space="preserve">
+    <value>Beschreibung</value>
+  </data>
+  <data name="PrintEffectiveYearsBoardMemberString" xml:space="preserve">
+    <value>Effektive Jahre Vorstand</value>
+  </data>
+  <data name="PrintEffectiveYearsHeadOfDepartementString" xml:space="preserve">
+    <value>Effektive Jahre Abteilungsleitung</value>
+  </data>
+  <data name="PrintEffectiveYearsOtherFunctionString" xml:space="preserve">
+    <value>Effektive Jahre andere Funktion</value>
+  </data>
+  <data name="PrintEntrydateString" xml:space="preserve">
+    <value>Eintrittsdatum</value>
+  </data>
+  <data name="PrintExportDateString" xml:space="preserve">
+    <value>Export Datum</value>
+  </data>
+  <data name="PrintFirstNameString" xml:space="preserve">
+    <value>Vorname</value>
+  </data>
+  <data name="PrintFunctionsString" xml:space="preserve">
+    <value>Funktionen</value>
+  </data>
+  <data name="PrintFunctionString" xml:space="preserve">
+    <value>Funktion</value>
+  </data>
+  <data name="PrintIDString" xml:space="preserve">
+    <value>ID</value>
+  </data>
+  <data name="PrintMembershipYearsString" xml:space="preserve">
+    <value>Mitgliedsjahre</value>
+  </data>
+  <data name="PrintNameString" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="PrintObtainedDateString" xml:space="preserve">
+    <value>Erhalten am</value>
+  </data>
+  <data name="PrintOnlyNewestRewardsAreShownString" xml:space="preserve">
+    <value>Nur die neuesten, noch nicht erhaltenen Ehrungen sind aufgeführt.</value>
+  </data>
+  <data name="PrintPageString" xml:space="preserve">
+    <value>Seite {0} von {1}</value>
+  </data>
+  <data name="PrintParsingErrorString" xml:space="preserve">
+    <value>Einlesefehler</value>
+  </data>
+  <data name="PrintPeopleOverviewString" xml:space="preserve">
+    <value>Personen Übersicht</value>
+  </data>
+  <data name="PrintPeopleString" xml:space="preserve">
+    <value>Personen</value>
+  </data>
+  <data name="PrintPersonDetailsString" xml:space="preserve">
+    <value>Person Details</value>
+  </data>
+  <data name="PrintRewardsString" xml:space="preserve">
+    <value>Ehrungen</value>
+  </data>
+  <data name="PrintRewardTypeTSVGold" xml:space="preserve">
+    <value>TSV Gold</value>
+  </data>
+  <data name="PrintRewardTypeTSVHonorary" xml:space="preserve">
+    <value>TSV Ehrenmitglied</value>
+  </data>
+  <data name="PrintRewardTypeTSVSilver" xml:space="preserve">
+    <value>TSV Silber</value>
+  </data>
+  <data name="PrintScoreString" xml:space="preserve">
+    <value>Punkte</value>
+  </data>
+  <data name="PrintStatusString" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="PrintTimePeriodString" xml:space="preserve">
+    <value>Zeitraum</value>
+  </data>
+  <data name="PrintTSVRewardOverviewString" xml:space="preserve">
+    <value>TSV Ehrungen Übersicht</value>
+  </data>
+  <data name="PrintTSVScoreString" xml:space="preserve">
+    <value>TSV Punkte</value>
+  </data>
+  <data name="PrintYearsString" xml:space="preserve">
+    <value>Jahre</value>
+  </data>
 </root>

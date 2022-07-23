@@ -113,5 +113,329 @@ namespace Ehrungsprogramm.Core.Properties {
                 return ResourceManager.GetString("ErrorCsvFileParserRewardObtainedDate", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Available ähnelt.
+        /// </summary>
+        public static string PrintAvailableString {
+            get {
+                return ResourceManager.GetString("PrintAvailableString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Birthdate ähnelt.
+        /// </summary>
+        public static string PrintBirthdateString {
+            get {
+                return ResourceManager.GetString("PrintBirthdateString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die BLSV Rewards Overview ähnelt.
+        /// </summary>
+        public static string PrintBLSVRewardOverviewString {
+            get {
+                return ResourceManager.GetString("PrintBLSVRewardOverviewString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die BLSV Score ähnelt.
+        /// </summary>
+        public static string PrintBLSVScoreString {
+            get {
+                return ResourceManager.GetString("PrintBLSVScoreString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Count BLSV Rewards ähnelt.
+        /// </summary>
+        public static string PrintCountBLSVRewardsString {
+            get {
+                return ResourceManager.GetString("PrintCountBLSVRewardsString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Count ähnelt.
+        /// </summary>
+        public static string PrintCountString {
+            get {
+                return ResourceManager.GetString("PrintCountString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Count TSV Rewards ähnelt.
+        /// </summary>
+        public static string PrintCountTSVRewardsString {
+            get {
+                return ResourceManager.GetString("PrintCountTSVRewardsString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Description ähnelt.
+        /// </summary>
+        public static string PrintDescriptionString {
+            get {
+                return ResourceManager.GetString("PrintDescriptionString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Effective Years Board Member ähnelt.
+        /// </summary>
+        public static string PrintEffectiveYearsBoardMemberString {
+            get {
+                return ResourceManager.GetString("PrintEffectiveYearsBoardMemberString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Effective Years Head Of Departement ähnelt.
+        /// </summary>
+        public static string PrintEffectiveYearsHeadOfDepartementString {
+            get {
+                return ResourceManager.GetString("PrintEffectiveYearsHeadOfDepartementString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Effective Years Other Function ähnelt.
+        /// </summary>
+        public static string PrintEffectiveYearsOtherFunctionString {
+            get {
+                return ResourceManager.GetString("PrintEffectiveYearsOtherFunctionString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Entrydate ähnelt.
+        /// </summary>
+        public static string PrintEntrydateString {
+            get {
+                return ResourceManager.GetString("PrintEntrydateString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Export Date ähnelt.
+        /// </summary>
+        public static string PrintExportDateString {
+            get {
+                return ResourceManager.GetString("PrintExportDateString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die First Name ähnelt.
+        /// </summary>
+        public static string PrintFirstNameString {
+            get {
+                return ResourceManager.GetString("PrintFirstNameString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Functions ähnelt.
+        /// </summary>
+        public static string PrintFunctionsString {
+            get {
+                return ResourceManager.GetString("PrintFunctionsString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Function ähnelt.
+        /// </summary>
+        public static string PrintFunctionString {
+            get {
+                return ResourceManager.GetString("PrintFunctionString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die ID ähnelt.
+        /// </summary>
+        public static string PrintIDString {
+            get {
+                return ResourceManager.GetString("PrintIDString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Membership Years ähnelt.
+        /// </summary>
+        public static string PrintMembershipYearsString {
+            get {
+                return ResourceManager.GetString("PrintMembershipYearsString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Name ähnelt.
+        /// </summary>
+        public static string PrintNameString {
+            get {
+                return ResourceManager.GetString("PrintNameString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Obtained Date ähnelt.
+        /// </summary>
+        public static string PrintObtainedDateString {
+            get {
+                return ResourceManager.GetString("PrintObtainedDateString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Only the most recent rewards not yet received are listed. ähnelt.
+        /// </summary>
+        public static string PrintOnlyNewestRewardsAreShownString {
+            get {
+                return ResourceManager.GetString("PrintOnlyNewestRewardsAreShownString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Page {0} of {1} ähnelt.
+        /// </summary>
+        public static string PrintPageString {
+            get {
+                return ResourceManager.GetString("PrintPageString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Parsing Error ähnelt.
+        /// </summary>
+        public static string PrintParsingErrorString {
+            get {
+                return ResourceManager.GetString("PrintParsingErrorString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die People Overview ähnelt.
+        /// </summary>
+        public static string PrintPeopleOverviewString {
+            get {
+                return ResourceManager.GetString("PrintPeopleOverviewString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die People ähnelt.
+        /// </summary>
+        public static string PrintPeopleString {
+            get {
+                return ResourceManager.GetString("PrintPeopleString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Person Details ähnelt.
+        /// </summary>
+        public static string PrintPersonDetailsString {
+            get {
+                return ResourceManager.GetString("PrintPersonDetailsString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Rewards ähnelt.
+        /// </summary>
+        public static string PrintRewardsString {
+            get {
+                return ResourceManager.GetString("PrintRewardsString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die TSV Gold ähnelt.
+        /// </summary>
+        public static string PrintRewardTypeTSVGold {
+            get {
+                return ResourceManager.GetString("PrintRewardTypeTSVGold", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die TSV Honorary ähnelt.
+        /// </summary>
+        public static string PrintRewardTypeTSVHonorary {
+            get {
+                return ResourceManager.GetString("PrintRewardTypeTSVHonorary", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die TSV Silver ähnelt.
+        /// </summary>
+        public static string PrintRewardTypeTSVSilver {
+            get {
+                return ResourceManager.GetString("PrintRewardTypeTSVSilver", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Score ähnelt.
+        /// </summary>
+        public static string PrintScoreString {
+            get {
+                return ResourceManager.GetString("PrintScoreString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Status ähnelt.
+        /// </summary>
+        public static string PrintStatusString {
+            get {
+                return ResourceManager.GetString("PrintStatusString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Time Period ähnelt.
+        /// </summary>
+        public static string PrintTimePeriodString {
+            get {
+                return ResourceManager.GetString("PrintTimePeriodString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die TSV Rewards Overview ähnelt.
+        /// </summary>
+        public static string PrintTSVRewardOverviewString {
+            get {
+                return ResourceManager.GetString("PrintTSVRewardOverviewString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die TSV Score ähnelt.
+        /// </summary>
+        public static string PrintTSVScoreString {
+            get {
+                return ResourceManager.GetString("PrintTSVScoreString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Years ähnelt.
+        /// </summary>
+        public static string PrintYearsString {
+            get {
+                return ResourceManager.GetString("PrintYearsString", resourceCulture);
+            }
+        }
     }
 }
