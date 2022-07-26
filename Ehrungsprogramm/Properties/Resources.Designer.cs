@@ -70,6 +70,16 @@ namespace Ehrungsprogramm.Properties {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap AppIcon {
+            get {
+                object obj = ResourceManager.GetObject("AppIcon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Available BLSV Rewards ähnelt.
         /// </summary>
         public static string AvailableBLSVRewardsCountString {
@@ -597,6 +607,16 @@ namespace Ehrungsprogramm.Properties {
         public static string TimePeriodString {
             get {
                 return ResourceManager.GetString("TimePeriodString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap TSVLogo {
+            get {
+                object obj = ResourceManager.GetObject("TSVLogo", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
     }

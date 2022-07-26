@@ -15,6 +15,11 @@
 		<Compile Remove="ViewModels\ViewModelLocator.cs" />
 	</ItemGroup>
 	<ItemGroup>
+	  <None Remove="Resources\AppIcon.png" />
+	  <None Remove="Resources\TSVLogo.png" />
+	  <None Remove="Views\TSVLogo.png" />
+	</ItemGroup>
+	<ItemGroup>
 	  <Content Include="appicon.ico" />
 	</ItemGroup>
 	<ItemGroup>
@@ -38,6 +43,10 @@
 		<!-- WPF workaround: GitVersion and .NET SDK between v5.0.200 and v6.0.0-preview.2  -->
 		<IncludePackageReferencesDuringMarkupCompilation>true</IncludePackageReferencesDuringMarkupCompilation>
 	</PropertyGroup>
+	<ItemGroup>
+	  <Resource Include="Resources\AppIcon.png" />
+	  <Resource Include="Resources\TSVLogo.png" />
+	</ItemGroup>
 	<ItemGroup>
 		<Compile Update="Properties\Resources.Designer.cs">
 			<DesignTime>True</DesignTime>

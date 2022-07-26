@@ -12,6 +12,7 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="48" />
+            <RowDefinition Height="100" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <TextBlock
@@ -19,7 +20,13 @@
             Margin="{StaticResource MediumLeftMargin}"
             Text="{x:Static properties:Resources.MainPageTitle}" />
 
-        <WrapPanel Grid.Row="1" Margin="{StaticResource MediumLeftRightMargin}">
+        <StackPanel Orientation="Horizontal" Grid.Row="1">
+            <Image Height="60" HorizontalAlignment="Left" Margin="{StaticResource MediumLeftRightMargin}" Source="/Resources/TSVLogo.png"/>
+            <TextBlock Text="{x:Static properties:Resources.AppDisplayName}" VerticalAlignment="Center" FontSize="{StaticResource XLargeFontSize}"/>
+            <Image Height="60" HorizontalAlignment="Left" Margin="{StaticResource MediumLeftRightMargin}" Source="/Resources/AppIcon.png"/>
+        </StackPanel>
+        
+        <WrapPanel Grid.Row="2" Margin="{StaticResource MediumLeftRightMargin}">
             <Button Width="150" Height="150" Margin="10" Style="{StaticResource MahApps.Styles.Button.Square.Accent}" Command="{Binding PersonsCommand}">
                 <StackPanel>
                     <controls:FontIcon FontSize="50" Glyph="&#xE77B;" Margin="10"/>
