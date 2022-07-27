@@ -437,5 +437,15 @@ namespace Ehrungsprogramm.Core.Properties {
                 return ResourceManager.GetString("PrintYearsString", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Ressource vom Typ System.Byte[].
+        /// </summary>
+        public static byte[] TSVLogo {
+            get {
+                object obj = ResourceManager.GetObject("TSVLogo", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
     }
 }

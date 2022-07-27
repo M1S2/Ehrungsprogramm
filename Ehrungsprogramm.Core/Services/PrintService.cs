@@ -17,6 +17,9 @@ using iText.Layout.Properties;
 using Microsoft.Win32;
 using iText.Kernel.Font;
 using iText.IO.Font;
+using iText.IO.Image;
+using iText.Kernel.Pdf.Canvas;
+using iText.Kernel.Events;
 
 namespace Ehrungsprogramm.Core.Services
 {
@@ -51,6 +54,10 @@ namespace Ehrungsprogramm.Core.Services
                     using (PdfDocument pdf = new PdfDocument(writer))
                     using (Document document = new Document(pdf, PageSize.A4, false))
                     {
+                        // Add events to handle the generation of headers and footers
+                        pdf.AddEventHandler(PdfDocumentEvent.START_PAGE, new PageHeaderEventHandler());
+                        pdf.AddEventHandler(PdfDocumentEvent.END_PAGE, new PageFooterEventHandler());
+
                         document.Add(new Paragraph(Properties.Resources.PrintPersonDetailsString).SetTextAlignment(TextAlignment.CENTER).SetFontSize(20));
                         if (!String.IsNullOrEmpty(person.ParsingFailureMessage))
                         { 
@@ -106,8 +113,6 @@ namespace Ehrungsprogramm.Core.Services
                             }
                         }
                         document.Add(tableRewards);
-
-                        writeDocumentExportDatePageNumbers(document);
                         document.Close();
                     }
                     printingResult = true;
@@ -140,6 +145,10 @@ namespace Ehrungsprogramm.Core.Services
                     using (PdfDocument pdf = new PdfDocument(writer))
                     using (Document document = new Document(pdf, PageSize.A4, false))
                     {
+                        // Add events to handle the generation of headers and footers
+                        pdf.AddEventHandler(PdfDocumentEvent.START_PAGE, new PageHeaderEventHandler());
+                        pdf.AddEventHandler(PdfDocumentEvent.END_PAGE, new PageFooterEventHandler());
+
                         document.Add(new Paragraph(Properties.Resources.PrintPeopleOverviewString).SetTextAlignment(TextAlignment.CENTER).SetFontSize(20));
                         document.Add(new Paragraph(Properties.Resources.PrintCountString + ": " + people.Count.ToString() + " " + Properties.Resources.PrintPeopleString));
 
@@ -164,8 +173,6 @@ namespace Ehrungsprogramm.Core.Services
                         }
 
                         document.Add(table);
-
-                        writeDocumentExportDatePageNumbers(document);
                         document.Close();
                     }
                     printingResult = true;
@@ -197,6 +204,10 @@ namespace Ehrungsprogramm.Core.Services
                     using (PdfDocument pdf = new PdfDocument(writer))
                     using (Document document = new Document(pdf, PageSize.A4, false))
                     {
+                        // Add events to handle the generation of headers and footers
+                        pdf.AddEventHandler(PdfDocumentEvent.START_PAGE, new PageHeaderEventHandler());
+                        pdf.AddEventHandler(PdfDocumentEvent.END_PAGE, new PageFooterEventHandler());
+
                         document.Add(new Paragraph(Properties.Resources.PrintTSVRewardOverviewString).SetTextAlignment(TextAlignment.CENTER).SetFontSize(20));
                         document.Add(new Paragraph(Properties.Resources.PrintOnlyNewestRewardsAreShownString + Environment.NewLine));
 
@@ -264,8 +275,6 @@ namespace Ehrungsprogramm.Core.Services
                             }
                         }
                         document.Add(tableBlsv);
-
-                        writeDocumentExportDatePageNumbers(document);
                         document.Close();
                     }
                     printingResult = true;
@@ -282,22 +291,6 @@ namespace Ehrungsprogramm.Core.Services
         // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
         /// <summary>
-        /// Write the export date (DateTime.Now) and the page numbers to the document
-        /// </summary>
-        /// <param name="document">Document to which the export date and page numbers are added</param>
-        private void writeDocumentExportDatePageNumbers(Document document)
-        {
-            DateTime exportDate = DateTime.Now;
-            // Page numbers and export date
-            int numPages = document.GetPdfDocument().GetNumberOfPages();
-            for (int i = 1; i <= numPages; i++)
-            {
-                document.ShowTextAligned(new Paragraph(Properties.Resources.PrintExportDateString + ": " + exportDate.ToString()), 20, 20, i, TextAlignment.LEFT, VerticalAlignment.BOTTOM, 0);
-                document.ShowTextAligned(new Paragraph(string.Format(Properties.Resources.PrintPageString, i, numPages)), 559, 20, i, TextAlignment.RIGHT, VerticalAlignment.BOTTOM, 0);
-            }
-        }
-
-        /// <summary>
         /// Convert the given <see cref="RewardTypes"/> to a string
         /// </summary>
         /// <param name="rewardType">Reward type to convert to a string</param>
@@ -312,6 +305,53 @@ namespace Ehrungsprogramm.Core.Services
                 default: break;
             }
             return rewardName;
+        }
+    }
+
+    // ##############################################################################################################################################################
+
+    /// <summary>
+    /// Class used to generate the page headers
+    /// </summary>
+    public class PageHeaderEventHandler : IEventHandler
+    {
+        public void HandleEvent(Event currentEvent)
+        {
+            PdfDocumentEvent docEvent = (PdfDocumentEvent)currentEvent;
+            PdfDocument pdfDoc = docEvent.GetDocument();
+            PdfPage page = docEvent.GetPage();
+            PdfCanvas canvas = new PdfCanvas(page.NewContentStreamBefore(), page.GetResources(), pdfDoc);
+
+            // Create an image object and add it to the upper right corner of the page
+            ImageData imageDataTsvLogo = ImageDataFactory.CreatePng(Properties.Resources.TSVLogo);
+            Image imageTsvLogo = new Image(imageDataTsvLogo);
+            float imageScalingFactor = 0.25f;
+            // Page origin is in the lower left edge
+            Rectangle logoRect = new Rectangle(page.GetPageSize().GetWidth() - imageScalingFactor * imageTsvLogo.GetImageWidth() - 20, page.GetPageSize().GetHeight() - imageScalingFactor * imageTsvLogo.GetImageHeight() - 20, imageScalingFactor * imageTsvLogo.GetImageWidth(), imageScalingFactor * imageTsvLogo.GetImageHeight());
+            new Canvas(canvas, logoRect).Add(imageTsvLogo).Close();
+        }
+    }
+
+    /// <summary>
+    /// Class used to generate the page footers
+    /// </summary>
+    public class PageFooterEventHandler : IEventHandler
+    {
+        public void HandleEvent(Event currentEvent)
+        {
+            PdfDocumentEvent docEvent = (PdfDocumentEvent)currentEvent;
+            PdfDocument pdfDoc = docEvent.GetDocument();
+            PdfPage page = docEvent.GetPage();
+            PdfCanvas canvas = new PdfCanvas(page.NewContentStreamBefore(), page.GetResources(), pdfDoc);
+
+            DateTime exportDate = DateTime.Now;
+            // Page numbers and export date
+            int numPages = pdfDoc.GetNumberOfPages();
+            Paragraph textExportDate = new Paragraph(Properties.Resources.PrintExportDateString + ": " + exportDate.ToString());
+            // Page origin is in the lower left edge
+            new Canvas(canvas, new Rectangle(20, 15, 200, 30)).Add(textExportDate).Close();
+            Paragraph textPageNumbers = new Paragraph(string.Format(Properties.Resources.PrintPageString, pdfDoc.GetPageNumber(page), numPages));
+            new Canvas(canvas, new Rectangle(page.GetPageSize().GetWidth() - 100, 15, 100, 30)).Add(textPageNumbers).Close();
         }
     }
 }

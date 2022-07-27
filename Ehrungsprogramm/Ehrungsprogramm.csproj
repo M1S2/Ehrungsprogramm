@@ -17,7 +17,6 @@
 	<ItemGroup>
 	  <None Remove="Resources\AppIcon.png" />
 	  <None Remove="Resources\TSVLogo.png" />
-	  <None Remove="Views\TSVLogo.png" />
 	</ItemGroup>
 	<ItemGroup>
 	  <Content Include="appicon.ico" />

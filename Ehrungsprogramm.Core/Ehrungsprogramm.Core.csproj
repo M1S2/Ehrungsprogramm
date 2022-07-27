@@ -3,6 +3,12 @@
 		<TargetFramework>net6.0</TargetFramework>
 		<RootNamespace>Ehrungsprogramm.Core</RootNamespace>
 	</PropertyGroup>
+	<ItemGroup>
+	  <None Remove="Resources\TSVLogo.png" />
+	</ItemGroup>
+	<ItemGroup>
+	  <Resource Include="Resources\TSVLogo.png" />
+	</ItemGroup>
 	
 	<ItemGroup>
 		<PackageReference Include="itext7" Version="7.2.1" />
