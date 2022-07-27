@@ -29,6 +29,8 @@ namespace Ehrungsprogramm.Core.Services
     /// <see https://www.codeguru.com/dotnet/generating-a-pdf-document-using-c-net-and-itext-7/ for examples of iText7 usage/>
     public class PrintService : IPrintService
     {
+        public static readonly Color TSVLIGHTBLUE = new DeviceRgb(33, 129, 255);
+
         /// <summary>
         /// Constructor of the <see cref="PrintService"/>
         /// </summary>
@@ -149,6 +151,8 @@ namespace Ehrungsprogramm.Core.Services
                         pdf.AddEventHandler(PdfDocumentEvent.START_PAGE, new PageHeaderEventHandler());
                         pdf.AddEventHandler(PdfDocumentEvent.END_PAGE, new PageFooterEventHandler());
 
+                        Image imageWarning = new Image(ImageDataFactory.CreatePng(Properties.Resources.WarningIcon)).Scale(0.25f, 0.25f);
+
                         document.Add(new Paragraph(Properties.Resources.PrintPeopleOverviewString).SetTextAlignment(TextAlignment.CENTER).SetFontSize(20));
                         document.Add(new Paragraph(Properties.Resources.PrintCountString + ": " + people.Count.ToString() + " " + Properties.Resources.PrintPeopleString));
 
@@ -169,7 +173,14 @@ namespace Ehrungsprogramm.Core.Services
                             table.AddCell(new Cell(1, 1).Add(new Paragraph(person.EntryDate.ToShortDateString())));
                             table.AddCell(new Cell(1, 1).Add(new Paragraph(person.ScoreBLSV.ToString())));
                             table.AddCell(new Cell(1, 1).Add(new Paragraph(person.ScoreTSV.ToString())));
-                            table.AddCell(new Cell(1, 1).Add(new Paragraph(String.IsNullOrEmpty(person.ParsingFailureMessage) ? "" : "X")));
+                            if (String.IsNullOrEmpty(person.ParsingFailureMessage))
+                            {
+                                table.AddCell(new Cell(1, 1).Add(new Paragraph("")));
+                            }
+                            else
+                            {
+                                table.AddCell(new Cell(1, 1).Add(imageWarning));
+                            }
                         }
 
                         document.Add(table);
@@ -208,6 +219,8 @@ namespace Ehrungsprogramm.Core.Services
                         pdf.AddEventHandler(PdfDocumentEvent.START_PAGE, new PageHeaderEventHandler());
                         pdf.AddEventHandler(PdfDocumentEvent.END_PAGE, new PageFooterEventHandler());
 
+                        Image imageWarning = new Image(ImageDataFactory.CreatePng(Properties.Resources.WarningIcon)).Scale(0.25f, 0.25f);
+
                         document.Add(new Paragraph(Properties.Resources.PrintTSVRewardOverviewString).SetTextAlignment(TextAlignment.CENTER).SetFontSize(20));
                         document.Add(new Paragraph(Properties.Resources.PrintOnlyNewestRewardsAreShownString + Environment.NewLine));
 
@@ -229,14 +242,21 @@ namespace Ehrungsprogramm.Core.Services
                         foreach (IGrouping<RewardTypes, Person> tsvRewardGroup in tsvRewardGroups)
                         {
                             string tsvRewardName = rewardTypeToString(tsvRewardGroup.Key);
-                            tableTsv.AddCell(new Cell(1, 5).SetBackgroundColor(ColorConstants.GRAY).SetTextAlignment(TextAlignment.LEFT).Add(new Paragraph(tsvRewardName)));
+                            tableTsv.AddCell(new Cell(1, 5).SetBackgroundColor(TSVLIGHTBLUE).SetTextAlignment(TextAlignment.LEFT).Add(new Paragraph(tsvRewardName)));
                             foreach (Person person in tsvRewardGroup)
                             {
                                 tableTsv.AddCell(new Cell(1, 1).Add(new Paragraph((++counter).ToString())));
                                 tableTsv.AddCell(new Cell(1, 1).Add(new Paragraph(person.Name)));
                                 tableTsv.AddCell(new Cell(1, 1).Add(new Paragraph(person.FirstName)));
                                 tableTsv.AddCell(new Cell(1, 1).Add(new Paragraph(person.ScoreTSV.ToString())));
-                                tableTsv.AddCell(new Cell(1, 1).Add(new Paragraph(String.IsNullOrEmpty(person.ParsingFailureMessage) ? "" : "X")));
+                                if (String.IsNullOrEmpty(person.ParsingFailureMessage))
+                                {
+                                    tableTsv.AddCell(new Cell(1, 1).Add(new Paragraph("")));
+                                }
+                                else
+                                {
+                                    tableTsv.AddCell(new Cell(1, 1).Add(imageWarning));
+                                }
                             }
                         }
                         document.Add(tableTsv);
@@ -264,14 +284,21 @@ namespace Ehrungsprogramm.Core.Services
                         counter = 0;
                         foreach (IGrouping<RewardTypes, Person> blsvRewardGroup in blsvRewardGroups)
                         {
-                            tableBlsv.AddCell(new Cell(1, 5).SetBackgroundColor(ColorConstants.GRAY).SetTextAlignment(TextAlignment.LEFT).Add(new Paragraph(blsvRewardGroup.Key.ToString())));
+                            tableBlsv.AddCell(new Cell(1, 5).SetBackgroundColor(TSVLIGHTBLUE).SetTextAlignment(TextAlignment.LEFT).Add(new Paragraph(blsvRewardGroup.Key.ToString())));
                             foreach (Person person in blsvRewardGroup)
                             {
                                 tableBlsv.AddCell(new Cell(1, 1).Add(new Paragraph((++counter).ToString())));
                                 tableBlsv.AddCell(new Cell(1, 1).Add(new Paragraph(person.Name)));
                                 tableBlsv.AddCell(new Cell(1, 1).Add(new Paragraph(person.FirstName)));
                                 tableBlsv.AddCell(new Cell(1, 1).Add(new Paragraph(person.ScoreBLSV.ToString())));
-                                tableBlsv.AddCell(new Cell(1, 1).Add(new Paragraph(String.IsNullOrEmpty(person.ParsingFailureMessage) ? "" : "X")));
+                                if (String.IsNullOrEmpty(person.ParsingFailureMessage))
+                                {
+                                    tableBlsv.AddCell(new Cell(1, 1).Add(new Paragraph("")));
+                                }
+                                else
+                                {
+                                    tableBlsv.AddCell(new Cell(1, 1).Add(imageWarning));
+                                }
                             }
                         }
                         document.Add(tableBlsv);
@@ -331,6 +358,8 @@ namespace Ehrungsprogramm.Core.Services
             new Canvas(canvas, logoRect).Add(imageTsvLogo).Close();
         }
     }
+
+    // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
     /// <summary>
     /// Class used to generate the page footers

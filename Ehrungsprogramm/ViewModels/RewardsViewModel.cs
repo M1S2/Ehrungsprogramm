@@ -72,7 +72,14 @@ namespace Ehrungsprogramm.ViewModels
             }
             catch (Exception ex)
             {
-                await _dialogCoordinator.ShowMessageAsync(this, Properties.Resources.PrintString, Properties.Resources.ErrorString + ": " + ex.Message);
+                try
+                {
+                    await _dialogCoordinator.ShowMessageAsync(this, Properties.Resources.PrintString, Properties.Resources.ErrorString + ": " + ex.Message);
+                }
+                catch (Exception)
+                {
+                    /* Error couldn't be displayed. No action needed here. */
+                }
             }
             finally
             {

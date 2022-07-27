@@ -1,0 +1,2 @@
+AppIcon:	https://www.clipartmax.com/middle/m2i8N4G6i8Z5Z5H7_medal-scalable-vector-graphics-icon-cartoon-medal-vector/
+WarningIcon: 	https://icon-icons.com/icon/warning/172115

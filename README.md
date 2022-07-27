@@ -1,4 +1,4 @@
-# ![AppIcon](https://github.com/M1S2/Ehrungsprogramm/raw/master/AppIcon/AppIcon.png) Ehrungsprogramm
+# ![AppIcon](https://github.com/M1S2/Ehrungsprogramm/raw/master/Icons/AppIcon.png) Ehrungsprogramm
 
 [![GitHub Release Version](https://img.shields.io/github/v/release/M1S2/Ehrungsprogramm)](https://github.com/M1S2/Ehrungsprogramm/releases/latest)
 [![GitHub License](https://img.shields.io/github/license/M1S2/Ehrungsprogramm)](LICENSE.md)

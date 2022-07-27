@@ -5,9 +5,7 @@
 	</PropertyGroup>
 	<ItemGroup>
 	  <None Remove="Resources\TSVLogo.png" />
-	</ItemGroup>
-	<ItemGroup>
-	  <Resource Include="Resources\TSVLogo.png" />
+	  <None Remove="Resources\WarningIcon.png" />
 	</ItemGroup>
 	
 	<ItemGroup>
@@ -16,6 +14,11 @@
 		<PackageReference Include="Microsoft.Toolkit.Mvvm" Version="7.0.2" />
 		<PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
 		<PackageReference Include="TimePeriodLibrary.NET" Version="2.1.1" />
+	</ItemGroup>
+	
+	<ItemGroup>
+		<Resource Include="Resources\TSVLogo.png" />
+		<Resource Include="Resources\WarningIcon.png" />
 	</ItemGroup>
 	
 	<ItemGroup>

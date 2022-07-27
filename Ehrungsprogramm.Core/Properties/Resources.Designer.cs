@@ -447,5 +447,15 @@ namespace Ehrungsprogramm.Core.Properties {
                 return ((byte[])(obj));
             }
         }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Ressource vom Typ System.Byte[].
+        /// </summary>
+        public static byte[] WarningIcon {
+            get {
+                object obj = ResourceManager.GetObject("WarningIcon", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
     }
 }
