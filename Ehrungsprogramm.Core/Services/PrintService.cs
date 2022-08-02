@@ -147,6 +147,7 @@ namespace Ehrungsprogramm.Core.Services
                     using (PdfDocument pdf = new PdfDocument(writer))
                     using (Document document = new Document(pdf, PageSize.A4, false))
                     {
+                        document.SetTopMargin(60);
                         // Add events to handle the generation of headers and footers
                         pdf.AddEventHandler(PdfDocumentEvent.START_PAGE, new PageHeaderEventHandler());
                         pdf.AddEventHandler(PdfDocumentEvent.END_PAGE, new PageFooterEventHandler());
