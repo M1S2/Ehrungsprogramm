@@ -52,12 +52,12 @@ namespace Ehrungsprogramm.Core.Services
             // Check FilePath
             if (!File.Exists(filepath))
             {
-                return people;
+                throw new Exception(String.Format(Properties.Resources.ErrorCsvFileParserFileDoesntExist, filepath));
             }
-            if (Path.GetExtension(filepath).ToLower() != ".txt" && Path.GetExtension(filepath).ToLower() != ".csv")
+            /*if (Path.GetExtension(filepath).ToLower() != ".txt" && Path.GetExtension(filepath).ToLower() != ".csv")
             {
                 return people;
-            }
+            }*/
 
             // Read all lines of the .csv file
             Encoding fileEncoding = getFileEncoding(filepath);

@@ -79,6 +79,15 @@ namespace Ehrungsprogramm.Core.Properties {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die File doesn&apos;t exist ({0}). ähnelt.
+        /// </summary>
+        public static string ErrorCsvFileParserFileDoesntExist {
+            get {
+                return ResourceManager.GetString("ErrorCsvFileParserFileDoesntExist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Function End Date couldn&apos;t be parsed correctly ({0}, Function: {1})! ähnelt.
         /// </summary>
         public static string ErrorCsvFileParserFunctionEndDate {

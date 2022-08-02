@@ -134,7 +134,7 @@ namespace Ehrungsprogramm.ViewModels
                 catch (Exception ex)
                 {
                     await _progressController.CloseAsync();
-                    await _dialogCoordinator.ShowMessageAsync(this, "Error", ex.Message);
+                    await _dialogCoordinator.ShowMessageAsync(this, Properties.Resources.ErrorString, ex.Message);
                 }
             }
         }
