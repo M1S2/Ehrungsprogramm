@@ -48,7 +48,7 @@
                 <controls:ProgressRing Width="40" Height="40" Visibility="{Binding IsPrinting, Converter={StaticResource BooleanToVisibilityConverter}}"/>
             </Grid>
         </DockPanel>
-        
+
         <localControls:FilteredListView Grid.Row="2" ItemsSource="{Binding People}" Margin="{StaticResource MediumLeftTopRightBottomMargin}" FilterPredicate="{Binding PersonFilter}">
             <localControls:FilteredListView.View>
                 <GridView>
@@ -78,7 +78,7 @@
                             </StackPanel>
                         </GridViewColumn.Header>
                     </GridViewColumn>
-                    
+
                     <GridViewColumn>
                         <GridViewColumn.Header>
                             <StackPanel Orientation="Horizontal">
@@ -122,9 +122,32 @@
                     </GridViewColumn>
 
                     <GridViewColumn CellTemplate="{StaticResource CellTemplateDetail}"/>
-                    
+
                 </GridView>
             </localControls:FilteredListView.View>
         </localControls:FilteredListView>
+
+        <!-- List empty text -->
+        <StackPanel Grid.Row="2" Margin="{StaticResource MediumLeftTopRightBottomMargin}" Orientation="Vertical" HorizontalAlignment="Left">
+            <TextBlock Margin="20,100,0,0" Text="{x:Static properties:Resources.ListEmptyString}" HorizontalAlignment="Left" FontSize="{StaticResource LargeFontSize}" Foreground="{StaticResource MahApps.Brushes.Gray2}"/>
+            <TextBlock Margin="20,10,0,0" HorizontalAlignment="Left" FontSize="{StaticResource LargeFontSize}">
+                <Hyperlink Command="{Binding ManageDatabaseCommand}">
+                    <TextBlock Text="{x:Static properties:Resources.ListEmptyNavigateToManageDatabaseString}"/>
+                </Hyperlink>
+            </TextBlock>
+
+            <!-- only show this stack panel if no elements are in the People list -->
+            <StackPanel.Style>
+                <Style TargetType="StackPanel">
+                    <Setter Property="Visibility" Value="Collapsed"/>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding People.Count}" Value="0">
+                            <Setter Property="Visibility" Value="Visible"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </StackPanel.Style>
+        </StackPanel>
+
     </Grid>
 </Page>

@@ -53,6 +53,13 @@ namespace Ehrungsprogramm.ViewModels
         /// </summary>
         public ICommand PersonDetailCommand => _personDetailCommand ?? (_personDetailCommand = new RelayCommand<Person>((person) => _navigationService.NavigateTo(typeof(PersonDetailViewModel).FullName, person)));
 
+        private ICommand _manageDatabaseCommand;
+        /// <summary>
+        /// Command used to navigate to the ManageDatabasePage
+        /// </summary>
+        public ICommand ManageDatabaseCommand => _manageDatabaseCommand ?? (_manageDatabaseCommand = new RelayCommand(() => _navigationService.NavigateTo(typeof(ManageDatabaseViewModel).FullName)));
+
+
         private bool _isPrinting;
         /// <summary>
         /// True, if printing person overview. False if not currently printing.

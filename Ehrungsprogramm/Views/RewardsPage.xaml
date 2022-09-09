@@ -130,6 +130,29 @@
             </ListView.GroupStyle>
         </ListView>
 
+        <!-- List empty text -->
+        <StackPanel Grid.Row="2" Grid.Column="0" Margin="{StaticResource MediumLeftTopRightBottomMargin}" Orientation="Vertical" HorizontalAlignment="Left">
+            <TextBlock Margin="20,50,0,0" Text="{x:Static properties:Resources.ListEmptyString}" HorizontalAlignment="Left" FontSize="{StaticResource LargeFontSize}" Foreground="{StaticResource MahApps.Brushes.Gray2}"/>
+            <TextBlock Margin="20,10,0,0" HorizontalAlignment="Left" FontSize="{StaticResource LargeFontSize}">
+                <Hyperlink Command="{Binding ManageDatabaseCommand}">
+                    <TextBlock Text="{x:Static properties:Resources.ListEmptyNavigateToManageDatabaseString}"/>
+                </Hyperlink>
+            </TextBlock>
+
+            <!-- only show this stack panel if no elements are in the People list -->
+            <StackPanel.Style>
+                <Style TargetType="StackPanel">
+                    <Setter Property="Visibility" Value="Collapsed"/>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding PeopleItemsTSVRewardsCollectionView.Count}" Value="0">
+                            <Setter Property="Visibility" Value="Visible"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </StackPanel.Style>
+        </StackPanel>
+        
+
         <TextBlock Grid.Row="1" Grid.Column="1" Text="BLSV" Style="{StaticResource SubtitleTextStyle}" Margin="{StaticResource MediumLeftMargin}" VerticalAlignment="Center"/>
         <ListView Grid.Row="2" Grid.Column="1" ItemsSource="{Binding PeopleItemsBLSVRewardsCollectionView}" Margin="{StaticResource MediumLeftRightMargin}">
             <ListView.View>
@@ -177,5 +200,27 @@
                 <GroupStyle ContainerStyle="{StaticResource GroupItemControlTemplateStickyScrollHeader}"/>
             </ListView.GroupStyle>
         </ListView>
+
+        <!-- List empty text -->
+        <StackPanel Grid.Row="2" Grid.Column="1" Margin="{StaticResource MediumLeftTopRightBottomMargin}" Orientation="Vertical" HorizontalAlignment="Left">
+            <TextBlock Margin="20,50,0,0" Text="{x:Static properties:Resources.ListEmptyString}" HorizontalAlignment="Left" FontSize="{StaticResource LargeFontSize}" Foreground="{StaticResource MahApps.Brushes.Gray2}"/>
+            <TextBlock Margin="20,10,0,0" HorizontalAlignment="Left" FontSize="{StaticResource LargeFontSize}">
+                <Hyperlink Command="{Binding ManageDatabaseCommand}">
+                    <TextBlock Text="{x:Static properties:Resources.ListEmptyNavigateToManageDatabaseString}"/>
+                </Hyperlink>
+            </TextBlock>
+
+            <!-- only show this stack panel if no elements are in the People list -->
+            <StackPanel.Style>
+                <Style TargetType="StackPanel">
+                    <Setter Property="Visibility" Value="Collapsed"/>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding PeopleItemsBLSVRewardsCollectionView.Count}" Value="0">
+                            <Setter Property="Visibility" Value="Visible"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </StackPanel.Style>
+        </StackPanel>
     </Grid>
 </Page>

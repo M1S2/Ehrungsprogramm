@@ -296,6 +296,24 @@ namespace Ehrungsprogramm.Properties {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Click here to move to the Manage Database page to import data. ähnelt.
+        /// </summary>
+        public static string ListEmptyNavigateToManageDatabaseString {
+            get {
+                return ResourceManager.GetString("ListEmptyNavigateToManageDatabaseString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die The list is empty. ähnelt.
+        /// </summary>
+        public static string ListEmptyString {
+            get {
+                return ResourceManager.GetString("ListEmptyString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Main ähnelt.
         /// </summary>
         public static string MainPageTitle {

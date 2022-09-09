@@ -297,4 +297,10 @@
   <data name="RewardIconSilverString" xml:space="preserve">
     <value>S</value>
   </data>
+  <data name="ListEmptyNavigateToManageDatabaseString" xml:space="preserve">
+    <value>Hier klicken um zur Seite Datenbank verwalten zu wechseln, um Daten zu importieren.</value>
+  </data>
+  <data name="ListEmptyString" xml:space="preserve">
+    <value>Die Liste ist leer.</value>
+  </data>
 </root>
