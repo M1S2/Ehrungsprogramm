@@ -12,6 +12,7 @@ using Ehrungsprogramm.Core.Contracts.Services;
 using Ehrungsprogramm.Core.Models;
 using Itenso.TimePeriod;
 using MahApps.Metro.Controls.Dialogs;
+using Ehrungsprogramm.Contracts.Services;
 
 namespace Ehrungsprogramm.ViewModels
 {
@@ -68,16 +69,21 @@ namespace Ehrungsprogramm.ViewModels
         private ICommand _reloadDataFileCommand;
         public ICommand ReloadDataFileCommand => _reloadDataFileCommand ?? (_reloadDataFileCommand = new RelayCommand(async () => await ImportFromFile(LastImportFilePath)));
 
+        private ICommand _showParsingFailurePersonsCommand;
+        public ICommand ShowParsingFailurePersonsCommand => _showParsingFailurePersonsCommand ?? (_showParsingFailurePersonsCommand = new RelayCommand(() => _navigationService.NavigateTo(typeof(PersonsViewModel).FullName, PersonsViewModel.FILTER_FLAG_WARN)));
+
 
         private IPersonService _personService;
         private IDialogCoordinator _dialogCoordinator;
+        private INavigationService _navigationService;
         private ProgressDialogController _progressController;
 
-        public ManageDatabaseViewModel(IPersonService personService, IDialogCoordinator dialogCoordinator)
+        public ManageDatabaseViewModel(IPersonService personService, IDialogCoordinator dialogCoordinator, INavigationService navigationService)
         {
             _personService = personService;
             _dialogCoordinator = dialogCoordinator;
-            
+            _navigationService = navigationService;
+
             _personService.OnImportFromFileProgress += (filepath, progress) =>
             {
                 _progressController?.SetProgress(progress / 100);

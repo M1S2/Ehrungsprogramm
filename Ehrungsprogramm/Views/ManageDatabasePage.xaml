@@ -81,7 +81,11 @@
 
                         <controls:FontIcon Grid.Row="2" Grid.Column="0" Glyph="&#xE7BA;" FontSize="30" Margin="5"/>
                         <TextBlock Grid.Row="2" Grid.Column="1" FontSize="{StaticResource MediumFontSize}" VerticalAlignment="Center" Text="{x:Static properties:Resources.ParsingErrorsCountString}"/>
-                        <TextBlock Grid.Row="2" Grid.Column="2" FontSize="{StaticResource LargeFontSize}" VerticalAlignment="Center" Text="{Binding ParsingErrorCount}"/>
+                        <TextBlock Grid.Row="2" Grid.Column="2" FontSize="{StaticResource LargeFontSize}" VerticalAlignment="Center">
+                            <Hyperlink Command="{Binding ShowParsingFailurePersonsCommand}">
+                                <TextBlock Text="{Binding ParsingErrorCount}"/>
+                            </Hyperlink>
+                        </TextBlock>
 
                         <controls:FontIcon Grid.Row="3" Grid.Column="0" Glyph="&#xE734;" FontSize="30" Margin="5"/>
                         <TextBlock Grid.Row="3" Grid.Column="1" FontSize="{StaticResource MediumFontSize}" VerticalAlignment="Center" Text="{x:Static properties:Resources.AvailableBLSVRewardsCountString}"/>

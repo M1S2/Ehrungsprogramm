@@ -49,7 +49,7 @@
             </Grid>
         </DockPanel>
 
-        <localControls:FilteredListView Grid.Row="2" ItemsSource="{Binding People}" Margin="{StaticResource MediumLeftTopRightBottomMargin}" FilterPredicate="{Binding PersonFilter}">
+        <localControls:FilteredListView Grid.Row="1" ItemsSource="{Binding People}" Margin="{StaticResource MediumLeftTopRightBottomMargin}" FilterPredicate="{Binding PersonFilter}" FilterText="{Binding FilterText, Mode=TwoWay}">
             <localControls:FilteredListView.View>
                 <GridView>
                     <GridViewColumn DisplayMemberBinding="{Binding Name}">
@@ -128,7 +128,7 @@
         </localControls:FilteredListView>
 
         <!-- List empty text -->
-        <StackPanel Grid.Row="2" Margin="{StaticResource MediumLeftTopRightBottomMargin}" Orientation="Vertical" HorizontalAlignment="Left">
+        <StackPanel Grid.Row="1" Margin="{StaticResource MediumLeftTopRightBottomMargin}" Orientation="Vertical" HorizontalAlignment="Left">
             <TextBlock Margin="20,100,0,0" Text="{x:Static properties:Resources.ListEmptyString}" HorizontalAlignment="Left" FontSize="{StaticResource LargeFontSize}" Foreground="{StaticResource MahApps.Brushes.Gray2}"/>
             <TextBlock Margin="20,10,0,0" HorizontalAlignment="Left" FontSize="{StaticResource LargeFontSize}">
                 <Hyperlink Command="{Binding ManageDatabaseCommand}">
@@ -148,6 +148,5 @@
                 </Style>
             </StackPanel.Style>
         </StackPanel>
-
     </Grid>
 </Page>

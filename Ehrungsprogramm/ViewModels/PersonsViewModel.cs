@@ -9,11 +9,15 @@ using Ehrungsprogramm.Core.Contracts.Services;
 using Ehrungsprogramm.Contracts.Services;
 using Ehrungsprogramm.Contracts.ViewModels;
 using MahApps.Metro.Controls.Dialogs;
+using System.Text.RegularExpressions;
+using System.Linq;
 
 namespace Ehrungsprogramm.ViewModels
 {
     public class PersonsViewModel : ObservableObject, INavigationAware
     {
+        public const string FILTER_FLAG_WARN = "&warn";         // The warn flag is used to only show people with parsing failures
+
         private List<Person> _people;
         /// <summary>
         /// List of people shown on the person overview page
@@ -22,6 +26,16 @@ namespace Ehrungsprogramm.ViewModels
         {
             get => _people;
             set => SetProperty(ref _people, value);
+        }
+
+        private string _filterText = "";
+        /// <summary>
+        /// Text used to filter the People list
+        /// </summary>
+        public string FilterText
+        {
+            get => _filterText;
+            set => SetProperty(ref _filterText, value);
         }
 
         /// <summary>
@@ -34,15 +48,35 @@ namespace Ehrungsprogramm.ViewModels
                 return (item, text) =>
                 {
                     Person person = item as Person;
-                    return person.Name.ToLower().Contains(text.ToLower()) 
-                            || person.FirstName.ToLower().Contains(text.ToLower())
-                            || (person.FirstName.ToLower() + " " + person.Name.ToLower()).Contains(text.ToLower())
-                            || (person.Name.ToLower() + " " + person.FirstName.ToLower()).Contains(text.ToLower())
-                            || (person.FirstName.ToLower() + ", " + person.Name.ToLower()).Contains(text.ToLower())
-                            || (person.Name.ToLower() + ", " + person.FirstName.ToLower()).Contains(text.ToLower())
-                            || person.ScoreBLSV.ToString().Contains(text)
-                            || person.ScoreTSV.ToString().Contains(text)
-                            || person.EntryDate.ToString().Contains(text);
+
+                    // The filter text can contain multiple additional flags that are marked by & infront of them (e.g. "Name &warn").
+                    Regex regexFilterTextFlags = new Regex(@"\&([^&]*)");                       // matching each flag (&...)
+                    MatchCollection matches = regexFilterTextFlags.Matches(text);
+                    foreach (Match match in matches) { text = text.Replace(match.Value, ""); }  // Remove all flags from the filter text
+                    text = text.Trim();
+
+                    bool filterResult = person.Name.ToLower().Contains(text?.ToLower()) 
+                        || person.FirstName.ToLower().Contains(text?.ToLower())
+                        || (person.FirstName.ToLower() + " " + person.Name.ToLower()).Contains(text?.ToLower())
+                        || (person.Name.ToLower() + " " + person.FirstName.ToLower()).Contains(text?.ToLower())
+                        || (person.FirstName.ToLower() + ", " + person.Name.ToLower()).Contains(text?.ToLower())
+                        || (person.Name.ToLower() + ", " + person.FirstName.ToLower()).Contains(text?.ToLower())
+                        || person.ScoreBLSV.ToString().Contains(text ?? "")
+                        || person.ScoreTSV.ToString().Contains(text ?? "")
+                        || person.EntryDate.ToString().Contains(text ?? "");
+
+                    // Process each flag
+                    foreach (Match match in matches)
+                    {
+                        switch (match.Value.ToLower())
+                        {
+                            // The warn flag is used to only show people with parsing failures
+                            case FILTER_FLAG_WARN: filterResult &= !string.IsNullOrEmpty(person.ParsingFailureMessage); break;
+                            default: break;
+                        }
+                    }
+
+                    return filterResult;
                 };
             }
         }
@@ -123,8 +157,15 @@ namespace Ehrungsprogramm.ViewModels
         {
         }
 
+        /// <summary>
+        /// Method called when navigated to this page
+        /// </summary>
+        /// <param name="parameter">The parameter is used to set the FilterText when navigated to this page. Use null to leave the FilterText as is.</param>
         public void OnNavigatedTo(object parameter)
         {
+            string filterText = parameter as string;
+            if (filterText != null) { FilterText = filterText; }
+
             People.Clear();
             List<Person> servicePeople = _personService?.GetPersons();
             servicePeople?.ForEach(p => People.Add(p));
