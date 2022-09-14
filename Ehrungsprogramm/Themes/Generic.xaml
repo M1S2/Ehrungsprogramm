@@ -3,8 +3,12 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
     xmlns:localControls="clr-namespace:Ehrungsprogramm.Controls"
-    xmlns:local="clr-namespace:Ehrungsprogramm">
+    xmlns:local="clr-namespace:Ehrungsprogramm"
+    xmlns:converters="clr-namespace:Ehrungsprogramm.Converters"
+    xmlns:properties="clr-namespace:Ehrungsprogramm.Properties">
 
+    <converters:MultiValueEqualityConverter x:Key="multiValueEqualityConverter"/>
+    
     <!-- see: https://docs.microsoft.com/en-us/dotnet/desktop/wpf/controls/listview-styles-and-templates?view=netframeworkdesktop-4.8 -->
     <Style x:Key="{x:Static GridView.GridViewScrollViewerStyleKey}" TargetType="ScrollViewer">
         <Setter Property="Template">
@@ -60,9 +64,44 @@
                     <Grid>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
                             <RowDefinition Height="*"/>
                         </Grid.RowDefinitions>
-                        <Border Padding="0,5,0,15">
+                        
+                        <!-- Text showing the number of elements in the list (actual shown elements and total number of elements if filtering is active) -->
+                        <TextBlock Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="20,0,0,0" FontSize="14" Foreground="{DynamicResource MahApps.Brushes.Gray2}">
+                            <TextBlock.Style>
+                                <Style TargetType="{x:Type TextBlock}">
+                                    <Setter Property="Text">
+                                        <!-- Text that is shown when the number of elements in the ItemsSource is not equal the shown elements count (filtered)-->
+                                        <Setter.Value>
+                                            <MultiBinding StringFormat="{x:Static properties:Resources.FilteredListViewNumElementsFilteredFormatString}">
+                                                <Binding Path="Items.Count" RelativeSource="{RelativeSource TemplatedParent}"/>
+                                                <Binding Path="ItemsSource.Count" RelativeSource="{RelativeSource TemplatedParent}"/>
+                                            </MultiBinding>
+                                        </Setter.Value>
+                                    </Setter>
+                                    <Style.Triggers>
+                                        <DataTrigger Value="True">
+                                            <DataTrigger.Binding>
+                                                <MultiBinding Converter="{StaticResource multiValueEqualityConverter}">
+                                                    <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Items.Count"/>
+                                                    <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="ItemsSource.Count"/>
+                                                </MultiBinding>
+                                            </DataTrigger.Binding>
+                                            <Setter Property="Text">
+                                                <!-- Text that is shown when the number of elements in the ItemsSource is equal the shown elements count (non-filtered)-->
+                                                <Setter.Value>
+                                                    <Binding Path="Items.Count" RelativeSource="{RelativeSource TemplatedParent}" StringFormat="{x:Static properties:Resources.FilteredListViewNumElementsNonFilteredFormatString}"/>
+                                                </Setter.Value>
+                                            </Setter>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </TextBlock.Style>
+                        </TextBlock>
+                        
+                        <Border Grid.Row="1" Padding="0,5,0,15">
                             <DockPanel>
                                 <controls:FontIcon Glyph="&#xE721;" Margin="0,0,5,0" FontSize="14" VerticalAlignment="Center" HorizontalAlignment="Right"/>
                                 <Grid>
@@ -73,7 +112,7 @@
                                 </Grid>
                             </DockPanel>
                         </Border>
-                        <Border Grid.Row="1" x:Name="Bd" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" Padding="1" SnapsToDevicePixels="true">
+                        <Border Grid.Row="2" x:Name="Bd" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" Padding="1" SnapsToDevicePixels="true">
                             <ScrollViewer Focusable="false" Padding="{TemplateBinding Padding}" Style="{DynamicResource {x:Static GridView.GridViewScrollViewerStyleKey}}">
                                 <ItemsPresenter SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
                             </ScrollViewer>

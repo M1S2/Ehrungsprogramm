@@ -310,4 +310,10 @@
   <data name="ListEmptyString" xml:space="preserve">
     <value>The list is empty.</value>
   </data>
+  <data name="FilteredListViewNumElementsFilteredFormatString" xml:space="preserve">
+    <value>{0} item(s) visible ({1} available)</value>
+  </data>
+  <data name="FilteredListViewNumElementsNonFilteredFormatString" xml:space="preserve">
+    <value>{0} item(s)</value>
+  </data>
 </root>

@@ -15,6 +15,7 @@ using System.Reactive.Linq;
 using System.Reactive.Subjects;
 using Microsoft.Toolkit.Mvvm.Input;
 using System.Threading;
+using System.Linq;
 
 namespace Ehrungsprogramm.Controls
 {
@@ -61,6 +62,16 @@ namespace Ehrungsprogramm.Controls
             InitThrottle();
         }
 
+        public Subject<bool> FilterInputSubject = new Subject<bool>();
+
+        // +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+        /// <summary>
+        /// Function used to decide, which elements of the list are shown
+        /// object: list element
+        /// string: filter text
+        /// bool: return true here to show the element; otherwise false
+        /// </summary>
         public Func<object, string, bool> FilterPredicate
         {
             get { return (Func<object, string, bool>)GetValue(FilterPredicateProperty); }
@@ -68,8 +79,11 @@ namespace Ehrungsprogramm.Controls
         }
         public static readonly DependencyProperty FilterPredicateProperty = DependencyProperty.Register(nameof(FilterPredicate), typeof(Func<object, string, bool>), typeof(FilteredListView), new PropertyMetadata(null));
 
-        public Subject<bool> FilterInputSubject = new Subject<bool>();
+        // +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
+        /// <summary>
+        /// Text that is used for filtering the list
+        /// </summary>
         public string FilterText
         {
             get { return (string)GetValue(FilterTextProperty); }
@@ -78,8 +92,26 @@ namespace Ehrungsprogramm.Controls
         public static readonly DependencyProperty FilterTextProperty = DependencyProperty.Register(nameof(FilterText), typeof(string), typeof(FilteredListView),
                 new PropertyMetadata("", (d, e) => (d as FilteredListView).FilterInputSubject.OnNext(true)));  //This is the 'PropertyChanged' callback that's called whenever the Filter input text is changed
 
+        // +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+       /* private static readonly DependencyPropertyKey ItemsShownCountKey = DependencyProperty.RegisterReadOnly(nameof(ItemsShownCount), typeof(int), typeof(FilteredListView), new FrameworkPropertyMetadata(default(int), FrameworkPropertyMetadataOptions.None));
+        public static readonly DependencyProperty ItemsShownCountProperty = ItemsShownCountKey.DependencyProperty;
+
+        /// <summary>
+        /// Get the number of items shown in the list (after filtering)
+        /// </summary>
+        public int ItemsShownCount
+        {
+            get { return (int)GetValue(ItemsShownCountProperty); }
+            protected set { SetValue(ItemsShownCountKey, value); }
+        }*/
+
+        // +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
         private ICommand _clearFilterCommand;
         public ICommand ClearFilterCommand => _clearFilterCommand ?? (_clearFilterCommand = new RelayCommand(() => FilterText = ""));
+
+        // +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
         private void SetDefaultFilterPredicate()
         {

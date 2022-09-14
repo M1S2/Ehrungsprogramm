@@ -224,6 +224,24 @@ namespace Ehrungsprogramm.Properties {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die {0} item(s) visible ({1} available) ähnelt.
+        /// </summary>
+        public static string FilteredListViewNumElementsFilteredFormatString {
+            get {
+                return ResourceManager.GetString("FilteredListViewNumElementsFilteredFormatString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die {0} item(s) ähnelt.
+        /// </summary>
+        public static string FilteredListViewNumElementsNonFilteredFormatString {
+            get {
+                return ResourceManager.GetString("FilteredListViewNumElementsNonFilteredFormatString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die First Name ähnelt.
         /// </summary>
         public static string FirstNameString {
