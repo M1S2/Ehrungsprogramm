@@ -1,3 +1,5 @@
 # Ehrungsprogramm Changelog
 
-Noch keine Versionen erstellt.
+## [v1.0.0]
+
+- Erste Version

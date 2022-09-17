@@ -94,20 +94,6 @@ namespace Ehrungsprogramm.Controls
 
         // +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-       /* private static readonly DependencyPropertyKey ItemsShownCountKey = DependencyProperty.RegisterReadOnly(nameof(ItemsShownCount), typeof(int), typeof(FilteredListView), new FrameworkPropertyMetadata(default(int), FrameworkPropertyMetadataOptions.None));
-        public static readonly DependencyProperty ItemsShownCountProperty = ItemsShownCountKey.DependencyProperty;
-
-        /// <summary>
-        /// Get the number of items shown in the list (after filtering)
-        /// </summary>
-        public int ItemsShownCount
-        {
-            get { return (int)GetValue(ItemsShownCountProperty); }
-            protected set { SetValue(ItemsShownCountKey, value); }
-        }*/
-
-        // +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-
         private ICommand _clearFilterCommand;
         public ICommand ClearFilterCommand => _clearFilterCommand ?? (_clearFilterCommand = new RelayCommand(() => FilterText = ""));
 

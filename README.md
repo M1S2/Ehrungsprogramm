@@ -47,6 +47,14 @@ Um die Übersichtsseite auf Papier auszudrucken, muss die PDF Datei in einem gee
 
 ![PrintButton](https://github.com/M1S2/Ehrungsprogramm/raw/master/Screenshots/Screenshot_PrintButton.png)
 
+## Berechnung der Funktionszeiträume
+Die effektiven Jahre als Vorstand, Abteilungsleitung oder in anderen Funktionen werden folgendermaßen berechnet:
+- Von allen Funktionen werden die Zeiträume als Vorstand abgezogen.
+- Von allen Funktionen werden die Zeiträume als Abteilungsleitung abgezogen.
+- Bei allen anderen Funktionen werden überlappende Zeiträume bereiningt (nur eine Funktion pro Zeitpunkt wird bewertet).
+
+![Konzepte Berechnung Zeiträume](https://github.com/M1S2/Ehrungsprogramm/raw/master/Screenshots/Konzept_Berechnung_Zeitraeume.jpg)
+
 ## Gespeicherte Einstellungen
 Die Anwendung speichert die eingelesen Stammdaten in einer Datenbank im Anwendungsverzeichnis ("Ehrungsprogramm_Persons.db").
 Hier werden außerdem der Pfad der letzten eingeladenen Datei sowie der eingestellte Stichtag gespeichert und beim nächsten Start der Anwendung wieder geladen.
