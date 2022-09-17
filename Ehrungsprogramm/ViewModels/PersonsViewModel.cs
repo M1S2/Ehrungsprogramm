@@ -104,6 +104,16 @@ namespace Ehrungsprogramm.ViewModels
             set { SetProperty(ref _isPrinting, value); ((RelayCommand)PrintCommand).NotifyCanExecuteChanged(); }
         }
 
+        private int _printProgress;
+        /// <summary>
+        /// Progress (%) of the print operation
+        /// </summary>
+        public int PrintProgress
+        {
+            get => _printProgress;
+            set => SetProperty(ref _printProgress, value);
+        }
+
         private ICommand _printCommand;
         /// <summary>
         /// Command used to print a person overview.
@@ -116,7 +126,8 @@ namespace Ehrungsprogramm.ViewModels
                 System.Windows.Forms.SaveFileDialog saveFileDialog = new System.Windows.Forms.SaveFileDialog() { FileName = "PersonOverview.pdf", Filter = "PDF File|*.pdf" };
                 if (saveFileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                 {
-                    await _printService?.PrintPersonList(People, saveFileDialog.FileName);
+                    PrintProgress = 0;
+                    await _printService?.PrintPersonList(People, saveFileDialog.FileName, _printProgressCallback);
                     await _dialogCoordinator.ShowMessageAsync(this, Properties.Resources.PrintString, Properties.Resources.PrintString + " " + Properties.Resources.SuccessfulString.ToLower());
                 }
             }
@@ -143,6 +154,7 @@ namespace Ehrungsprogramm.ViewModels
         private IPrintService _printService;
         private INavigationService _navigationService;
         private IDialogCoordinator _dialogCoordinator;
+        private Progress<int> _printProgressCallback;
 
         public PersonsViewModel(IPersonService personService, IPrintService printService, INavigationService navigationService, IDialogCoordinator dialogCoordinator)
         {
@@ -150,6 +162,9 @@ namespace Ehrungsprogramm.ViewModels
             _printService = printService;
             _navigationService = navigationService;
             _dialogCoordinator = dialogCoordinator;
+
+            _printProgressCallback = new Progress<int>();
+            _printProgressCallback.ProgressChanged += (e, p) => PrintProgress = p; 
             People = new List<Person>();
         }
 

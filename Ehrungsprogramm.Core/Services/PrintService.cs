@@ -135,8 +135,9 @@ namespace Ehrungsprogramm.Core.Services
         /// </summary>
         /// <param name="people">List with all available <see cref="Person"/> objects</param>
         /// <param name="pdfFilePath">Filepath of the output PDF file</param>
+        /// <param name="progress">Progress of the print operation</param>
         /// <returns>true if printing succeeded; false if printing failed</returns>
-        public async Task<bool> PrintPersonList(List<Person> people, string pdfFilePath)
+        public async Task<bool> PrintPersonList(List<Person> people, string pdfFilePath, IProgress<int> progress = null)
         {
             bool printingResult = false;
             await Task.Run(() =>
@@ -166,6 +167,7 @@ namespace Ehrungsprogramm.Core.Services
                         table.AddHeaderCell(new Cell(1, 1).SetBackgroundColor(ColorConstants.LIGHT_GRAY).SetTextAlignment(TextAlignment.CENTER).Add(new Paragraph(Properties.Resources.PrintTSVScoreString)));
                         table.AddHeaderCell(new Cell(1, 1).SetBackgroundColor(ColorConstants.LIGHT_GRAY).SetTextAlignment(TextAlignment.CENTER).Add(new Paragraph(Properties.Resources.PrintParsingErrorString)));
 
+                        int progressCounter = 0;
                         foreach (Person person in people)
                         {
                             table.AddCell(new Cell(1, 1).Add(new Paragraph(person.Id.ToString())));
@@ -182,6 +184,7 @@ namespace Ehrungsprogramm.Core.Services
                             {
                                 table.AddCell(new Cell(1, 1).Add(imageWarning));
                             }
+                            progress?.Report((++progressCounter * 100) / people.Count);
                         }
 
                         document.Add(table);
@@ -205,7 +208,8 @@ namespace Ehrungsprogramm.Core.Services
         /// </summary>
         /// <param name="people">List with all available <see cref="Person"/> objects used to generate the rewards overview</param>
         /// <param name="pdfFilePath">Filepath of the output PDF file</param>
-        public async Task<bool> PrintRewards(List<Person> people, string pdfFilePath)
+        /// <param name="progress">Progress of the print operation</param>
+        public async Task<bool> PrintRewards(List<Person> people, string pdfFilePath, IProgress<int> progress = null)
         {
             bool printingResult = false;
             await Task.Run(() =>
@@ -229,6 +233,7 @@ namespace Ehrungsprogramm.Core.Services
                         List <IGrouping<RewardTypes, Person>> tsvRewardGroups = peopleTsvRewardAvailable.OrderBy(p => p.Name).
                                                                                         OrderBy(p => p.Rewards.HighestAvailableTSVReward.Type).
                                                                                         GroupBy(p => p.Rewards.HighestAvailableTSVReward.Type).ToList();
+                        List<Person> peopleBlsvRewardAvailable = people.Where(p => p.Rewards.HighestAvailableBLSVReward != null).ToList();
 
                         document.Add(new Paragraph(Properties.Resources.PrintCountTSVRewardsString + ": " + peopleTsvRewardAvailable.Count.ToString()));
 
@@ -239,7 +244,7 @@ namespace Ehrungsprogramm.Core.Services
                         tableTsv.AddHeaderCell(new Cell(1, 1).SetBackgroundColor(ColorConstants.LIGHT_GRAY).SetTextAlignment(TextAlignment.CENTER).Add(new Paragraph(Properties.Resources.PrintScoreString)));
                         tableTsv.AddHeaderCell(new Cell(1, 1).SetBackgroundColor(ColorConstants.LIGHT_GRAY).SetTextAlignment(TextAlignment.CENTER).Add(new Paragraph(Properties.Resources.PrintParsingErrorString)));
 
-                        int counter = 0;
+                        int counter = 0, progressCounter = 0;
                         foreach (IGrouping<RewardTypes, Person> tsvRewardGroup in tsvRewardGroups)
                         {
                             string tsvRewardName = rewardTypeToString(tsvRewardGroup.Key);
@@ -258,6 +263,8 @@ namespace Ehrungsprogramm.Core.Services
                                 {
                                     tableTsv.AddCell(new Cell(1, 1).Add(imageWarning));
                                 }
+
+                                progress?.Report((++progressCounter * 100) / (peopleTsvRewardAvailable.Count + peopleBlsvRewardAvailable.Count));
                             }
                         }
                         document.Add(tableTsv);
@@ -268,10 +275,9 @@ namespace Ehrungsprogramm.Core.Services
                         document.Add(new Paragraph(Properties.Resources.PrintBLSVRewardOverviewString).SetTextAlignment(TextAlignment.CENTER).SetFontSize(20));
                         document.Add(new Paragraph(Properties.Resources.PrintOnlyNewestRewardsAreShownString + Environment.NewLine));
 
-                        List<Person> peopleBlsvRewardAvailable = people.Where(p => p.Rewards.HighestAvailableBLSVReward != null).ToList();
                         List<IGrouping<RewardTypes, Person>> blsvRewardGroups = peopleBlsvRewardAvailable.OrderBy(p => p.Name).
-                                                                                        OrderBy(p => p.Rewards.HighestAvailableBLSVReward.Type).
-                                                                                        GroupBy(p => p.Rewards.HighestAvailableBLSVReward.Type).ToList();
+                                                                OrderBy(p => p.Rewards.HighestAvailableBLSVReward.Type).
+                                                                GroupBy(p => p.Rewards.HighestAvailableBLSVReward.Type).ToList();
 
                         document.Add(new Paragraph(Properties.Resources.PrintCountBLSVRewardsString + ": " + peopleBlsvRewardAvailable.Count.ToString()));
 
@@ -300,6 +306,8 @@ namespace Ehrungsprogramm.Core.Services
                                 {
                                     tableBlsv.AddCell(new Cell(1, 1).Add(imageWarning));
                                 }
+
+                                progress?.Report((++progressCounter * 100) / (peopleTsvRewardAvailable.Count + peopleBlsvRewardAvailable.Count));
                             }
                         }
                         document.Add(tableBlsv);

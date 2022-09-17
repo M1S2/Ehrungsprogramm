@@ -24,13 +24,15 @@ namespace Ehrungsprogramm.Core.Contracts.Services
         /// </summary>
         /// <param name="people">List with all available <see cref="Person"/> objects</param>
         /// <param name="pdfFilePath">Filepath of the output PDF file</param>
-        Task<bool> PrintPersonList(List<Person> people, string pdfFilePath);
+        /// <param name="progress">Progress of the print operation</param>
+        Task<bool> PrintPersonList(List<Person> people, string pdfFilePath, IProgress<int> progress = null);
 
         /// <summary>
         /// Print an overview of all rewards.
         /// </summary>
         /// <param name="people">List with all available <see cref="Person"/> objects used to generate the rewards overview</param>
         /// <param name="pdfFilePath">Filepath of the output PDF file</param>
-        Task<bool> PrintRewards(List<Person> people, string pdfFilePath);
+        /// <param name="progress">Progress of the print operation</param>
+        Task<bool> PrintRewards(List<Person> people, string pdfFilePath, IProgress<int> progress = null);
     }
 }
