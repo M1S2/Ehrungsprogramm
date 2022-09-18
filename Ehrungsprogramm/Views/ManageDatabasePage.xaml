@@ -47,11 +47,30 @@
                     </WrapPanel>
 
                     <WrapPanel>
-                        <Border Width="150" Height="150" Margin="10" Background="{StaticResource MahApps.Brushes.Gray}" BorderBrush="{StaticResource MahApps.Brushes.Text}" BorderThickness="2">
+                        <Border Width="150" Height="180" Margin="10" Background="{StaticResource MahApps.Brushes.Gray}" BorderBrush="{StaticResource MahApps.Brushes.Text}" BorderThickness="2">
                             <StackPanel>
                                 <controls:FontIcon Margin="10" FontSize="50" Glyph="&#xE787;"/>
                                 <TextBlock HorizontalAlignment="Center" Text="{x:Static properties:Resources.CalculationDeadlineString}" FontSize="{StaticResource MediumFontSize}"/>
                                 <DatePicker Margin="10" SelectedDate="{Binding CalculationDeadline}"/>
+                                <Button Margin="10,0" Content="{x:Static properties:Resources.TodayString}" Command="{Binding SetCalculationDeadlineTodayCommand}" Style="{StaticResource MahApps.Styles.Button.Square}" controls:ControlsHelper.ContentCharacterCasing="Normal"/>
+                            </StackPanel>
+                        </Border>
+                        <!-- Warning message for not set calculation date -->
+                        <Border Margin="10" Height="60" VerticalAlignment="Bottom" BorderThickness="2" CornerRadius="10" BorderBrush="{StaticResource MahApps.Brushes.Control.Validation}">
+                            <Border.Style>
+                                <Style TargetType="Border">
+                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding CalculationDeadline}" Value="01.01.0001">
+                                            <Setter Property="Visibility" Value="Visible"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Border.Style>
+                            
+                            <StackPanel Orientation="Horizontal" Margin="5">
+                                <controls:FontIcon Margin="10,0,0,0" FontSize="35" Glyph="&#xE7BA;" Foreground="{StaticResource MahApps.Brushes.Control.Validation}"/>
+                                <TextBlock Margin="20,0,0,0" Text="{x:Static properties:Resources.CalculationDeadlineNotSetString}" VerticalAlignment="Center" FontSize="{StaticResource LargeFontSize}" Foreground="{StaticResource MahApps.Brushes.Control.Validation}"/>
                             </StackPanel>
                         </Border>
                     </WrapPanel>

@@ -116,6 +116,16 @@ namespace Ehrungsprogramm.Properties {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Caution: The calculation deadline is not set.
+        ///This leads to zero scores for all people! ähnelt.
+        /// </summary>
+        public static string CalculationDeadlineNotSetString {
+            get {
+                return ResourceManager.GetString("CalculationDeadlineNotSetString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Calculation Deadline ähnelt.
         /// </summary>
         public static string CalculationDeadlineString {
@@ -643,6 +653,15 @@ namespace Ehrungsprogramm.Properties {
         public static string TimePeriodString {
             get {
                 return ResourceManager.GetString("TimePeriodString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Today ähnelt.
+        /// </summary>
+        public static string TodayString {
+            get {
+                return ResourceManager.GetString("TodayString", resourceCulture);
             }
         }
         

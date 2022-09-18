@@ -72,6 +72,8 @@ namespace Ehrungsprogramm.ViewModels
         private ICommand _showParsingFailurePersonsCommand;
         public ICommand ShowParsingFailurePersonsCommand => _showParsingFailurePersonsCommand ?? (_showParsingFailurePersonsCommand = new RelayCommand(() => _navigationService.NavigateTo(typeof(PersonsViewModel).FullName, PersonsViewModel.FILTER_FLAG_WARN)));
 
+        private ICommand _setCalculationDeadlineTodayCommand;
+        public ICommand SetCalculationDeadlineTodayCommand => _setCalculationDeadlineTodayCommand ?? (_setCalculationDeadlineTodayCommand = new RelayCommand(() => CalculationDeadline = DateTime.Now));
 
         private IPersonService _personService;
         private IDialogCoordinator _dialogCoordinator;

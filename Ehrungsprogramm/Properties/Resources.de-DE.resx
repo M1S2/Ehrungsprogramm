@@ -309,4 +309,11 @@
   <data name="FilteredListViewNumElementsNonFilteredFormatString" xml:space="preserve">
     <value>{0} Element(e)</value>
   </data>
+  <data name="CalculationDeadlineNotSetString" xml:space="preserve">
+    <value>Achtung: Der Stichtag ist nicht gesetzt.
+Das führt zu 0 Punkten für alle Personen!</value>
+  </data>
+  <data name="TodayString" xml:space="preserve">
+    <value>Heute</value>
+  </data>
 </root>

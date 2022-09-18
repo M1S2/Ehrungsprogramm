@@ -316,4 +316,11 @@
   <data name="FilteredListViewNumElementsNonFilteredFormatString" xml:space="preserve">
     <value>{0} item(s)</value>
   </data>
+  <data name="CalculationDeadlineNotSetString" xml:space="preserve">
+    <value>Caution: The calculation deadline is not set.
+This leads to zero scores for all people!</value>
+  </data>
+  <data name="TodayString" xml:space="preserve">
+    <value>Today</value>
+  </data>
 </root>
