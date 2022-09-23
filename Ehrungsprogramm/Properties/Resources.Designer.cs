@@ -486,6 +486,16 @@ namespace Ehrungsprogramm.Properties {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Rewards are only shown if the highest available reward isn&apos;t obtained yet.
+        ///If the currently highest reward is already obtained, it isn&apos;t shown. ähnelt.
+        /// </summary>
+        public static string RewardVisibilityInfoString {
+            get {
+                return ResourceManager.GetString("RewardVisibilityInfoString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Score BLSV ähnelt.
         /// </summary>
         public static string ScoreBLSVString {

@@ -316,4 +316,8 @@ Das führt zu 0 Punkten für alle Personen!</value>
   <data name="TodayString" xml:space="preserve">
     <value>Heute</value>
   </data>
+  <data name="RewardVisibilityInfoString" xml:space="preserve">
+    <value>Ehrungen werden nur angezeigt, wenn die höchste verfügbare Ehrung noch nicht erhalten ist.
+Wenn die momentan höchste Ehrung bereits erhalten ist, wird sie nicht angezeigt.</value>
+  </data>
 </root>

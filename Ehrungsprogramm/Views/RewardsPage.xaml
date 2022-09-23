@@ -64,6 +64,7 @@
     <Grid Background="{StaticResource MahApps.Brushes.Window.Background}">
         <Grid.RowDefinitions>
             <RowDefinition Height="48" />
+            <RowDefinition Height="40" />
             <RowDefinition Height="50" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
@@ -82,8 +83,10 @@
             </Grid>
         </DockPanel>
 
-        <TextBlock Grid.Row="1" Grid.Column="0" Text="TSV" Style="{StaticResource SubtitleTextStyle}" Margin="{StaticResource MediumLeftMargin}" VerticalAlignment="Center"/>
-        <ListView Grid.Row="2" Grid.Column="0" ItemsSource="{Binding PeopleItemsTSVRewardsCollectionView}" Margin="{StaticResource MediumLeftRightMargin}">
+        <TextBlock Grid.Row="1" Grid.ColumnSpan="2" VerticalAlignment="Center" Margin="{StaticResource MediumLeftRightMargin}" Text="{x:Static properties:Resources.RewardVisibilityInfoString}"/>
+        
+        <TextBlock Grid.Row="2" Grid.Column="0" Text="TSV" Style="{StaticResource SubtitleTextStyle}" Margin="{StaticResource MediumLeftMargin}" VerticalAlignment="Center"/>
+        <ListView Grid.Row="3" Grid.Column="0" ItemsSource="{Binding PeopleItemsTSVRewardsCollectionView}" Margin="{StaticResource MediumLeftRightMargin}">
             <ListView.View>
                 <GridView>
                     <GridViewColumn DisplayMemberBinding="{Binding Name}">
@@ -131,7 +134,7 @@
         </ListView>
 
         <!-- List empty text -->
-        <StackPanel Grid.Row="2" Grid.Column="0" Margin="{StaticResource MediumLeftTopRightBottomMargin}" Orientation="Vertical" HorizontalAlignment="Left">
+        <StackPanel Grid.Row="3" Grid.Column="0" Margin="{StaticResource MediumLeftTopRightBottomMargin}" Orientation="Vertical" HorizontalAlignment="Left">
             <TextBlock Margin="20,50,0,0" Text="{x:Static properties:Resources.ListEmptyString}" HorizontalAlignment="Left" FontSize="{StaticResource LargeFontSize}" Foreground="{StaticResource MahApps.Brushes.Gray2}"/>
             <TextBlock Margin="20,10,0,0" HorizontalAlignment="Left" FontSize="{StaticResource LargeFontSize}">
                 <Hyperlink Command="{Binding ManageDatabaseCommand}">
@@ -153,8 +156,8 @@
         </StackPanel>
         
 
-        <TextBlock Grid.Row="1" Grid.Column="1" Text="BLSV" Style="{StaticResource SubtitleTextStyle}" Margin="{StaticResource MediumLeftMargin}" VerticalAlignment="Center"/>
-        <ListView Grid.Row="2" Grid.Column="1" ItemsSource="{Binding PeopleItemsBLSVRewardsCollectionView}" Margin="{StaticResource MediumLeftRightMargin}">
+        <TextBlock Grid.Row="2" Grid.Column="1" Text="BLSV" Style="{StaticResource SubtitleTextStyle}" Margin="{StaticResource MediumLeftMargin}" VerticalAlignment="Center"/>
+        <ListView Grid.Row="3" Grid.Column="1" ItemsSource="{Binding PeopleItemsBLSVRewardsCollectionView}" Margin="{StaticResource MediumLeftRightMargin}">
             <ListView.View>
                 <GridView>
                     <GridViewColumn DisplayMemberBinding="{Binding Name}">
@@ -202,7 +205,7 @@
         </ListView>
 
         <!-- List empty text -->
-        <StackPanel Grid.Row="2" Grid.Column="1" Margin="{StaticResource MediumLeftTopRightBottomMargin}" Orientation="Vertical" HorizontalAlignment="Left">
+        <StackPanel Grid.Row="3" Grid.Column="1" Margin="{StaticResource MediumLeftTopRightBottomMargin}" Orientation="Vertical" HorizontalAlignment="Left">
             <TextBlock Margin="20,50,0,0" Text="{x:Static properties:Resources.ListEmptyString}" HorizontalAlignment="Left" FontSize="{StaticResource LargeFontSize}" Foreground="{StaticResource MahApps.Brushes.Gray2}"/>
             <TextBlock Margin="20,10,0,0" HorizontalAlignment="Left" FontSize="{StaticResource LargeFontSize}">
                 <Hyperlink Command="{Binding ManageDatabaseCommand}">

@@ -323,4 +323,8 @@ This leads to zero scores for all people!</value>
   <data name="TodayString" xml:space="preserve">
     <value>Today</value>
   </data>
+  <data name="RewardVisibilityInfoString" xml:space="preserve">
+    <value>Rewards are only shown if the highest available reward isn't obtained yet.
+If the currently highest reward is already obtained, it isn't shown.</value>
+  </data>
 </root>

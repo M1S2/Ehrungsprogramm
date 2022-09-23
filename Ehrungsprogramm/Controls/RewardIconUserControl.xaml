@@ -11,12 +11,23 @@
 
     <UserControl.Resources>
         <BooleanToVisibilityConverter x:Key="BoolVisibilityConverter"/>
+        <converters:BooleanOrVisibilityConverter x:Key="BoolOrVisiblityConverter"/>
+        <converters:BooleanAndConverter x:Key="BoolAndConverter"/>
+        <converters:BooleanNegateConverter x:Key="BoolNegateConverter"/>
 
         <SolidColorBrush x:Key="RewardIconBaseColor" Color="{StaticResource MahApps.Colors.Gray3}"/>
         <SolidColorBrush x:Key="RewardIconObtainedColor" Color="{StaticResource MahApps.Colors.AccentBase}"/>
+        <SolidColorBrush x:Key="RewardIconObtainedButNotAvailableColor" Color="Orange"/>
     </UserControl.Resources>
 
-    <Grid Width="35" Visibility="{Binding Reward.Available, RelativeSource={RelativeSource AncestorType=UserControl}, Converter={StaticResource BoolVisibilityConverter}}">
+    <Grid Width="35" d:Visibility="Visible">
+        <Grid.Visibility>
+            <MultiBinding Converter="{StaticResource BoolOrVisiblityConverter}">
+                <Binding Path="Reward.Available" RelativeSource="{RelativeSource AncestorType=UserControl}"/>
+                <Binding Path="Reward.Obtained" RelativeSource="{RelativeSource AncestorType=UserControl}"/>
+            </MultiBinding>
+        </Grid.Visibility>
+        <!-- Icon -->
         <icons:PackIconUnicons Width="35" Height="35" Kind="Award" VerticalAlignment="Center">
             <icons:PackIconUnicons.Style>
                 <Style TargetType="icons:PackIconUnicons">
@@ -25,10 +36,20 @@
                         <DataTrigger Binding="{Binding Reward.Obtained, RelativeSource={RelativeSource AncestorType=UserControl}}" Value="True">
                             <Setter Property="Foreground" Value="{StaticResource RewardIconObtainedColor}"/>
                         </DataTrigger>
+                        <DataTrigger Value="True">
+                            <DataTrigger.Binding>
+                                <MultiBinding Converter="{StaticResource BoolAndConverter}">
+                                    <Binding Path="Reward.Available" RelativeSource="{RelativeSource AncestorType=UserControl}" Converter="{StaticResource BoolNegateConverter}"/>
+                                    <Binding Path="Reward.Obtained" RelativeSource="{RelativeSource AncestorType=UserControl}"/>
+                                </MultiBinding>
+                            </DataTrigger.Binding>
+                            <Setter Property="Foreground" Value="{StaticResource RewardIconObtainedButNotAvailableColor}"/>
+                        </DataTrigger>
                     </Style.Triggers>
                 </Style>
             </icons:PackIconUnicons.Style>
         </icons:PackIconUnicons>
+        <!-- Text -->
         <TextBlock Text="{Binding IconNumberText, RelativeSource={RelativeSource AncestorType=UserControl}}" FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,-10,0,0" FontWeight="SemiBold">
             <TextBlock.Style>
                 <Style TargetType="TextBlock">
@@ -36,6 +57,15 @@
                     <Style.Triggers>
                         <DataTrigger Binding="{Binding Reward.Obtained, RelativeSource={RelativeSource AncestorType=UserControl}}" Value="True">
                             <Setter Property="Foreground" Value="{StaticResource RewardIconObtainedColor}"/>
+                        </DataTrigger>
+                        <DataTrigger Value="True">
+                            <DataTrigger.Binding>
+                                <MultiBinding Converter="{StaticResource BoolAndConverter}">
+                                    <Binding Path="Reward.Available" RelativeSource="{RelativeSource AncestorType=UserControl}" Converter="{StaticResource BoolNegateConverter}"/>
+                                    <Binding Path="Reward.Obtained" RelativeSource="{RelativeSource AncestorType=UserControl}"/>
+                                </MultiBinding>
+                            </DataTrigger.Binding>
+                            <Setter Property="Foreground" Value="{StaticResource RewardIconObtainedButNotAvailableColor}"/>
                         </DataTrigger>
                     </Style.Triggers>
                 </Style>

@@ -14,10 +14,16 @@
         <BooleanToVisibilityConverter x:Key="BoolVisibilityConverter"/>
         <converters:EnumToLocalizedStringConverter x:Key="EnumLocalizedStringConverter"/>
         <converters:StringNullOrEmptyToVisibilityConverter x:Key="StringEmptyVisibilityConverter"/>
+        <converters:BooleanOrVisibilityConverter x:Key="BoolOrVisiblityConverter"/>
     </UserControl.Resources>
 
-    <StackPanel Orientation="Horizontal" Background="{StaticResource MahApps.Brushes.Window.Background}" 
-                Visibility="{Binding Reward.Available, RelativeSource={RelativeSource AncestorType=UserControl}, Converter={StaticResource BooleanToVisibilityConverter}}">
+    <StackPanel Orientation="Horizontal" Background="{StaticResource MahApps.Brushes.Window.Background}">
+        <StackPanel.Visibility>
+            <MultiBinding Converter="{StaticResource BoolOrVisiblityConverter}">
+                <Binding Path="Reward.Available" RelativeSource="{RelativeSource AncestorType=UserControl}"/>
+                <Binding Path="Reward.Obtained" RelativeSource="{RelativeSource AncestorType=UserControl}"/>
+            </MultiBinding>
+        </StackPanel.Visibility>
         <local:RewardIconUserControl Reward="{Binding Reward, RelativeSource={RelativeSource AncestorType=UserControl}}"/>
         <StackPanel Margin="5,0,0,0">
             <TextBlock Text="{Binding Reward.Type, RelativeSource={RelativeSource AncestorType=UserControl}, Converter={StaticResource EnumLocalizedStringConverter}}" 
