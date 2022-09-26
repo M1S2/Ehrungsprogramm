@@ -19,6 +19,7 @@
     <Page.Resources>
         <converters:StringNullOrEmptyToVisibilityConverter x:Key="StringNullOrEmptyVisibilityConverter"/>
         <converters:EnumToLocalizedStringConverter x:Key="EnumLocalizedStringConverter"/>
+        <converters:BooleanOrVisibilityConverter x:Key="BoolOrVisiblityConverter"/>
     </Page.Resources>
     
     <Grid Background="{StaticResource MahApps.Brushes.Window.Background}">
@@ -128,56 +129,88 @@
                         <TextBlock Grid.Row="2" Grid.Column="2" Text="{Binding Person.EffectiveOtherFunctionsYears}" VerticalAlignment="Center" FontSize="{StaticResource MediumFontSize}"/>
                     </Grid>
 
-                    <ListView Margin="3,20,3,3" DockPanel.Dock="Left" ItemsSource="{Binding Person.Functions}">
-                        <ListView.View>
-                            <GridView>
-                                <GridViewColumn DisplayMemberBinding="{Binding Description}">
-                                    <GridViewColumn.Header>
-                                        <StackPanel Orientation="Horizontal">
-                                            <controls:FontIcon Glyph="&#xE946;" Margin="5"/>
-                                            <TextBlock Text="{x:Static properties:Resources.DescriptionString}" VerticalAlignment="Center"/>
-                                        </StackPanel>
-                                    </GridViewColumn.Header>
-                                </GridViewColumn>
-                                <GridViewColumn DisplayMemberBinding="{Binding Type, Converter={StaticResource EnumLocalizedStringConverter}}">
-                                    <GridViewColumn.Header>
-                                        <StackPanel Orientation="Horizontal">
-                                            <controls:FontIcon Glyph="&#xE821;" Margin="5"/>
-                                            <TextBlock Text="{x:Static properties:Resources.FunctionTypeString}" VerticalAlignment="Center"/>
-                                        </StackPanel>
-                                    </GridViewColumn.Header>
-                                </GridViewColumn>
-                                <GridViewColumn>
-                                    <GridViewColumn.DisplayMemberBinding>
-                                        <MultiBinding StringFormat="{}{0:d} - {1:d}">
-                                            <Binding Path="TimePeriod.Start"/>
-                                            <Binding Path="TimePeriod.End"/>
-                                        </MultiBinding>
-                                    </GridViewColumn.DisplayMemberBinding>
-                                    <GridViewColumn.Header>
-                                        <StackPanel Orientation="Horizontal">
-                                            <controls:FontIcon Glyph="&#xE787;" Margin="5"/>
-                                            <TextBlock Text="{x:Static properties:Resources.TimePeriodString}" VerticalAlignment="Center"/>
-                                        </StackPanel>
-                                    </GridViewColumn.Header>
-                                </GridViewColumn>
-                                <GridViewColumn DisplayMemberBinding="{Binding FunctionYears, StringFormat=d}">
-                                    <GridViewColumn.Header>
-                                        <StackPanel Orientation="Horizontal">
-                                            <controls:FontIcon Glyph="&#xEC92;" Margin="5"/>
-                                            <TextBlock Text="{x:Static properties:Resources.FunctionYearsString}" VerticalAlignment="Center"/>
-                                        </StackPanel>
-                                    </GridViewColumn.Header>
-                                </GridViewColumn>
-                            </GridView>
-                        </ListView.View>
-                    </ListView>
+                    <Grid Margin="3,20,3,3" DockPanel.Dock="Left">
+                        <ListView ItemsSource="{Binding Person.Functions}">
+                            <ListView.View>
+                                <GridView>
+                                    <GridViewColumn DisplayMemberBinding="{Binding Description}">
+                                        <GridViewColumn.Header>
+                                            <StackPanel Orientation="Horizontal">
+                                                <controls:FontIcon Glyph="&#xE946;" Margin="5"/>
+                                                <TextBlock Text="{x:Static properties:Resources.DescriptionString}" VerticalAlignment="Center"/>
+                                            </StackPanel>
+                                        </GridViewColumn.Header>
+                                    </GridViewColumn>
+                                    <GridViewColumn DisplayMemberBinding="{Binding Type, Converter={StaticResource EnumLocalizedStringConverter}}">
+                                        <GridViewColumn.Header>
+                                            <StackPanel Orientation="Horizontal">
+                                                <controls:FontIcon Glyph="&#xE821;" Margin="5"/>
+                                                <TextBlock Text="{x:Static properties:Resources.FunctionTypeString}" VerticalAlignment="Center"/>
+                                            </StackPanel>
+                                        </GridViewColumn.Header>
+                                    </GridViewColumn>
+                                    <GridViewColumn>
+                                        <GridViewColumn.DisplayMemberBinding>
+                                            <MultiBinding StringFormat="{}{0:d} - {1:d}">
+                                                <Binding Path="TimePeriod.Start"/>
+                                                <Binding Path="TimePeriod.End"/>
+                                            </MultiBinding>
+                                        </GridViewColumn.DisplayMemberBinding>
+                                        <GridViewColumn.Header>
+                                            <StackPanel Orientation="Horizontal">
+                                                <controls:FontIcon Glyph="&#xE787;" Margin="5"/>
+                                                <TextBlock Text="{x:Static properties:Resources.TimePeriodString}" VerticalAlignment="Center"/>
+                                            </StackPanel>
+                                        </GridViewColumn.Header>
+                                    </GridViewColumn>
+                                    <GridViewColumn DisplayMemberBinding="{Binding FunctionYears, StringFormat=d}">
+                                        <GridViewColumn.Header>
+                                            <StackPanel Orientation="Horizontal">
+                                                <controls:FontIcon Glyph="&#xEC92;" Margin="5"/>
+                                                <TextBlock Text="{x:Static properties:Resources.FunctionYearsString}" VerticalAlignment="Center"/>
+                                            </StackPanel>
+                                        </GridViewColumn.Header>
+                                    </GridViewColumn>
+                                </GridView>
+                            </ListView.View>
+                        </ListView>
+                        <!-- List empty text -->
+                        <TextBlock Margin="20,50,0,0" Text="{x:Static properties:Resources.ListEmptyString}" HorizontalAlignment="Left" FontSize="{StaticResource MediumFontSize}" Foreground="{StaticResource MahApps.Brushes.Gray2}">
+                            <!-- only show this text block if no elements are in the Person.Functions list -->
+                            <TextBlock.Style>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding Person.Functions.Count}" Value="0">
+                                            <Setter Property="Visibility" Value="Visible"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </TextBlock.Style>
+                        </TextBlock>
+                    </Grid>
                 </DockPanel>
 
                 <controls:FontIcon Grid.Row="9" Grid.Column="0" FontSize="30" Glyph="&#xE734;" VerticalAlignment="Top" Margin="3,15,3,3" ToolTip="{x:Static properties:Resources.RewardsString}"/>
                 <TextBlock Grid.Row="9" Grid.Column="1" Margin="3,20,3,3" VerticalAlignment="Top" Text="{x:Static properties:Resources.RewardsString}" FontSize="{StaticResource MediumFontSize}"/>
                 <StackPanel Orientation="Vertical" Grid.Row="9" Grid.Column="2" Margin="3,20,3,3">
                     <WrapPanel Orientation="Horizontal">
+                        <!-- Show this text block if no BLSV rewards are available -->
+                        <TextBlock Text="{x:Static properties:Resources.NoBLSVRewardsString}" FontSize="{StaticResource MediumFontSize}" Foreground="{StaticResource MahApps.Brushes.Gray2}">
+                            <TextBlock.Visibility>
+                                <MultiBinding Converter="{StaticResource BoolOrVisiblityConverter}" ConverterParameter="true">
+                                    <Binding Path="Person.Rewards.BLSV20.Available"/>
+                                    <Binding Path="Person.Rewards.BLSV25.Available"/>
+                                    <Binding Path="Person.Rewards.BLSV30.Available"/>
+                                    <Binding Path="Person.Rewards.BLSV40.Available"/>
+                                    <Binding Path="Person.Rewards.BLSV45.Available"/>
+                                    <Binding Path="Person.Rewards.BLSV50.Available"/>
+                                    <Binding Path="Person.Rewards.BLSV60.Available"/>
+                                    <Binding Path="Person.Rewards.BLSV70.Available"/>
+                                    <Binding Path="Person.Rewards.BLSV80.Available"/>
+                                </MultiBinding>
+                            </TextBlock.Visibility>
+                        </TextBlock>
                         <localControls:RewardDetailUserControl Margin="5" Reward="{Binding Person.Rewards.BLSV20}"/>
                         <localControls:RewardDetailUserControl Margin="5" Reward="{Binding Person.Rewards.BLSV25}"/>
                         <localControls:RewardDetailUserControl Margin="5" Reward="{Binding Person.Rewards.BLSV30}"/>
@@ -189,6 +222,16 @@
                         <localControls:RewardDetailUserControl Margin="5" Reward="{Binding Person.Rewards.BLSV80}"/>
                     </WrapPanel>
                     <WrapPanel Orientation="Horizontal" Margin="0,20,0,0">
+                        <!-- Show this text block if no TSV rewards are available -->
+                        <TextBlock Text="{x:Static properties:Resources.NoTSVRewardsString}" FontSize="{StaticResource MediumFontSize}" Foreground="{StaticResource MahApps.Brushes.Gray2}">
+                            <TextBlock.Visibility>
+                                <MultiBinding Converter="{StaticResource BoolOrVisiblityConverter}" ConverterParameter="true">
+                                    <Binding Path="Person.Rewards.TSVSilver.Available"/>
+                                    <Binding Path="Person.Rewards.TSVGold.Available"/>
+                                    <Binding Path="Person.Rewards.TSVHonorary.Available"/>
+                                </MultiBinding>
+                            </TextBlock.Visibility>
+                        </TextBlock>
                         <localControls:RewardDetailUserControl Margin="5" Reward="{Binding Person.Rewards.TSVSilver}"/>
                         <localControls:RewardDetailUserControl Margin="5" Reward="{Binding Person.Rewards.TSVGold}"/>
                         <localControls:RewardDetailUserControl Margin="5" Reward="{Binding Person.Rewards.TSVHonorary}"/>

@@ -19,7 +19,7 @@
 
     <StackPanel Orientation="Horizontal" Background="{StaticResource MahApps.Brushes.Window.Background}">
         <StackPanel.Visibility>
-            <MultiBinding Converter="{StaticResource BoolOrVisiblityConverter}">
+            <MultiBinding Converter="{StaticResource BoolOrVisiblityConverter}" ConverterParameter="false">
                 <Binding Path="Reward.Available" RelativeSource="{RelativeSource AncestorType=UserControl}"/>
                 <Binding Path="Reward.Obtained" RelativeSource="{RelativeSource AncestorType=UserControl}"/>
             </MultiBinding>

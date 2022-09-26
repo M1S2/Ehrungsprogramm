@@ -22,7 +22,7 @@
 
     <Grid Width="35" d:Visibility="Visible">
         <Grid.Visibility>
-            <MultiBinding Converter="{StaticResource BoolOrVisiblityConverter}">
+            <MultiBinding Converter="{StaticResource BoolOrVisiblityConverter}" ConverterParameter="false">
                 <Binding Path="Reward.Available" RelativeSource="{RelativeSource AncestorType=UserControl}"/>
                 <Binding Path="Reward.Obtained" RelativeSource="{RelativeSource AncestorType=UserControl}"/>
             </MultiBinding>

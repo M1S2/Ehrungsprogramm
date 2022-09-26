@@ -298,7 +298,7 @@
     <value>S</value>
   </data>
   <data name="ListEmptyNavigateToManageDatabaseString" xml:space="preserve">
-    <value>Hier klicken um zur Seite Datenbank verwalten zu wechseln, um Daten zu importieren.</value>
+    <value>Zur Seite Datenbank verwalten wechseln, um Daten zu importieren.</value>
   </data>
   <data name="ListEmptyString" xml:space="preserve">
     <value>Die Liste ist leer.</value>
@@ -319,5 +319,11 @@ Das führt zu 0 Punkten für alle Personen!</value>
   <data name="RewardVisibilityInfoString" xml:space="preserve">
     <value>Ehrungen werden nur angezeigt, wenn die höchste verfügbare Ehrung noch nicht erhalten ist.
 Wenn die momentan höchste Ehrung bereits erhalten ist, wird sie nicht angezeigt.</value>
+  </data>
+  <data name="NoBLSVRewardsString" xml:space="preserve">
+    <value>Keine BLSV Ehrungen verfügbar</value>
+  </data>
+  <data name="NoTSVRewardsString" xml:space="preserve">
+    <value>Keine TSV Ehrungen verfügbar</value>
   </data>
 </root>

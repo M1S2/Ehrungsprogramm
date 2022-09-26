@@ -324,7 +324,7 @@ namespace Ehrungsprogramm.Properties {
         }
         
         /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die Click here to move to the Manage Database page to import data. ähnelt.
+        ///   Sucht eine lokalisierte Zeichenfolge, die Move to the Manage Database page to import data. ähnelt.
         /// </summary>
         public static string ListEmptyNavigateToManageDatabaseString {
             get {
@@ -374,6 +374,24 @@ namespace Ehrungsprogramm.Properties {
         public static string NameString {
             get {
                 return ResourceManager.GetString("NameString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die No BLSV rewards available ähnelt.
+        /// </summary>
+        public static string NoBLSVRewardsString {
+            get {
+                return ResourceManager.GetString("NoBLSVRewardsString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die No TSV rewards available ähnelt.
+        /// </summary>
+        public static string NoTSVRewardsString {
+            get {
+                return ResourceManager.GetString("NoTSVRewardsString", resourceCulture);
             }
         }
         
