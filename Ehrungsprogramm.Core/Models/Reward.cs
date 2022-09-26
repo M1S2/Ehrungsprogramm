@@ -22,7 +22,7 @@ namespace Ehrungsprogramm.Core.Models
         TSVSILVER = 101,
         TSVGOLD = 102,
         TSVHONORARY = 103,
-        UNKNOWN = 0
+        OTHER = 0
     }
 
 
@@ -142,6 +142,42 @@ namespace Ehrungsprogramm.Core.Models
             Available = false;
             Obtained = false;
             ObtainedDate = DateTime.MinValue;
+        }
+
+        // +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+        /// <summary>
+        /// Compare if two Rewards are equal
+        /// </summary>
+        /// <param name="obj">Other Reward to compare against this instance.</param>
+        /// <returns>true if both instances are equal; false if not equal or obj isn't of type <see cref="Reward"/></returns>
+        public override bool Equals(object obj)
+        {
+            Reward other = obj as Reward;
+            if (other == null) return false;
+
+            return Type.Equals(other.Type) &&
+                Description.Equals(other.Description) &&
+                ObtainedDate.Equals(other.ObtainedDate);
+        }
+
+        /// <summary>
+        /// Indicates wheather the current object is equal to another object of the same type.
+        /// </summary>
+        /// <param name="other">Other object to compare.</param>
+        /// <returns>true if the current object is equal to the other parameter; otherwise false.</returns>
+        public bool Equals(Person other)
+        {
+            return Equals((object)other);
+        }
+
+        /// <summary>
+        /// Serves as the default hash function.
+        /// </summary>
+        /// <returns>A hash code for the current object.</returns>
+        public override int GetHashCode()
+        {
+            return Id;
         }
 
         /// <summary>

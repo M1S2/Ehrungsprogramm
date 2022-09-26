@@ -55,19 +55,25 @@ namespace Ehrungsprogramm.Core.Models
             {
                 Rewards.Add(new Reward() { Type = rewardType });
             }
-            Rewards.RemoveAll(r => r.Type == RewardTypes.UNKNOWN);      // Remove the UNKNOWN reward again
+            Rewards.RemoveAll(r => r.Type == RewardTypes.OTHER);      // Remove the OTHER reward again
         }
 
         /// <summary>
-        /// Updates a reward in the dictionary of rewards
+        /// Updates a reward in the list of rewards.
+        /// TSV or BLSV rewards are only hold once per type. The <see cref="RewardTypes.OTHER"/> reward type can be held multiple times.
         /// </summary>
         /// <param name="reward">Reward to update</param>
-        /// <returns>false for UNKNOWN reward type; otherwise true</returns>
+        /// <returns>false if reward wasn't added; otherwise true</returns>
         public bool AddReward(Reward reward)
         {
             if (reward.IsBLSVType || reward.IsTSVType)
             {
                 this[reward.Type] = reward;
+                return true;
+            }
+            else if(!Rewards.Contains(reward))
+            {
+                Rewards.Add(reward);
                 return true;
             }
             return false;
@@ -86,6 +92,8 @@ namespace Ehrungsprogramm.Core.Models
         public Reward TSVSilver => this[RewardTypes.TSVSILVER];
         public Reward TSVGold => this[RewardTypes.TSVGOLD];
         public Reward TSVHonorary => this[RewardTypes.TSVHONORARY];
+
+        public List<Reward> OtherRewards => Rewards.Where(r => r.Type == RewardTypes.OTHER).ToList();
 
         /// <summary>
         /// Contains the highest BLSV reward that is available but not obtained. If not matching reward is found, null is returned.

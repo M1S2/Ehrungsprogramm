@@ -165,4 +165,7 @@
   <data name="FunctionType_UNKNOWN" xml:space="preserve">
     <value>Unknown</value>
   </data>
+  <data name="RewardTypes_OTHER" xml:space="preserve">
+    <value>Other Reward</value>
+  </data>
 </root>

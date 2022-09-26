@@ -64,7 +64,7 @@ namespace Ehrungsprogramm.Controls
                         default: return "?";
                     }
                 }
-                return "?";
+                return "+";
             }
         }
 

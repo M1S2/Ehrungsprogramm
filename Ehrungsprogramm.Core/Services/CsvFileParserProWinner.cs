@@ -201,12 +201,12 @@ namespace Ehrungsprogramm.Core.Services
                             case REWARD_NUMBER_TSV_SILVER: reward.Type = RewardTypes.TSVSILVER; break;
                             case REWARD_NUMBER_TSV_GOLD: reward.Type = RewardTypes.TSVGOLD; break;
                             case REWARD_NUMBER_TSV_HONORARY: reward.Type = RewardTypes.TSVHONORARY; break;
-                            default: reward.Type = RewardTypes.UNKNOWN; break;
+                            default: reward.Type = RewardTypes.OTHER; break;
                         }
 
                         if (!person.Rewards.AddReward(reward))
                         {
-                            // Unknown reward type
+                            // Reward not added (same reward was already in collection)
                         }
                     }
                     else { person_errors.AppendLine(String.Format(Properties.Resources.ErrorCsvFileParserRewardNumber, rewardNumber, rewardDescription)); }

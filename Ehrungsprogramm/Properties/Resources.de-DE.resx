@@ -226,13 +226,13 @@
     <value>Jahre in Funktion</value>
   </data>
   <data name="EffectiveBoardMemberYears" xml:space="preserve">
-    <value>Eff. Jahre Vorstand</value>
+    <value>Eff. Jahre Vorstand (3 Punkte)</value>
   </data>
   <data name="EffectiveHeadOfDepartementYears" xml:space="preserve">
-    <value>Eff. Jahre Abteilungsleitung</value>
+    <value>Eff. Jahre Abteilungsleitung (2 Punkte)</value>
   </data>
   <data name="EffectiveOtherFunctionsYears" xml:space="preserve">
-    <value>Eff. Jahre andere Funktion</value>
+    <value>Eff. Jahre andere Funktion (1 Punkte)</value>
   </data>
   <data name="RewardsString" xml:space="preserve">
     <value>Ehrungen</value>

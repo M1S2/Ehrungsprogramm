@@ -22,7 +22,6 @@ namespace Ehrungsprogramm.Converters
         public object Convert(object[] values, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
             bool invert = bool.Parse(parameter as string);
-            //if (parameter != null && parameter as bool? != null) { invert = (bool)parameter; }
 
             Visibility visibility = Visibility.Visible;
             if (!invert)

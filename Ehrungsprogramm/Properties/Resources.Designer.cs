@@ -180,7 +180,7 @@ namespace Ehrungsprogramm.Properties {
         }
         
         /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die Eff. Board Member Years ähnelt.
+        ///   Sucht eine lokalisierte Zeichenfolge, die Eff. Board Member Years (3 points) ähnelt.
         /// </summary>
         public static string EffectiveBoardMemberYears {
             get {
@@ -189,7 +189,7 @@ namespace Ehrungsprogramm.Properties {
         }
         
         /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die Eff. Head of Departement Years ähnelt.
+        ///   Sucht eine lokalisierte Zeichenfolge, die Eff. Head of Departement Years (2 points) ähnelt.
         /// </summary>
         public static string EffectiveHeadOfDepartementYears {
             get {
@@ -198,7 +198,7 @@ namespace Ehrungsprogramm.Properties {
         }
         
         /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die Eff. Other Years ähnelt.
+        ///   Sucht eine lokalisierte Zeichenfolge, die Eff. Other Years (1 point) ähnelt.
         /// </summary>
         public static string EffectiveOtherFunctionsYears {
             get {

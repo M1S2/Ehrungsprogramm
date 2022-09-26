@@ -98,7 +98,7 @@
                 <TextBlock Grid.Row="8" Grid.Column="1" Margin="3,20,3,3" VerticalAlignment="Top" Text="{x:Static properties:Resources.FunctionsString}" FontSize="{StaticResource MediumFontSize}"/>
 
                 <DockPanel Grid.Row="8" Grid.Column="2" LastChildFill="True">
-                    <Grid Margin="30,20,0,0" DockPanel.Dock="Right">
+                    <Grid Margin="30,20,10,0" DockPanel.Dock="Right">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="40"/>
                             <RowDefinition Height="40"/>
@@ -106,13 +106,13 @@
                         </Grid.RowDefinitions>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="80"/>
-                            <ColumnDefinition Width="210"/>
-                            <ColumnDefinition Width="80"/>
+                            <ColumnDefinition Width="250"/>
+                            <ColumnDefinition Width="50"/>
                         </Grid.ColumnDefinitions>
 
                         <iconPacks:PackIconMaterial Grid.Row="0" Grid.Column="0" Kind="CrownOutline" Width="30" Height="30" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                         <TextBlock Grid.Row="0" Grid.Column="1" Margin="3" VerticalAlignment="Center" Text="{x:Static properties:Resources.EffectiveBoardMemberYears}" FontSize="{StaticResource MediumFontSize}"/>
-                        <TextBlock Grid.Row="0" Grid.Column="2" Text="{Binding Person.EffectiveBoardMemberYears}" VerticalAlignment="Center" FontSize="{StaticResource MediumFontSize}"/>
+                        <TextBlock Grid.Row="0" Grid.Column="2" Text="{Binding Person.EffectiveBoardMemberYears}" VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="{StaticResource MediumFontSize}"/>
 
                         <iconPacks:PackIconUnicons Grid.Row="1" Grid.Column="0" Kind="HeadSide" Width="30" Height="30" VerticalAlignment="Center" HorizontalAlignment="Center" RenderTransformOrigin="0.5,0.5">
                             <iconPacks:PackIconUnicons.RenderTransform>
@@ -122,11 +122,11 @@
                             </iconPacks:PackIconUnicons.RenderTransform>
                         </iconPacks:PackIconUnicons>
                         <TextBlock Grid.Row="1" Grid.Column="1" Margin="3" VerticalAlignment="Center" Text="{x:Static properties:Resources.EffectiveHeadOfDepartementYears}" FontSize="{StaticResource MediumFontSize}"/>
-                        <TextBlock Grid.Row="1" Grid.Column="2" Text="{Binding Person.EffectiveHeadOfDepartementYears}" VerticalAlignment="Center" FontSize="{StaticResource MediumFontSize}"/>
+                        <TextBlock Grid.Row="1" Grid.Column="2" Text="{Binding Person.EffectiveHeadOfDepartementYears}" VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="{StaticResource MediumFontSize}"/>
 
                         <iconPacks:PackIconUnicons Grid.Row="2" Grid.Column="0" Kind="Basketball" Width="30" Height="30" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                         <TextBlock Grid.Row="2" Grid.Column="1" Margin="3" VerticalAlignment="Center" Text="{x:Static properties:Resources.EffectiveOtherFunctionsYears}" FontSize="{StaticResource MediumFontSize}"/>
-                        <TextBlock Grid.Row="2" Grid.Column="2" Text="{Binding Person.EffectiveOtherFunctionsYears}" VerticalAlignment="Center" FontSize="{StaticResource MediumFontSize}"/>
+                        <TextBlock Grid.Row="2" Grid.Column="2" Text="{Binding Person.EffectiveOtherFunctionsYears}" VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="{StaticResource MediumFontSize}"/>
                     </Grid>
 
                     <Grid Margin="3,20,3,3" DockPanel.Dock="Left">
@@ -200,14 +200,23 @@
                             <TextBlock.Visibility>
                                 <MultiBinding Converter="{StaticResource BoolOrVisiblityConverter}" ConverterParameter="true">
                                     <Binding Path="Person.Rewards.BLSV20.Available"/>
+                                    <Binding Path="Person.Rewards.BLSV20.Obtained"/>
                                     <Binding Path="Person.Rewards.BLSV25.Available"/>
+                                    <Binding Path="Person.Rewards.BLSV25.Obtained"/>
                                     <Binding Path="Person.Rewards.BLSV30.Available"/>
+                                    <Binding Path="Person.Rewards.BLSV30.Obtained"/>
                                     <Binding Path="Person.Rewards.BLSV40.Available"/>
+                                    <Binding Path="Person.Rewards.BLSV40.Obtained"/>
                                     <Binding Path="Person.Rewards.BLSV45.Available"/>
+                                    <Binding Path="Person.Rewards.BLSV45.Obtained"/>
                                     <Binding Path="Person.Rewards.BLSV50.Available"/>
+                                    <Binding Path="Person.Rewards.BLSV50.Obtained"/>
                                     <Binding Path="Person.Rewards.BLSV60.Available"/>
+                                    <Binding Path="Person.Rewards.BLSV60.Obtained"/>
                                     <Binding Path="Person.Rewards.BLSV70.Available"/>
+                                    <Binding Path="Person.Rewards.BLSV70.Obtained"/>
                                     <Binding Path="Person.Rewards.BLSV80.Available"/>
+                                    <Binding Path="Person.Rewards.BLSV80.Obtained"/>
                                 </MultiBinding>
                             </TextBlock.Visibility>
                         </TextBlock>
@@ -227,8 +236,11 @@
                             <TextBlock.Visibility>
                                 <MultiBinding Converter="{StaticResource BoolOrVisiblityConverter}" ConverterParameter="true">
                                     <Binding Path="Person.Rewards.TSVSilver.Available"/>
+                                    <Binding Path="Person.Rewards.TSVSilver.Obtained"/>
                                     <Binding Path="Person.Rewards.TSVGold.Available"/>
+                                    <Binding Path="Person.Rewards.TSVGold.Obtained"/>
                                     <Binding Path="Person.Rewards.TSVHonorary.Available"/>
+                                    <Binding Path="Person.Rewards.TSVHonorary.Obtained"/>
                                 </MultiBinding>
                             </TextBlock.Visibility>
                         </TextBlock>
@@ -236,6 +248,19 @@
                         <localControls:RewardDetailUserControl Margin="5" Reward="{Binding Person.Rewards.TSVGold}"/>
                         <localControls:RewardDetailUserControl Margin="5" Reward="{Binding Person.Rewards.TSVHonorary}"/>
                     </WrapPanel>
+
+                    <ItemsControl Margin="0,20,0,0" ItemsSource="{Binding Person.Rewards.OtherRewards}">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <WrapPanel Orientation="Horizontal"/>
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <localControls:RewardDetailUserControl Margin="5" Reward="{Binding .}"/>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
                 </StackPanel>
 
             </Grid>
