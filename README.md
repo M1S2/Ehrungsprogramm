@@ -1,7 +1,9 @@
 # ![AppIcon](https://github.com/M1S2/Ehrungsprogramm/raw/master/Icons/AppIcon.png) Ehrungsprogramm
 
 [![GitHub Release Version](https://img.shields.io/github/v/release/M1S2/Ehrungsprogramm)](https://github.com/M1S2/Ehrungsprogramm/releases/latest)
-[![GitHub License](https://img.shields.io/github/license/M1S2/Ehrungsprogramm)](LICENSE.md)
+[![GitHub License](https://img.shields.io/github/license/M1S2/Ehrungsprogramm)](https://github.com/M1S2/Ehrungsprogramm/blob/master/LICENSE.md)
+
+
 ![Status](https://img.shields.io/badge/status-Development-blue)
 
 Programm zum Verwalten von Ehrungen des TSV Illertissen.
