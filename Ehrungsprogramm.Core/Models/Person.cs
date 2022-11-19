@@ -90,6 +90,16 @@ namespace Ehrungsprogramm.Core.Models
             set => SetProperty(ref _scoreTSV, value);
         }
 
+        private int _scoreTSVFunctions;
+        /// <summary>
+        /// Number of points for the TSV functions.
+        /// </summary>
+        public int ScoreTSVFunctions
+        {
+            get => _scoreTSVFunctions;
+            set => SetProperty(ref _scoreTSVFunctions, value);
+        }
+
         private List<Function> _functions = new List<Function>();
         /// <summary>
         /// List containing all functions that a person has / had.

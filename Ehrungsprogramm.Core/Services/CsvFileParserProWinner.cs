@@ -182,7 +182,10 @@ namespace Ehrungsprogramm.Core.Services
                     {
                         reward.ObtainedDate = parsedRewardObtainedDate;
                     }
-                    else { person_errors.AppendLine(String.Format(Properties.Resources.ErrorCsvFileParserRewardObtainedDate, rewardDate, rewardDescription)); }
+                    else if(!person.Rewards.Rewards.Contains(reward))   // Only report the obtained date error once for each reward
+                    { 
+                        person_errors.AppendLine(String.Format(Properties.Resources.ErrorCsvFileParserRewardObtainedDate, rewardDate, rewardDescription)); 
+                    }
 
                     int parsedRewardNumber;
                     if (int.TryParse(rewardNumber, out parsedRewardNumber))

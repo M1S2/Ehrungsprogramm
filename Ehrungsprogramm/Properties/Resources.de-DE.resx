@@ -226,13 +226,13 @@
     <value>Jahre in Funktion</value>
   </data>
   <data name="EffectiveBoardMemberYears" xml:space="preserve">
-    <value>Eff. Jahre Vorstand (3 Punkte)</value>
+    <value>Eff. Jahre Vorstand</value>
   </data>
   <data name="EffectiveHeadOfDepartementYears" xml:space="preserve">
-    <value>Eff. Jahre Abteilungsleitung (2 Punkte)</value>
+    <value>Eff. Jahre Abteilungsleitung</value>
   </data>
   <data name="EffectiveOtherFunctionsYears" xml:space="preserve">
-    <value>Eff. Jahre andere Funktion (1 Punkte)</value>
+    <value>Eff. Jahre andere Funktion</value>
   </data>
   <data name="RewardsString" xml:space="preserve">
     <value>Ehrungen</value>
@@ -325,5 +325,11 @@ Wenn die momentan höchste Ehrung bereits erhalten ist, wird sie nicht angezeigt
   </data>
   <data name="NoTSVRewardsString" xml:space="preserve">
     <value>Keine TSV Ehrungen verfügbar</value>
+  </data>
+  <data name="PointsString" xml:space="preserve">
+    <value>Punkte</value>
+  </data>
+  <data name="PointString" xml:space="preserve">
+    <value>Punkt</value>
   </data>
 </root>

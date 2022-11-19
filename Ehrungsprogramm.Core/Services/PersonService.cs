@@ -17,14 +17,14 @@ namespace Ehrungsprogramm.Core.Services
     /// </summary>
     public class PersonService : IPersonService
     {
-        private const int REWARD_TSVSILVER_POINTS = 45;                             // Score needed to obtain a TSV Silver reward
-        private const int REWARD_TSVGOLD_POINTS = 70;                               // Score needed to obtain a TSV Gold reward
-        private const int REWARD_TSVHONORARY_POINTS = 85;                           // Score needed to obtain a TSV Honorary reward
+        public const int REWARD_TSVSILVER_POINTS = 45;                              // Score needed to obtain a TSV Silver reward
+        public const int REWARD_TSVGOLD_POINTS = 70;                                // Score needed to obtain a TSV Gold reward
+        public const int REWARD_TSVHONORARY_POINTS = 85;                            // Score needed to obtain a TSV Honorary reward
 
-        private const int POINTS_PER_MEMBERSHIP_YEAR = 1;                           // One point per membership year
-        private const int POINTS_PER_BOARD_MEMBER_YEAR = 3;                         // Three points per year as board member
-        private const int POINTS_PER_HEAD_OF_DEPARTEMENT_YEAR = 2;                  // Two points per year as head of departement
-        private const int POINTS_PER_OTHER_FUNCTIONS_YEAR = 1;                      // One point per year in any other function     
+        public const int POINTS_PER_MEMBERSHIP_YEAR = 1;                            // One point per membership year
+        public const int POINTS_PER_BOARD_MEMBER_YEAR = 3;                          // Three points per year as board member
+        public const int POINTS_PER_HEAD_OF_DEPARTEMENT_YEAR = 2;                   // Two points per year as head of departement
+        public const int POINTS_PER_OTHER_FUNCTIONS_YEAR = 1;                       // One point per year in any other function     
 
         private const string DATABASE_FILENAME = "Ehrungsprogramm_Persons.db";      // Filename of the database (located beside the application .exe)
 
@@ -284,10 +284,12 @@ namespace Ehrungsprogramm.Core.Services
             person.EffectiveHeadOfDepartementYears = (int)Math.Floor((headOfDepartementPeriods?.TotalDuration.TotalDays ?? 0) / 365);
             person.EffectiveOtherFunctionsYears = (int)Math.Floor((otherPeriods?.TotalDuration.TotalDays ?? 0) / 365);
 
-            person.ScoreTSV = person.MembershipYears * POINTS_PER_MEMBERSHIP_YEAR +
-                                person.EffectiveBoardMemberYears * POINTS_PER_BOARD_MEMBER_YEAR+
+            person.ScoreTSVFunctions = person.EffectiveBoardMemberYears * POINTS_PER_BOARD_MEMBER_YEAR +
                                 person.EffectiveHeadOfDepartementYears * POINTS_PER_HEAD_OF_DEPARTEMENT_YEAR +
                                 person.EffectiveOtherFunctionsYears * POINTS_PER_OTHER_FUNCTIONS_YEAR;
+
+            person.ScoreTSV = person.MembershipYears * POINTS_PER_MEMBERSHIP_YEAR +
+                                person.ScoreTSVFunctions;
 
             // ***** BLSV score *****
             person.ScoreBLSV = person.MembershipYears * 1;  // One point per year of membership

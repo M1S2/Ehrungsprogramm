@@ -180,7 +180,7 @@ namespace Ehrungsprogramm.Properties {
         }
         
         /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die Eff. Board Member Years (3 points) ähnelt.
+        ///   Sucht eine lokalisierte Zeichenfolge, die Eff. Board Member Years ähnelt.
         /// </summary>
         public static string EffectiveBoardMemberYears {
             get {
@@ -189,7 +189,7 @@ namespace Ehrungsprogramm.Properties {
         }
         
         /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die Eff. Head of Departement Years (2 points) ähnelt.
+        ///   Sucht eine lokalisierte Zeichenfolge, die Eff. Head of Departement Years ähnelt.
         /// </summary>
         public static string EffectiveHeadOfDepartementYears {
             get {
@@ -198,7 +198,7 @@ namespace Ehrungsprogramm.Properties {
         }
         
         /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die Eff. Other Years (1 point) ähnelt.
+        ///   Sucht eine lokalisierte Zeichenfolge, die Eff. Other Years ähnelt.
         /// </summary>
         public static string EffectiveOtherFunctionsYears {
             get {
@@ -437,6 +437,24 @@ namespace Ehrungsprogramm.Properties {
         public static string PersonsPageTitle {
             get {
                 return ResourceManager.GetString("PersonsPageTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Points ähnelt.
+        /// </summary>
+        public static string PointsString {
+            get {
+                return ResourceManager.GetString("PointsString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Point ähnelt.
+        /// </summary>
+        public static string PointString {
+            get {
+                return ResourceManager.GetString("PointString", resourceCulture);
             }
         }
         

@@ -226,13 +226,13 @@
     <value>Time Period</value>
   </data>
   <data name="EffectiveBoardMemberYears" xml:space="preserve">
-    <value>Eff. Board Member Years (3 points)</value>
+    <value>Eff. Board Member Years</value>
   </data>
   <data name="EffectiveHeadOfDepartementYears" xml:space="preserve">
-    <value>Eff. Head of Departement Years (2 points)</value>
+    <value>Eff. Head of Departement Years</value>
   </data>
   <data name="EffectiveOtherFunctionsYears" xml:space="preserve">
-    <value>Eff. Other Years (1 point)</value>
+    <value>Eff. Other Years</value>
   </data>
   <data name="RewardsString" xml:space="preserve">
     <value>Rewards</value>
@@ -332,5 +332,11 @@ If the currently highest reward is already obtained, it isn't shown.</value>
   </data>
   <data name="NoTSVRewardsString" xml:space="preserve">
     <value>No TSV rewards available</value>
+  </data>
+  <data name="PointsString" xml:space="preserve">
+    <value>Points</value>
+  </data>
+  <data name="PointString" xml:space="preserve">
+    <value>Point</value>
   </data>
 </root>
