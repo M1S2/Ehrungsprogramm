@@ -70,7 +70,7 @@ namespace Ehrungsprogramm.ViewModels
             try
             {
                 IsPrinting = true;
-                System.Windows.Forms.SaveFileDialog saveFileDialog = new System.Windows.Forms.SaveFileDialog() { FileName = "RewardOverview.pdf", Filter = "PDF File|*.pdf" };
+                System.Windows.Forms.SaveFileDialog saveFileDialog = new System.Windows.Forms.SaveFileDialog() { FileName = Properties.Resources.DefaultFileNameRewardOverview, Filter = Properties.Resources.FileFilterPDF };
                 if (saveFileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                 {
                     await _printService?.PrintRewards(People, saveFileDialog.FileName);

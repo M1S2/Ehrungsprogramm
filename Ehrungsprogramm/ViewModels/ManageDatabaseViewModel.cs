@@ -124,10 +124,7 @@ namespace Ehrungsprogramm.ViewModels
         /// <param name="filePath">If the path isn't empty, the given file is loaded; otherwise show a dialog to select a file</param>
         public async Task ImportFromFile(string filePath = "")
         {
-            OpenFileDialog openFileDialog = new OpenFileDialog()
-            {
-                Filter = "CSV File|*.csv|TXT File|*.txt",
-            };
+            OpenFileDialog openFileDialog = new OpenFileDialog() { Filter = Properties.Resources.FileFilterInputFile };
 
             if (!string.IsNullOrEmpty(filePath) || openFileDialog.ShowDialog().Value)    // if filePath isn't empty, the dialog isn't opened
             {

@@ -171,6 +171,33 @@ namespace Ehrungsprogramm.Properties {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die PersonDetail.pdf ähnelt.
+        /// </summary>
+        public static string DefaultFileNamePersonDetail {
+            get {
+                return ResourceManager.GetString("DefaultFileNamePersonDetail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die PersonOverview.pdf ähnelt.
+        /// </summary>
+        public static string DefaultFileNamePersonOverview {
+            get {
+                return ResourceManager.GetString("DefaultFileNamePersonOverview", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die RewardOverview.pdf ähnelt.
+        /// </summary>
+        public static string DefaultFileNameRewardOverview {
+            get {
+                return ResourceManager.GetString("DefaultFileNameRewardOverview", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Description ähnelt.
         /// </summary>
         public static string DescriptionString {
@@ -230,6 +257,24 @@ namespace Ehrungsprogramm.Properties {
         public static string ErrorString {
             get {
                 return ResourceManager.GetString("ErrorString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die CSV Files|*.csv|Textfiles|*.txt|All Files|*.* ähnelt.
+        /// </summary>
+        public static string FileFilterInputFile {
+            get {
+                return ResourceManager.GetString("FileFilterInputFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die PDF Files|*.pdf|All Files|*.* ähnelt.
+        /// </summary>
+        public static string FileFilterPDF {
+            get {
+                return ResourceManager.GetString("FileFilterPDF", resourceCulture);
             }
         }
         

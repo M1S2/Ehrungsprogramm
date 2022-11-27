@@ -113,7 +113,7 @@ namespace Ehrungsprogramm.ViewModels
             try
             {
                 IsPrinting = true;
-                System.Windows.Forms.SaveFileDialog saveFileDialog = new System.Windows.Forms.SaveFileDialog() { FileName = "PersonOverview.pdf", Filter = "PDF File|*.pdf" };
+                System.Windows.Forms.SaveFileDialog saveFileDialog = new System.Windows.Forms.SaveFileDialog() { FileName = Properties.Resources.DefaultFileNamePersonOverview, Filter = Properties.Resources.FileFilterPDF };
                 if (saveFileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                 {
                     await _printService?.PrintPersonList(People, saveFileDialog.FileName);

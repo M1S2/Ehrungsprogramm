@@ -339,4 +339,19 @@ If the currently highest reward is already obtained, it isn't shown.</value>
   <data name="PointString" xml:space="preserve">
     <value>Point</value>
   </data>
+  <data name="DefaultFileNamePersonDetail" xml:space="preserve">
+    <value>PersonDetail.pdf</value>
+  </data>
+  <data name="DefaultFileNamePersonOverview" xml:space="preserve">
+    <value>PersonOverview.pdf</value>
+  </data>
+  <data name="DefaultFileNameRewardOverview" xml:space="preserve">
+    <value>RewardOverview.pdf</value>
+  </data>
+  <data name="FileFilterInputFile" xml:space="preserve">
+    <value>CSV Files|*.csv|Textfiles|*.txt|All Files|*.*</value>
+  </data>
+  <data name="FileFilterPDF" xml:space="preserve">
+    <value>PDF Files|*.pdf|All Files|*.*</value>
+  </data>
 </root>

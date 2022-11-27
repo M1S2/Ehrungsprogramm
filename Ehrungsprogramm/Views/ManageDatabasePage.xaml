@@ -38,12 +38,6 @@
                                 <TextBlock Text="{x:Static properties:Resources.ReloadDataFileString}" HorizontalAlignment="Center" FontSize="{StaticResource MediumFontSize}"/>
                             </StackPanel>
                         </Button>
-                        <Button Width="150" Height="150" Margin="10" Style="{StaticResource MahApps.Styles.Button.Square.Accent}" Background="Red" Foreground="White" Command="{Binding ClearDatabaseCommand}">
-                            <StackPanel>
-                                <controls:FontIcon FontSize="50" Glyph="&#xE74D;" Margin="10"/>
-                                <TextBlock Text="{x:Static properties:Resources.ClearDatabaseString}" HorizontalAlignment="Center" FontSize="{StaticResource MediumFontSize}"/>
-                            </StackPanel>
-                        </Button>
                     </WrapPanel>
 
                     <WrapPanel>
@@ -75,6 +69,13 @@
                         </Border>
                     </WrapPanel>
                 </StackPanel>
+
+                <Button DockPanel.Dock="Right" VerticalAlignment="Bottom" Width="150" Height="150" Margin="{StaticResource MediumBottomMargin}" Style="{StaticResource MahApps.Styles.Button.Square.Accent}" Background="Red" Foreground="White" Command="{Binding ClearDatabaseCommand}">
+                    <StackPanel>
+                        <controls:FontIcon FontSize="50" Glyph="&#xE74D;" Margin="10"/>
+                        <TextBlock Text="{x:Static properties:Resources.ClearDatabaseString}" HorizontalAlignment="Center" FontSize="{StaticResource MediumFontSize}"/>
+                    </StackPanel>
+                </Button>
 
                 <Border DockPanel.Dock="Bottom" CornerRadius="10" BorderThickness="2" BorderBrush="{StaticResource MahApps.Brushes.AccentBase}" Margin="{StaticResource MediumLeftTopRightBottomMargin}">
                     <Grid Margin="{StaticResource MediumLeftTopRightBottomMargin}">

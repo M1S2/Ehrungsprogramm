@@ -332,4 +332,19 @@ Wenn die momentan höchste Ehrung bereits erhalten ist, wird sie nicht angezeigt
   <data name="PointString" xml:space="preserve">
     <value>Punkt</value>
   </data>
+  <data name="DefaultFileNamePersonDetail" xml:space="preserve">
+    <value>PersonDetails.pdf</value>
+  </data>
+  <data name="DefaultFileNamePersonOverview" xml:space="preserve">
+    <value>PersonenÜbersicht.pdf</value>
+  </data>
+  <data name="DefaultFileNameRewardOverview" xml:space="preserve">
+    <value>EhrungenÜbersicht.pdf</value>
+  </data>
+  <data name="FileFilterInputFile" xml:space="preserve">
+    <value>CSV Dateien|*.csv|Text Dateien|*.txt|Alle Dateien|*.*</value>
+  </data>
+  <data name="FileFilterPDF" xml:space="preserve">
+    <value>PDF Dateien|*.pdf|Alle Dateien|*.*</value>
+  </data>
 </root>
