@@ -216,6 +216,9 @@
   <data name="PrintPersonDetailsString" xml:space="preserve">
     <value>Person Details</value>
   </data>
+  <data name="PrintPersonListFilteredWarningString" xml:space="preserve">
+    <value>Achtung: die Liste ist gefiltert (Filter: "{0}")! Insgesamt sind {1} Personen verfügbar!</value>
+  </data>
   <data name="PrintRewardsString" xml:space="preserve">
     <value>Ehrungen</value>
   </data>

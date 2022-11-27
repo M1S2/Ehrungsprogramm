@@ -45,6 +45,7 @@ namespace Ehrungsprogramm.Core.Services
         /// </summary>
         /// <param name="person"><see cref="Person"/> that should be printed</param>
         /// <param name="pdfFilePath">Filepath of the output PDF file</param>
+        /// <returns>true if printing succeeded; false if printing failed</returns>
         public async Task<bool> PrintPerson(Person person, string pdfFilePath)
         {
             bool printingResult = false;
@@ -133,10 +134,12 @@ namespace Ehrungsprogramm.Core.Services
         /// <summary>
         /// Print an overview list of all people.
         /// </summary>
-        /// <param name="people">List with all available <see cref="Person"/> objects</param>
+        /// <param name="people">List with all available <see cref="Person"/> objects. This list may be filtered.</param>
         /// <param name="pdfFilePath">Filepath of the output PDF file</param>
+        /// <param name="fullPeopleCount">Number of all (unfilteted) people.</param>
+        /// <param name="filterText">Text used to filter the people list (empty string if not filtered)</param>
         /// <returns>true if printing succeeded; false if printing failed</returns>
-        public async Task<bool> PrintPersonList(List<Person> people, string pdfFilePath)
+        public async Task<bool> PrintPersonList(List<Person> people, string pdfFilePath, int fullPeopleCount, string filterText = "")
         {
             bool printingResult = false;
             await Task.Run(() =>
@@ -157,6 +160,8 @@ namespace Ehrungsprogramm.Core.Services
                         document.Add(new Paragraph(Properties.Resources.PrintPeopleOverviewString).SetTextAlignment(TextAlignment.CENTER).SetFontSize(20));
                         document.Add(new Paragraph(Properties.Resources.PrintCountString + ": " + people.Count.ToString() + " " + Properties.Resources.PrintPeopleString));
 
+                        if (people.Count != fullPeopleCount) { document.Add(new Paragraph(string.Format(Properties.Resources.PrintPersonListFilteredWarningString, filterText, fullPeopleCount)).SetFontColor(ColorConstants.RED)); }
+                        
                         Table table = new Table(7, false);      // 7 columns for: ID, Name, First Name, Entry Date, BLSV Score, TSV Score, ParsingErrors
                         table.AddHeaderCell(new Cell(1, 1).SetBackgroundColor(ColorConstants.LIGHT_GRAY).SetTextAlignment(TextAlignment.CENTER).Add(new Paragraph(Properties.Resources.PrintIDString)));
                         table.AddHeaderCell(new Cell(1, 1).SetBackgroundColor(ColorConstants.LIGHT_GRAY).SetTextAlignment(TextAlignment.CENTER).Add(new Paragraph(Properties.Resources.PrintNameString)));
@@ -205,6 +210,7 @@ namespace Ehrungsprogramm.Core.Services
         /// </summary>
         /// <param name="people">List with all available <see cref="Person"/> objects used to generate the rewards overview</param>
         /// <param name="pdfFilePath">Filepath of the output PDF file</param>
+        /// <returns>true if printing succeeded; false if printing failed</returns>
         public async Task<bool> PrintRewards(List<Person> people, string pdfFilePath)
         {
             bool printingResult = false;

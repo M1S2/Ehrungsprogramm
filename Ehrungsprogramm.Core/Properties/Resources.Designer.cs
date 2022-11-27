@@ -358,6 +358,15 @@ namespace Ehrungsprogramm.Core.Properties {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Caution: The list is filtered (filter: &quot;{0}&quot;)! In total {1} people are available! ähnelt.
+        /// </summary>
+        public static string PrintPersonListFilteredWarningString {
+            get {
+                return ResourceManager.GetString("PrintPersonListFilteredWarningString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Rewards ähnelt.
         /// </summary>
         public static string PrintRewardsString {
