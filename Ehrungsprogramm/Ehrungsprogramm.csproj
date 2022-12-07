@@ -22,6 +22,11 @@
 	  <None Remove="Resources\TSVLogo.png" />
 	</ItemGroup>
 	<ItemGroup>
+	  <Page Remove="Helpers\GridViewExtensions.xaml" />
+	  <Page Remove="Helpers\GridViewExtensionsDetail.xaml" />
+	  <Page Remove="Helpers\GridViewExtensionsFlyout.xaml" />
+	</ItemGroup>
+	<ItemGroup>
 	  <Content Include="appicon.ico" />
 	</ItemGroup>
 	<ItemGroup>

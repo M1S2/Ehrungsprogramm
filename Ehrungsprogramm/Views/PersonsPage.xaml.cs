@@ -1,5 +1,6 @@
-﻿using System.Windows.Controls;
-
+﻿using System.Windows;
+using System.Windows.Controls;
+using Ehrungsprogramm.Helpers;
 using Ehrungsprogramm.ViewModels;
 
 namespace Ehrungsprogramm.Views
@@ -10,6 +11,11 @@ namespace Ehrungsprogramm.Views
         {
             InitializeComponent();
             DataContext = viewModel;
+        }
+
+        private void GridViewColumnHeader_Click(object sender, RoutedEventArgs e)
+        {
+            GridViewExtensions.GridViewColumnHeaderClickedHandler(sender, e);
         }
     }
 }

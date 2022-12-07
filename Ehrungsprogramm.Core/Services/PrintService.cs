@@ -208,10 +208,11 @@ namespace Ehrungsprogramm.Core.Services
         /// <summary>
         /// Print an overview of all rewards.
         /// </summary>
-        /// <param name="people">List with all available <see cref="Person"/> objects used to generate the rewards overview</param>
+        /// <param name="peopleTsvRewardAvailable">List with all available <see cref="Person"/> objects with available TSV rewards used to generate the rewards overview</param>
+        /// <param name="peopleBlsvRewardAvailable">List with all available <see cref="Person"/> objects with available BLSV rewards used to generate the rewards overview</param>
         /// <param name="pdfFilePath">Filepath of the output PDF file</param>
         /// <returns>true if printing succeeded; false if printing failed</returns>
-        public async Task<bool> PrintRewards(List<Person> people, string pdfFilePath)
+        public async Task<bool> PrintRewards(List<Person> peopleTsvRewardAvailable, List<Person> peopleBlsvRewardAvailable, string pdfFilePath)
         {
             bool printingResult = false;
             await Task.Run(() =>
@@ -231,10 +232,7 @@ namespace Ehrungsprogramm.Core.Services
                         document.Add(new Paragraph(Properties.Resources.PrintTSVRewardOverviewString).SetTextAlignment(TextAlignment.CENTER).SetFontSize(20));
                         document.Add(new Paragraph(Properties.Resources.PrintOnlyNewestRewardsAreShownString + Environment.NewLine));
 
-                        List<Person> peopleTsvRewardAvailable = people.Where(p => p.Rewards.HighestAvailableTSVReward != null).ToList();
-                        List <IGrouping<RewardTypes, Person>> tsvRewardGroups = peopleTsvRewardAvailable.OrderBy(p => p.Name).
-                                                                                        OrderBy(p => p.Rewards.HighestAvailableTSVReward.Type).
-                                                                                        GroupBy(p => p.Rewards.HighestAvailableTSVReward.Type).ToList();
+                        List <IGrouping<RewardTypes, Person>> tsvRewardGroups = peopleTsvRewardAvailable.GroupBy(p => p.Rewards.HighestAvailableTSVReward.Type).ToList();
 
                         document.Add(new Paragraph(Properties.Resources.PrintCountTSVRewardsString + ": " + peopleTsvRewardAvailable.Count.ToString()));
 
@@ -274,10 +272,7 @@ namespace Ehrungsprogramm.Core.Services
                         document.Add(new Paragraph(Properties.Resources.PrintBLSVRewardOverviewString).SetTextAlignment(TextAlignment.CENTER).SetFontSize(20));
                         document.Add(new Paragraph(Properties.Resources.PrintOnlyNewestRewardsAreShownString + Environment.NewLine));
 
-                        List<Person> peopleBlsvRewardAvailable = people.Where(p => p.Rewards.HighestAvailableBLSVReward != null).ToList();
-                        List<IGrouping<RewardTypes, Person>> blsvRewardGroups = peopleBlsvRewardAvailable.OrderBy(p => p.Name).
-                                                                                        OrderBy(p => p.Rewards.HighestAvailableBLSVReward.Type).
-                                                                                        GroupBy(p => p.Rewards.HighestAvailableBLSVReward.Type).ToList();
+                        List<IGrouping<RewardTypes, Person>> blsvRewardGroups = peopleBlsvRewardAvailable.GroupBy(p => p.Rewards.HighestAvailableBLSVReward.Type).ToList();
 
                         document.Add(new Paragraph(Properties.Resources.PrintCountBLSVRewardsString + ": " + peopleBlsvRewardAvailable.Count.ToString()));
 

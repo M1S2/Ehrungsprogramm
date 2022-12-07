@@ -72,8 +72,10 @@ namespace Ehrungsprogramm.ViewModels
                 IsPrinting = true;
                 System.Windows.Forms.SaveFileDialog saveFileDialog = new System.Windows.Forms.SaveFileDialog() { FileName = Properties.Resources.DefaultFileNameRewardOverview, Filter = Properties.Resources.FileFilterPDF };
                 if (saveFileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-                {
-                    await _printService?.PrintRewards(People, saveFileDialog.FileName);
+                { 
+                    List<Person> tsvRewardCollection = PeopleItemsTSVRewardsCollectionView.Cast<Person>().ToList();
+                    List<Person> blsvRewardCollection = PeopleItemsBLSVRewardsCollectionView.Cast<Person>().ToList();
+                    await _printService?.PrintRewards(tsvRewardCollection, blsvRewardCollection, saveFileDialog.FileName);
                     await _dialogCoordinator.ShowMessageAsync(this, Properties.Resources.PrintString, Properties.Resources.PrintString + " " + Properties.Resources.SuccessfulString.ToLower());
                 }
             }

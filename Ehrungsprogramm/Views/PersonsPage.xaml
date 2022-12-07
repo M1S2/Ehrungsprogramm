@@ -52,7 +52,7 @@
 
         <TextBlock Grid.Row="1" VerticalAlignment="Center" Margin="{StaticResource MediumLeftRightMargin}" Text="{x:Static properties:Resources.RewardVisibilityInfoString}"/>
 
-        <localControls:FilteredListView Grid.Row="2" ItemsSource="{Binding People}" Margin="{StaticResource MediumLeftTopRightBottomMargin}" FilterPredicate="{Binding PersonFilter}" FilterText="{Binding FilterText, Mode=TwoWay}">
+        <localControls:FilteredListView Grid.Row="2" ItemsSource="{Binding People}" Margin="{StaticResource MediumLeftTopRightBottomMargin}" FilterPredicate="{Binding PersonFilter}" FilterText="{Binding FilterText, Mode=TwoWay}" GridViewColumnHeader.Click="GridViewColumnHeader_Click">
             <localControls:FilteredListView.View>
                 <GridView>
                     <GridViewColumn DisplayMemberBinding="{Binding Name}">

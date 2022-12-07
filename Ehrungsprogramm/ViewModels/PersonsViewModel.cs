@@ -118,7 +118,7 @@ namespace Ehrungsprogramm.ViewModels
                 System.Windows.Forms.SaveFileDialog saveFileDialog = new System.Windows.Forms.SaveFileDialog() { FileName = Properties.Resources.DefaultFileNamePersonOverview, Filter = Properties.Resources.FileFilterPDF };
                 if (saveFileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                 {
-                    ICollectionView collectionView = CollectionViewSource.GetDefaultView(People);       // Get the collection view for the People list. This contains the maybe filtered elements.
+                    ICollectionView collectionView = CollectionViewSource.GetDefaultView(People);       // Get the collection view for the People list. This contains the maybe filtered and sorted elements.
                     await _printService?.PrintPersonList(collectionView.Cast<Person>().ToList(), saveFileDialog.FileName, People.Count, FilterText);
                     await _dialogCoordinator.ShowMessageAsync(this, Properties.Resources.PrintString, Properties.Resources.PrintString + " " + Properties.Resources.SuccessfulString.ToLower());
                 }

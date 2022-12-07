@@ -33,9 +33,10 @@ namespace Ehrungsprogramm.Core.Contracts.Services
         /// <summary>
         /// Print an overview of all rewards.
         /// </summary>
-        /// <param name="people">List with all available <see cref="Person"/> objects used to generate the rewards overview</param>
+        /// <param name="peopleTsvRewardAvailable">List with all available <see cref="Person"/> objects with available TSV rewards used to generate the rewards overview</param>
+        /// <param name="peopleBlsvRewardAvailable">List with all available <see cref="Person"/> objects with available BLSV rewards used to generate the rewards overview</param>
         /// <param name="pdfFilePath">Filepath of the output PDF file</param>
         /// <returns>true if printing succeeded; false if printing failed</returns>
-        Task<bool> PrintRewards(List<Person> people, string pdfFilePath);
+        Task<bool> PrintRewards(List<Person> peopleTsvRewardAvailable, List<Person> peopleBlsvRewardAvailable, string pdfFilePath);
     }
 }
