@@ -60,7 +60,7 @@
         </Style>
     </Page.Resources>
 
-    
+    <!-- ################################################################################################################################################### -->
     
     <Grid Background="{StaticResource MahApps.Brushes.Window.Background}">
         <Grid.RowDefinitions>
@@ -68,6 +68,7 @@
             <RowDefinition Height="40" />
             <RowDefinition Height="50" />
             <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
@@ -85,7 +86,9 @@
         </DockPanel>
 
         <TextBlock Grid.Row="1" Grid.ColumnSpan="2" VerticalAlignment="Center" Margin="{StaticResource MediumLeftRightMargin}" Text="{x:Static properties:Resources.RewardVisibilityInfoString}"/>
-        
+
+        <!-- +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+
         <TextBlock Grid.Row="2" Grid.Column="0" Text="TSV" Style="{StaticResource SubtitleTextStyle}" Margin="{StaticResource MediumLeftMargin}" VerticalAlignment="Center"/>
         <ListView GridViewColumnHeader.Click="GridViewColumnHeader_Click" Grid.Row="3" Grid.Column="0" ItemsSource="{Binding PeopleItemsTSVRewardsCollectionView}" Margin="{StaticResource MediumLeftRightMargin}">
             <ListView.View>
@@ -155,7 +158,16 @@
                 </Style>
             </StackPanel.Style>
         </StackPanel>
+
+        <Expander x:Name="expander_FilterTSV" Grid.Row="4" Grid.Column="0" Header="{x:Static properties:Resources.VisibleItemsString}" ExpandDirection="Up" Margin="24,10,24,10" BorderThickness="1" BorderBrush="{StaticResource MahApps.Brushes.Gray6}" controls:HeaderedControlHelper.HeaderBackground="{StaticResource MahApps.Brushes.Gray6}" FontSize="{StaticResource MediumFontSize}" >
+            <StackPanel Orientation="Vertical">
+                <CheckBox Content="{x:Static properties:Enums.RewardTypes_TSVSILVER}" IsChecked="{Binding ShowTSVSilver}" FontSize="{StaticResource MediumFontSize}" Style="{StaticResource CheckBoxEyeStyle}" />
+                <CheckBox Content="{x:Static properties:Enums.RewardTypes_TSVGOLD}" IsChecked="{Binding ShowTSVGold}" FontSize="{StaticResource MediumFontSize}" Style="{StaticResource CheckBoxEyeStyle}" />
+                <CheckBox Content="{x:Static properties:Enums.RewardTypes_TSVHONORARY}" IsChecked="{Binding ShowTSVHonorary}" FontSize="{StaticResource MediumFontSize}" Style="{StaticResource CheckBoxEyeStyle}" />
+            </StackPanel>
+        </Expander>
         
+        <!-- +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
 
         <TextBlock Grid.Row="2" Grid.Column="1" Text="BLSV" Style="{StaticResource SubtitleTextStyle}" Margin="{StaticResource MediumLeftMargin}" VerticalAlignment="Center"/>
         <ListView Grid.Row="3" Grid.Column="1" ItemsSource="{Binding PeopleItemsBLSVRewardsCollectionView}" Margin="{StaticResource MediumLeftRightMargin}" GridViewColumnHeader.Click="GridViewColumnHeader_Click">
@@ -226,5 +238,20 @@
                 </Style>
             </StackPanel.Style>
         </StackPanel>
+        
+        <Expander Grid.Row="4" Grid.Column="1" Header="{x:Static properties:Resources.VisibleItemsString}" ExpandDirection="Up" Margin="24,10,24,10" BorderThickness="1" BorderBrush="{StaticResource MahApps.Brushes.Gray6}" controls:HeaderedControlHelper.HeaderBackground="{StaticResource MahApps.Brushes.Gray6}" FontSize="{StaticResource MediumFontSize}" >
+            <StackPanel Orientation="Vertical">
+                <CheckBox Content="{x:Static properties:Enums.RewardTypes_BLSV20}" IsChecked="{Binding ShowBLSV20}" FontSize="{StaticResource MediumFontSize}" Style="{StaticResource CheckBoxEyeStyle}" />
+                <CheckBox Content="{x:Static properties:Enums.RewardTypes_BLSV25}" IsChecked="{Binding ShowBLSV25}" FontSize="{StaticResource MediumFontSize}" Style="{StaticResource CheckBoxEyeStyle}" />
+                <CheckBox Content="{x:Static properties:Enums.RewardTypes_BLSV30}" IsChecked="{Binding ShowBLSV30}" FontSize="{StaticResource MediumFontSize}" Style="{StaticResource CheckBoxEyeStyle}" />
+                <CheckBox Content="{x:Static properties:Enums.RewardTypes_BLSV40}" IsChecked="{Binding ShowBLSV40}" FontSize="{StaticResource MediumFontSize}" Style="{StaticResource CheckBoxEyeStyle}" />
+                <CheckBox Content="{x:Static properties:Enums.RewardTypes_BLSV45}" IsChecked="{Binding ShowBLSV45}" FontSize="{StaticResource MediumFontSize}" Style="{StaticResource CheckBoxEyeStyle}" />
+                <CheckBox Content="{x:Static properties:Enums.RewardTypes_BLSV50}" IsChecked="{Binding ShowBLSV50}" FontSize="{StaticResource MediumFontSize}" Style="{StaticResource CheckBoxEyeStyle}" />
+                <CheckBox Content="{x:Static properties:Enums.RewardTypes_BLSV60}" IsChecked="{Binding ShowBLSV60}" FontSize="{StaticResource MediumFontSize}" Style="{StaticResource CheckBoxEyeStyle}" />
+                <CheckBox Content="{x:Static properties:Enums.RewardTypes_BLSV70}" IsChecked="{Binding ShowBLSV70}" FontSize="{StaticResource MediumFontSize}" Style="{StaticResource CheckBoxEyeStyle}" />
+                <CheckBox Content="{x:Static properties:Enums.RewardTypes_BLSV80}" IsChecked="{Binding ShowBLSV80}" FontSize="{StaticResource MediumFontSize}" Style="{StaticResource CheckBoxEyeStyle}" />
+            </StackPanel>
+        </Expander>
+        
     </Grid>
 </Page>

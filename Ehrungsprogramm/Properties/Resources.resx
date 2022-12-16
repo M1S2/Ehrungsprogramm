@@ -354,4 +354,7 @@ If the currently highest reward is already obtained, it isn't shown.</value>
   <data name="FileFilterPDF" xml:space="preserve">
     <value>PDF Files|*.pdf|All Files|*.*</value>
   </data>
+  <data name="VisibleItemsString" xml:space="preserve">
+    <value>Visible Items</value>
+  </data>
 </root>

@@ -765,5 +765,14 @@ namespace Ehrungsprogramm.Properties {
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Visible Items ähnelt.
+        /// </summary>
+        public static string VisibleItemsString {
+            get {
+                return ResourceManager.GetString("VisibleItemsString", resourceCulture);
+            }
+        }
     }
 }

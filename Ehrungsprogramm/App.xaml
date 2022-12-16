@@ -2,6 +2,7 @@
     x:Class="Ehrungsprogramm.App"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
     Startup="OnStartup"
     Exit="OnExit"
     DispatcherUnhandledException="OnDispatcherUnhandledException">
@@ -40,6 +41,57 @@
                     <ContentControl Content="{Binding }"/>
                 </DockPanel>
             </DataTemplate>
+
+            <!-- Style for a check box based control using an eye icon instead of the tick box (visible / not visible) -->
+            <!-- Based on: https://learn.microsoft.com/en-us/previous-versions/dotnet/netframework-3.0/ms752319(v=vs.85)?redirectedfrom=MSDN -->
+            <Style x:Key="CheckBoxEyeStyle" TargetType="{x:Type CheckBox}">
+                <Setter Property="SnapsToDevicePixels" Value="true"/>
+                <Setter Property="OverridesDefaultStyle" Value="true"/>
+                <Setter Property="FocusVisualStyle">
+                    <Setter.Value>
+                        <Style>
+                            <Setter Property="Control.Template">
+                                <Setter.Value>
+                                    <ControlTemplate>
+                                        <Border>
+                                            <Rectangle StrokeThickness="1" Stroke="{StaticResource MahApps.Brushes.Gray1}" StrokeDashArray="1 2"/>
+                                        </Border>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </Setter.Value>
+                </Setter>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type CheckBox}">
+                            <BulletDecorator Background="Transparent" VerticalAlignment="Center">
+                                <BulletDecorator.Bullet>
+                                    <Grid>
+                                        <controls:FontIcon x:Name="CheckMark" Glyph="&#xE7B3;" FontSize="30" Margin="1" Foreground="{StaticResource MahApps.Brushes.Accent}"/>
+                                        <Line x:Name="CheckMarkStrikeThrough" X1="0" Y1="{Binding ElementName=CheckMark, Path=ActualHeight}" X2="{Binding ElementName=CheckMark, Path=ActualWidth}" Y2="0" Stroke="{StaticResource MahApps.Brushes.Gray2}" StrokeThickness="2" Visibility="Collapsed"/>
+                                    </Grid>
+                                </BulletDecorator.Bullet>
+                                <ContentPresenter Margin="4,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left" RecognizesAccessKey="True"/>
+                            </BulletDecorator>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsChecked" Value="false">
+                                    <Setter TargetName="CheckMarkStrikeThrough" Property="Visibility" Value="Visible"/>
+                                    <Setter TargetName="CheckMark" Property="Foreground" Value="{StaticResource MahApps.Brushes.Gray2}"/>
+                                </Trigger>
+                                <Trigger Property="IsMouseOver" Value="true">
+                                    <Setter TargetName="CheckMarkStrikeThrough" Property="Stroke" Value="{StaticResource MahApps.Brushes.Gray1}"/>
+                                    <Setter TargetName="CheckMark" Property="Foreground" Value="{StaticResource MahApps.Brushes.Gray1}"/>
+                                </Trigger>
+                                <Trigger Property="IsEnabled" Value="false">
+                                    <Setter TargetName="CheckMarkStrikeThrough" Property="Visibility" Value="Collapsed"/>
+                                    <Setter TargetName="CheckMark" Property="Foreground" Value="{StaticResource MahApps.Brushes.Gray6}"/>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
         </ResourceDictionary>
     </Application.Resources>
 </Application>

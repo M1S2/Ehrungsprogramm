@@ -347,4 +347,7 @@ Wenn die momentan höchste Ehrung bereits erhalten ist, wird sie nicht angezeigt
   <data name="FileFilterPDF" xml:space="preserve">
     <value>PDF Dateien|*.pdf|Alle Dateien|*.*</value>
   </data>
+  <data name="VisibleItemsString" xml:space="preserve">
+    <value>Sichtbare Elemente</value>
+  </data>
 </root>
