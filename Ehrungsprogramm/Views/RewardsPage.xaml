@@ -88,9 +88,9 @@
         <TextBlock Grid.Row="1" Grid.ColumnSpan="2" VerticalAlignment="Center" Margin="{StaticResource MediumLeftRightMargin}" Text="{x:Static properties:Resources.RewardVisibilityInfoString}"/>
 
         <!-- +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
-
-        <TextBlock Grid.Row="2" Grid.Column="0" Text="TSV" Style="{StaticResource SubtitleTextStyle}" Margin="{StaticResource MediumLeftMargin}" VerticalAlignment="Center"/>
-        <ListView GridViewColumnHeader.Click="GridViewColumnHeader_Click" Grid.Row="3" Grid.Column="0" ItemsSource="{Binding PeopleItemsTSVRewardsCollectionView}" Margin="{StaticResource MediumLeftRightMargin}">
+        
+        <TextBlock Grid.Row="2" Grid.Column="0" Text="{Binding ElementName=listview_TSVRewards, Path=Items.Count, StringFormat='TSV ({0})'}" Style="{StaticResource SubtitleTextStyle}" Margin="{StaticResource MediumLeftMargin}" VerticalAlignment="Center"/>
+        <ListView x:Name="listview_TSVRewards" GridViewColumnHeader.Click="GridViewColumnHeader_Click" Grid.Row="3" Grid.Column="0" ItemsSource="{Binding PeopleItemsTSVRewardsCollectionView}" Margin="{StaticResource MediumLeftRightMargin}">
             <ListView.View>
                 <GridView>
                     <GridViewColumn DisplayMemberBinding="{Binding Name}">
@@ -169,8 +169,8 @@
         
         <!-- +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
 
-        <TextBlock Grid.Row="2" Grid.Column="1" Text="BLSV" Style="{StaticResource SubtitleTextStyle}" Margin="{StaticResource MediumLeftMargin}" VerticalAlignment="Center"/>
-        <ListView Grid.Row="3" Grid.Column="1" ItemsSource="{Binding PeopleItemsBLSVRewardsCollectionView}" Margin="{StaticResource MediumLeftRightMargin}" GridViewColumnHeader.Click="GridViewColumnHeader_Click">
+        <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding ElementName=listview_BLSVRewards, Path=Items.Count, StringFormat='BLSV ({0})'}" Style="{StaticResource SubtitleTextStyle}" Margin="{StaticResource MediumLeftMargin}" VerticalAlignment="Center"/>
+        <ListView x:Name="listview_BLSVRewards" Grid.Row="3" Grid.Column="1" ItemsSource="{Binding PeopleItemsBLSVRewardsCollectionView}" Margin="{StaticResource MediumLeftRightMargin}" GridViewColumnHeader.Click="GridViewColumnHeader_Click">
             <ListView.View>
                 <GridView>
                     <GridViewColumn DisplayMemberBinding="{Binding Name}">

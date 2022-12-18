@@ -12,6 +12,9 @@ using Ehrungsprogramm.Core.Contracts.Services;
 using Ehrungsprogramm.Contracts.Services;
 using Ehrungsprogramm.Contracts.ViewModels;
 using MahApps.Metro.Controls.Dialogs;
+using System.Reactive.Subjects;
+using System.Threading;
+using System.Reactive.Linq;
 
 namespace Ehrungsprogramm.ViewModels
 {
@@ -22,21 +25,21 @@ namespace Ehrungsprogramm.ViewModels
         public bool ShowTSVSilver
         {
             get => _showTSVSilver;
-            set { SetProperty(ref _showTSVSilver, value); PeopleItemsTSVRewardsCollectionView.Refresh(); }
+            set { SetProperty(ref _showTSVSilver, value); ShowFlagsTSVSubject.OnNext(true); }
         }
 
         private bool _showTSVGold = true;
         public bool ShowTSVGold
         {
             get => _showTSVGold;
-            set { SetProperty(ref _showTSVGold, value); PeopleItemsTSVRewardsCollectionView.Refresh(); }
+            set { SetProperty(ref _showTSVGold, value); ShowFlagsTSVSubject.OnNext(true); }
         }
 
         private bool _showTSVHonorary = true;
         public bool ShowTSVHonorary
         {
             get => _showTSVHonorary;
-            set { SetProperty(ref _showTSVHonorary, value); PeopleItemsTSVRewardsCollectionView.Refresh(); }
+            set { SetProperty(ref _showTSVHonorary, value); ShowFlagsTSVSubject.OnNext(true); }
         }
         #endregion
 
@@ -45,63 +48,63 @@ namespace Ehrungsprogramm.ViewModels
         public bool ShowBLSV20
         {
             get => _showBLSV20;
-            set { SetProperty(ref _showBLSV20, value); PeopleItemsBLSVRewardsCollectionView.Refresh(); }
+            set { SetProperty(ref _showBLSV20, value); ShowFlagsBLSVSubject.OnNext(true); }
         }
 
         private bool _showBLSV25 = true;
         public bool ShowBLSV25
         {
             get => _showBLSV25;
-            set { SetProperty(ref _showBLSV25, value); PeopleItemsBLSVRewardsCollectionView.Refresh(); }
+            set { SetProperty(ref _showBLSV25, value); ShowFlagsBLSVSubject.OnNext(true); }
         }
 
         private bool _showBLSV30 = true;
         public bool ShowBLSV30
         {
             get => _showBLSV30;
-            set { SetProperty(ref _showBLSV30, value); PeopleItemsBLSVRewardsCollectionView.Refresh(); }
+            set { SetProperty(ref _showBLSV30, value); ShowFlagsBLSVSubject.OnNext(true); }
         }
 
         private bool _showBLSV40 = true;
         public bool ShowBLSV40
         {
             get => _showBLSV40;
-            set { SetProperty(ref _showBLSV40, value); PeopleItemsBLSVRewardsCollectionView.Refresh(); }
+            set { SetProperty(ref _showBLSV40, value); ShowFlagsBLSVSubject.OnNext(true); }
         }
 
         private bool _showBLSV45 = true;
         public bool ShowBLSV45
         {
             get => _showBLSV45;
-            set { SetProperty(ref _showBLSV45, value); PeopleItemsBLSVRewardsCollectionView.Refresh(); }
+            set { SetProperty(ref _showBLSV45, value); ShowFlagsBLSVSubject.OnNext(true); }
         }
 
         private bool _showBLSV50 = true;
         public bool ShowBLSV50
         {
             get => _showBLSV50;
-            set { SetProperty(ref _showBLSV50, value); PeopleItemsBLSVRewardsCollectionView.Refresh(); }
+            set { SetProperty(ref _showBLSV50, value); ShowFlagsBLSVSubject.OnNext(true); }
         }
 
         private bool _showBLSV60 = true;
         public bool ShowBLSV60
         {
             get => _showBLSV60;
-            set { SetProperty(ref _showBLSV60, value); PeopleItemsBLSVRewardsCollectionView.Refresh(); }
+            set { SetProperty(ref _showBLSV60, value); ShowFlagsBLSVSubject.OnNext(true); }
         }
 
         private bool _showBLSV70 = true;
         public bool ShowBLSV70
         {
             get => _showBLSV70;
-            set { SetProperty(ref _showBLSV70, value); PeopleItemsBLSVRewardsCollectionView.Refresh(); }
+            set { SetProperty(ref _showBLSV70, value); ShowFlagsBLSVSubject.OnNext(true); }
         }
 
         private bool _showBLSV80 = true;
         public bool ShowBLSV80
         {
             get => _showBLSV80;
-            set { SetProperty(ref _showBLSV80, value); PeopleItemsBLSVRewardsCollectionView.Refresh(); }
+            set { SetProperty(ref _showBLSV80, value); ShowFlagsBLSVSubject.OnNext(true); }
         }
         #endregion
 
@@ -114,6 +117,10 @@ namespace Ehrungsprogramm.ViewModels
             get => _people;
             set => SetProperty(ref _people, value);
         }
+
+        public Subject<bool> ShowFlagsTSVSubject = new Subject<bool>();         // Subject used to update the collection view when the visible items flags change (with a little delay)
+        public Subject<bool> ShowFlagsBLSVSubject = new Subject<bool>();        // Subject used to update the collection view when the visible items flags change (with a little delay)
+
 
         /// <summary>
         /// View used to display all rewards grouped and filtered based on TSV rewards
@@ -233,6 +240,10 @@ namespace Ehrungsprogramm.ViewModels
                 PeopleItemsBLSVRewardsCollectionView.SortDescriptions.Add(new SortDescription("Rewards.HighestAvailableBLSVReward.Type", ListSortDirection.Ascending));
                 PeopleItemsBLSVRewardsCollectionView.SortDescriptions.Add(new SortDescription("Name", ListSortDirection.Ascending));
             }
+
+            // Use System.Reactive to update the collection views not for each change of the Show... flags but after a defined timespan
+            ShowFlagsTSVSubject.Throttle(TimeSpan.FromMilliseconds(250)).ObserveOn(SynchronizationContext.Current).Subscribe((b) => PeopleItemsTSVRewardsCollectionView.Refresh());
+            ShowFlagsBLSVSubject.Throttle(TimeSpan.FromMilliseconds(500)).ObserveOn(SynchronizationContext.Current).Subscribe((b) => PeopleItemsBLSVRewardsCollectionView.Refresh());
         }
 
         public void OnNavigatedFrom()
