@@ -11,10 +11,38 @@ using MahApps.Metro.Controls;
 
 namespace Ehrungsprogramm.Helpers
 {
+    /// <summary>
+    /// This class contains a static method <see cref="GridViewColumnHeaderClickedHandler(object, RoutedEventArgs)"/> that can be used to support sorting for ListViews by header clicks.
+    /// 
+    /// The sort descriptions are created by using the DisplayMemberBinding of the GridViewColumn. 
+    /// If a column doesn't use the DisplayMemberBinding (because e.g. a more complicated CellTemplate is used), set the Tag of the GridViewColumnHeader to the sort property with the following snippet:
+    ///
+    /// Example:
+    /// 
+    /// <ListView ... GridViewColumnHeader.Click="GridViewColumnHeader_Click">
+    ///     <ListView.View>
+    ///         <GridView>
+    ///             <GridViewColumn Header="ColumnHeader" DisplayMemberBinding="{Binding Property}">
+    ///             <GridViewColumn>
+    ///                 <GridViewColumn.Header>
+    ///                     <GridViewColumnHeader Tag = "SortPropertyName">
+    ///                         ...
+    ///                     </GridViewColumnHeader>
+    ///                 </GridViewColumn.Header>
+    ///                 <GridViewColumn.CellTemplate>
+    ///                     ...
+    ///                 </GridViewColumn.CellTemplate>
+    ///             </GridViewColumn>
+    ///         </GridView>
+    ///     </ListView.View>
+    /// </ListView>
+    ///
+    /// </summary>
     public static class GridViewExtensions
     {
         private static Dictionary<ListView, GridViewColumnHeader> _lastHeaderClicked = new Dictionary<ListView, GridViewColumnHeader>();
         private static Dictionary<ListView, ListSortDirection> _lastDirection = new Dictionary<ListView, ListSortDirection>();
+        private static Dictionary<ListView, string> _lastSortedBy = new Dictionary<ListView, string>();
 
         /// <summary>
         /// Sort the corresponding column when clicked on the header
@@ -48,15 +76,16 @@ namespace Ehrungsprogramm.Helpers
                         }
                     }
 
+                    if (!_lastSortedBy.ContainsKey(lv)) { _lastSortedBy.Add(lv, "Name"); }
+
                     Binding columnBinding = headerClicked.Column.DisplayMemberBinding as Binding;
-                    string sortBy = columnBinding?.Path.Path ?? headerClicked.Column.Header as string;
+                    string sortBy = (columnBinding?.Path.Path ?? headerClicked.Column.Header as string ?? headerClicked.Tag) as string;
 
                     if (!string.IsNullOrEmpty(sortBy))
                     {
                         ICollectionView dataView = CollectionViewSource.GetDefaultView(lv.ItemsSource);
 
-                        Binding lastColumnBinding = _lastHeaderClicked[lv].Column.DisplayMemberBinding as Binding;
-                        string lastSortBy = lastColumnBinding?.Path.Path ?? _lastHeaderClicked[lv].Column.Header as string;
+                        string lastSortBy = _lastSortedBy[lv];
                         dataView.SortDescriptions.Remove(dataView.SortDescriptions.Where(s => s.PropertyName == lastSortBy).FirstOrDefault());
                         SortDescription sd = new SortDescription(sortBy, direction);
                         dataView.SortDescriptions.Add(sd);
@@ -94,6 +123,8 @@ namespace Ehrungsprogramm.Helpers
                         {
                             _lastDirection.Add(lv, direction);
                         }
+
+                        _lastSortedBy[lv] = sortBy;
                     }
                 }
             }

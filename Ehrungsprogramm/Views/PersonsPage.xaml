@@ -84,10 +84,12 @@
 
                     <GridViewColumn>
                         <GridViewColumn.Header>
-                            <StackPanel Orientation="Horizontal">
-                                <controls:FontIcon Glyph="&#xE734;" Margin="5"/>
-                                <TextBlock Text="{x:Static properties:Resources.ScoreBLSVString}" VerticalAlignment="Center" FontSize="{StaticResource MediumFontSize}"/>
-                            </StackPanel>
+                            <GridViewColumnHeader Tag="ScoreBLSV">
+                                <StackPanel Orientation="Horizontal">
+                                    <controls:FontIcon Glyph="&#xE734;" Margin="5"/>
+                                    <TextBlock Text="{x:Static properties:Resources.ScoreBLSVString}" VerticalAlignment="Center" FontSize="{StaticResource MediumFontSize}"/>
+                                </StackPanel>
+                            </GridViewColumnHeader>
                         </GridViewColumn.Header>
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
@@ -101,10 +103,12 @@
 
                     <GridViewColumn>
                         <GridViewColumn.Header>
-                            <StackPanel Orientation="Horizontal">
-                                <controls:FontIcon Glyph="&#xE734;" Margin="5"/>
-                                <TextBlock Text="{x:Static properties:Resources.ScoreTSVString}" VerticalAlignment="Center" FontSize="{StaticResource MediumFontSize}"/>
-                            </StackPanel>
+                            <GridViewColumnHeader Tag="ScoreTSV">
+                                <StackPanel Orientation="Horizontal">
+                                    <controls:FontIcon Glyph="&#xE734;" Margin="5"/>
+                                    <TextBlock Text="{x:Static properties:Resources.ScoreTSVString}" VerticalAlignment="Center" FontSize="{StaticResource MediumFontSize}"/>
+                                </StackPanel>
+                            </GridViewColumnHeader>
                         </GridViewColumn.Header>
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
