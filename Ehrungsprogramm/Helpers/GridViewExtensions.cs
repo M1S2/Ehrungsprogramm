@@ -8,6 +8,8 @@ using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows;
 using MahApps.Metro.Controls;
+using System.Windows.Media;
+using System.Windows.Documents;
 
 namespace Ehrungsprogramm.Helpers
 {
@@ -43,6 +45,7 @@ namespace Ehrungsprogramm.Helpers
         private static Dictionary<ListView, GridViewColumnHeader> _lastHeaderClicked = new Dictionary<ListView, GridViewColumnHeader>();
         private static Dictionary<ListView, ListSortDirection> _lastDirection = new Dictionary<ListView, ListSortDirection>();
         private static Dictionary<ListView, string> _lastSortedBy = new Dictionary<ListView, string>();
+        private static Dictionary<ListView, SortAdorner> _sortAdorners = new Dictionary<ListView, SortAdorner>();
 
         /// <summary>
         /// Sort the corresponding column when clicked on the header
@@ -91,14 +94,13 @@ namespace Ehrungsprogramm.Helpers
                         dataView.SortDescriptions.Add(sd);
                         dataView.Refresh();
 
-                        if (direction == ListSortDirection.Ascending)
-                        {
-                            headerClicked.Column.HeaderTemplate = App.Current.Resources["GridViewHeaderTemplateArrowUp"] as DataTemplate;
-                        }
-                        else
-                        {
-                            headerClicked.Column.HeaderTemplate = App.Current.Resources["GridViewHeaderTemplateArrowDown"] as DataTemplate;
-                        }
+                        // Create sort adorner (arrow indicating the sort direction)
+                        // see: https://wpf-tutorial.com/listview-control/listview-how-to-column-sorting/
+                        if (!_sortAdorners.ContainsKey(lv)) { _sortAdorners.Add(lv, null); }
+                        if (_sortAdorners[lv] != null) { AdornerLayer.GetAdornerLayer(_lastHeaderClicked[lv]).Remove(_sortAdorners[lv]); }
+                        SortAdorner sortAdorner = new SortAdorner(headerClicked, direction, App.Current.Resources["MahApps.Brushes.Text"] as Brush);
+                        AdornerLayer.GetAdornerLayer(headerClicked).Add(sortAdorner);
+                        _sortAdorners[lv] = sortAdorner;
 
                         // Remove arrow from previously sorted header
                         if (_lastHeaderClicked != null && _lastHeaderClicked[lv] != headerClicked)
@@ -131,4 +133,5 @@ namespace Ehrungsprogramm.Helpers
         }
 
     }
+
 }

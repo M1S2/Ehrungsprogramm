@@ -93,7 +93,7 @@
         <ListView x:Name="listview_TSVRewards" GridViewColumnHeader.Click="GridViewColumnHeader_Click" Grid.Row="3" Grid.Column="0" ItemsSource="{Binding PeopleItemsTSVRewardsCollectionView}" Margin="{StaticResource MediumLeftRightMargin}">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn DisplayMemberBinding="{Binding Name}">
+                    <GridViewColumn DisplayMemberBinding="{Binding Name}" Width="120">
                         <GridViewColumn.Header>
                             <StackPanel Orientation="Horizontal">
                                 <controls:FontIcon Glyph="&#xE77B;" Margin="5"/>
@@ -101,8 +101,8 @@
                             </StackPanel>
                         </GridViewColumn.Header>
                     </GridViewColumn>
-                    
-                    <GridViewColumn DisplayMemberBinding="{Binding FirstName}">
+
+                    <GridViewColumn DisplayMemberBinding="{Binding FirstName}" Width="120">
                         <GridViewColumn.Header>
                             <StackPanel Orientation="Horizontal">
                                 <controls:FontIcon Glyph="&#xE77B;" Margin="5"/>
@@ -111,7 +111,7 @@
                         </GridViewColumn.Header>
                     </GridViewColumn>
 
-                    <GridViewColumn DisplayMemberBinding="{Binding ScoreTSV}">
+                    <GridViewColumn DisplayMemberBinding="{Binding ScoreTSV}" Width="150">
                         <GridViewColumn.Header>
                             <StackPanel Orientation="Horizontal">
                                 <controls:FontIcon Glyph="&#xE734;" Margin="5"/>
@@ -173,7 +173,7 @@
         <ListView x:Name="listview_BLSVRewards" Grid.Row="3" Grid.Column="1" ItemsSource="{Binding PeopleItemsBLSVRewardsCollectionView}" Margin="{StaticResource MediumLeftRightMargin}" GridViewColumnHeader.Click="GridViewColumnHeader_Click">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn DisplayMemberBinding="{Binding Name}">
+                    <GridViewColumn DisplayMemberBinding="{Binding Name}" Width="120">
                         <GridViewColumn.Header>
                             <StackPanel Orientation="Horizontal">
                                 <controls:FontIcon Glyph="&#xE77B;" Margin="5"/>
@@ -181,8 +181,8 @@
                             </StackPanel>
                         </GridViewColumn.Header>
                     </GridViewColumn>
-                    
-                    <GridViewColumn DisplayMemberBinding="{Binding FirstName}">
+
+                    <GridViewColumn DisplayMemberBinding="{Binding FirstName}" Width="120">
                         <GridViewColumn.Header>
                             <StackPanel Orientation="Horizontal">
                                 <controls:FontIcon Glyph="&#xE77B;" Margin="5"/>
@@ -191,7 +191,7 @@
                         </GridViewColumn.Header>
                     </GridViewColumn>
 
-                    <GridViewColumn DisplayMemberBinding="{Binding ScoreBLSV}">
+                    <GridViewColumn DisplayMemberBinding="{Binding ScoreBLSV}" Width="150">
                         <GridViewColumn.Header>
                             <StackPanel Orientation="Horizontal">
                                 <controls:FontIcon Glyph="&#xE734;" Margin="5"/>

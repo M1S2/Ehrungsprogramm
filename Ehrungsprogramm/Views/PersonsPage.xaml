@@ -55,7 +55,7 @@
         <localControls:FilteredListView Grid.Row="2" ItemsSource="{Binding People}" Margin="{StaticResource MediumLeftTopRightBottomMargin}" FilterPredicate="{Binding PersonFilter}" FilterText="{Binding FilterText, Mode=TwoWay}" GridViewColumnHeader.Click="GridViewColumnHeader_Click">
             <localControls:FilteredListView.View>
                 <GridView>
-                    <GridViewColumn DisplayMemberBinding="{Binding Name}">
+                    <GridViewColumn DisplayMemberBinding="{Binding Name}" Width="120">
                         <GridViewColumn.Header>
                             <StackPanel Orientation="Horizontal">
                                 <controls:FontIcon Glyph="&#xE77B;" Margin="5"/>
@@ -64,7 +64,7 @@
                         </GridViewColumn.Header>
                     </GridViewColumn>
 
-                    <GridViewColumn DisplayMemberBinding="{Binding FirstName}">
+                    <GridViewColumn DisplayMemberBinding="{Binding FirstName}" Width="120">
                         <GridViewColumn.Header>
                             <StackPanel Orientation="Horizontal">
                                 <controls:FontIcon Glyph="&#xE77B;" Margin="5"/>
@@ -73,7 +73,7 @@
                         </GridViewColumn.Header>
                     </GridViewColumn>
 
-                    <GridViewColumn DisplayMemberBinding="{Binding EntryDate, StringFormat=d}">
+                    <GridViewColumn DisplayMemberBinding="{Binding EntryDate, StringFormat=d}" Width="160">
                         <GridViewColumn.Header>
                             <StackPanel Orientation="Horizontal">
                                 <controls:FontIcon Glyph="&#xE787;" Margin="5"/>
@@ -82,7 +82,7 @@
                         </GridViewColumn.Header>
                     </GridViewColumn>
 
-                    <GridViewColumn>
+                    <GridViewColumn Width="150">
                         <GridViewColumn.Header>
                             <GridViewColumnHeader Tag="ScoreBLSV">
                                 <StackPanel Orientation="Horizontal">
@@ -101,7 +101,7 @@
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
 
-                    <GridViewColumn>
+                    <GridViewColumn Width="150">
                         <GridViewColumn.Header>
                             <GridViewColumnHeader Tag="ScoreTSV">
                                 <StackPanel Orientation="Horizontal">

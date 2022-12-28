@@ -16,7 +16,7 @@
                 <ResourceDictionary Source="/Styles/_Thickness.xaml" />
                 <ResourceDictionary Source="/Styles/MetroWindow.xaml" />
                 <ResourceDictionary Source="/Styles/TextBlock.xaml" />
-                 <!--
+                <!--
                 MahApps.Metro resource dictionaries.
                 Learn more about using MahApps.Metro at https://mahapps.com/
                 -->
@@ -26,21 +26,6 @@
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Themes/Dark.Blue.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Themes/Light.Blue.xaml" />
             </ResourceDictionary.MergedDictionaries>
-
-            <!-- Resources used in the GridViewExtensions.cs -->
-            <!-- https://stackoverflow.com/questions/994148/best-way-to-make-wpf-listview-gridview-sort-on-column-header-clicking -->
-            <DataTemplate x:Key="GridViewHeaderTemplateArrowUp">
-                <DockPanel LastChildFill="True" Width="{Binding ActualWidth, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type GridViewColumnHeader}}}">
-                    <Path StrokeThickness="1" Fill="{StaticResource MahApps.Brushes.Gray2}" Data="M 5,10 L 15,10 L 10,5 L 5,10" DockPanel.Dock="Right" Width="20" HorizontalAlignment="Right" Margin="5,0,5,0" SnapsToDevicePixels="True"/>
-                    <ContentControl Content="{Binding }"/>
-                </DockPanel>
-            </DataTemplate>
-            <DataTemplate x:Key="GridViewHeaderTemplateArrowDown">
-                <DockPanel LastChildFill="True" Width="{Binding ActualWidth, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type GridViewColumnHeader}}}">
-                    <Path StrokeThickness="1" Fill="{StaticResource MahApps.Brushes.Gray2}" Data="M 5,5 L 10,10 L 15,5 L 5,5" DockPanel.Dock="Right" Width="20" HorizontalAlignment="Right" Margin="5,0,5,0" SnapsToDevicePixels="True"/>
-                    <ContentControl Content="{Binding }"/>
-                </DockPanel>
-            </DataTemplate>
 
             <!-- Style for a check box based control using an eye icon instead of the tick box (visible / not visible) -->
             <!-- Based on: https://learn.microsoft.com/en-us/previous-versions/dotnet/netframework-3.0/ms752319(v=vs.85)?redirectedfrom=MSDN -->
