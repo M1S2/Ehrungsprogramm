@@ -211,8 +211,12 @@ namespace Ehrungsprogramm.Core.Services
         /// <param name="peopleTsvRewardAvailable">List with all available <see cref="Person"/> objects with available TSV rewards used to generate the rewards overview</param>
         /// <param name="peopleBlsvRewardAvailable">List with all available <see cref="Person"/> objects with available BLSV rewards used to generate the rewards overview</param>
         /// <param name="pdfFilePath">Filepath of the output PDF file</param>
+        /// <param name="fullTsvRewardsCount">Number of all (unfiltered) TSV rewards.</param>
+        /// <param name="fullBlsvRewardsCount">Number of all (unfiltered) BLSV rewards.</param>
+        /// <param name="filterTextTsv">String indicating, which filters were applied to the TSV reward list</param>
+        /// <param name="filterTextBlsv">String indicating, which filters were applied to the BLSV reward list</param>
         /// <returns>true if printing succeeded; false if printing failed</returns>
-        public async Task<bool> PrintRewards(List<Person> peopleTsvRewardAvailable, List<Person> peopleBlsvRewardAvailable, string pdfFilePath)
+        public async Task<bool> PrintRewards(List<Person> peopleTsvRewardAvailable, List<Person> peopleBlsvRewardAvailable, string pdfFilePath, int fullTsvRewardsCount, int fullBlsvRewardsCount, string filterTextTsv, string filterTextBlsv)
         {
             bool printingResult = false;
             await Task.Run(() =>
@@ -235,6 +239,8 @@ namespace Ehrungsprogramm.Core.Services
                         List <IGrouping<RewardTypes, Person>> tsvRewardGroups = peopleTsvRewardAvailable.GroupBy(p => p.Rewards.HighestAvailableTSVReward.Type).ToList();
 
                         document.Add(new Paragraph(Properties.Resources.PrintCountTSVRewardsString + ": " + peopleTsvRewardAvailable.Count.ToString()));
+
+                        if (peopleTsvRewardAvailable.Count != fullTsvRewardsCount) { document.Add(new Paragraph(string.Format(Properties.Resources.PrintRewardListFilteredWarningString, filterTextTsv, fullTsvRewardsCount)).SetFontColor(ColorConstants.RED)); }
 
                         Table tableTsv = new Table(5, false);      // 5 columns for: ID, Name, First Name, Score, ParsingErrors
                         tableTsv.AddHeaderCell(new Cell(1, 1).SetBackgroundColor(ColorConstants.LIGHT_GRAY).SetTextAlignment(TextAlignment.CENTER).Add(new Paragraph(Properties.Resources.PrintIDString)));
@@ -275,6 +281,8 @@ namespace Ehrungsprogramm.Core.Services
                         List<IGrouping<RewardTypes, Person>> blsvRewardGroups = peopleBlsvRewardAvailable.GroupBy(p => p.Rewards.HighestAvailableBLSVReward.Type).ToList();
 
                         document.Add(new Paragraph(Properties.Resources.PrintCountBLSVRewardsString + ": " + peopleBlsvRewardAvailable.Count.ToString()));
+
+                        if (peopleBlsvRewardAvailable.Count != fullBlsvRewardsCount) { document.Add(new Paragraph(string.Format(Properties.Resources.PrintRewardListFilteredWarningString, filterTextBlsv, fullBlsvRewardsCount)).SetFontColor(ColorConstants.RED)); }
 
                         Table tableBlsv = new Table(5, false);      // 5 columns for: ID, Name, First Name, Score, ParsingErrors
                         tableBlsv.AddHeaderCell(new Cell(1, 1).SetBackgroundColor(ColorConstants.LIGHT_GRAY).SetTextAlignment(TextAlignment.CENTER).Add(new Paragraph(Properties.Resources.PrintIDString)));

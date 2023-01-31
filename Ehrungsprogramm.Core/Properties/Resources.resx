@@ -219,6 +219,9 @@
   <data name="PrintPersonListFilteredWarningString" xml:space="preserve">
     <value>Caution: The list is filtered (filter: "{0}")! In total {1} people are available!</value>
   </data>
+  <data name="PrintRewardListFilteredWarningString" xml:space="preserve">
+    <value>Caution: The list is filtered (hidden are: {0})! In total {1} rewards are available!</value>
+  </data>
   <data name="PrintRewardsString" xml:space="preserve">
     <value>Rewards</value>
   </data>

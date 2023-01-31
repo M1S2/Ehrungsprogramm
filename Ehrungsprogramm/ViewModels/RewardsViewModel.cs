@@ -15,6 +15,7 @@ using MahApps.Metro.Controls.Dialogs;
 using System.Reactive.Subjects;
 using System.Threading;
 using System.Reactive.Linq;
+using System.Globalization;
 
 namespace Ehrungsprogramm.ViewModels
 {
@@ -170,7 +171,26 @@ namespace Ehrungsprogramm.ViewModels
                 { 
                     List<Person> tsvRewardCollection = PeopleItemsTSVRewardsCollectionView.Cast<Person>().ToList();
                     List<Person> blsvRewardCollection = PeopleItemsBLSVRewardsCollectionView.Cast<Person>().ToList();
-                    await _printService?.PrintRewards(tsvRewardCollection, blsvRewardCollection, saveFileDialog.FileName);
+
+                    int numberTsvRewardsUnfiltered = People.Where(p => p.Rewards.HighestAvailableTSVReward != null).Count();
+                    int numberBlsvRewardsUnfiltered = People.Where(p => p.Rewards.HighestAvailableBLSVReward != null).Count();
+                    
+                    List<string> filterTextsTsv = new List<string>();
+                    if (!ShowTSVSilver) { filterTextsTsv.Add(Properties.Enums.RewardTypes_TSVSILVER); }
+                    if (!ShowTSVGold) { filterTextsTsv.Add(Properties.Enums.RewardTypes_TSVGOLD); }
+                    if (!ShowTSVHonorary) { filterTextsTsv.Add(Properties.Enums.RewardTypes_TSVHONORARY); }
+                    List<string> filterTextsBlsv = new List<string>();
+                    if (!ShowBLSV20) { filterTextsBlsv.Add(Properties.Enums.RewardTypes_BLSV20); }
+                    if (!ShowBLSV25) { filterTextsBlsv.Add(Properties.Enums.RewardTypes_BLSV25); }
+                    if (!ShowBLSV30) { filterTextsBlsv.Add(Properties.Enums.RewardTypes_BLSV30); }
+                    if (!ShowBLSV40) { filterTextsBlsv.Add(Properties.Enums.RewardTypes_BLSV40); }
+                    if (!ShowBLSV45) { filterTextsBlsv.Add(Properties.Enums.RewardTypes_BLSV45); }
+                    if (!ShowBLSV50) { filterTextsBlsv.Add(Properties.Enums.RewardTypes_BLSV50); }
+                    if (!ShowBLSV60) { filterTextsBlsv.Add(Properties.Enums.RewardTypes_BLSV60); }
+                    if (!ShowBLSV70) { filterTextsBlsv.Add(Properties.Enums.RewardTypes_BLSV70); }
+                    if (!ShowBLSV80) { filterTextsBlsv.Add(Properties.Enums.RewardTypes_BLSV80); }
+
+                    await _printService?.PrintRewards(tsvRewardCollection, blsvRewardCollection, saveFileDialog.FileName, numberTsvRewardsUnfiltered, numberBlsvRewardsUnfiltered, string.Join(", ", filterTextsTsv), string.Join(", ", filterTextsBlsv));
                     await _dialogCoordinator.ShowMessageAsync(this, Properties.Resources.PrintString, Properties.Resources.PrintString + " " + Properties.Resources.SuccessfulString.ToLower());
                 }
             }

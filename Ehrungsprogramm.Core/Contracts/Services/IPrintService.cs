@@ -36,7 +36,11 @@ namespace Ehrungsprogramm.Core.Contracts.Services
         /// <param name="peopleTsvRewardAvailable">List with all available <see cref="Person"/> objects with available TSV rewards used to generate the rewards overview</param>
         /// <param name="peopleBlsvRewardAvailable">List with all available <see cref="Person"/> objects with available BLSV rewards used to generate the rewards overview</param>
         /// <param name="pdfFilePath">Filepath of the output PDF file</param>
+        /// <param name="fullTsvRewardsCount">Number of all (unfiltered) TSV rewards.</param>
+        /// <param name="fullBlsvRewardsCount">Number of all (unfiltered) BLSV rewards.</param>
+        /// <param name="filterTextTsv">String indicating, which filters were applied to the TSV reward list</param>
+        /// <param name="filterTextBlsv">String indicating, which filters were applied to the BLSV reward list</param>
         /// <returns>true if printing succeeded; false if printing failed</returns>
-        Task<bool> PrintRewards(List<Person> peopleTsvRewardAvailable, List<Person> peopleBlsvRewardAvailable, string pdfFilePath);
+        Task<bool> PrintRewards(List<Person> peopleTsvRewardAvailable, List<Person> peopleBlsvRewardAvailable, string pdfFilePath, int fullTsvRewardsCount, int fullBlsvRewardsCount, string filterTextTsv, string filterTextBlsv);
     }
 }

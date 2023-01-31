@@ -367,6 +367,15 @@ namespace Ehrungsprogramm.Core.Properties {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Caution: The list is filtered (hidden are: {0})! In total {1} rewards are available! ähnelt.
+        /// </summary>
+        public static string PrintRewardListFilteredWarningString {
+            get {
+                return ResourceManager.GetString("PrintRewardListFilteredWarningString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Rewards ähnelt.
         /// </summary>
         public static string PrintRewardsString {
