@@ -1,5 +1,14 @@
 # Ehrungsprogramm Changelog
 
+## [v1.2.0]
+
+- Die Filter der Ehrungsliste werden mit ausgedruckt (#23)
+- Ehrungsliste kann nach bestimmten Ehrungen gefiltert werden (#19)
+- Listen können über einen Klick auf die Spaltenüberschriften sortiert werden (#22)
+- Nur gefilterte Personen werden gedruckt für die Personen Übersicht (#20)
+- Bessere Darstellung der effektiven Jahre und Punkte bei den Personen Details
+- AssemblyInfoHelper Library Update (v5.2.2)
+
 ## [v1.1.0]
 
 - Unbekannte/zusätzliche Ehrungen werden bei den Personen Details mit angezeigt (#15)
