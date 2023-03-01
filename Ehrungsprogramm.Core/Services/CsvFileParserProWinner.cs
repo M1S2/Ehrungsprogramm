@@ -6,9 +6,13 @@ using System.Text.RegularExpressions;
 using System.Threading;
 using Ehrungsprogramm.Core.Models;
 using Ehrungsprogramm.Core.Contracts.Services;
+using System.Linq;
 
 namespace Ehrungsprogramm.Core.Services
 {
+    /// <summary>
+    /// Class used to import a CSV file with person data exported from ProWinner club software
+    /// </summary>
     public static class CsvFileParserProWinner
     {
         /// <summary>
@@ -16,12 +20,25 @@ namespace Ehrungsprogramm.Core.Services
         /// </summary>
         public static event ProgressDelegate OnParseProgress;
 
+        /// <summary>
+        /// Delimiter used in the CSV file
+        /// </summary>
         public const string DELIMITER = ";";
-        public const string HEADERLINE_START_STRING = "\"Name, Vorname\"";
-        public const int FIRST_FUNCTIONBLOCK_INDEX = 2;
-        public const int FUNCTIONBLOCK_COLUMNS = 4;
-        public const int FIRST_REWARDBLOCK_INDEX = 6;
-        public const int REWARDBLOCK_COLUMNS = 3;
+        
+        // Lists used to identify the columns
+        public static readonly List<string> CSVCOLUMNHEADERS_NAME = new List<string>() { "Name, Vorname" };
+        public static readonly List<string> CSVCOLUMNHEADERS_BIRTHDATE = new List<string>() { "Geb.Datum" };
+        public static readonly List<string> CSVCOLUMNHEADERS_ENTRYDATE = new List<string>() { "Eintritt am" };
+        public static readonly List<string> CSVCOLUMNHEADERS_FUNCTION_DESCRIPTION = new List<string>() { "Funktionsname" };
+        public static readonly List<string> CSVCOLUMNHEADERS_FUNCTION_START = new List<string>() { "von -", "Funktion von" };
+        public static readonly List<string> CSVCOLUMNHEADERS_FUNCTION_END = new List<string>() { "bis", "Funktion bis" };
+        public static readonly List<string> CSVCOLUMNHEADERS_REWARD_NUMBER = new List<string>() { "Ehr.Nr.", "Ehrungs-Nr" };
+        public static readonly List<string> CSVCOLUMNHEADERS_REWARD_DATE = new List<string>() { "Ehr.dat.", "Ehrung am" };
+        public static readonly List<string> CSVCOLUMNHEADERS_REWARD_DESCRIPTION = new List<string>() { "Ehrungsbezeichnung", "Ehrungsname" };
+
+        // Example header line format (columns can be ordered different):
+        // "Name, Vorname";"Geb.Datum";"Eintritt am";"Funktionsname";"von -";"bis";"Ehr.Nr.";"Ehr.dat.";"Ehrungsbezeichnung";"Eintritt am";"Funktionsname";"Funktion von";"Funktion bis";"Ehrungs-Nr";"Ehrung am";"Ehrungsname"; ...
+        //                             | FUNCTION 0                               | REWARD 0                                | FUNCTION 1                                                | REWARD 1                             | ...
 
         public const string BOARD_MEMBER_MARKER = "1. 2. 3. Vorstand";
         public const string BOARD_MEMBER_FUNCTION_MARKER = "Vorstandschaft";        // someone who has another function than 1. - 3. board member but is in the board too.
@@ -41,10 +58,13 @@ namespace Ehrungsprogramm.Core.Services
         public const int REWARD_NUMBER_TSV_GOLD = 4;
         public const int REWARD_NUMBER_TSV_HONORARY = 1;
 
-        // Header line format:
-        //                             | FUNCTION 0                               | REWARD 0                                | FUNCTION 1                                                | REWARD 1                             | ...
-        // "Name, Vorname";"Geb.Datum";"Eintritt am";"Funktionsname";"von -";"bis";"Ehr.Nr.";"Ehr.dat.";"Ehrungsbezeichnung";"Eintritt am";"Funktionsname";"Funktion von";"Funktion bis";"Ehrungs-Nr";"Ehrung am";"Ehrungsname"; ...
-
+        /// <summary>
+        /// Parse the given CSV file to a list of <see cref="Person"/> objects
+        /// </summary>
+        /// <param name="filepath">Path to the CSV file</param>
+        /// <param name="cancellationToken"><see cref="CancellationToken"/> object used to cancel the parse operation</param>
+        /// <returns>List of parses <see cref="Person"/> objects</returns>
+        /// <exception cref="Exception"></exception>
         public static List<Person> Parse(string filepath, CancellationToken cancellationToken)
         {
             List<Person> people = new List<Person>();
@@ -54,75 +74,121 @@ namespace Ehrungsprogramm.Core.Services
             {
                 throw new Exception(String.Format(Properties.Resources.ErrorCsvFileParserFileDoesntExist, filepath));
             }
-            /*if (Path.GetExtension(filepath).ToLower() != ".txt" && Path.GetExtension(filepath).ToLower() != ".csv")
-            {
-                return people;
-            }*/
 
             // Read all lines of the .csv file
             Encoding fileEncoding = getFileEncoding(filepath);
             string[] csv_lines = System.IO.File.ReadAllLines(filepath, fileEncoding);
 
-            string regexPatternLineElements = DELIMITER + "(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)";       //Using quotes to allow the delimiter
+            string regexPatternLineElements = DELIMITER + "(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)";       // Using quotes to allow the delimiter
 
             DateTime dateTimeNow = DateTime.Now;        // Get the current time once to always have the same value (otherwise Equals could fail)
 
+            // Indices of the found columns
+            int columnIndex_Name = -1;
+            int columnIndex_BirthDate = -1;
+            int columnIndex_EntryDate = -1;
+            List<int> columnIndices_Function_Description = new List<int>();
+            List<int> columnIndices_Function_Start = new List<int>();
+            List<int> columnIndices_Function_End = new List<int>();
+            List<int> columnIndices_Reward_Number = new List<int>();
+            List<int> columnIndices_Reward_Date = new List<int>();
+            List<int> columnIndices_Reward_Description = new List<int>();
+
+            // Loop all CSV file lines
             int current_line_index = 0;
             foreach (string line in csv_lines)
             {
                 cancellationToken.ThrowIfCancellationRequested();
 
+                List<string> line_split = Regex.Split(line, regexPatternLineElements).ToList();                 // split line (using quotes to allow the delimiter)
+                line_split = line_split.Select(element => element = element.Trim('"').Trim()).ToList();         // remove all surrounding quotes from the line elements
+
                 current_line_index++;
 
-                // if it's the header line, continue with the next line
-                if (line.StartsWith(HEADERLINE_START_STRING)) { continue; }
+                // Get all column indices from the first line (header line) and continue to the next line
+                if (current_line_index == 1) 
+                {
+                    var indexed_line_split_elements = line_split.Select((s, i) => new { element = s, index = i });      // create a helper list with indices for each element
+
+                    columnIndex_Name = indexed_line_split_elements.Where(list => CSVCOLUMNHEADERS_NAME.Contains(list.element)).Select(list => list.index).FirstOrDefault(-1);
+                    columnIndex_BirthDate = indexed_line_split_elements.Where(list => CSVCOLUMNHEADERS_BIRTHDATE.Contains(list.element)).Select(list => list.index).FirstOrDefault(-1);
+                    columnIndex_EntryDate = indexed_line_split_elements.Where(list => CSVCOLUMNHEADERS_ENTRYDATE.Contains(list.element)).Select(list => list.index).FirstOrDefault(-1);
+                    columnIndices_Function_Description = indexed_line_split_elements.Where(list => CSVCOLUMNHEADERS_FUNCTION_DESCRIPTION.Contains(list.element)).Select(list => list.index).ToList();
+                    columnIndices_Function_Start = indexed_line_split_elements.Where(list => CSVCOLUMNHEADERS_FUNCTION_START.Contains(list.element)).Select(list => list.index).ToList();
+                    columnIndices_Function_End = indexed_line_split_elements.Where(list => CSVCOLUMNHEADERS_FUNCTION_END.Contains(list.element)).Select(list => list.index).ToList();
+                    columnIndices_Reward_Number = indexed_line_split_elements.Where(list => CSVCOLUMNHEADERS_REWARD_NUMBER.Contains(list.element)).Select(list => list.index).ToList();
+                    columnIndices_Reward_Date = indexed_line_split_elements.Where(list => CSVCOLUMNHEADERS_REWARD_DATE.Contains(list.element)).Select(list => list.index).ToList();
+                    columnIndices_Reward_Description = indexed_line_split_elements.Where(list => CSVCOLUMNHEADERS_REWARD_DESCRIPTION.Contains(list.element)).Select(list => list.index).ToList();
+
+
+                    // plausibility checks (columns must exist)
+                    StringBuilder columnErrorsList = new StringBuilder();
+                    if (columnIndex_Name < 0) { columnErrorsList.AppendLine(string.Format(Properties.Resources.ErrorCsvFileParserColumnMissing, CSVCOLUMNHEADERS_NAME.FirstOrDefault())); }
+                    // BirthDate column is optional
+                    if (columnIndex_EntryDate < 0) { columnErrorsList.AppendLine(string.Format(Properties.Resources.ErrorCsvFileParserColumnMissing, CSVCOLUMNHEADERS_ENTRYDATE.FirstOrDefault())); }
+                    if (columnIndices_Function_Description.Count == 0 || columnIndices_Function_Start.Count == 0 || columnIndices_Function_End.Count == 0) 
+                    {
+                        columnErrorsList.AppendLine(string.Format(Properties.Resources.ErrorCsvFileParserColumnMissingFunctions, CSVCOLUMNHEADERS_FUNCTION_DESCRIPTION.FirstOrDefault(), CSVCOLUMNHEADERS_FUNCTION_START.FirstOrDefault(), CSVCOLUMNHEADERS_FUNCTION_END.FirstOrDefault()));
+                    }
+                    if (columnIndices_Reward_Number.Count == 0 || columnIndices_Reward_Date.Count == 0 || columnIndices_Reward_Description.Count == 0)
+                    {
+                        columnErrorsList.AppendLine(string.Format(Properties.Resources.ErrorCsvFileParserColumnMissingRewards, CSVCOLUMNHEADERS_REWARD_NUMBER.FirstOrDefault(), CSVCOLUMNHEADERS_REWARD_DATE.FirstOrDefault(), CSVCOLUMNHEADERS_REWARD_DESCRIPTION.FirstOrDefault()));
+                    }
+
+                    if (columnErrorsList.Length > 0) { throw new Exception(string.Format(Properties.Resources.ErrorCsvFileParserColumnErrors, columnErrorsList.ToString())); }
+
+                    continue; 
+                }
 
                 StringBuilder person_errors = new StringBuilder();
                 Person person = new Person();
-                string[] line_split = Regex.Split(line, regexPatternLineElements);                  //split line (using quotes to allow the delimiter)
-
-                // The first column contains the name and first name in the format "<Name>, <First Name>"
-                if (line_split.Length >= 1)
+                
+                // Get the name and first name in the format "<Name>, <First Name>" from the corresponding column
+                if (columnIndex_Name >= 0)
                 {
-                    string[] nameSplit = line_split[0].Trim('"').Split(',');
+                    string[] nameSplit = line_split[columnIndex_Name].Split(',');
                     person.Name = nameSplit[0].Trim();
                     person.FirstName = nameSplit[1].Trim();
                 }
+                else
+                {
+                    person.Name = string.Empty;
+                    person.FirstName = string.Empty;
+                }
 
-                // The second column contains the birth date
-                if (line_split.Length >= 2)
+                // Get the birth date from the corresponding column
+                if (columnIndex_BirthDate >= 0)
                 {
                     DateTime birthDate;
-                    if (DateTime.TryParse(line_split[1].Trim('"').Trim(), out birthDate))
+                    if (DateTime.TryParse(line_split[columnIndex_BirthDate], out birthDate))
                     {
                         person.BirthDate = birthDate;
                     }
-                    else { person_errors.AppendLine(String.Format(Properties.Resources.ErrorCsvFileParserBirthDate, line_split[1].Trim('"').Trim())); }
+                    else { person_errors.AppendLine(String.Format(Properties.Resources.ErrorCsvFileParserBirthDate, line_split[columnIndex_BirthDate])); }
                 }
 
-                // The third column contains the entry date
-                if (line_split.Length >= 3)
+                // Get the entry date from the corresponding column
+                if (columnIndex_EntryDate >= 0)
                 {
                     DateTime entryDate;
-                    if (DateTime.TryParse(line_split[2].Trim('"').Trim(), out entryDate))
+                    if (DateTime.TryParse(line_split[columnIndex_EntryDate], out entryDate))
                     {
                         person.EntryDate = entryDate;
                     }
-                    else { person_errors.AppendLine(String.Format(Properties.Resources.ErrorCsvFileParserEntryDate, line_split[2].Trim('"').Trim())); }
+                    else { person_errors.AppendLine(String.Format(Properties.Resources.ErrorCsvFileParserEntryDate, line_split[columnIndex_EntryDate])); }
                 }
 
                 person.Functions = new List<Function>();
-                for (int functionBlockStartIndex = FIRST_FUNCTIONBLOCK_INDEX; (functionBlockStartIndex + (FUNCTIONBLOCK_COLUMNS + REWARDBLOCK_COLUMNS) - 1) < line_split.Length; functionBlockStartIndex += (FUNCTIONBLOCK_COLUMNS + REWARDBLOCK_COLUMNS))
+                for(int functionIndex = 0; functionIndex < Math.Min(columnIndices_Function_Description.Count, Math.Min(columnIndices_Function_Start.Count, columnIndices_Function_End.Count)); functionIndex++)
                 {
                     StringBuilder function_error = new StringBuilder();
 
-                    string entryDate = line_split[functionBlockStartIndex].Trim('"').Trim();
-                    string functionName = line_split[functionBlockStartIndex + 1].Trim('"').Trim();
-                    string functionStartDate = line_split[functionBlockStartIndex + 2].Trim('"').Trim();
-                    string functionEndDate = line_split[functionBlockStartIndex + 3].Trim('"').Trim();
+                    string functionName = line_split[columnIndices_Function_Description[functionIndex]];
+                    string functionStartDate = line_split[columnIndices_Function_Start[functionIndex]];
+                    string functionEndDate = line_split[columnIndices_Function_End[functionIndex]];
 
                     // if the function name is empty, the function block isn't valid.
-                    if (string.IsNullOrEmpty(functionName)) { break; }
+                    if (string.IsNullOrEmpty(functionName)) { continue; }
 
                     Function function = new Function();
                     function.Description = functionName;
@@ -141,7 +207,14 @@ namespace Ehrungsprogramm.Core.Services
                         DateTime parsedFunctionEndDate;
                         if (DateTime.TryParse(functionEndDate, out parsedFunctionEndDate))
                         {
-                            function.TimePeriod.End = parsedFunctionEndDate;
+                            if (parsedFunctionEndDate < parsedFunctionStartDate)
+                            {
+                                function_error.AppendLine(String.Format(Properties.Resources.ErrorCsvFileParserFunctionStartEndDateSwapped, functionStartDate, functionEndDate, functionName));
+                            }
+                            else
+                            {
+                                function.TimePeriod.End = parsedFunctionEndDate;
+                            }
                         }
                         else { function_error.AppendLine(String.Format(Properties.Resources.ErrorCsvFileParserFunctionEndDate, functionEndDate, functionName)); }
                     }
@@ -163,14 +236,14 @@ namespace Ehrungsprogramm.Core.Services
                     }
                 }
 
-                for (int rewardBlockStartIndex = FIRST_REWARDBLOCK_INDEX; (rewardBlockStartIndex + REWARDBLOCK_COLUMNS - 1) < line_split.Length; rewardBlockStartIndex += (FUNCTIONBLOCK_COLUMNS + REWARDBLOCK_COLUMNS))
+                for(int rewardIndex = 0; rewardIndex < Math.Min(columnIndices_Reward_Number.Count, Math.Min(columnIndices_Reward_Date.Count, columnIndices_Reward_Description.Count)); rewardIndex++)
                 {
-                    string rewardNumber = line_split[rewardBlockStartIndex].Trim('"').Trim();
-                    string rewardDate = line_split[rewardBlockStartIndex + 1].Trim('"').Trim();
-                    string rewardDescription = line_split[rewardBlockStartIndex + 2].Trim('"').Trim();
+                    string rewardNumber = line_split[columnIndices_Reward_Number[rewardIndex]];
+                    string rewardDate = line_split[columnIndices_Reward_Date[rewardIndex]];
+                    string rewardDescription = line_split[columnIndices_Reward_Description[rewardIndex]];
 
                     // if the reward description is empty, the reward block isn't valid.
-                    if (string.IsNullOrEmpty(rewardDescription)) { break; }
+                    if (string.IsNullOrEmpty(rewardDescription)) { continue; }
 
                     Reward reward = new Reward();
                     reward.Description = rewardDescription;

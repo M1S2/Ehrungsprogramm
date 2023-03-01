@@ -70,6 +70,43 @@ namespace Ehrungsprogramm.Core.Properties {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die The following column errors occured in the CSV file:
+        ///{0}Parsing canceled. ähnelt.
+        /// </summary>
+        public static string ErrorCsvFileParserColumnErrors {
+            get {
+                return ResourceManager.GetString("ErrorCsvFileParserColumnErrors", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die - Mandatory &quot;{0}&quot; column is missing ähnelt.
+        /// </summary>
+        public static string ErrorCsvFileParserColumnMissing {
+            get {
+                return ResourceManager.GetString("ErrorCsvFileParserColumnMissing", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die - Mandatory function columns (&quot;{0}&quot;, &quot;{1}&quot;, &quot;{2}&quot;) are missing. At least one group is necessary. ähnelt.
+        /// </summary>
+        public static string ErrorCsvFileParserColumnMissingFunctions {
+            get {
+                return ResourceManager.GetString("ErrorCsvFileParserColumnMissingFunctions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die - Mandatory reward columns (&quot;{0}&quot;, &quot;{1}&quot;, &quot;{2}&quot;) are missing. At least one group is necessary. ähnelt.
+        /// </summary>
+        public static string ErrorCsvFileParserColumnMissingRewards {
+            get {
+                return ResourceManager.GetString("ErrorCsvFileParserColumnMissingRewards", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Entry date couldn&apos;t be parsed correctly ({0})! ähnelt.
         /// </summary>
         public static string ErrorCsvFileParserEntryDate {
@@ -102,6 +139,15 @@ namespace Ehrungsprogramm.Core.Properties {
         public static string ErrorCsvFileParserFunctionStartDate {
             get {
                 return ResourceManager.GetString("ErrorCsvFileParserFunctionStartDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Function End Date is earlier than Start Date (Start: {0}, End: {1}, Function: {2})! ähnelt.
+        /// </summary>
+        public static string ErrorCsvFileParserFunctionStartEndDateSwapped {
+            get {
+                return ResourceManager.GetString("ErrorCsvFileParserFunctionStartEndDateSwapped", resourceCulture);
             }
         }
         

@@ -10,7 +10,7 @@ namespace Ehrungsprogramm.Core.Models
     /// </summary>
     public class Person : ObservableObject, IEquatable<Person>
     {
-        private int _id;
+        private int _id = 0;
         /// <summary>
         /// Id used to identify this object in a database.
         /// </summary>
@@ -20,7 +20,7 @@ namespace Ehrungsprogramm.Core.Models
             set => SetProperty(ref _id, value);
         }
 
-        private string _name;
+        private string _name = string.Empty;
         /// <summary>
         /// Last name of the person.
         /// </summary>
@@ -30,7 +30,7 @@ namespace Ehrungsprogramm.Core.Models
             set => SetProperty(ref _name, value);
         }
 
-        private string _firstName;
+        private string _firstName = string.Empty;
         /// <summary>
         /// First name of the person.
         /// </summary>

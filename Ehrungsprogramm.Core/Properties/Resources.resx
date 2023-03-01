@@ -120,6 +120,19 @@
   <data name="ErrorCsvFileParserBirthDate" xml:space="preserve">
     <value>Birth date couldn't be parsed correctly ({0})!</value>
   </data>
+  <data name="ErrorCsvFileParserColumnErrors" xml:space="preserve">
+    <value>The following column errors occured in the CSV file:
+{0}Parsing canceled.</value>
+  </data>
+  <data name="ErrorCsvFileParserColumnMissing" xml:space="preserve">
+    <value>- Mandatory "{0}" column is missing</value>
+  </data>
+  <data name="ErrorCsvFileParserColumnMissingFunctions" xml:space="preserve">
+    <value>- Mandatory function columns ("{0}", "{1}", "{2}") are missing. At least one group is necessary.</value>
+  </data>
+  <data name="ErrorCsvFileParserColumnMissingRewards" xml:space="preserve">
+    <value>- Mandatory reward columns ("{0}", "{1}", "{2}") are missing. At least one group is necessary.</value>
+  </data>
   <data name="ErrorCsvFileParserEntryDate" xml:space="preserve">
     <value>Entry date couldn't be parsed correctly ({0})!</value>
   </data>
@@ -131,6 +144,9 @@
   </data>
   <data name="ErrorCsvFileParserFunctionStartDate" xml:space="preserve">
     <value>Function Start Date couldn't be parsed correctly ({0}, Function: {1})!</value>
+  </data>
+  <data name="ErrorCsvFileParserFunctionStartEndDateSwapped" xml:space="preserve">
+    <value>Function End Date is earlier than Start Date (Start: {0}, End: {1}, Function: {2})!</value>
   </data>
   <data name="ErrorCsvFileParserRewardNumber" xml:space="preserve">
     <value>Reward Number couldn't be parsed correctly ({0}, Reward: {1})!</value>
