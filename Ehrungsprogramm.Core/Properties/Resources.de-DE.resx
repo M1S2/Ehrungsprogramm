@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AppDisplayName" xml:space="preserve">
+    <value>Ehrungsprogramm</value>
+  </data>
   <data name="ErrorCsvFileParserBirthDate" xml:space="preserve">
     <value>Das Geburtsdatum konnte nicht richtig eingelesen werden ({0})!</value>
   </data>
@@ -166,6 +169,9 @@
   <data name="PrintBLSVScoreString" xml:space="preserve">
     <value>BLSV Punkte</value>
   </data>
+  <data name="PrintCalculationDeadlineString" xml:space="preserve">
+    <value>Stichtag</value>
+  </data>
   <data name="PrintCountBLSVRewardsString" xml:space="preserve">
     <value>Anzahl BLSV Ehrungen</value>
   </data>
@@ -174,6 +180,9 @@
   </data>
   <data name="PrintCountTSVRewardsString" xml:space="preserve">
     <value>Anzahl TSV Ehrungen</value>
+  </data>
+  <data name="PrintCSVFileString" xml:space="preserve">
+    <value>CSV Datei</value>
   </data>
   <data name="PrintDescriptionString" xml:space="preserve">
     <value>Beschreibung</value>
@@ -264,6 +273,9 @@
   </data>
   <data name="PrintTSVScoreString" xml:space="preserve">
     <value>TSV Punkte</value>
+  </data>
+  <data name="PrintVersionString" xml:space="preserve">
+    <value>Version</value>
   </data>
   <data name="PrintYearsString" xml:space="preserve">
     <value>Jahre</value>

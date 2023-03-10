@@ -20,6 +20,7 @@ using iText.IO.Font;
 using iText.IO.Image;
 using iText.Kernel.Pdf.Canvas;
 using iText.Kernel.Events;
+using System.Reflection;
 
 namespace Ehrungsprogramm.Core.Services
 {
@@ -31,11 +32,15 @@ namespace Ehrungsprogramm.Core.Services
     {
         public static readonly Color TSVLIGHTBLUE = new DeviceRgb(33, 129, 255);
 
+        private IPersonService _personService;
+
         /// <summary>
         /// Constructor of the <see cref="PrintService"/>
         /// </summary>
-        public PrintService()
+        /// <param name="personService"><see cref="IPersonService"/> object used to get some parameters used to print the reports</param>
+        public PrintService(IPersonService personService)
         {
+            _personService = personService;
         }
 
         // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -57,9 +62,10 @@ namespace Ehrungsprogramm.Core.Services
                     using (PdfDocument pdf = new PdfDocument(writer))
                     using (Document document = new Document(pdf, PageSize.A4, false))
                     {
+                        document.SetBottomMargin(65);
                         // Add events to handle the generation of headers and footers
                         pdf.AddEventHandler(PdfDocumentEvent.START_PAGE, new PageHeaderEventHandler());
-                        pdf.AddEventHandler(PdfDocumentEvent.END_PAGE, new PageFooterEventHandler());
+                        pdf.AddEventHandler(PdfDocumentEvent.END_PAGE, new PageFooterEventHandler(_personService));
 
                         document.Add(new Paragraph(Properties.Resources.PrintPersonDetailsString).SetTextAlignment(TextAlignment.CENTER).SetFontSize(20));
                         if (!String.IsNullOrEmpty(person.ParsingFailureMessage))
@@ -151,9 +157,10 @@ namespace Ehrungsprogramm.Core.Services
                     using (Document document = new Document(pdf, PageSize.A4, false))
                     {
                         document.SetTopMargin(60);
+                        document.SetBottomMargin(70);
                         // Add events to handle the generation of headers and footers
                         pdf.AddEventHandler(PdfDocumentEvent.START_PAGE, new PageHeaderEventHandler());
-                        pdf.AddEventHandler(PdfDocumentEvent.END_PAGE, new PageFooterEventHandler());
+                        pdf.AddEventHandler(PdfDocumentEvent.END_PAGE, new PageFooterEventHandler(_personService));
 
                         Image imageWarning = new Image(ImageDataFactory.CreatePng(Properties.Resources.WarningIcon)).Scale(0.25f, 0.25f);
 
@@ -227,9 +234,10 @@ namespace Ehrungsprogramm.Core.Services
                     using (PdfDocument pdf = new PdfDocument(writer))
                     using (Document document = new Document(pdf, PageSize.A4, false))
                     {
+                        document.SetBottomMargin(70);
                         // Add events to handle the generation of headers and footers
                         pdf.AddEventHandler(PdfDocumentEvent.START_PAGE, new PageHeaderEventHandler());
-                        pdf.AddEventHandler(PdfDocumentEvent.END_PAGE, new PageFooterEventHandler());
+                        pdf.AddEventHandler(PdfDocumentEvent.END_PAGE, new PageFooterEventHandler(_personService));
 
                         Image imageWarning = new Image(ImageDataFactory.CreatePng(Properties.Resources.WarningIcon)).Scale(0.25f, 0.25f);
 
@@ -376,6 +384,17 @@ namespace Ehrungsprogramm.Core.Services
     /// </summary>
     public class PageFooterEventHandler : IEventHandler
     {
+        private IPersonService _personService;
+
+        /// <summary>
+        /// Constructor of the <see cref="PageFooterEventHandler"/>
+        /// </summary>
+        /// <param name="personService"><see cref="IPersonService"/> object used to get some parameters used to print the document footer</param>
+        public PageFooterEventHandler(IPersonService personService)
+        {
+            _personService = personService;
+        }
+
         public void HandleEvent(Event currentEvent)
         {
             PdfDocumentEvent docEvent = (PdfDocumentEvent)currentEvent;
@@ -383,14 +402,27 @@ namespace Ehrungsprogramm.Core.Services
             PdfPage page = docEvent.GetPage();
             PdfCanvas canvas = new PdfCanvas(page.NewContentStreamBefore(), page.GetResources(), pdfDoc);
 
-            DateTime exportDate = DateTime.Now;
-            // Page numbers and export date
-            int numPages = pdfDoc.GetNumberOfPages();
-            Paragraph textExportDate = new Paragraph(Properties.Resources.PrintExportDateString + ": " + exportDate.ToString());
             // Page origin is in the lower left edge
-            new Canvas(canvas, new Rectangle(20, 15, 200, 30)).Add(textExportDate).Close();
-            Paragraph textPageNumbers = new Paragraph(string.Format(Properties.Resources.PrintPageString, pdfDoc.GetPageNumber(page), numPages));
-            new Canvas(canvas, new Rectangle(page.GetPageSize().GetWidth() - 100, 15, 100, 30)).Add(textPageNumbers).Close();
+
+            // Export date            
+            Paragraph textExportDate = new Paragraph(Properties.Resources.PrintExportDateString + ": " + DateTime.Now.ToString());
+            new Canvas(canvas, new Rectangle(20, 45, 200, 30)).Add(textExportDate).Close();
+            // Calculation Deadline
+            Paragraph textCalculationDeadline = new Paragraph(Properties.Resources.PrintCalculationDeadlineString + ": " + _personService.CalculationDeadline.ToShortDateString());
+            new Canvas(canvas, new Rectangle(20, 30, 200, 30)).Add(textCalculationDeadline).Close();
+            // CSV file path
+#warning Check if long paths are printed correct
+            Paragraph textCsvFilePath = new Paragraph(Properties.Resources.PrintCSVFileString + ": " + _personService.LastImportFilePath);
+            new Canvas(canvas, new Rectangle(20, 15, 600, 30)).Add(textCsvFilePath).Close();
+
+            // Software Version
+            string version = Assembly.GetEntryAssembly()!.GetName().Version!.ToString();
+            version = version.Substring(0, version.LastIndexOf("."));
+            Paragraph textSoftwareVersion = new Paragraph(Properties.Resources.AppDisplayName + " " + Properties.Resources.PrintVersionString + ": v" + version);
+            new Canvas(canvas, new Rectangle(page.GetPageSize().GetWidth() - 220, 30, 200, 30)).Add(textSoftwareVersion).Close();
+            // Page numbers
+            Paragraph textPageNumbers = new Paragraph(string.Format(Properties.Resources.PrintPageString, pdfDoc.GetPageNumber(page), pdfDoc.GetNumberOfPages()));
+            new Canvas(canvas, new Rectangle(page.GetPageSize().GetWidth() - 110, 15, 100, 30)).Add(textPageNumbers).Close();
         }
     }
 }

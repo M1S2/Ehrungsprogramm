@@ -61,6 +61,15 @@ namespace Ehrungsprogramm.Core.Properties {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Reward Program ähnelt.
+        /// </summary>
+        public static string AppDisplayName {
+            get {
+                return ResourceManager.GetString("AppDisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Birth date couldn&apos;t be parsed correctly ({0})! ähnelt.
         /// </summary>
         public static string ErrorCsvFileParserBirthDate {
@@ -206,6 +215,15 @@ namespace Ehrungsprogramm.Core.Properties {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Calculation Deadline ähnelt.
+        /// </summary>
+        public static string PrintCalculationDeadlineString {
+            get {
+                return ResourceManager.GetString("PrintCalculationDeadlineString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Count BLSV Rewards ähnelt.
         /// </summary>
         public static string PrintCountBLSVRewardsString {
@@ -229,6 +247,15 @@ namespace Ehrungsprogramm.Core.Properties {
         public static string PrintCountTSVRewardsString {
             get {
                 return ResourceManager.GetString("PrintCountTSVRewardsString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die CSV File ähnelt.
+        /// </summary>
+        public static string PrintCSVFileString {
+            get {
+                return ResourceManager.GetString("PrintCSVFileString", resourceCulture);
             }
         }
         
@@ -499,6 +526,15 @@ namespace Ehrungsprogramm.Core.Properties {
         public static string PrintTSVScoreString {
             get {
                 return ResourceManager.GetString("PrintTSVScoreString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Version ähnelt.
+        /// </summary>
+        public static string PrintVersionString {
+            get {
+                return ResourceManager.GetString("PrintVersionString", resourceCulture);
             }
         }
         

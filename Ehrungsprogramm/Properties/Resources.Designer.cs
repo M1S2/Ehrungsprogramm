@@ -171,7 +171,7 @@ namespace Ehrungsprogramm.Properties {
         }
         
         /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die PersonDetail.pdf ähnelt.
+        ///   Sucht eine lokalisierte Zeichenfolge, die PersonDetail_{0}.pdf ähnelt.
         /// </summary>
         public static string DefaultFileNamePersonDetail {
             get {

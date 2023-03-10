@@ -340,7 +340,7 @@ If the currently highest reward is already obtained, it isn't shown.</value>
     <value>Point</value>
   </data>
   <data name="DefaultFileNamePersonDetail" xml:space="preserve">
-    <value>PersonDetail.pdf</value>
+    <value>PersonDetail_{0}.pdf</value>
   </data>
   <data name="DefaultFileNamePersonOverview" xml:space="preserve">
     <value>PersonOverview.pdf</value>

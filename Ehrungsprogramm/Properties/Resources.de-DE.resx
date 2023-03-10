@@ -333,7 +333,7 @@ Wenn die momentan höchste Ehrung bereits erhalten ist, wird sie nicht angezeigt
     <value>Punkt</value>
   </data>
   <data name="DefaultFileNamePersonDetail" xml:space="preserve">
-    <value>PersonDetails.pdf</value>
+    <value>PersonDetails_{0}.pdf</value>
   </data>
   <data name="DefaultFileNamePersonOverview" xml:space="preserve">
     <value>PersonenÜbersicht.pdf</value>
