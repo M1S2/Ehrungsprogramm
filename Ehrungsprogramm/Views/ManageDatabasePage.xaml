@@ -117,7 +117,7 @@
 
                         <controls:FontIcon Grid.Row="5" Grid.Column="0" Glyph="&#xE8E5;" FontSize="30" Margin="5"/>
                         <TextBlock Grid.Row="5" Grid.Column="1" FontSize="{StaticResource MediumFontSize}" VerticalAlignment="Center" Text="{x:Static properties:Resources.LastImportedFileString}"/>
-                        <TextBlock Grid.Row="5" Grid.Column="2" FontSize="{StaticResource MediumFontSize}" VerticalAlignment="Center" Text="{Binding LastImportFilePath}"/>
+                        <TextBlock Grid.Row="5" Grid.Column="2" FontSize="{StaticResource MediumFontSize}" VerticalAlignment="Center" Text="{Binding LastImportFilePath}" TextTrimming="CharacterEllipsis"/>
 
                     </Grid>
                 </Border>

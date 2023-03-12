@@ -21,6 +21,7 @@ using iText.IO.Image;
 using iText.Kernel.Pdf.Canvas;
 using iText.Kernel.Events;
 using System.Reflection;
+using Ehrungsprogramm.Core.Extensions;
 
 namespace Ehrungsprogramm.Core.Services
 {
@@ -411,8 +412,7 @@ namespace Ehrungsprogramm.Core.Services
             Paragraph textCalculationDeadline = new Paragraph(Properties.Resources.PrintCalculationDeadlineString + ": " + _personService.CalculationDeadline.ToShortDateString());
             new Canvas(canvas, new Rectangle(20, 30, 200, 30)).Add(textCalculationDeadline).Close();
             // CSV file path
-#warning Check if long paths are printed correct
-            Paragraph textCsvFilePath = new Paragraph(Properties.Resources.PrintCSVFileString + ": " + _personService.LastImportFilePath);
+            Paragraph textCsvFilePath = new Paragraph(Properties.Resources.PrintCSVFileString + ": " + _personService.LastImportFilePath.EllipsisPath(60));
             new Canvas(canvas, new Rectangle(20, 15, 600, 30)).Add(textCsvFilePath).Close();
 
             // Software Version
