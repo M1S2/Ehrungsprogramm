@@ -140,7 +140,11 @@
     <value>Das Eintrittsdatum konnte nicht richtig eingelesen werden ({0})!</value>
   </data>
   <data name="ErrorCsvFileParserFileDoesntExist" xml:space="preserve">
-    <value>Die Datei existiert nicht ({0}).</value>
+    <value>Die Datei existiert nicht ("{0}").</value>
+  </data>
+  <data name="ErrorCsvFileParserFileOpenFailed" xml:space="preserve">
+    <value>Öffnen der CSV Datei fehlgeschlagen ("{0}").
+Das kann daran liegen, dass die Datei in einem anderen Programm geöffnet is (z.B. Excel).</value>
   </data>
   <data name="ErrorCsvFileParserFunctionEndDate" xml:space="preserve">
     <value>Das Funktionsenddatum konnte nicht richtig eingelesen werden ({0}, Function: {1})!</value>

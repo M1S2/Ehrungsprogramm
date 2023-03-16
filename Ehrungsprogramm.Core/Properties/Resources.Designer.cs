@@ -125,11 +125,21 @@ namespace Ehrungsprogramm.Core.Properties {
         }
         
         /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die File doesn&apos;t exist ({0}). ähnelt.
+        ///   Sucht eine lokalisierte Zeichenfolge, die File doesn&apos;t exist (&quot;{0}&quot;). ähnelt.
         /// </summary>
         public static string ErrorCsvFileParserFileDoesntExist {
             get {
                 return ResourceManager.GetString("ErrorCsvFileParserFileDoesntExist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Opening CSV file failed (&quot;{0}&quot;).
+        ///This could be caused by having the file opened in another program (e.g. Excel). ähnelt.
+        /// </summary>
+        public static string ErrorCsvFileParserFileOpenFailed {
+            get {
+                return ResourceManager.GetString("ErrorCsvFileParserFileOpenFailed", resourceCulture);
             }
         }
         

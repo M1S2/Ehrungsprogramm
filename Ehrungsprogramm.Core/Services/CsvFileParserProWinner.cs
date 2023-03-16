@@ -76,9 +76,17 @@ namespace Ehrungsprogramm.Core.Services
                 throw new Exception(String.Format(Properties.Resources.ErrorCsvFileParserFileDoesntExist, filepath));
             }
 
-            // Read all lines of the .csv file
-            Encoding fileEncoding = getFileEncoding(filepath);
-            string[] csv_lines = System.IO.File.ReadAllLines(filepath, fileEncoding);
+            string[] csv_lines = null;
+            try
+            {
+                // Read all lines of the .csv file
+                Encoding fileEncoding = getFileEncoding(filepath);
+                csv_lines = File.ReadAllLines(filepath, fileEncoding);
+            }
+            catch(IOException)
+            {
+                throw new Exception(string.Format(Properties.Resources.ErrorCsvFileParserFileOpenFailed, filepath));
+            }
 
             string regexPatternLineElements = DELIMITER + "(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)";       // Using quotes to allow the delimiter
 

@@ -140,7 +140,11 @@
     <value>Entry date couldn't be parsed correctly ({0})!</value>
   </data>
   <data name="ErrorCsvFileParserFileDoesntExist" xml:space="preserve">
-    <value>File doesn't exist ({0}).</value>
+    <value>File doesn't exist ("{0}").</value>
+  </data>
+  <data name="ErrorCsvFileParserFileOpenFailed" xml:space="preserve">
+    <value>Opening CSV file failed ("{0}").
+This could be caused by having the file opened in another program (e.g. Excel).</value>
   </data>
   <data name="ErrorCsvFileParserFunctionEndDate" xml:space="preserve">
     <value>Function End Date couldn't be parsed correctly ({0}, Function: {1})!</value>
