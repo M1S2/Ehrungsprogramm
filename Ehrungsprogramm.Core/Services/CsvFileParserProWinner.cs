@@ -42,6 +42,7 @@ namespace Ehrungsprogramm.Core.Services
 
         public const string BOARD_MEMBER_MARKER = "1. 2. 3. Vorstand";
         public const string BOARD_MEMBER_FUNCTION_MARKER = "Vorstandschaft";        // someone who has another function than 1. - 3. board member but is in the board too.
+        public const string BOARD_MEMBER_FUNCTION_MARKER2 = "HV-";                   // alternative marker for the BOARD_MEMBER_FUNCTION_MARKER
         public const string HEAD_OF_DEPARTEMENT_MARKER = "Abteilungsleiter";
         public const string OTHER_FUNCTIONS_MARKER = "FKT";
 
@@ -224,10 +225,23 @@ namespace Ehrungsprogramm.Core.Services
                         function.TimePeriod.End = dateTimeNow;      // This date is replaced later by the calculation deadline. So it doesn't matter what it is set to.
                     }
 
-                    if (functionName.Contains(OTHER_FUNCTIONS_MARKER)) { function.Type = FunctionType.OTHER_FUNCTION; }
-                    else if (functionName.Contains(HEAD_OF_DEPARTEMENT_MARKER) || functionName.Contains(BOARD_MEMBER_FUNCTION_MARKER)) { function.Type = FunctionType.HEAD_OF_DEPARTEMENT; }
-                    else if (functionName.Contains(BOARD_MEMBER_MARKER)) { function.Type = FunctionType.BOARD_MEMBER; }
-                    else { function.Type = FunctionType.UNKNOWN; }
+                    // Check if the functionName contains some key words and assign the function.Type accordingly
+                    if (functionName.Contains(OTHER_FUNCTIONS_MARKER)) 
+                    { 
+                        function.Type = FunctionType.OTHER_FUNCTION; 
+                    }
+                    else if (functionName.Contains(HEAD_OF_DEPARTEMENT_MARKER) || functionName.Contains(BOARD_MEMBER_FUNCTION_MARKER) || functionName.Contains(BOARD_MEMBER_FUNCTION_MARKER2)) 
+                    { 
+                        function.Type = FunctionType.HEAD_OF_DEPARTEMENT;
+                    }
+                    else if (functionName.Contains(BOARD_MEMBER_MARKER)) 
+                    { 
+                        function.Type = FunctionType.BOARD_MEMBER; 
+                    }
+                    else 
+                    { 
+                        function.Type = FunctionType.UNKNOWN; 
+                    }
 
                     if (!person.Functions.Contains(function))
                     {
