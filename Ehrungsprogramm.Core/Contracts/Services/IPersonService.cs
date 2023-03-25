@@ -69,24 +69,29 @@ namespace Ehrungsprogramm.Core.Contracts.Services
         /// Return the number of <see cref="Person"/> in the database
         /// </summary>
         /// <returns>Number of <see cref="Person"/> in the database</returns>
-        int GetPersonCount();
+        int PersonCount { get; }
 
         /// <summary>
         /// Get the number of <see cref="Person"/> with parsing errors/>
         /// </summary>
         /// <returns>number of <see cref="Person"/> with parsing errors</returns>
-        int GetParsingErrorCount();
+        int ParsingErrorCount { get; }
+
+        /// <summary>
+        /// Number of functions of type <see cref="FunctionType.UNKNOWN"/> within all <see cref="Person"/>/>
+        /// </summary>
+        int UnknownFunctionsCount { get; }
 
         /// <summary>
         /// Get the number of available (but not obtained) BLSV <see cref="Reward"/>
         /// </summary>
         /// <returns>Number of available (but not obtained) BLSV <see cref="Reward"/></returns>
-        int GetAvailableBLSVRewardsCount();
+        int AvailableBLSVRewardsCount { get; }
 
         /// <summary>
         /// Get the number of available (but not obtained) TSV <see cref="Reward"/>
         /// </summary>
         /// <returns>Number of available (but not obtained) TSV <see cref="Reward"/></returns>
-        int GetAvailableTSVRewardsCount();
+        int AvailableTSVRewardsCount { get; }
     }
 }

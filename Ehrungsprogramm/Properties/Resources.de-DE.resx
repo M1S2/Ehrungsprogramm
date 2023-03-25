@@ -350,4 +350,7 @@ Wenn die momentan höchste Ehrung bereits erhalten ist, wird sie nicht angezeigt
   <data name="VisibleItemsString" xml:space="preserve">
     <value>Sichtbare Elemente</value>
   </data>
+  <data name="UnknownFunctionsCountString" xml:space="preserve">
+    <value>Anzahl unbekannte Funktionen</value>
+  </data>
 </root>

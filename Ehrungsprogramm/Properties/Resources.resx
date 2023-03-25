@@ -357,4 +357,7 @@ If the currently highest reward is already obtained, it isn't shown.</value>
   <data name="VisibleItemsString" xml:space="preserve">
     <value>Visible Items</value>
   </data>
+  <data name="UnknownFunctionsCountString" xml:space="preserve">
+    <value>Unknown Functions Count</value>
+  </data>
 </root>

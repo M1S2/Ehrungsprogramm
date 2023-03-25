@@ -1,5 +1,12 @@
 # Ehrungsprogramm Changelog
 
+## [v1.3.0]
+
+- Kleine Fehlerbehebungen (#27)
+- Fehlende Bewertung für einige Funktionen korrigiert (#26)
+- Auf den Ausdrucken werden mehr Details angezeigt (#25)
+- Einlesen der CSV Datei (CsvFileParserProWinner) verbessert (#24)
+
 ## [v1.2.0]
 
 - Die Filter der Ehrungsliste werden mit ausgedruckt (#23)

@@ -37,22 +37,27 @@ namespace Ehrungsprogramm.ViewModels
         /// <summary>
         /// Number of Persons in the database
         /// </summary>
-        public int PersonCount => _personService?.GetPersonCount() ?? 0;
+        public int PersonCount => _personService?.PersonCount ?? 0;
 
         /// <summary>
         /// Number of <see cref="Person"/> with parsing errors/>
         /// </summary>
-        public int ParsingErrorCount => _personService?.GetParsingErrorCount() ?? 0;
+        public int ParsingErrorCount => _personService?.ParsingErrorCount ?? 0;
+
+        /// <summary>
+        /// Number of functions of type <see cref="FunctionType.UNKNOWN"/> within all <see cref="Person"/>/>
+        /// </summary>
+        public int UnknownFunctionsCount => _personService?.UnknownFunctionsCount ?? 0;
 
         /// <summary>
         /// Number of available (but not obtained) BLSV <see cref="Reward"/>
         /// </summary>
-        public int AvailableBLSVRewardsCount => _personService?.GetAvailableBLSVRewardsCount() ?? 0;
+        public int AvailableBLSVRewardsCount => _personService?.AvailableBLSVRewardsCount ?? 0;
 
         /// <summary>
         /// Number of available (but not obtained) TSV <see cref="Reward"/>
         /// </summary>
-        public int AvailableTSVRewardsCount => _personService?.GetAvailableTSVRewardsCount() ?? 0;
+        public int AvailableTSVRewardsCount => _personService?.AvailableTSVRewardsCount ?? 0;
 
         /// <summary>
         /// Path of the last imported file
@@ -71,6 +76,9 @@ namespace Ehrungsprogramm.ViewModels
 
         private ICommand _showParsingFailurePersonsCommand;
         public ICommand ShowParsingFailurePersonsCommand => _showParsingFailurePersonsCommand ?? (_showParsingFailurePersonsCommand = new RelayCommand(() => _navigationService.NavigateTo(typeof(PersonsViewModel).FullName, PersonsViewModel.FILTER_FLAG_WARN)));
+
+        private ICommand _showUnknownFunctionsPersonsCommand;
+        public ICommand ShowUnknownFunctionsPersonsCommand => _showUnknownFunctionsPersonsCommand ?? (_showUnknownFunctionsPersonsCommand = new RelayCommand(() => _navigationService.NavigateTo(typeof(PersonsViewModel).FullName, PersonsViewModel.FILTER_FLAG_UNKNOWN_FUNCTION)));
 
         private ICommand _setCalculationDeadlineTodayCommand;
         public ICommand SetCalculationDeadlineTodayCommand => _setCalculationDeadlineTodayCommand ?? (_setCalculationDeadlineTodayCommand = new RelayCommand(() => CalculationDeadline = DateTime.Now));
@@ -164,6 +172,7 @@ namespace Ehrungsprogramm.ViewModels
         {
             OnPropertyChanged(nameof(PersonCount));
             OnPropertyChanged(nameof(ParsingErrorCount));
+            OnPropertyChanged(nameof(UnknownFunctionsCount));
             OnPropertyChanged(nameof(AvailableBLSVRewardsCount));
             OnPropertyChanged(nameof(AvailableTSVRewardsCount));
             OnPropertyChanged(nameof(LastImportFilePath));

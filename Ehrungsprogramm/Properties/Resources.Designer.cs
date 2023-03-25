@@ -767,6 +767,15 @@ namespace Ehrungsprogramm.Properties {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Unknown Functions Count ähnelt.
+        /// </summary>
+        public static string UnknownFunctionsCountString {
+            get {
+                return ResourceManager.GetString("UnknownFunctionsCountString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Visible Items ähnelt.
         /// </summary>
         public static string VisibleItemsString {

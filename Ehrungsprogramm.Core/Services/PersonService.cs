@@ -76,7 +76,7 @@ namespace Ehrungsprogramm.Core.Services
             set
             {
                 _settings.CalculationDeadline = value;
-                if(!_settingsCollection.Update(_settings))
+                if (!_settingsCollection.Update(_settings))
                 {
                     _settingsCollection.Insert(_settings);
                 }
@@ -93,7 +93,7 @@ namespace Ehrungsprogramm.Core.Services
             set
             {
                 _settings.LastImportFilePath = value;
-                if(!_settingsCollection.Update(_settings))
+                if (!_settingsCollection.Update(_settings))
                 {
                     _settingsCollection.Insert(_settings);
                 }
@@ -141,17 +141,17 @@ namespace Ehrungsprogramm.Core.Services
                     importingResult = true;
                     LastImportFilePath = filepath;
                 }
-                catch(OperationCanceledException)
+                catch (OperationCanceledException)
                 {
                     importingResult = false;
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
                     exception = ex;
                 }
             });
             OnImportFromFileFinished?.Invoke(this, null);
-            if(exception != null) { throw exception; }
+            if (exception != null) { throw exception; }
             return importingResult;
         }
 
@@ -193,39 +193,63 @@ namespace Ehrungsprogramm.Core.Services
         /// Return the number of <see cref="Person"/> in the database
         /// </summary>
         /// <returns>Number of <see cref="Person"/> in the database</returns>
-        public int GetPersonCount()
+        public int PersonCount
         {
-            return _peopleCollection?.Count() ?? 0;
+            get
+            {
+                return _peopleCollection?.Count() ?? 0;
+            }
         }
 
         /// <summary>
         /// Get the number of <see cref="Person"/> with parsing errors/>
         /// </summary>
         /// <returns>number of <see cref="Person"/> with parsing errors</returns>
-        public int GetParsingErrorCount()
+        public int ParsingErrorCount
         {
-            List<Person> people = _peopleCollection?.Query().ToList();
-            return people.Where(p => !string.IsNullOrEmpty(p.ParsingFailureMessage)).Count();
+            get
+            {
+                List<Person> people = _peopleCollection?.Query().ToList();
+                return people.Where(p => !string.IsNullOrEmpty(p.ParsingFailureMessage)).Count();
+            }
+        }
+
+        /// <summary>
+        /// Number of functions of type <see cref="FunctionType.UNKNOWN"/> within all <see cref="Person"/>/>
+        /// </summary>
+        public int UnknownFunctionsCount
+        {
+            get
+            {
+                List<Person> people = _peopleCollection?.Query().ToList();
+                return people.SelectMany(p => p.Functions).Where(f => f.Type == FunctionType.UNKNOWN).Count();
+            }
         }
 
         /// <summary>
         /// Get the number of available (but not obtained) BLSV <see cref="Reward"/>
         /// </summary>
         /// <returns>Number of available (but not obtained) BLSV <see cref="Reward"/></returns>
-        public int GetAvailableBLSVRewardsCount()
+        public int AvailableBLSVRewardsCount
         {
-            List<Person> people = GetPersons();
-            return people.Count(p => p.Rewards.HighestAvailableBLSVReward != null);
+            get
+            {
+                List<Person> people = GetPersons();
+                return people.Count(p => p.Rewards.HighestAvailableBLSVReward != null);
+            }
         }
 
         /// <summary>
         /// Get the number of available (but not obtained) TSV <see cref="Reward"/>
         /// </summary>
         /// <returns>Number of available (but not obtained) TSV <see cref="Reward"/></returns>
-        public int GetAvailableTSVRewardsCount()
+        public int AvailableTSVRewardsCount
         {
-            List<Person> people = GetPersons();
-            return people.Count(p => p.Rewards.HighestAvailableTSVReward != null);
+            get
+            {
+                List<Person> people = GetPersons();
+                return people.Count(p => p.Rewards.HighestAvailableTSVReward != null);
+            }
         }
 
         // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++

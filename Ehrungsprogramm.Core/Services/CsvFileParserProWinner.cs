@@ -40,11 +40,12 @@ namespace Ehrungsprogramm.Core.Services
         // "Name, Vorname";"Geb.Datum";"Eintritt am";"Funktionsname";"von -";"bis";"Ehr.Nr.";"Ehr.dat.";"Ehrungsbezeichnung";"Eintritt am";"Funktionsname";"Funktion von";"Funktion bis";"Ehrungs-Nr";"Ehrung am";"Ehrungsname"; ...
         //                             | FUNCTION 0                               | REWARD 0                                | FUNCTION 1                                                | REWARD 1                             | ...
 
-        public const string BOARD_MEMBER_MARKER = "1. 2. 3. Vorstand";
-        public const string BOARD_MEMBER_FUNCTION_MARKER = "Vorstandschaft";        // someone who has another function than 1. - 3. board member but is in the board too.
-        public const string BOARD_MEMBER_FUNCTION_MARKER2 = "HV-";                   // alternative marker for the BOARD_MEMBER_FUNCTION_MARKER
-        public const string HEAD_OF_DEPARTEMENT_MARKER = "Abteilungsleiter";
-        public const string OTHER_FUNCTIONS_MARKER = "FKT";
+        // The FUNCTION_MARKERS_BOARD_MEMBER_POINTS list contains all function markers that are assigned to functions like board members or equal scored functions
+        public static readonly List<string> FUNCTION_MARKERS_BOARD_MEMBER_POINTS = new List<string>() { "1. 2. 3. Vorstand" };
+        // The FUNCTION_MARKERS_HEAD_OF_DEPARTEMENT_POINTS list contains all function markers that are assigned to functions like head of departement or equal scored functions
+        public static readonly List<string> FUNCTION_MARKERS_HEAD_OF_DEPARTEMENT_POINTS = new List<string>() { "Abteilungsleiter", "Vorstandschaft", "HV-" };
+        // The FUNCTION_MARKERS_OTHER_FUNCTION_POINTS list contains all function markers that are assigned to other functions
+        public static readonly List<string> FUNCTION_MARKERS_OTHER_FUNCTION_POINTS = new List<string>() { "FKT", "Fahnenträger", "Geschäftsstelle Mita" };
 
         public const int REWARD_NUMBER_BLSV20 = 14;
         public const int REWARD_NUMBER_BLSV25 = 15;
@@ -234,15 +235,15 @@ namespace Ehrungsprogramm.Core.Services
                     }
 
                     // Check if the functionName contains some key words and assign the function.Type accordingly
-                    if (functionName.Contains(OTHER_FUNCTIONS_MARKER)) 
+                    if (FUNCTION_MARKERS_OTHER_FUNCTION_POINTS.Where(m => functionName.Contains(m)).Count() > 0)
                     { 
                         function.Type = FunctionType.OTHER_FUNCTION; 
                     }
-                    else if (functionName.Contains(HEAD_OF_DEPARTEMENT_MARKER) || functionName.Contains(BOARD_MEMBER_FUNCTION_MARKER) || functionName.Contains(BOARD_MEMBER_FUNCTION_MARKER2)) 
+                    else if (FUNCTION_MARKERS_HEAD_OF_DEPARTEMENT_POINTS.Where(m => functionName.Contains(m)).Count() > 0)
                     { 
                         function.Type = FunctionType.HEAD_OF_DEPARTEMENT;
                     }
-                    else if (functionName.Contains(BOARD_MEMBER_MARKER)) 
+                    else if (FUNCTION_MARKERS_BOARD_MEMBER_POINTS.Where(m => functionName.Contains(m)).Count() > 0)
                     { 
                         function.Type = FunctionType.BOARD_MEMBER; 
                     }

@@ -18,7 +18,8 @@ namespace Ehrungsprogramm.ViewModels
 {
     public class PersonsViewModel : ObservableObject, INavigationAware
     {
-        public const string FILTER_FLAG_WARN = "&warn";         // The warn flag is used to only show people with parsing failures
+        public const string FILTER_FLAG_WARN = "&warn";                         // The warn flag is used to only show people with parsing failures
+        public const string FILTER_FLAG_UNKNOWN_FUNCTION = "&unknownfunction";  // The unknownfunction flag is used to only show people with unknown functions
 
         private List<Person> _people;
         /// <summary>
@@ -70,10 +71,11 @@ namespace Ehrungsprogramm.ViewModels
                     // Process each flag
                     foreach (Match match in matches)
                     {
-                        switch (match.Value.ToLower())
+                        switch (match.Value.ToLower().Trim())
                         {
                             // The warn flag is used to only show people with parsing failures
                             case FILTER_FLAG_WARN: filterResult &= !string.IsNullOrEmpty(person.ParsingFailureMessage); break;
+                            case FILTER_FLAG_UNKNOWN_FUNCTION: filterResult &= (person.Functions.Where(f => f.Type == FunctionType.UNKNOWN).Count() > 0); break;
                             default: break;
                         }
                     }

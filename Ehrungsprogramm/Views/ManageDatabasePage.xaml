@@ -86,6 +86,7 @@
                             <RowDefinition Height="40"/>
                             <RowDefinition Height="40"/>
                             <RowDefinition Height="40"/>
+                            <RowDefinition Height="40"/>
                         </Grid.RowDefinitions>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="70"/>
@@ -107,17 +108,25 @@
                             </Hyperlink>
                         </TextBlock>
 
-                        <controls:FontIcon Grid.Row="3" Grid.Column="0" Glyph="&#xE734;" FontSize="30" Margin="5"/>
-                        <TextBlock Grid.Row="3" Grid.Column="1" FontSize="{StaticResource MediumFontSize}" VerticalAlignment="Center" Text="{x:Static properties:Resources.AvailableBLSVRewardsCountString}"/>
-                        <TextBlock Grid.Row="3" Grid.Column="2" FontSize="{StaticResource LargeFontSize}" VerticalAlignment="Center" Text="{Binding AvailableBLSVRewardsCount}"/>
+                        <controls:FontIcon Grid.Row="3" Grid.Column="0" Glyph="&#xE7BA;" FontSize="30" Margin="5"/>
+                        <TextBlock Grid.Row="3" Grid.Column="1" FontSize="{StaticResource MediumFontSize}" VerticalAlignment="Center" Text="{x:Static properties:Resources.UnknownFunctionsCountString}"/>
+                        <TextBlock Grid.Row="3" Grid.Column="2" FontSize="{StaticResource LargeFontSize}" VerticalAlignment="Center">
+                            <Hyperlink Command="{Binding ShowUnknownFunctionsPersonsCommand}">
+                                <TextBlock Text="{Binding UnknownFunctionsCount}"/>
+                            </Hyperlink>
+                        </TextBlock>
 
                         <controls:FontIcon Grid.Row="4" Grid.Column="0" Glyph="&#xE734;" FontSize="30" Margin="5"/>
-                        <TextBlock Grid.Row="4" Grid.Column="1" FontSize="{StaticResource MediumFontSize}" VerticalAlignment="Center" Text="{x:Static properties:Resources.AvailableTSVRewardsCountString}"/>
-                        <TextBlock Grid.Row="4" Grid.Column="2" FontSize="{StaticResource LargeFontSize}" VerticalAlignment="Center" Text="{Binding AvailableTSVRewardsCount}"/>
+                        <TextBlock Grid.Row="4" Grid.Column="1" FontSize="{StaticResource MediumFontSize}" VerticalAlignment="Center" Text="{x:Static properties:Resources.AvailableBLSVRewardsCountString}"/>
+                        <TextBlock Grid.Row="4" Grid.Column="2" FontSize="{StaticResource LargeFontSize}" VerticalAlignment="Center" Text="{Binding AvailableBLSVRewardsCount}"/>
 
-                        <controls:FontIcon Grid.Row="5" Grid.Column="0" Glyph="&#xE8E5;" FontSize="30" Margin="5"/>
-                        <TextBlock Grid.Row="5" Grid.Column="1" FontSize="{StaticResource MediumFontSize}" VerticalAlignment="Center" Text="{x:Static properties:Resources.LastImportedFileString}"/>
-                        <TextBlock Grid.Row="5" Grid.Column="2" FontSize="{StaticResource MediumFontSize}" VerticalAlignment="Center" Text="{Binding LastImportFilePath}" TextTrimming="CharacterEllipsis"/>
+                        <controls:FontIcon Grid.Row="5" Grid.Column="0" Glyph="&#xE734;" FontSize="30" Margin="5"/>
+                        <TextBlock Grid.Row="5" Grid.Column="1" FontSize="{StaticResource MediumFontSize}" VerticalAlignment="Center" Text="{x:Static properties:Resources.AvailableTSVRewardsCountString}"/>
+                        <TextBlock Grid.Row="5" Grid.Column="2" FontSize="{StaticResource LargeFontSize}" VerticalAlignment="Center" Text="{Binding AvailableTSVRewardsCount}"/>
+
+                        <controls:FontIcon Grid.Row="6" Grid.Column="0" Glyph="&#xE8E5;" FontSize="30" Margin="5"/>
+                        <TextBlock Grid.Row="6" Grid.Column="1" FontSize="{StaticResource MediumFontSize}" VerticalAlignment="Center" Text="{x:Static properties:Resources.LastImportedFileString}"/>
+                        <TextBlock Grid.Row="6" Grid.Column="2" FontSize="{StaticResource MediumFontSize}" VerticalAlignment="Center" Text="{Binding LastImportFilePath}" TextTrimming="CharacterEllipsis"/>
 
                     </Grid>
                 </Border>
