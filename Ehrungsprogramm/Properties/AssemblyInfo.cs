@@ -23,3 +23,6 @@ using System.Runtime.InteropServices;
 [assembly: Guid("fa4ee75a-f5f4-4d26-a332-ea72ff6b92ef")]
 
 [assembly: AssemblyInfoHelper.GitHub.GitHubRepo("https://github.com/M1S2/Ehrungsprogramm")]
+
+[assembly: AssemblyInfoHelper.GitHub.UpdatePersistentFiles("Ehrungsprogramm_Persons.db")]
+[assembly: AssemblyInfoHelper.GitHub.UpdatePersistentFiles("Ehrungsprogramm_Persons-log.db")]

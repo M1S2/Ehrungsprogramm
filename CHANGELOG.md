@@ -1,5 +1,9 @@
 # Ehrungsprogramm Changelog
 
+## [v1.3.1]
+
+- AssemblyInfoHelper Library Update (v5.3.0): Funktion hinzugefügt, um letzte Datenbank nach Update wiederherzustellen
+
 ## [v1.3.0]
 
 - Kleine Fehlerbehebungen (#27)
