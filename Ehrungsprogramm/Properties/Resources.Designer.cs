@@ -198,6 +198,15 @@ namespace Ehrungsprogramm.Properties {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Departements ähnelt.
+        /// </summary>
+        public static string DepartementsString {
+            get {
+                return ResourceManager.GetString("DepartementsString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Description ähnelt.
         /// </summary>
         public static string DescriptionString {
@@ -464,6 +473,15 @@ namespace Ehrungsprogramm.Properties {
         public static string PersonDetailPageTitle {
             get {
                 return ResourceManager.GetString("PersonDetailPageTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Person ID ähnelt.
+        /// </summary>
+        public static string PersonIdString {
+            get {
+                return ResourceManager.GetString("PersonIdString", resourceCulture);
             }
         }
         

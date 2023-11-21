@@ -49,6 +49,8 @@
                     <RowDefinition Height="40"/>
                     <RowDefinition Height="40"/>
                     <RowDefinition Height="40"/>
+                    <RowDefinition Height="40"/>
+                    <RowDefinition Height="40"/>
                     <RowDefinition Height="250"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
@@ -67,7 +69,7 @@
                         </MultiBinding>
                     </TextBlock.Text>
                 </TextBlock>
-
+               
                 <Border Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" Margin="0,10,0,10" BorderThickness="2" CornerRadius="10" BorderBrush="{StaticResource MahApps.Brushes.Control.Validation}" Visibility="{Binding Person.ParsingFailureMessage, Converter={StaticResource StringNullOrEmptyVisibilityConverter}}">
                     <StackPanel Orientation="Horizontal" Margin="5">
                         <controls:FontIcon Margin="10,0,0,0" FontSize="35" Glyph="&#xE7BA;" Foreground="{StaticResource MahApps.Brushes.Control.Validation}"/>
@@ -75,30 +77,38 @@
                     </StackPanel>
                 </Border>
 
-                <controls:FontIcon Grid.Row="2" Grid.Column="0" FontSize="30" Glyph="&#xED55;" ToolTip="{x:Static properties:Resources.BirthDateString}"/>
-                <TextBlock Grid.Row="2" Grid.Column="1" Margin="3" VerticalAlignment="Center" Text="{x:Static properties:Resources.BirthDateString}" FontSize="{StaticResource MediumFontSize}"/>
-                <TextBlock Grid.Row="2" Grid.Column="2" Margin="3" VerticalAlignment="Center" Text="{Binding Person.BirthDate, StringFormat=d}" FontSize="{StaticResource MediumFontSize}"/>
+                <TextBlock Grid.Row="2" Grid.Column="0" FontSize="35" VerticalAlignment="Center" HorizontalAlignment="Center" Text="#" ToolTip="{x:Static properties:Resources.PersonIdString}"/>
+                <TextBlock Grid.Row="2" Grid.Column="1" Margin="3" VerticalAlignment="Center" Text="{x:Static properties:Resources.PersonIdString}" FontSize="{StaticResource MediumFontSize}"/>
+                <TextBlock Grid.Row="2" Grid.Column="2" Margin="3" VerticalAlignment="Center" Text="{Binding Person.PersonID}" FontSize="{StaticResource MediumFontSize}" />
 
-                <controls:FontIcon Grid.Row="3" Grid.Column="0" FontSize="30" Glyph="&#xE787;" ToolTip="{x:Static properties:Resources.EntryDateString}"/>
-                <TextBlock Grid.Row="3" Grid.Column="1" Margin="3" VerticalAlignment="Center" Text="{x:Static properties:Resources.EntryDateString}" FontSize="{StaticResource MediumFontSize}"/>
-                <TextBlock Grid.Row="3" Grid.Column="2" Margin="3" VerticalAlignment="Center" Text="{Binding Person.EntryDate, StringFormat=d}" FontSize="{StaticResource MediumFontSize}"/>
+                <controls:FontIcon Grid.Row="3" Grid.Column="0" FontSize="30" Glyph="&#xED55;" ToolTip="{x:Static properties:Resources.BirthDateString}"/>
+                <TextBlock Grid.Row="3" Grid.Column="1" Margin="3" VerticalAlignment="Center" Text="{x:Static properties:Resources.BirthDateString}" FontSize="{StaticResource MediumFontSize}"/>
+                <TextBlock Grid.Row="3" Grid.Column="2" Margin="3" VerticalAlignment="Center" Text="{Binding Person.BirthDate, StringFormat=d}" FontSize="{StaticResource MediumFontSize}"/>
 
-                <controls:FontIcon Grid.Row="4" Grid.Column="0" FontSize="30" Glyph="&#xEC92;" ToolTip="{x:Static properties:Resources.MembershipYearsString}"/>
-                <TextBlock Grid.Row="4" Grid.Column="1" Margin="3" VerticalAlignment="Center" Text="{x:Static properties:Resources.MembershipYearsString}" FontSize="{StaticResource MediumFontSize}"/>
-                <TextBlock Grid.Row="4" Grid.Column="2" Margin="3" VerticalAlignment="Center" Text="{Binding Person.MembershipYears}" FontSize="{StaticResource MediumFontSize}"/>
+                <controls:FontIcon Grid.Row="4" Grid.Column="0" FontSize="30" Glyph="&#xE787;" ToolTip="{x:Static properties:Resources.EntryDateString}"/>
+                <TextBlock Grid.Row="4" Grid.Column="1" Margin="3" VerticalAlignment="Center" Text="{x:Static properties:Resources.EntryDateString}" FontSize="{StaticResource MediumFontSize}"/>
+                <TextBlock Grid.Row="4" Grid.Column="2" Margin="3" VerticalAlignment="Center" Text="{Binding Person.EntryDate, StringFormat=d}" FontSize="{StaticResource MediumFontSize}"/>
 
-                <controls:FontIcon Grid.Row="6" Grid.Column="0" FontSize="30" Glyph="&#xE734;" ToolTip="{x:Static properties:Resources.ScoreBLSVString}"/>
-                <TextBlock Grid.Row="6" Grid.Column="1" Margin="3" VerticalAlignment="Center" Text="{x:Static properties:Resources.ScoreBLSVString}" FontSize="{StaticResource MediumFontSize}"/>
-                <TextBlock Grid.Row="6" Grid.Column="2" Margin="3" VerticalAlignment="Center" Text="{Binding Person.ScoreBLSV}" FontSize="{StaticResource MediumFontSize}"/>
+                <controls:FontIcon Grid.Row="5" Grid.Column="0" FontSize="30" Glyph="&#xEC92;" ToolTip="{x:Static properties:Resources.MembershipYearsString}"/>
+                <TextBlock Grid.Row="5" Grid.Column="1" Margin="3" VerticalAlignment="Center" Text="{x:Static properties:Resources.MembershipYearsString}" FontSize="{StaticResource MediumFontSize}"/>
+                <TextBlock Grid.Row="5" Grid.Column="2" Margin="3" VerticalAlignment="Center" Text="{Binding Person.MembershipYears}" FontSize="{StaticResource MediumFontSize}"/>
 
-                <controls:FontIcon Grid.Row="7" Grid.Column="0" FontSize="30" Glyph="&#xE734;" ToolTip="{x:Static properties:Resources.ScoreTSVString}"/>
-                <TextBlock Grid.Row="7" Grid.Column="1" Margin="3" VerticalAlignment="Center" Text="{x:Static properties:Resources.ScoreTSVString}" FontSize="{StaticResource MediumFontSize}"/>
-                <TextBlock Grid.Row="7" Grid.Column="2" Margin="3" VerticalAlignment="Center" Text="{Binding Person.ScoreTSV}" FontSize="{StaticResource MediumFontSize}"/>
+                <controls:FontIcon Grid.Row="6" Grid.Column="0" FontSize="30" Glyph="&#xEBDA;" ToolTip="{x:Static properties:Resources.DepartementsString}"/>
+                <TextBlock Grid.Row="6" Grid.Column="1" Margin="3" VerticalAlignment="Center" Text="{x:Static properties:Resources.DepartementsString}" FontSize="{StaticResource MediumFontSize}"/>
+                <TextBlock Grid.Row="6" Grid.Column="2" Margin="3" VerticalAlignment="Center" Text="{Binding Person.Departements}" FontSize="{StaticResource MediumFontSize}"/>
 
-                <controls:FontIcon Grid.Row="8" Grid.Column="0" FontSize="30" Glyph="&#xE821;" ToolTip="{x:Static properties:Resources.FunctionsString}" VerticalAlignment="Top" Margin="3,20,3,3"/>
-                <TextBlock Grid.Row="8" Grid.Column="1" Margin="3,20,3,3" VerticalAlignment="Top" Text="{x:Static properties:Resources.FunctionsString}" FontSize="{StaticResource MediumFontSize}"/>
+                <controls:FontIcon Grid.Row="8" Grid.Column="0" FontSize="30" Glyph="&#xE734;" ToolTip="{x:Static properties:Resources.ScoreBLSVString}"/>
+                <TextBlock Grid.Row="8" Grid.Column="1" Margin="3" VerticalAlignment="Center" Text="{x:Static properties:Resources.ScoreBLSVString}" FontSize="{StaticResource MediumFontSize}"/>
+                <TextBlock Grid.Row="8" Grid.Column="2" Margin="3" VerticalAlignment="Center" Text="{Binding Person.ScoreBLSV}" FontSize="{StaticResource MediumFontSize}"/>
 
-                <DockPanel Grid.Row="8" Grid.Column="2" LastChildFill="True">
+                <controls:FontIcon Grid.Row="9" Grid.Column="0" FontSize="30" Glyph="&#xE734;" ToolTip="{x:Static properties:Resources.ScoreTSVString}"/>
+                <TextBlock Grid.Row="9" Grid.Column="1" Margin="3" VerticalAlignment="Center" Text="{x:Static properties:Resources.ScoreTSVString}" FontSize="{StaticResource MediumFontSize}"/>
+                <TextBlock Grid.Row="9" Grid.Column="2" Margin="3" VerticalAlignment="Center" Text="{Binding Person.ScoreTSV}" FontSize="{StaticResource MediumFontSize}"/>
+
+                <controls:FontIcon Grid.Row="10" Grid.Column="0" FontSize="30" Glyph="&#xE821;" ToolTip="{x:Static properties:Resources.FunctionsString}" VerticalAlignment="Top" Margin="3,20,3,3"/>
+                <TextBlock Grid.Row="10" Grid.Column="1" Margin="3,20,3,3" VerticalAlignment="Top" Text="{x:Static properties:Resources.FunctionsString}" FontSize="{StaticResource MediumFontSize}"/>
+
+                <DockPanel Grid.Row="10" Grid.Column="2" LastChildFill="True">
                     <Grid Margin="30,20,10,0" DockPanel.Dock="Right">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="40"/>
@@ -221,9 +231,9 @@
                     </Grid>
                 </DockPanel>
 
-                <controls:FontIcon Grid.Row="9" Grid.Column="0" FontSize="30" Glyph="&#xE734;" VerticalAlignment="Top" Margin="3,15,3,3" ToolTip="{x:Static properties:Resources.RewardsString}"/>
-                <TextBlock Grid.Row="9" Grid.Column="1" Margin="3,20,3,3" VerticalAlignment="Top" Text="{x:Static properties:Resources.RewardsString}" FontSize="{StaticResource MediumFontSize}"/>
-                <StackPanel Orientation="Vertical" Grid.Row="9" Grid.Column="2" Margin="3,20,3,3">
+                <controls:FontIcon Grid.Row="12" Grid.Column="0" FontSize="30" Glyph="&#xE734;" VerticalAlignment="Top" Margin="3,15,3,3" ToolTip="{x:Static properties:Resources.RewardsString}"/>
+                <TextBlock Grid.Row="12" Grid.Column="1" Margin="3,20,3,3" VerticalAlignment="Top" Text="{x:Static properties:Resources.RewardsString}" FontSize="{StaticResource MediumFontSize}"/>
+                <StackPanel Orientation="Vertical" Grid.Row="12" Grid.Column="2" Margin="3,20,3,3">
                     <WrapPanel Orientation="Horizontal">
                         <!-- Show this text block if no BLSV rewards are available -->
                         <TextBlock Text="{x:Static properties:Resources.NoBLSVRewardsString}" FontSize="{StaticResource MediumFontSize}" Foreground="{StaticResource MahApps.Brushes.Gray2}">

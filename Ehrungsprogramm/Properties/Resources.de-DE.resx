@@ -353,4 +353,10 @@ Wenn die momentan höchste Ehrung bereits erhalten ist, wird sie nicht angezeigt
   <data name="UnknownFunctionsCountString" xml:space="preserve">
     <value>Anzahl unbekannte Funktionen</value>
   </data>
+  <data name="DepartementsString" xml:space="preserve">
+    <value>Abteilungen</value>
+  </data>
+  <data name="PersonIdString" xml:space="preserve">
+    <value>Mitgliedsnummer</value>
+  </data>
 </root>

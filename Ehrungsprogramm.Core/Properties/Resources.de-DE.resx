@@ -188,6 +188,9 @@ Das kann daran liegen, dass die Datei in einem anderen Programm geöffnet is (z.
   <data name="PrintCSVFileString" xml:space="preserve">
     <value>CSV Datei</value>
   </data>
+  <data name="PrintDepartementsString" xml:space="preserve">
+    <value>Abteilungen</value>
+  </data>
   <data name="PrintDescriptionString" xml:space="preserve">
     <value>Beschreibung</value>
   </data>
@@ -244,6 +247,9 @@ Das kann daran liegen, dass die Datei in einem anderen Programm geöffnet is (z.
   </data>
   <data name="PrintPersonDetailsString" xml:space="preserve">
     <value>Person Details</value>
+  </data>
+  <data name="PrintPersonIdString" xml:space="preserve">
+    <value>Mitgliedsnummer</value>
   </data>
   <data name="PrintPersonListFilteredWarningString" xml:space="preserve">
     <value>Achtung: Die Liste ist gefiltert (Filter: "{0}")! Insgesamt sind {1} Personen verfügbar!</value>

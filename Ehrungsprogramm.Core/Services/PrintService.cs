@@ -76,9 +76,11 @@ namespace Ehrungsprogramm.Core.Services
 
                         Dictionary<string, string> personBasicDetailValues = new Dictionary<string, string>();
                         personBasicDetailValues.Add(Properties.Resources.PrintNameString + ": ", person.FirstName + " " + person.Name);
+                        personBasicDetailValues.Add(Properties.Resources.PrintPersonIdString + ": ", person.PersonID.ToString());
                         personBasicDetailValues.Add(Properties.Resources.PrintBirthdateString + ": ", person.BirthDate.ToShortDateString());
                         personBasicDetailValues.Add(Properties.Resources.PrintEntrydateString + ": ", person.EntryDate.ToShortDateString());
                         personBasicDetailValues.Add(Properties.Resources.PrintMembershipYearsString + ": ", person.MembershipYears.ToString());
+                        personBasicDetailValues.Add(Properties.Resources.PrintDepartementsString + ": ", person.Departements);
                         personBasicDetailValues.Add(Properties.Resources.PrintBLSVScoreString + ": ", person.ScoreBLSV.ToString());
                         personBasicDetailValues.Add(Properties.Resources.PrintTSVScoreString + ": ", person.ScoreTSV.ToString());
                         personBasicDetailValues.Add(Properties.Resources.PrintEffectiveYearsBoardMemberString + ": ", person.EffectiveBoardMemberYears.ToString());
@@ -251,24 +253,26 @@ namespace Ehrungsprogramm.Core.Services
 
                         if (peopleTsvRewardAvailable.Count != fullTsvRewardsCount) { document.Add(new Paragraph(string.Format(Properties.Resources.PrintRewardListFilteredWarningString, filterTextTsv, fullTsvRewardsCount)).SetFontColor(ColorConstants.RED)); }
 
-                        Table tableTsv = new Table(5, false);      // 5 columns for: ID, Name, First Name, Score, ParsingErrors
+                        Table tableTsv = new Table(6, false);      // 6 columns for: ID, Name, First Name, Score, Departements, ParsingErrors
                         tableTsv.AddHeaderCell(new Cell(1, 1).SetBackgroundColor(ColorConstants.LIGHT_GRAY).SetTextAlignment(TextAlignment.CENTER).Add(new Paragraph(Properties.Resources.PrintIDString)));
                         tableTsv.AddHeaderCell(new Cell(1, 1).SetBackgroundColor(ColorConstants.LIGHT_GRAY).SetTextAlignment(TextAlignment.CENTER).Add(new Paragraph(Properties.Resources.PrintNameString)));
                         tableTsv.AddHeaderCell(new Cell(1, 1).SetBackgroundColor(ColorConstants.LIGHT_GRAY).SetTextAlignment(TextAlignment.CENTER).Add(new Paragraph(Properties.Resources.PrintFirstNameString)));
                         tableTsv.AddHeaderCell(new Cell(1, 1).SetBackgroundColor(ColorConstants.LIGHT_GRAY).SetTextAlignment(TextAlignment.CENTER).Add(new Paragraph(Properties.Resources.PrintScoreString)));
+                        tableTsv.AddHeaderCell(new Cell(1, 1).SetBackgroundColor(ColorConstants.LIGHT_GRAY).SetTextAlignment(TextAlignment.CENTER).Add(new Paragraph(Properties.Resources.PrintDepartementsString)));
                         tableTsv.AddHeaderCell(new Cell(1, 1).SetBackgroundColor(ColorConstants.LIGHT_GRAY).SetTextAlignment(TextAlignment.CENTER).Add(new Paragraph(Properties.Resources.PrintParsingErrorString)));
-
+                        
                         int counter = 0;
                         foreach (IGrouping<RewardTypes, Person> tsvRewardGroup in tsvRewardGroups)
                         {
                             string tsvRewardName = rewardTypeToString(tsvRewardGroup.Key);
-                            tableTsv.AddCell(new Cell(1, 5).SetBackgroundColor(TSVLIGHTBLUE).SetTextAlignment(TextAlignment.LEFT).Add(new Paragraph(tsvRewardName)));
+                            tableTsv.AddCell(new Cell(1, 6).SetBackgroundColor(TSVLIGHTBLUE).SetTextAlignment(TextAlignment.LEFT).Add(new Paragraph(tsvRewardName)));
                             foreach (Person person in tsvRewardGroup)
                             {
                                 tableTsv.AddCell(new Cell(1, 1).Add(new Paragraph((++counter).ToString())));
                                 tableTsv.AddCell(new Cell(1, 1).Add(new Paragraph(person.Name)));
                                 tableTsv.AddCell(new Cell(1, 1).Add(new Paragraph(person.FirstName)));
                                 tableTsv.AddCell(new Cell(1, 1).Add(new Paragraph(person.ScoreTSV.ToString())));
+                                tableTsv.AddCell(new Cell(1, 1).Add(new Paragraph(person.Departements)));
                                 if (String.IsNullOrEmpty(person.ParsingFailureMessage))
                                 {
                                     tableTsv.AddCell(new Cell(1, 1).Add(new Paragraph("")));
@@ -293,23 +297,25 @@ namespace Ehrungsprogramm.Core.Services
 
                         if (peopleBlsvRewardAvailable.Count != fullBlsvRewardsCount) { document.Add(new Paragraph(string.Format(Properties.Resources.PrintRewardListFilteredWarningString, filterTextBlsv, fullBlsvRewardsCount)).SetFontColor(ColorConstants.RED)); }
 
-                        Table tableBlsv = new Table(5, false);      // 5 columns for: ID, Name, First Name, Score, ParsingErrors
+                        Table tableBlsv = new Table(6, false);      // 6 columns for: ID, Name, First Name, Score, Departements, ParsingErrors
                         tableBlsv.AddHeaderCell(new Cell(1, 1).SetBackgroundColor(ColorConstants.LIGHT_GRAY).SetTextAlignment(TextAlignment.CENTER).Add(new Paragraph(Properties.Resources.PrintIDString)));
                         tableBlsv.AddHeaderCell(new Cell(1, 1).SetBackgroundColor(ColorConstants.LIGHT_GRAY).SetTextAlignment(TextAlignment.CENTER).Add(new Paragraph(Properties.Resources.PrintNameString)));
                         tableBlsv.AddHeaderCell(new Cell(1, 1).SetBackgroundColor(ColorConstants.LIGHT_GRAY).SetTextAlignment(TextAlignment.CENTER).Add(new Paragraph(Properties.Resources.PrintFirstNameString)));
                         tableBlsv.AddHeaderCell(new Cell(1, 1).SetBackgroundColor(ColorConstants.LIGHT_GRAY).SetTextAlignment(TextAlignment.CENTER).Add(new Paragraph(Properties.Resources.PrintScoreString)));
+                        tableBlsv.AddHeaderCell(new Cell(1, 1).SetBackgroundColor(ColorConstants.LIGHT_GRAY).SetTextAlignment(TextAlignment.CENTER).Add(new Paragraph(Properties.Resources.PrintDepartementsString)));
                         tableBlsv.AddHeaderCell(new Cell(1, 1).SetBackgroundColor(ColorConstants.LIGHT_GRAY).SetTextAlignment(TextAlignment.CENTER).Add(new Paragraph(Properties.Resources.PrintParsingErrorString)));
-
+                        
                         counter = 0;
                         foreach (IGrouping<RewardTypes, Person> blsvRewardGroup in blsvRewardGroups)
                         {
-                            tableBlsv.AddCell(new Cell(1, 5).SetBackgroundColor(TSVLIGHTBLUE).SetTextAlignment(TextAlignment.LEFT).Add(new Paragraph(blsvRewardGroup.Key.ToString())));
+                            tableBlsv.AddCell(new Cell(1, 6).SetBackgroundColor(TSVLIGHTBLUE).SetTextAlignment(TextAlignment.LEFT).Add(new Paragraph(blsvRewardGroup.Key.ToString())));
                             foreach (Person person in blsvRewardGroup)
                             {
                                 tableBlsv.AddCell(new Cell(1, 1).Add(new Paragraph((++counter).ToString())));
                                 tableBlsv.AddCell(new Cell(1, 1).Add(new Paragraph(person.Name)));
                                 tableBlsv.AddCell(new Cell(1, 1).Add(new Paragraph(person.FirstName)));
                                 tableBlsv.AddCell(new Cell(1, 1).Add(new Paragraph(person.ScoreBLSV.ToString())));
+                                tableBlsv.AddCell(new Cell(1, 1).Add(new Paragraph(person.Departements)));
                                 if (String.IsNullOrEmpty(person.ParsingFailureMessage))
                                 {
                                     tableBlsv.AddCell(new Cell(1, 1).Add(new Paragraph("")));

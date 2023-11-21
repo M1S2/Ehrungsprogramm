@@ -27,8 +27,10 @@ namespace Ehrungsprogramm.Core.Services
         
         // Lists used to identify the columns
         public static readonly List<string> CSVCOLUMNHEADERS_NAME = new List<string>() { "Name, Vorname" };
+        public static readonly List<string> CSVCOLUMNHEADERS_PERSON_ID = new List<string>() { "Mitgliedsnummer" };
         public static readonly List<string> CSVCOLUMNHEADERS_BIRTHDATE = new List<string>() { "Geb.Datum" };
         public static readonly List<string> CSVCOLUMNHEADERS_ENTRYDATE = new List<string>() { "Eintritt am" };
+        public static readonly List<string> CSVCOLUMNHEADERS_DEPARTEMENTS = new List<string>() { "Abteilungen" };
         public static readonly List<string> CSVCOLUMNHEADERS_FUNCTION_DESCRIPTION = new List<string>() { "Funktionsname" };
         public static readonly List<string> CSVCOLUMNHEADERS_FUNCTION_START = new List<string>() { "von -", "Funktion von" };
         public static readonly List<string> CSVCOLUMNHEADERS_FUNCTION_END = new List<string>() { "bis", "Funktion bis" };
@@ -59,6 +61,34 @@ namespace Ehrungsprogramm.Core.Services
         public const int REWARD_NUMBER_TSV_SILVER = 3;
         public const int REWARD_NUMBER_TSV_GOLD = 4;
         public const int REWARD_NUMBER_TSV_HONORARY = 1;
+
+        public const char DEPARTEMENT_NUMBERS_SEPARATOR = ',';
+        public const int DEPARTEMENT_NUMBER_HAUPTVEREIN = 0;        // This departement is ignored, because all persons belong to the "Hauptverein"
+        // This dictionary assigns the departement names to the departement numbers in the departement column
+        public static readonly Dictionary<int, string> DEPARTEMENT_NAMES = new Dictionary<int, string>()
+        {
+            { DEPARTEMENT_NUMBER_HAUPTVEREIN, "Hauptverein" },
+            { 1, "Vorstandschaft" },
+            { 2, "Abteilungsleiter" },
+            { 10, "Faustball" },
+            { 20, "Handball" },
+            { 30, "Judo" },
+            { 40, "Koronar" },
+            { 50, "Leichtathletik" },
+            { 60, "Schwimmen" },
+            { 70, "Senioren" },
+            { 80, "Ski" },
+            { 90, "Tennis" },
+            { 100, "Tischtennis" },
+            { 110, "Turnen" },
+            { 120, "Rehasport" },
+            { 130, "Volleyball" },
+            { 140, "Tanzsport" },
+            { 150, "Basketball" },
+            { 160, "Vitalsport" },
+            { 170, "Geräteturnen olympisch" },
+            { 180, "KiSS" }
+        };
 
         /// <summary>
         /// Parse the given CSV file to a list of <see cref="Person"/> objects
@@ -95,8 +125,10 @@ namespace Ehrungsprogramm.Core.Services
 
             // Indices of the found columns
             int columnIndex_Name = -1;
+            int columnIndex_PersonId = -1;
             int columnIndex_BirthDate = -1;
             int columnIndex_EntryDate = -1;
+            int columnIndex_Departements = -1;
             List<int> columnIndices_Function_Description = new List<int>();
             List<int> columnIndices_Function_Start = new List<int>();
             List<int> columnIndices_Function_End = new List<int>();
@@ -123,6 +155,8 @@ namespace Ehrungsprogramm.Core.Services
                     columnIndex_Name = indexed_line_split_elements.Where(list => CSVCOLUMNHEADERS_NAME.Contains(list.element)).Select(list => list.index).FirstOrDefault(-1);
                     columnIndex_BirthDate = indexed_line_split_elements.Where(list => CSVCOLUMNHEADERS_BIRTHDATE.Contains(list.element)).Select(list => list.index).FirstOrDefault(-1);
                     columnIndex_EntryDate = indexed_line_split_elements.Where(list => CSVCOLUMNHEADERS_ENTRYDATE.Contains(list.element)).Select(list => list.index).FirstOrDefault(-1);
+                    columnIndex_PersonId = indexed_line_split_elements.Where(list => CSVCOLUMNHEADERS_PERSON_ID.Contains(list.element)).Select(list => list.index).FirstOrDefault(-1);
+                    columnIndex_Departements = indexed_line_split_elements.Where(list => CSVCOLUMNHEADERS_DEPARTEMENTS.Contains(list.element)).Select(list => list.index).FirstOrDefault(-1);
                     columnIndices_Function_Description = indexed_line_split_elements.Where(list => CSVCOLUMNHEADERS_FUNCTION_DESCRIPTION.Contains(list.element)).Select(list => list.index).ToList();
                     columnIndices_Function_Start = indexed_line_split_elements.Where(list => CSVCOLUMNHEADERS_FUNCTION_START.Contains(list.element)).Select(list => list.index).ToList();
                     columnIndices_Function_End = indexed_line_split_elements.Where(list => CSVCOLUMNHEADERS_FUNCTION_END.Contains(list.element)).Select(list => list.index).ToList();
@@ -166,6 +200,20 @@ namespace Ehrungsprogramm.Core.Services
                     person.FirstName = string.Empty;
                 }
 
+                // Get the person ID from the corresponding column
+                if (columnIndex_PersonId >= 0)
+                {
+                    int personId;
+                    if (int.TryParse(line_split[columnIndex_PersonId], out personId))
+                    {
+                        person.PersonID = personId;
+                    }
+                    else
+                    {
+                        person.PersonID = 0;
+                    }
+                }
+
                 // Get the birth date from the corresponding column
                 if (columnIndex_BirthDate >= 0)
                 {
@@ -186,6 +234,25 @@ namespace Ehrungsprogramm.Core.Services
                         person.EntryDate = entryDate;
                     }
                     else { person_errors.AppendLine(String.Format(Properties.Resources.ErrorCsvFileParserEntryDate, line_split[columnIndex_EntryDate])); }
+                }
+
+                // Get the departements from the corresponding column
+                if (columnIndex_Departements >= 0)
+                {
+                    string departementNumbers = line_split[columnIndex_Departements];
+                    List<int> departementNumbersSplitted = departementNumbers.Split(DEPARTEMENT_NUMBERS_SEPARATOR).Select(numberStr =>
+                    {
+                        int number;
+                        bool success = int.TryParse(numberStr, out number);
+                        return success ? number : -1;
+                    }).ToList();
+                    departementNumbersSplitted.Remove(DEPARTEMENT_NUMBER_HAUPTVEREIN);
+                    List<string> departementNames = departementNumbersSplitted.Select(number => DEPARTEMENT_NAMES.ContainsKey(number) ? DEPARTEMENT_NAMES[number] : "?").ToList();
+                    person.Departements = string.Join(", ", departementNames);
+                }
+                else
+                {
+                    person.Departements = "?";
                 }
 
                 person.Functions = new List<Function>();

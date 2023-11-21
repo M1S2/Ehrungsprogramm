@@ -360,4 +360,10 @@ If the currently highest reward is already obtained, it isn't shown.</value>
   <data name="UnknownFunctionsCountString" xml:space="preserve">
     <value>Unknown Functions Count</value>
   </data>
+  <data name="DepartementsString" xml:space="preserve">
+    <value>Departements</value>
+  </data>
+  <data name="PersonIdString" xml:space="preserve">
+    <value>Person ID</value>
+  </data>
 </root>

@@ -120,6 +120,15 @@
                         </GridViewColumn.Header>
                     </GridViewColumn>
 
+                    <GridViewColumn DisplayMemberBinding="{Binding Departements}" Width="150">
+                        <GridViewColumn.Header>
+                            <StackPanel Orientation="Horizontal">
+                                <controls:FontIcon Glyph="&#xEBDA;" Margin="5"/>
+                                <TextBlock Text="{x:Static properties:Resources.DepartementsString}" VerticalAlignment="Center" FontSize="{StaticResource MediumFontSize}"/>
+                            </StackPanel>
+                        </GridViewColumn.Header>
+                    </GridViewColumn>
+
                     <GridViewColumn Width="50">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
@@ -196,6 +205,15 @@
                             <StackPanel Orientation="Horizontal">
                                 <controls:FontIcon Glyph="&#xE734;" Margin="5"/>
                                 <TextBlock Text="{x:Static properties:Resources.ScoreBLSVString}" VerticalAlignment="Center" FontSize="{StaticResource MediumFontSize}"/>
+                            </StackPanel>
+                        </GridViewColumn.Header>
+                    </GridViewColumn>
+
+                    <GridViewColumn DisplayMemberBinding="{Binding Departements}" Width="150">
+                        <GridViewColumn.Header>
+                            <StackPanel Orientation="Horizontal">
+                                <controls:FontIcon Glyph="&#xEBDA;" Margin="5"/>
+                                <TextBlock Text="{x:Static properties:Resources.DepartementsString}" VerticalAlignment="Center" FontSize="{StaticResource MediumFontSize}"/>
                             </StackPanel>
                         </GridViewColumn.Header>
                     </GridViewColumn>

@@ -20,6 +20,16 @@ namespace Ehrungsprogramm.Core.Models
             set => SetProperty(ref _id, value);
         }
 
+        private int _personId = 0;
+        /// <summary>
+        /// Person ID assigned when adding this person to the data source
+        /// </summary>
+        public int PersonID
+        {
+            get => _personId;
+            set => SetProperty(ref _personId, value);
+        }
+
         private string _name = string.Empty;
         /// <summary>
         /// Last name of the person.
@@ -68,6 +78,16 @@ namespace Ehrungsprogramm.Core.Models
         {
             get => _membershipYears;
             set => SetProperty(ref _membershipYears, value);
+        }
+
+        private string _departements;
+        /// <summary>
+        /// All the departements, the person belongs to. This is a list of strings separated by semicolons
+        /// </summary>
+        public string Departements
+        {
+            get => _departements;
+            set => SetProperty(ref _departements, value);
         }
 
         private int _scoreBLSV;
