@@ -45,7 +45,7 @@ namespace Ehrungsprogramm.Core.Services
         // The FUNCTION_MARKERS_HEAD_OF_DEPARTEMENT_POINTS list contains all function markers that are assigned to functions like head of departement or equal scored functions
         public static readonly List<string> FUNCTION_MARKERS_HEAD_OF_DEPARTEMENT_POINTS = new List<string>() { "Abteilungsleiter", "Vorstandschaft", "HV-" };
         // The FUNCTION_MARKERS_OTHER_FUNCTION_POINTS list contains all function markers that are assigned to other functions
-        public static readonly List<string> FUNCTION_MARKERS_OTHER_FUNCTION_POINTS = new List<string>() { "FKT", "Fahnenträger", "Geschäftsstelle Mita" };
+        public static readonly List<string> FUNCTION_MARKERS_OTHER_FUNCTION_POINTS = new List<string>() { "FKT" };
 
         public const int REWARD_NUMBER_BLSV20 = 14;
         public const int REWARD_NUMBER_BLSV25 = 15;
