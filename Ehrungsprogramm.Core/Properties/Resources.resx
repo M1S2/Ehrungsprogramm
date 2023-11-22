@@ -219,7 +219,7 @@ This could be caused by having the file opened in another program (e.g. Excel).<
     <value>Function</value>
   </data>
   <data name="PrintIDString" xml:space="preserve">
-    <value>ID</value>
+    <value>#</value>
   </data>
   <data name="PrintMembershipYearsString" xml:space="preserve">
     <value>Membership Years</value>

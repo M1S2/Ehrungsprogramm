@@ -360,7 +360,7 @@ namespace Ehrungsprogramm.Core.Properties {
         }
         
         /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die ID ähnelt.
+        ///   Sucht eine lokalisierte Zeichenfolge, die # ähnelt.
         /// </summary>
         public static string PrintIDString {
             get {

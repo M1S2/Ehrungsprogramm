@@ -249,8 +249,8 @@
   <data name="RewardsPageTitle" xml:space="preserve">
     <value>Rewards</value>
   </data>
-  <data name="ShellRewardsPage" xml:space="preserve">
-    <value>Rewards</value>
+  <data name="ShellRewardsTSVPage" xml:space="preserve">
+    <value>Rewards TSV</value>
   </data>
   <data name="ParsingErrorsCountString" xml:space="preserve">
     <value>Parsing Errors Count</value>
@@ -345,8 +345,8 @@ If the currently highest reward is already obtained, it isn't shown.</value>
   <data name="DefaultFileNamePersonOverview" xml:space="preserve">
     <value>PersonOverview.pdf</value>
   </data>
-  <data name="DefaultFileNameRewardOverview" xml:space="preserve">
-    <value>RewardOverview.pdf</value>
+  <data name="DefaultFileNameBlsvRewardOverview" xml:space="preserve">
+    <value>RewardBlsvOverview.pdf</value>
   </data>
   <data name="FileFilterInputFile" xml:space="preserve">
     <value>CSV Files|*.csv|Textfiles|*.txt|All Files|*.*</value>
@@ -365,5 +365,11 @@ If the currently highest reward is already obtained, it isn't shown.</value>
   </data>
   <data name="PersonIdString" xml:space="preserve">
     <value>Person ID</value>
+  </data>
+  <data name="ShellRewardsBLSVPage" xml:space="preserve">
+    <value>Rewards BLSV</value>
+  </data>
+  <data name="DefaultFileNameTsvRewardOverview" xml:space="preserve">
+    <value>RewardTsvOverview.pdf</value>
   </data>
 </root>

@@ -9,9 +9,9 @@ using MahApps.Metro.Controls;
 
 namespace Ehrungsprogramm.Views
 {
-    public partial class RewardsPage : Page
+    public partial class RewardsTSVPage : Page
     {
-        public RewardsPage(RewardsViewModel viewModel)
+        public RewardsTSVPage(RewardsTSVViewModel viewModel)
         {
             InitializeComponent();
             DataContext = viewModel;

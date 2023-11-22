@@ -22,7 +22,8 @@ namespace Ehrungsprogramm.Services
             Configure<MainViewModel, MainPage>();
             Configure<ManageDatabaseViewModel, ManageDatabasePage>();
             Configure<PersonsViewModel, PersonsPage>();
-            Configure<RewardsViewModel, RewardsPage>();
+            Configure<RewardsBLSVViewModel, RewardsBLSVPage>();
+            Configure<RewardsTSVViewModel, RewardsTSVPage>();
             Configure<PersonDetailViewModel, PersonDetailPage>();
             Configure<SettingsViewModel, SettingsPage>();
         }

@@ -52,19 +52,28 @@
                             <ColumnDefinition Width="48" />
                             <ColumnDefinition />
                         </Grid.ColumnDefinitions>
-                        <TextBlock
+                        <StackPanel 
+                            Orientation="Horizontal" 
                             Grid.Column="0"
-                            FontSize="16"
-                            HorizontalAlignment="Center"
-                            VerticalAlignment="Center"
-                            FontFamily="Segoe MDL2 Assets"
-                            Text="{Binding Glyph}"
-                            ToolTip="{Binding Label}" />
+                            HorizontalAlignment="Center">
+                            <TextBlock
+                                FontSize="16"
+                                VerticalAlignment="Center"
+                                FontFamily="Segoe MDL2 Assets"
+                                Text="{Binding Glyph}"
+                                ToolTip="{Binding Label}" />
+                            <TextBlock
+                                Margin="5,0,0,0"
+                                FontSize="16"
+                                VerticalAlignment="Center"
+                                Text="{Binding Tag}"
+                                ToolTip="{Binding Label}" />
+                        </StackPanel>
                         <TextBlock
-                            Grid.Column="1"
-                            VerticalAlignment="Center"
-                            FontSize="16"
-                            Text="{Binding Label}" />
+                                Grid.Column="1"
+                                VerticalAlignment="Center"
+                                FontSize="16"
+                                Text="{Binding Label}" />
                     </Grid>
                 </DataTemplate>
             </templateSelectors:MenuItemTemplateSelector.GlyphDataTemplate>

@@ -171,6 +171,15 @@ namespace Ehrungsprogramm.Properties {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die RewardBlsvOverview.pdf ähnelt.
+        /// </summary>
+        public static string DefaultFileNameBlsvRewardOverview {
+            get {
+                return ResourceManager.GetString("DefaultFileNameBlsvRewardOverview", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die PersonDetail_{0}.pdf ähnelt.
         /// </summary>
         public static string DefaultFileNamePersonDetail {
@@ -189,11 +198,11 @@ namespace Ehrungsprogramm.Properties {
         }
         
         /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die RewardOverview.pdf ähnelt.
+        ///   Sucht eine lokalisierte Zeichenfolge, die RewardTsvOverview.pdf ähnelt.
         /// </summary>
-        public static string DefaultFileNameRewardOverview {
+        public static string DefaultFileNameTsvRewardOverview {
             get {
-                return ResourceManager.GetString("DefaultFileNameRewardOverview", resourceCulture);
+                return ResourceManager.GetString("DefaultFileNameTsvRewardOverview", resourceCulture);
             }
         }
         
@@ -730,11 +739,20 @@ namespace Ehrungsprogramm.Properties {
         }
         
         /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die Rewards ähnelt.
+        ///   Sucht eine lokalisierte Zeichenfolge, die Rewards BLSV ähnelt.
         /// </summary>
-        public static string ShellRewardsPage {
+        public static string ShellRewardsBLSVPage {
             get {
-                return ResourceManager.GetString("ShellRewardsPage", resourceCulture);
+                return ResourceManager.GetString("ShellRewardsBLSVPage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Rewards TSV ähnelt.
+        /// </summary>
+        public static string ShellRewardsTSVPage {
+            get {
+                return ResourceManager.GetString("ShellRewardsTSVPage", resourceCulture);
             }
         }
         

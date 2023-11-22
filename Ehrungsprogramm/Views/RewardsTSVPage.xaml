@@ -1,0 +1,191 @@
+﻿<Page
+    x:Class="Ehrungsprogramm.Views.RewardsTSVPage"
+    Style="{DynamicResource MahApps.Styles.Page}"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:properties="clr-namespace:Ehrungsprogramm.Properties"
+    xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
+    xmlns:localControls="clr-namespace:Ehrungsprogramm.Controls"
+    xmlns:converters="clr-namespace:Ehrungsprogramm.Converters"
+    xmlns:helpers="clr-namespace:Ehrungsprogramm.Helpers"
+    xmlns:icons="http://metro.mahapps.com/winfx/xaml/iconpacks"
+    xmlns:Dialog="clr-namespace:MahApps.Metro.Controls.Dialogs;assembly=MahApps.Metro"
+    Dialog:DialogParticipation.Register="{Binding}"
+    mc:Ignorable="d"
+    d:DesignHeight="450" d:DesignWidth="800">
+
+    <Page.Resources>
+        <converters:EnumToLocalizedStringConverter x:Key="EnumLocalizedStringConverter"/>
+        <converters:StringNullOrEmptyToVisibilityConverter x:Key="StringNullOrEmptyVisibilityConverter"/>
+
+        <DataTemplate x:Key="CellTemplateDetail">
+            <Button Margin="0,5,0,5" x:Name="DetailsButton" Style="{StaticResource MahApps.Styles.Button.Square.Accent}" Background="{StaticResource MahApps.Brushes.Gray2}" Visibility="Hidden" Width="30" Height="30" Command="{Binding RelativeSource={RelativeSource AncestorType={x:Type Page}}, Path=DataContext.PersonDetailCommand}" CommandParameter="{Binding}">
+                <controls:FontIcon FontSize="20" Glyph="&#xEA1F;"/>
+            </Button>
+            <DataTemplate.Triggers>
+                <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ListViewItem}}, Path=IsMouseOver}" Value="True">
+                    <Setter TargetName="DetailsButton" Property="Visibility" Value="Visible"/>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ListViewItem}}, Path=IsSelected}" Value="True">
+                    <Setter TargetName="DetailsButton" Property="Visibility" Value="Visible"/>
+                </DataTrigger>
+            </DataTemplate.Triggers>
+        </DataTemplate>
+
+        <Style x:Key="GroupItemControlTemplateStickyScrollHeader" TargetType="{x:Type GroupItem}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <!-- https://stackoverflow.com/questions/14801102/wpf-scroll-itemcontrol-content-fixed-header -->
+                    <ControlTemplate>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition  Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <Grid Grid.Row="0" localControls:StickyScrollHeader.AttachToControl="{Binding RelativeSource={RelativeSource Mode=FindAncestor,AncestorType=Grid}}">
+                                <Border Background="{StaticResource MahApps.Brushes.Gray}" BorderBrush="{StaticResource MahApps.Brushes.Accent}" BorderThickness="1">
+                                    <StackPanel Margin="5" Orientation="Horizontal">
+                                        <TextBlock Text="{Binding Name, Converter={StaticResource EnumLocalizedStringConverter}}" FontSize="{StaticResource LargeFontSize}" VerticalAlignment="Center"/>
+                                        <TextBlock Text="{Binding ItemCount, StringFormat=({0})}" FontSize="{StaticResource LargeFontSize}" Margin="10,0,0,0" VerticalAlignment="Center"/>
+                                    </StackPanel>
+                                </Border>
+                            </Grid>
+                            <ItemsPresenter Grid.Row="1"/>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Page.Resources>
+
+    <!-- ################################################################################################################################################### -->
+    
+    <Grid Background="{StaticResource MahApps.Brushes.Window.Background}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="48" />
+            <RowDefinition Height="50" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <DockPanel Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" LastChildFill="False">
+            <TextBlock Style="{StaticResource PageTitleStyle}" Margin="{StaticResource MediumLeftMargin}">
+                <TextBlock.Text>
+                    <MultiBinding StringFormat="{}TSV {0} ({1})">
+                        <Binding Source="{x:Static properties:Resources.RewardsPageTitle}" />
+                        <Binding ElementName="listview_TSVRewards" Path="Items.Count" />
+                    </MultiBinding>
+                </TextBlock.Text>
+            </TextBlock>
+
+            <Grid DockPanel.Dock="Right" Margin="0,0,10,0">
+                <Button  Width="40" Height="40" Style="{StaticResource MahApps.Styles.Button.Circle}" Command="{Binding PrintCommand}">
+                    <controls:FontIcon Glyph="&#xE749;" Margin="5"/>
+                </Button>
+                <controls:ProgressRing Width="40" Height="40" Visibility="{Binding IsPrinting, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+            </Grid>
+        </DockPanel>
+
+        <TextBlock Grid.Row="1" Grid.ColumnSpan="2" VerticalAlignment="Center" Margin="{StaticResource MediumLeftRightMargin}" Text="{x:Static properties:Resources.RewardVisibilityInfoString}" FontSize="{StaticResource MediumFontSize}"/>
+
+        <!-- +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+        
+        <ListView x:Name="listview_TSVRewards" GridViewColumnHeader.Click="GridViewColumnHeader_Click" Grid.Row="2" Grid.Column="0" ItemsSource="{Binding PeopleItemsTSVRewardsCollectionView}" Margin="{StaticResource MediumLeftRightMargin}">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn DisplayMemberBinding="{Binding Name}" Width="120">
+                        <GridViewColumn.Header>
+                            <StackPanel Orientation="Horizontal">
+                                <controls:FontIcon Glyph="&#xE77B;" Margin="5"/>
+                                <TextBlock Text="{x:Static properties:Resources.NameString}" VerticalAlignment="Center" FontSize="{StaticResource MediumFontSize}"/>
+                            </StackPanel>
+                        </GridViewColumn.Header>
+                    </GridViewColumn>
+
+                    <GridViewColumn DisplayMemberBinding="{Binding FirstName}" Width="120">
+                        <GridViewColumn.Header>
+                            <StackPanel Orientation="Horizontal">
+                                <controls:FontIcon Glyph="&#xE77B;" Margin="5"/>
+                                <TextBlock Text="{x:Static properties:Resources.FirstNameString}" VerticalAlignment="Center" FontSize="{StaticResource MediumFontSize}"/>
+                            </StackPanel>
+                        </GridViewColumn.Header>
+                    </GridViewColumn>
+
+                    <GridViewColumn DisplayMemberBinding="{Binding ScoreTSV}" Width="150">
+                        <GridViewColumn.Header>
+                            <StackPanel Orientation="Horizontal">
+                                <controls:FontIcon Glyph="&#xE734;" Margin="5"/>
+                                <TextBlock Text="{x:Static properties:Resources.ScoreTSVString}" VerticalAlignment="Center" FontSize="{StaticResource MediumFontSize}"/>
+                            </StackPanel>
+                        </GridViewColumn.Header>
+                    </GridViewColumn>
+
+                    <GridViewColumn DisplayMemberBinding="{Binding Departements}">
+                        <GridViewColumn.Header>
+                            <StackPanel Orientation="Horizontal">
+                                <controls:FontIcon Glyph="&#xEBDA;" Margin="5"/>
+                                <TextBlock Text="{x:Static properties:Resources.DepartementsString}" VerticalAlignment="Center" FontSize="{StaticResource MediumFontSize}"/>
+                            </StackPanel>
+                        </GridViewColumn.Header>
+                    </GridViewColumn>
+
+                    <GridViewColumn Width="50">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <controls:FontIcon FontSize="35" Glyph="&#xE7BA;" Foreground="{StaticResource MahApps.Brushes.Control.Validation}" Visibility="{Binding ParsingFailureMessage, Converter={StaticResource StringNullOrEmptyVisibilityConverter}}" ToolTip="{Binding ParsingFailureMessage}"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    
+                    <GridViewColumn CellTemplate="{StaticResource CellTemplateDetail}"/>
+                </GridView>
+            </ListView.View>
+            
+            <ListView.GroupStyle>
+                <GroupStyle ContainerStyle="{StaticResource GroupItemControlTemplateStickyScrollHeader}"/>
+            </ListView.GroupStyle>
+        </ListView>
+
+        <!-- List empty text -->
+        <StackPanel Grid.Row="2" Grid.Column="0" Margin="{StaticResource MediumLeftTopRightBottomMargin}" Orientation="Vertical" HorizontalAlignment="Left">
+            <TextBlock Margin="20,50,0,0" Text="{x:Static properties:Resources.ListEmptyString}" HorizontalAlignment="Left" FontSize="{StaticResource LargeFontSize}" Foreground="{StaticResource MahApps.Brushes.Gray2}"/>
+            <TextBlock Margin="20,10,0,0" HorizontalAlignment="Left" FontSize="{StaticResource LargeFontSize}">
+                <Hyperlink Command="{Binding ManageDatabaseCommand}">
+                    <TextBlock Text="{x:Static properties:Resources.ListEmptyNavigateToManageDatabaseString}"/>
+                </Hyperlink>
+            </TextBlock>
+
+            <!-- only show this stack panel if no elements are in the People list -->
+            <StackPanel.Style>
+                <Style TargetType="StackPanel">
+                    <Setter Property="Visibility" Value="Collapsed"/>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding PeopleItemsTSVRewardsCollectionView.Count}" Value="0">
+                            <Setter Property="Visibility" Value="Visible"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </StackPanel.Style>
+        </StackPanel>
+
+        <Expander x:Name="expander_FilterTSV" Grid.Row="3" Grid.Column="0" ExpandDirection="Up" Margin="24,10,24,10" BorderThickness="1" BorderBrush="{StaticResource MahApps.Brushes.Gray6}" controls:HeaderedControlHelper.HeaderBackground="{StaticResource MahApps.Brushes.Gray6}" FontSize="{StaticResource MediumFontSize}" >
+            <Expander.Header>
+                <StackPanel Orientation="Horizontal">
+                    <controls:FontIcon Margin="5,0,0,0" FontSize="25" Glyph="&#xE71C;"/>
+                    <TextBlock Margin="5,0,0,0" Text="{x:Static properties:Resources.VisibleItemsString}" VerticalAlignment="Center"/>
+                </StackPanel>
+            </Expander.Header>
+            <StackPanel Orientation="Vertical">
+                <CheckBox Content="{x:Static properties:Enums.RewardTypes_TSVSILVER}" IsChecked="{Binding ShowTSVSilver}" FontSize="{StaticResource MediumFontSize}" Style="{StaticResource CheckBoxEyeStyle}" />
+                <CheckBox Content="{x:Static properties:Enums.RewardTypes_TSVGOLD}" IsChecked="{Binding ShowTSVGold}" FontSize="{StaticResource MediumFontSize}" Style="{StaticResource CheckBoxEyeStyle}" />
+                <CheckBox Content="{x:Static properties:Enums.RewardTypes_TSVHONORARY}" IsChecked="{Binding ShowTSVHonorary}" FontSize="{StaticResource MediumFontSize}" Style="{StaticResource CheckBoxEyeStyle}" />
+            </StackPanel>
+        </Expander>
+
+    </Grid>
+</Page>

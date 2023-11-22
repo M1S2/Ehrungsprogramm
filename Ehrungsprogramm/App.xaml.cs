@@ -95,8 +95,11 @@ namespace Ehrungsprogramm
             services.AddTransient<PersonsViewModel>();
             services.AddTransient<PersonsPage>();
 
-            services.AddTransient<RewardsViewModel>();
-            services.AddTransient<RewardsPage>();
+            services.AddTransient<RewardsBLSVViewModel>();
+            services.AddTransient<RewardsBLSVPage>();
+
+            services.AddTransient<RewardsTSVViewModel>();
+            services.AddTransient<RewardsTSVPage>();
 
             services.AddTransient<PersonDetailViewModel>();
             services.AddTransient<PersonDetailPage>();

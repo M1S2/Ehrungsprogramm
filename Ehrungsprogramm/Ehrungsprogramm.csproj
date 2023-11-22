@@ -104,7 +104,10 @@
 		<Page Update="Controls\RewardIconUserControl.xaml">
 			<XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
 		</Page>
-		<Page Update="Views\RewardsPage.xaml">
+		<Page Update="Views\RewardsTSVPage.xaml">
+		  <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+		</Page>
+		<Page Update="Views\RewardsBLSVPage.xaml">
 			<XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
 		</Page>
 	</ItemGroup>

@@ -33,10 +33,22 @@
                     <TextBlock Text="{x:Static properties:Resources.ShellPersonsPage}" HorizontalAlignment="Center" FontSize="{StaticResource MediumFontSize}"/>
                 </StackPanel>
             </Button>
-            <Button Width="150" Height="150" Margin="10" Style="{StaticResource MahApps.Styles.Button.Square.Accent}" Command="{Binding RewardsCommand}">
+            <Button Width="150" Height="150" Margin="10" Style="{StaticResource MahApps.Styles.Button.Square.Accent}" Command="{Binding RewardsTSVCommand}">
                 <StackPanel>
-                    <controls:FontIcon FontSize="50" Glyph="&#xE734;" Margin="10"/>
-                    <TextBlock Text="{x:Static properties:Resources.ShellRewardsPage}" HorizontalAlignment="Center" FontSize="{StaticResource MediumFontSize}"/>
+                    <StackPanel Orientation="Horizontal">
+                        <controls:FontIcon FontSize="50" Glyph="&#xE734;" Margin="10"/>
+                        <TextBlock Text="T" VerticalAlignment="Center" FontSize="50"/>
+                    </StackPanel>
+                    <TextBlock Text="{x:Static properties:Resources.ShellRewardsTSVPage}" HorizontalAlignment="Center" FontSize="{StaticResource MediumFontSize}"/>
+                </StackPanel>
+            </Button>
+            <Button Width="150" Height="150" Margin="10" Style="{StaticResource MahApps.Styles.Button.Square.Accent}" Command="{Binding RewardsBLSVCommand}">
+                <StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <controls:FontIcon FontSize="50" Glyph="&#xE734;" Margin="10"/>
+                        <TextBlock Text="B" VerticalAlignment="Center" FontSize="50"/>
+                    </StackPanel>
+                    <TextBlock Text="{x:Static properties:Resources.ShellRewardsBLSVPage}" HorizontalAlignment="Center" FontSize="{StaticResource MediumFontSize}"/>
                 </StackPanel>
             </Button>
             <Button Width="150" Height="150" Margin="10" Style="{StaticResource MahApps.Styles.Button.Square.Accent}" Command="{Binding ManageDatabaseCommand}">

@@ -249,8 +249,8 @@
   <data name="RewardsPageTitle" xml:space="preserve">
     <value>Ehrungen</value>
   </data>
-  <data name="ShellRewardsPage" xml:space="preserve">
-    <value>Ehrungen</value>
+  <data name="ShellRewardsTSVPage" xml:space="preserve">
+    <value>TSV Ehrungen</value>
   </data>
   <data name="ParsingErrorsCountString" xml:space="preserve">
     <value>Anzahl Import Fehler</value>
@@ -338,8 +338,8 @@ Wenn die momentan höchste Ehrung bereits erhalten ist, wird sie nicht angezeigt
   <data name="DefaultFileNamePersonOverview" xml:space="preserve">
     <value>PersonenÜbersicht.pdf</value>
   </data>
-  <data name="DefaultFileNameRewardOverview" xml:space="preserve">
-    <value>EhrungenÜbersicht.pdf</value>
+  <data name="DefaultFileNameBlsvRewardOverview" xml:space="preserve">
+    <value>EhrungenBlsvÜbersicht.pdf</value>
   </data>
   <data name="FileFilterInputFile" xml:space="preserve">
     <value>CSV Dateien|*.csv|Text Dateien|*.txt|Alle Dateien|*.*</value>
@@ -358,5 +358,11 @@ Wenn die momentan höchste Ehrung bereits erhalten ist, wird sie nicht angezeigt
   </data>
   <data name="PersonIdString" xml:space="preserve">
     <value>Mitgliedsnummer</value>
+  </data>
+  <data name="ShellRewardsBLSVPage" xml:space="preserve">
+    <value>BLSV Ehrungen</value>
+  </data>
+  <data name="DefaultFileNameTsvRewardOverview1" xml:space="preserve">
+    <value>EhrungenTsvÜbersicht.pdf</value>
   </data>
 </root>

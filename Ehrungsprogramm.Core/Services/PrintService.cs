@@ -216,17 +216,14 @@ namespace Ehrungsprogramm.Core.Services
         // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
         /// <summary>
-        /// Print an overview of all rewards.
+        /// Print an overview of all TSV rewards.
         /// </summary>
         /// <param name="peopleTsvRewardAvailable">List with all available <see cref="Person"/> objects with available TSV rewards used to generate the rewards overview</param>
-        /// <param name="peopleBlsvRewardAvailable">List with all available <see cref="Person"/> objects with available BLSV rewards used to generate the rewards overview</param>
         /// <param name="pdfFilePath">Filepath of the output PDF file</param>
         /// <param name="fullTsvRewardsCount">Number of all (unfiltered) TSV rewards.</param>
-        /// <param name="fullBlsvRewardsCount">Number of all (unfiltered) BLSV rewards.</param>
         /// <param name="filterTextTsv">String indicating, which filters were applied to the TSV reward list</param>
-        /// <param name="filterTextBlsv">String indicating, which filters were applied to the BLSV reward list</param>
         /// <returns>true if printing succeeded; false if printing failed</returns>
-        public async Task<bool> PrintRewards(List<Person> peopleTsvRewardAvailable, List<Person> peopleBlsvRewardAvailable, string pdfFilePath, int fullTsvRewardsCount, int fullBlsvRewardsCount, string filterTextTsv, string filterTextBlsv)
+        public async Task<bool> PrintTsvRewards(List<Person> peopleTsvRewardAvailable, string pdfFilePath, int fullTsvRewardsCount, string filterTextTsv)
         {
             bool printingResult = false;
             await Task.Run(() =>
@@ -247,30 +244,32 @@ namespace Ehrungsprogramm.Core.Services
                         document.Add(new Paragraph(Properties.Resources.PrintTSVRewardOverviewString).SetTextAlignment(TextAlignment.CENTER).SetFontSize(20));
                         document.Add(new Paragraph(Properties.Resources.PrintOnlyNewestRewardsAreShownString + Environment.NewLine));
 
-                        List <IGrouping<RewardTypes, Person>> tsvRewardGroups = peopleTsvRewardAvailable.GroupBy(p => p.Rewards.HighestAvailableTSVReward.Type).ToList();
+                        List<IGrouping<RewardTypes, Person>> tsvRewardGroups = peopleTsvRewardAvailable.GroupBy(p => p.Rewards.HighestAvailableTSVReward.Type).ToList();
 
                         document.Add(new Paragraph(Properties.Resources.PrintCountTSVRewardsString + ": " + peopleTsvRewardAvailable.Count.ToString()));
 
                         if (peopleTsvRewardAvailable.Count != fullTsvRewardsCount) { document.Add(new Paragraph(string.Format(Properties.Resources.PrintRewardListFilteredWarningString, filterTextTsv, fullTsvRewardsCount)).SetFontColor(ColorConstants.RED)); }
 
-                        Table tableTsv = new Table(6, false);      // 6 columns for: ID, Name, First Name, Score, Departements, ParsingErrors
+                        Table tableTsv = new Table(7, false);      // 7 columns for: ID, Name, First Name, Person ID, Score, Departements, ParsingErrors
                         tableTsv.AddHeaderCell(new Cell(1, 1).SetBackgroundColor(ColorConstants.LIGHT_GRAY).SetTextAlignment(TextAlignment.CENTER).Add(new Paragraph(Properties.Resources.PrintIDString)));
                         tableTsv.AddHeaderCell(new Cell(1, 1).SetBackgroundColor(ColorConstants.LIGHT_GRAY).SetTextAlignment(TextAlignment.CENTER).Add(new Paragraph(Properties.Resources.PrintNameString)));
                         tableTsv.AddHeaderCell(new Cell(1, 1).SetBackgroundColor(ColorConstants.LIGHT_GRAY).SetTextAlignment(TextAlignment.CENTER).Add(new Paragraph(Properties.Resources.PrintFirstNameString)));
+                        tableTsv.AddHeaderCell(new Cell(1, 1).SetBackgroundColor(ColorConstants.LIGHT_GRAY).SetTextAlignment(TextAlignment.CENTER).Add(new Paragraph(Properties.Resources.PrintPersonIdString)));
                         tableTsv.AddHeaderCell(new Cell(1, 1).SetBackgroundColor(ColorConstants.LIGHT_GRAY).SetTextAlignment(TextAlignment.CENTER).Add(new Paragraph(Properties.Resources.PrintScoreString)));
                         tableTsv.AddHeaderCell(new Cell(1, 1).SetBackgroundColor(ColorConstants.LIGHT_GRAY).SetTextAlignment(TextAlignment.CENTER).Add(new Paragraph(Properties.Resources.PrintDepartementsString)));
                         tableTsv.AddHeaderCell(new Cell(1, 1).SetBackgroundColor(ColorConstants.LIGHT_GRAY).SetTextAlignment(TextAlignment.CENTER).Add(new Paragraph(Properties.Resources.PrintParsingErrorString)));
-                        
+
                         int counter = 0;
                         foreach (IGrouping<RewardTypes, Person> tsvRewardGroup in tsvRewardGroups)
                         {
                             string tsvRewardName = rewardTypeToString(tsvRewardGroup.Key);
-                            tableTsv.AddCell(new Cell(1, 6).SetBackgroundColor(TSVLIGHTBLUE).SetTextAlignment(TextAlignment.LEFT).Add(new Paragraph(tsvRewardName)));
+                            tableTsv.AddCell(new Cell(1, 7).SetBackgroundColor(TSVLIGHTBLUE).SetTextAlignment(TextAlignment.LEFT).Add(new Paragraph(tsvRewardName)));
                             foreach (Person person in tsvRewardGroup)
                             {
                                 tableTsv.AddCell(new Cell(1, 1).Add(new Paragraph((++counter).ToString())));
                                 tableTsv.AddCell(new Cell(1, 1).Add(new Paragraph(person.Name)));
                                 tableTsv.AddCell(new Cell(1, 1).Add(new Paragraph(person.FirstName)));
+                                tableTsv.AddCell(new Cell(1, 1).Add(new Paragraph(person.PersonID.ToString())));
                                 tableTsv.AddCell(new Cell(1, 1).Add(new Paragraph(person.ScoreTSV.ToString())));
                                 tableTsv.AddCell(new Cell(1, 1).Add(new Paragraph(person.Departements)));
                                 if (String.IsNullOrEmpty(person.ParsingFailureMessage))
@@ -284,9 +283,46 @@ namespace Ehrungsprogramm.Core.Services
                             }
                         }
                         document.Add(tableTsv);
-                        document.Add(new AreaBreak(AreaBreakType.NEXT_PAGE));
+                        document.Close();
+                    }
+                    printingResult = true;
+                }
+                catch (Exception)
+                {
+                    printingResult = false;
+                    throw;
+                }
+            });
+            return printingResult;
+        }
 
-                        // ------------------------------------------------------------------------------------------------------------------
+        // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+        /// <summary>
+        /// Print an overview of all BLSV rewards.
+        /// </summary>
+        /// <param name="peopleBlsvRewardAvailable">List with all available <see cref="Person"/> objects with available BLSV rewards used to generate the rewards overview</param>
+        /// <param name="pdfFilePath">Filepath of the output PDF file</param>
+        /// <param name="fullBlsvRewardsCount">Number of all (unfiltered) BLSV rewards.</param>
+        /// <param name="filterTextBlsv">String indicating, which filters were applied to the BLSV reward list</param>
+        /// <returns>true if printing succeeded; false if printing failed</returns>
+        public async Task<bool> PrintBlsvRewards(List<Person> peopleBlsvRewardAvailable, string pdfFilePath, int fullBlsvRewardsCount, string filterTextBlsv)
+        {
+            bool printingResult = false;
+            await Task.Run(() =>
+            {
+                try
+                {
+                    using (PdfWriter writer = new PdfWriter(pdfFilePath))
+                    using (PdfDocument pdf = new PdfDocument(writer))
+                    using (Document document = new Document(pdf, PageSize.A4, false))
+                    {
+                        document.SetBottomMargin(70);
+                        // Add events to handle the generation of headers and footers
+                        pdf.AddEventHandler(PdfDocumentEvent.START_PAGE, new PageHeaderEventHandler());
+                        pdf.AddEventHandler(PdfDocumentEvent.END_PAGE, new PageFooterEventHandler(_personService));
+
+                        Image imageWarning = new Image(ImageDataFactory.CreatePng(Properties.Resources.WarningIcon)).Scale(0.25f, 0.25f);
 
                         document.Add(new Paragraph(Properties.Resources.PrintBLSVRewardOverviewString).SetTextAlignment(TextAlignment.CENTER).SetFontSize(20));
                         document.Add(new Paragraph(Properties.Resources.PrintOnlyNewestRewardsAreShownString + Environment.NewLine));
@@ -297,23 +333,25 @@ namespace Ehrungsprogramm.Core.Services
 
                         if (peopleBlsvRewardAvailable.Count != fullBlsvRewardsCount) { document.Add(new Paragraph(string.Format(Properties.Resources.PrintRewardListFilteredWarningString, filterTextBlsv, fullBlsvRewardsCount)).SetFontColor(ColorConstants.RED)); }
 
-                        Table tableBlsv = new Table(6, false);      // 6 columns for: ID, Name, First Name, Score, Departements, ParsingErrors
+                        Table tableBlsv = new Table(7, false);      // 7 columns for: ID, Name, First Name, Person ID, Score, Departements, ParsingErrors
                         tableBlsv.AddHeaderCell(new Cell(1, 1).SetBackgroundColor(ColorConstants.LIGHT_GRAY).SetTextAlignment(TextAlignment.CENTER).Add(new Paragraph(Properties.Resources.PrintIDString)));
                         tableBlsv.AddHeaderCell(new Cell(1, 1).SetBackgroundColor(ColorConstants.LIGHT_GRAY).SetTextAlignment(TextAlignment.CENTER).Add(new Paragraph(Properties.Resources.PrintNameString)));
                         tableBlsv.AddHeaderCell(new Cell(1, 1).SetBackgroundColor(ColorConstants.LIGHT_GRAY).SetTextAlignment(TextAlignment.CENTER).Add(new Paragraph(Properties.Resources.PrintFirstNameString)));
+                        tableBlsv.AddHeaderCell(new Cell(1, 1).SetBackgroundColor(ColorConstants.LIGHT_GRAY).SetTextAlignment(TextAlignment.CENTER).Add(new Paragraph(Properties.Resources.PrintPersonIdString)));
                         tableBlsv.AddHeaderCell(new Cell(1, 1).SetBackgroundColor(ColorConstants.LIGHT_GRAY).SetTextAlignment(TextAlignment.CENTER).Add(new Paragraph(Properties.Resources.PrintScoreString)));
                         tableBlsv.AddHeaderCell(new Cell(1, 1).SetBackgroundColor(ColorConstants.LIGHT_GRAY).SetTextAlignment(TextAlignment.CENTER).Add(new Paragraph(Properties.Resources.PrintDepartementsString)));
                         tableBlsv.AddHeaderCell(new Cell(1, 1).SetBackgroundColor(ColorConstants.LIGHT_GRAY).SetTextAlignment(TextAlignment.CENTER).Add(new Paragraph(Properties.Resources.PrintParsingErrorString)));
                         
-                        counter = 0;
+                        int counter = 0;
                         foreach (IGrouping<RewardTypes, Person> blsvRewardGroup in blsvRewardGroups)
                         {
-                            tableBlsv.AddCell(new Cell(1, 6).SetBackgroundColor(TSVLIGHTBLUE).SetTextAlignment(TextAlignment.LEFT).Add(new Paragraph(blsvRewardGroup.Key.ToString())));
+                            tableBlsv.AddCell(new Cell(1, 7).SetBackgroundColor(TSVLIGHTBLUE).SetTextAlignment(TextAlignment.LEFT).Add(new Paragraph(blsvRewardGroup.Key.ToString())));
                             foreach (Person person in blsvRewardGroup)
                             {
                                 tableBlsv.AddCell(new Cell(1, 1).Add(new Paragraph((++counter).ToString())));
                                 tableBlsv.AddCell(new Cell(1, 1).Add(new Paragraph(person.Name)));
                                 tableBlsv.AddCell(new Cell(1, 1).Add(new Paragraph(person.FirstName)));
+                                tableBlsv.AddCell(new Cell(1, 1).Add(new Paragraph(person.PersonID.ToString())));
                                 tableBlsv.AddCell(new Cell(1, 1).Add(new Paragraph(person.ScoreBLSV.ToString())));
                                 tableBlsv.AddCell(new Cell(1, 1).Add(new Paragraph(person.Departements)));
                                 if (String.IsNullOrEmpty(person.ParsingFailureMessage))
