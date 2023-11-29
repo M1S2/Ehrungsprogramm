@@ -372,4 +372,8 @@ If the currently highest reward is already obtained, it isn't shown.</value>
   <data name="DefaultFileNameTsvRewardOverview" xml:space="preserve">
     <value>RewardTsvOverview.pdf</value>
   </data>
+  <data name="ShowOnlyBLSV25AndBLSV40String" xml:space="preserve">
+    <value>Show only
+BLSV 25 and BLSV 40</value>
+  </data>
 </root>

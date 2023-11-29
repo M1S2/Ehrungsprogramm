@@ -766,6 +766,16 @@ namespace Ehrungsprogramm.Properties {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Show only
+        ///BLSV 25 and BLSV 40 ähnelt.
+        /// </summary>
+        public static string ShowOnlyBLSV25AndBLSV40String {
+            get {
+                return ResourceManager.GetString("ShowOnlyBLSV25AndBLSV40String", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Successful ähnelt.
         /// </summary>
         public static string SuccessfulString {

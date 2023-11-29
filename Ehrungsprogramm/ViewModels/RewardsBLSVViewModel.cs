@@ -26,63 +26,98 @@ namespace Ehrungsprogramm.ViewModels
         public bool ShowBLSV20
         {
             get => _showBLSV20;
-            set { SetProperty(ref _showBLSV20, value); ShowFlagsBLSVSubject.OnNext(true); }
+            set { SetProperty(ref _showBLSV20, value); ShowFlagsBLSVSubject.OnNext(true); OnPropertyChanged(nameof(ShowOnlyBLSV25AndBLSV40)); }
         }
 
         private bool _showBLSV25 = true;
         public bool ShowBLSV25
         {
             get => _showBLSV25;
-            set { SetProperty(ref _showBLSV25, value); ShowFlagsBLSVSubject.OnNext(true); }
+            set { SetProperty(ref _showBLSV25, value); ShowFlagsBLSVSubject.OnNext(true); OnPropertyChanged(nameof(ShowOnlyBLSV25AndBLSV40)); }
         }
 
         private bool _showBLSV30 = true;
         public bool ShowBLSV30
         {
             get => _showBLSV30;
-            set { SetProperty(ref _showBLSV30, value); ShowFlagsBLSVSubject.OnNext(true); }
+            set { SetProperty(ref _showBLSV30, value); ShowFlagsBLSVSubject.OnNext(true); OnPropertyChanged(nameof(ShowOnlyBLSV25AndBLSV40)); }
         }
 
         private bool _showBLSV40 = true;
         public bool ShowBLSV40
         {
             get => _showBLSV40;
-            set { SetProperty(ref _showBLSV40, value); ShowFlagsBLSVSubject.OnNext(true); }
+            set { SetProperty(ref _showBLSV40, value); ShowFlagsBLSVSubject.OnNext(true); OnPropertyChanged(nameof(ShowOnlyBLSV25AndBLSV40)); }
         }
 
         private bool _showBLSV45 = true;
         public bool ShowBLSV45
         {
             get => _showBLSV45;
-            set { SetProperty(ref _showBLSV45, value); ShowFlagsBLSVSubject.OnNext(true); }
+            set { SetProperty(ref _showBLSV45, value); ShowFlagsBLSVSubject.OnNext(true); OnPropertyChanged(nameof(ShowOnlyBLSV25AndBLSV40)); }
         }
 
         private bool _showBLSV50 = true;
         public bool ShowBLSV50
         {
             get => _showBLSV50;
-            set { SetProperty(ref _showBLSV50, value); ShowFlagsBLSVSubject.OnNext(true); }
+            set { SetProperty(ref _showBLSV50, value); ShowFlagsBLSVSubject.OnNext(true); OnPropertyChanged(nameof(ShowOnlyBLSV25AndBLSV40)); }
         }
 
         private bool _showBLSV60 = true;
         public bool ShowBLSV60
         {
             get => _showBLSV60;
-            set { SetProperty(ref _showBLSV60, value); ShowFlagsBLSVSubject.OnNext(true); }
+            set { SetProperty(ref _showBLSV60, value); ShowFlagsBLSVSubject.OnNext(true); OnPropertyChanged(nameof(ShowOnlyBLSV25AndBLSV40)); }
         }
 
         private bool _showBLSV70 = true;
         public bool ShowBLSV70
         {
             get => _showBLSV70;
-            set { SetProperty(ref _showBLSV70, value); ShowFlagsBLSVSubject.OnNext(true); }
+            set { SetProperty(ref _showBLSV70, value); ShowFlagsBLSVSubject.OnNext(true); OnPropertyChanged(nameof(ShowOnlyBLSV25AndBLSV40)); }
         }
 
         private bool _showBLSV80 = true;
         public bool ShowBLSV80
         {
             get => _showBLSV80;
-            set { SetProperty(ref _showBLSV80, value); ShowFlagsBLSVSubject.OnNext(true); }
+            set { SetProperty(ref _showBLSV80, value); ShowFlagsBLSVSubject.OnNext(true); OnPropertyChanged(nameof(ShowOnlyBLSV25AndBLSV40)); }
+        }
+
+        /// <summary>
+        /// Property used to indicate to show only the BLSV25 and BLSV40 rewards
+        /// </summary>
+        public bool ShowOnlyBLSV25AndBLSV40
+        {
+            get => (!ShowBLSV20 && ShowBLSV25 && !ShowBLSV30 && ShowBLSV40 && !ShowBLSV45 && !ShowBLSV50 && !ShowBLSV60 && !ShowBLSV70 && !ShowBLSV80);
+            set
+            {
+                if (value == true)
+                {
+                    ShowBLSV20 = false;
+                    ShowBLSV25 = true;
+                    ShowBLSV30 = false;
+                    ShowBLSV40 = true;
+                    ShowBLSV45 = false;
+                    ShowBLSV50 = false;
+                    ShowBLSV60 = false;
+                    ShowBLSV70 = false;
+                    ShowBLSV80 = false;
+                }
+                else
+                {
+                    ShowBLSV20 = true;
+                    ShowBLSV25 = true;
+                    ShowBLSV30 = true;
+                    ShowBLSV40 = true;
+                    ShowBLSV45 = true;
+                    ShowBLSV50 = true;
+                    ShowBLSV60 = true;
+                    ShowBLSV70 = true;
+                    ShowBLSV80 = true;
+                }
+            }
         }
         #endregion
 
@@ -116,7 +151,7 @@ namespace Ehrungsprogramm.ViewModels
         /// Command used to navigate to the ManageDatabasePage
         /// </summary>
         public ICommand ManageDatabaseCommand => _manageDatabaseCommand ?? (_manageDatabaseCommand = new RelayCommand(() => _navigationService.NavigateTo(typeof(ManageDatabaseViewModel).FullName)));
-
+        
 
         private bool _isPrinting;
         /// <summary>

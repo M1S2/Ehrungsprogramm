@@ -365,4 +365,8 @@ Wenn die momentan höchste Ehrung bereits erhalten ist, wird sie nicht angezeigt
   <data name="DefaultFileNameTsvRewardOverview1" xml:space="preserve">
     <value>EhrungenTsvÜbersicht.pdf</value>
   </data>
+  <data name="ShowOnlyBLSV25AndBLSV40String" xml:space="preserve">
+    <value>Nur BLSV 25
+und BLSV 40</value>
+  </data>
 </root>
