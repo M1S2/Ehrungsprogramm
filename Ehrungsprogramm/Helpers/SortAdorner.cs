@@ -16,14 +16,14 @@ namespace Ehrungsprogramm.Helpers
     /// see: https://wpf-tutorial.com/listview-control/listview-how-to-column-sorting/
     public class SortAdorner : Adorner
     {
-        private static Geometry ascGeometry = Geometry.Parse("M 0 4 L 3.5 0 L 7 4 Z");
-        private static Geometry descGeometry = Geometry.Parse("M 0 0 L 3.5 4 L 7 0 Z");
+        private static Geometry ascGeometry = Geometry.Parse("M 0 7 L 5 0 L 10 7 Z");
+        private static Geometry descGeometry = Geometry.Parse("M 0 0 L 5 7 L 10 0 Z");
 
         public ListSortDirection Direction { get; private set; }
 
         public Brush DrawingBrush { get; private set; }
 
-        public SortAdorner(UIElement element, ListSortDirection dir, Brush? drawingBrush = null)
+        public SortAdorner(UIElement element, ListSortDirection dir, Brush drawingBrush = null)
             : base(element)
         {
             this.Direction = dir;

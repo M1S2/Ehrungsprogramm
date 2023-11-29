@@ -8,8 +8,8 @@ using Ehrungsprogramm.Properties;
 
 using MahApps.Metro.Controls;
 
-using Microsoft.Toolkit.Mvvm.ComponentModel;
-using Microsoft.Toolkit.Mvvm.Input;
+using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 
 namespace Ehrungsprogramm.ViewModels
 {

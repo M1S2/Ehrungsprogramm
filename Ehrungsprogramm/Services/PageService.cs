@@ -7,7 +7,7 @@ using Ehrungsprogramm.Contracts.Services;
 using Ehrungsprogramm.ViewModels;
 using Ehrungsprogramm.Views;
 
-using Microsoft.Toolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace Ehrungsprogramm.Services
 {

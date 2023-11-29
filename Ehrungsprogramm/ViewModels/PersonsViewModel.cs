@@ -2,8 +2,8 @@
 using System.Windows.Input;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using Microsoft.Toolkit.Mvvm.ComponentModel;
-using Microsoft.Toolkit.Mvvm.Input;
+using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using Ehrungsprogramm.Core.Models;
 using Ehrungsprogramm.Core.Contracts.Services;
 using Ehrungsprogramm.Contracts.Services;

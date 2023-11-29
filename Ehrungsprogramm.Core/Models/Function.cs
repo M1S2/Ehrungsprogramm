@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using Microsoft.Toolkit.Mvvm.ComponentModel;
 using Itenso.TimePeriod;
+using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace Ehrungsprogramm.Core.Models
 {

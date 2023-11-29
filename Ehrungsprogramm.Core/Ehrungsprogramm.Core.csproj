@@ -9,9 +9,9 @@
 	</ItemGroup>
 	
 	<ItemGroup>
+		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
 		<PackageReference Include="itext7" Version="7.2.1" />
-		<PackageReference Include="LiteDB" Version="5.0.11" />
-		<PackageReference Include="Microsoft.Toolkit.Mvvm" Version="7.0.2" />
+		<PackageReference Include="LiteDB" Version="5.0.17" />
 		<PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
 		<PackageReference Include="TimePeriodLibrary.NET" Version="2.1.1" />
 	</ItemGroup>

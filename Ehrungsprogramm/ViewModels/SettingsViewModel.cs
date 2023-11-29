@@ -6,8 +6,8 @@ using Ehrungsprogramm.Contracts.ViewModels;
 using Ehrungsprogramm.Models;
 
 using Microsoft.Extensions.Options;
-using Microsoft.Toolkit.Mvvm.ComponentModel;
-using Microsoft.Toolkit.Mvvm.Input;
+using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 
 namespace Ehrungsprogramm.ViewModels
 {
