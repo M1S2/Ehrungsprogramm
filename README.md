@@ -13,14 +13,16 @@ Auf dieser Grundlage werden alle fälligen Ehrungen (BLSV und TSV) errechnet und
 Nachfolgend werden kurz die Funktionen der jeweiligen Seite der Anwendung beschrieben:
 - **Start:** Startseite der Anwendung. Von hier sind alle anderen Seiten erreichbar. Diese Seite ist gleichwertig zum Menü auf der linken Seite.
 - **Personen:** Kurze Übersicht aller eingelesenen Personen inklusive Name, Eintrittsdatum und eventuell verfügbaren Ehrungen. Über die Suchleiste kann die Liste nach Namen, Punkten oder dem Eintrittsdatum gefiltert werden. Fährt man mit der Maus auf eine Person, können über den Info-Knopf nähere Details über die Person angezeigt werden. Durch einen Klick auf die Spaltenüberschriften wird die Liste nach der Spalte sortiert.
-- **Ehrungen:** Übersicht aller Ehrungen, aufgeteilt nach BLSV und TSV Ehrungen. In den Listen werden die Namen und Punkte der Personen aufgeführt, für die eine entsprechende Ehrung aussteht. Jede Person wird nur bei der *höchsten verfügbaren Ehrung* angezeigt. Fährt man mit der Maus auf eine Person, können über den Info-Knopf nähere Details über die Person angezeigt werden. Durch einen Klick auf die Spaltenüberschriften wird die Liste nach der Spalte sortiert.
-- **Datenbank verwalten:** Hier können die Grunddaten eingestellt bzw. geladen werden, mit der die Anwendung arbeitet. Über den Knopf "Aus Datei importieren" kann eine Datei mit den Stammdaten der Mitglieder eingelesen werden. Außerdem besteht hier die Möglichkeit, die letzte Datei nochmals zu laden (falls es Änderungen in der Datei gab) oder die geladenen Daten zu löschen. Der Stichtag wird als Bezugstag für alle Berechnungne verwendet.
+- **TSV Ehrungen:** Übersicht aller TSV Ehrungen. In den Listen werden die Namen, Punkte und Abteilungen der Personen aufgeführt, für die eine entsprechende Ehrung aussteht. Jede Person wird nur bei der *höchsten verfügbaren Ehrung* angezeigt. Fährt man mit der Maus auf eine Person, können über den Info-Knopf nähere Details über die Person angezeigt werden. Durch einen Klick auf die Spaltenüberschriften wird die Liste nach der Spalte sortiert. Am rechten Rand können bestimmte Ehrungen ausgeblendet werden.
+- **BLSV Ehrungen:** Übersicht aller BLSV Ehrungen. In den Listen werden die Namen, Punkte und Abteilungen der Personen aufgeführt, für die eine entsprechende Ehrung aussteht. Jede Person wird nur bei der *höchsten verfügbaren Ehrung* angezeigt. Fährt man mit der Maus auf eine Person, können über den Info-Knopf nähere Details über die Person angezeigt werden. Durch einen Klick auf die Spaltenüberschriften wird die Liste nach der Spalte sortiert. Am rechten Rand können bestimmte Ehrungen ausgeblendet werden. Mit dem Schiebeschalter können nur die BLSV25 und BLSV40 Ehrungen ausgewählt werden.
+- **Datenbank verwalten:** Hier können die Grunddaten eingestellt bzw. geladen werden, mit der die Anwendung arbeitet. Über den Knopf "Aus Datei importieren" kann eine Datei mit den Stammdaten der Mitglieder eingelesen werden. Außerdem besteht hier die Möglichkeit, die letzte Datei nochmals zu laden (falls es Änderungen in der Datei gab) oder die geladenen Daten zu löschen. Der Stichtag wird als Bezugstag für alle Berechnungen verwendet. Hier sind auch Statistiken zur geladenen Datei zu finden.
 - **Einstellungen:** Hier kann das Design der Anwendung eingestellt werden (Hell, Dunkel oder Standard). Bei Standard wird die Windows Einstellung übernommen. Außerdem ist hier die Version ersichtlich.
-- **Person Details:** Diese Seite ist nicht direkt erreichbar. Wird auf der Seite "Personen" oder "Ehrungen" der Info-Knopf einer Person angeklickt, gelangt man auf diese Seite. Es werden alle geladenen Stammdaten (Name, Geburtsdatum, Eintrittsdatum, Funktionen) und berechnete Daten (effektive Jahre in den Funktionen, Ehrungen, Punkte) angezeigt.
+- **Person Details:** Diese Seite ist nicht direkt erreichbar. Wird auf der Seite "Personen", "TSV Ehrungen" oder "BLSV Ehrungen" der Info-Knopf einer Person angeklickt, gelangt man auf diese Seite. Es werden alle geladenen Stammdaten (Name, Mitgliedsnummer, Geburtsdatum, Eintrittsdatum, Abteilungen, Funktionen) und berechnete Daten (effektive Jahre in den Funktionen, Ehrungen, Punkte) angezeigt.
 
 <img src="https://github.com/M1S2/Ehrungsprogramm/raw/master/Screenshots/Screenshot_Start.png" width="45%"></img>
 <img src="https://github.com/M1S2/Ehrungsprogramm/raw/master/Screenshots/Screenshot_Persons.png" width="45%"></img>
-<img src="https://github.com/M1S2/Ehrungsprogramm/raw/master/Screenshots/Screenshot_Rewards.png" width="45%"></img>
+<img src="https://github.com/M1S2/Ehrungsprogramm/raw/master/Screenshots/Screenshot_TSV_Rewards.png" width="45%"></img>
+<img src="https://github.com/M1S2/Ehrungsprogramm/raw/master/Screenshots/Screenshot_BLSV_Rewards.png" width="45%"></img>
 <img src="https://github.com/M1S2/Ehrungsprogramm/raw/master/Screenshots/Screenshot_ManageDatabase.png" width="45%"></img>
 <img src="https://github.com/M1S2/Ehrungsprogramm/raw/master/Screenshots/Screenshot_Settings.png" width="45%"></img>
 <img src="https://github.com/M1S2/Ehrungsprogramm/raw/master/Screenshots/Screenshot_PersonDetails.png" width="45%"></img>
@@ -32,17 +34,23 @@ Nachfolgend werden kurz die Funktionen der jeweiligen Seite der Anwendung beschr
 ## Dateiformat Mitgliederstammdaten
 Momentan wird für den Datei Import eine .csv Datei unterstützt, die aus dem Mitgliederverwaltungsprogramm ProWinner exportiert werden kann. Diese Datei muss die Funktionen (inklusive Zeiträumen) sowie alle Ehrungen (inklusive Datum und Bezeichnung) enthalten.
 
-Die Kopfzeile der .csv Datei muss dabei folgendes Format haben:
+Die Kopfzeile der .csv Datei hat dabei idealerweise folgendes Format:
 ```
-"Name, Vorname";"Geb.Datum";"Eintritt am";"Funktionsname";"von -";"bis";"Ehr.Nr.";"Ehr.dat.";"Ehrungsbezeichnung";"Eintritt am";"Funktionsname";"Funktion von";"Funktion bis";"Ehrungs-Nr";"Ehrung am";"Ehrungsname"; ...
+"Name, Vorname";"Mitgliedsnummer";"Geb.Datum";"Eintritt am";"Abteilungen";"Funktionsname";"von -";"bis";"Ehr.Nr.";"Ehr.dat.";"Ehrungsbezeichnung";"Eintritt am";"Funktionsname";"Funktion von";"Funktion bis";"Ehrungs-Nr";"Ehrung am";"Ehrungsname"; ...
 ```
 
-Kritische Fehler in der Datei werden direkt beim Einlesen angezeigt. Die bisher existierenden Daten bleiben in diesem Fall bestehen.
+Folgende Spalten müssen dabei unbedingt vorhanden sein:
+- "Name, Vorname"
+- "Eintritt am"
+- "Funktionsname", "von -", "bis" mindestens jeweils 1x
+- "Ehr.Nr.";"Ehr.dat.";"Ehrungsbezeichnung" mindestens jeweils 1x
+
+Alle anderen Spalten sind nicht zwingend notwendig. Kritische Fehler in der Datei werden direkt beim Einlesen angezeigt. Die bisher existierenden Daten bleiben in diesem Fall bestehen.
 Alle anderen Fehler, die in der Datei bestehen, werden mit Ausrufezeichen hinter den jeweiligen Personen dargestellt.
 Alle Fehler sollten in ProWinner korrigiert werden und nochmals exportiert werden. Ist die neue, korrigierte Datei vorhanden, kann lediglich über "Letzte Datei neu laden" auf der Seite "Datenbank verwalten" alles neu geladen werden.
 
 ## Druckfunktion
-Auf den Seiten "Personen", "Ehrungen" und "Personen Details" gibt es im rechten oberen Eck einen Knopf, über den eine Übersichtsseite erstellt werden kann. Der Druck erfolgt in eine PDF Datei, für die beim Drucken der Pfad ausgewählt werden kann.
+Auf den Seiten "Personen", "TSV Ehrungen", "BLSV Ehrungen" und "Personen Details" gibt es im rechten oberen Eck einen Knopf, über den eine Übersichtsseite erstellt werden kann. Der Druck erfolgt in eine PDF Datei, für die beim Drucken der Pfad ausgewählt werden kann.
 Um die Übersichtsseite auf Papier auszudrucken, muss die PDF Datei in einem geeigneten Programm geöffnet und gedruckt werden.
 
 ![PrintButton](https://github.com/M1S2/Ehrungsprogramm/raw/master/Screenshots/Screenshot_PrintButton.png)

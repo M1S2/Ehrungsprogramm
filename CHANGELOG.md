@@ -1,5 +1,12 @@
 # Ehrungsprogramm Changelog
 
+## [v1.4.0]
+
+- Bibliotheken auf neue Versionen gebracht, um die Sicherheit zu verbessern (#30)
+- TSV und BLSV Ehrungen werden auf separaten Seiten dargestellt (#29)
+- Erweiterte CSV Datei mit Informationen zu den Abteilungen einer Person wird unterstützt (#21)
+- Einige Funktionen bei Personen wurden zu viel gezählt (#28)
+
 ## [v1.3.1]
 
 - AssemblyInfoHelper Library Update (v5.3.0): Funktion hinzugefügt, um letzte Datenbank nach Update wiederherzustellen

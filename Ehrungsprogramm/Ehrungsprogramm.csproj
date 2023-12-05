@@ -6,7 +6,7 @@
 		<UseWPF>true</UseWPF>
 		<UseWindowsForms>true</UseWindowsForms>
 		<ApplicationManifest>app.manifest</ApplicationManifest>
-		<Copyright>Copyright ©  2022</Copyright>
+		<Copyright>Copyright ©  2023</Copyright>
 		<Company>Markus Scheich</Company>
 		<Description>Programm zum Verwalten von Ehrungen des TSV Illertissen.</Description>
 		<ApplicationIcon>appicon.ico</ApplicationIcon>
